@@ -1,0 +1,126 @@
+@charset "UTF-8";
+
+/* CSS Reset*/
+*{
+	font-family: Arial, Tahoma, Verdana;
+	font-size:14px;
+	margin:0;
+	padding:0;
+	font-weight:normal;
+	position: relative;
+}
+
+a{
+	color:#000;
+	text-decoration:none;
+}
+
+a:hover{
+	text-decoration: underline;
+}
+
+ul, ol{
+	list-style:none;
+}
+
+body{
+	background:#f0f0f5;
+}
+
+a img{
+	border: none;
+}
+/* Fim CSS reset */
+
+.boxLoginPrincipal{
+	height:auto;
+	width: 500px;
+	margin: 150px auto;
+	background: #eee;	
+	border:2px solid #666;
+}
+
+.boxMenuLogin{
+	height:40px;
+	width: 500px;	
+	background: #999999;
+	border-bottom: 2px solid #666;	
+}
+
+.boxMenuLogin li{	
+	float: left;
+	padding-left: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.boxMenuLogin li a{
+	color: #FFFFFF;
+	font-size: 18px;
+	font-weight: bold;
+	text-shadow: 0px 1px 0px #000;
+}
+
+.boxLoginPrincipal h2{
+	font-size:20px;
+	font-weight: bold;
+	text-align: center;
+	color: #666;
+	margin-top: 20px;
+	text-decoration: underline;	
+}
+
+.boxLogin{
+	height:auto;
+	width: 200px;
+	margin: 50px auto;		
+}
+
+.boxLogin p{
+	font-size: 16px;
+	font-weight: bold;
+	color: #666;	
+}
+
+.botao{
+	font-weight: bold;
+	color: #666;	
+	margin-top: 5px;	
+}
+
+#esqueci{
+	padding-top: 10px
+}
+
+#esqueci a{
+	color: #666;
+	font-size: 14px;
+}
+
+#naoEncontrado{
+	color: #ff0000;
+	font-size: 14px;
+}
+
+#boxCadastroUsuario{
+	width: 290px;
+	margin: 10px auto;	
+}
+
+#pajuda{
+	font-weight:normal;
+	text-align: justify;
+}
+
+#pajuda span{
+	color: #3366ff;
+	font-size: 16px;
+}
+
+#boxAjuda{
+	width: 350px;	
+	margin: 30px auto;
+}
+
+
+

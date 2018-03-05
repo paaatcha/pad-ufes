@@ -1,0 +1,7 @@
+/home/labcin/eclipse-workspace/pad-ufes/src/main/java/ufes/pad/repository/UsuarioRepository.java
+/home/labcin/eclipse-workspace/pad-ufes/src/main/java/ufes/pad/security/SecurityWebConfig.java
+/home/labcin/eclipse-workspace/pad-ufes/src/main/java/ufes/pad/security/ImplementsUserDetailsService.java
+/home/labcin/eclipse-workspace/pad-ufes/src/main/java/ufes/pad/PadApplication.java
+/home/labcin/eclipse-workspace/pad-ufes/src/main/java/ufes/pad/model/Usuario.java
+/home/labcin/eclipse-workspace/pad-ufes/src/main/java/ufes/pad/controller/UsuarioController.java
+/home/labcin/eclipse-workspace/pad-ufes/src/main/java/ufes/pad/configure/DefaultPage.java

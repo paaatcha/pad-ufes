@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>PAD - Projeto de Apoio Dermatológico</title>
+	<link href="css/pad_style.css" rel="stylesheet" type="text/css" />
+	<link href="img/icon.png" rel='shortcut icon'/>
+</h:head>
+
+<h:body>
+	<div class="boxLoginPrincipal"> 
+	
+		<div class="boxMenuLogin">
+			<ul>
+				<li> <a href="index.xhtml"> Home </a> </li>
+				<li> <a href="cadastro_usuario.xhtml"> Cadastrar </a> </li>
+				<li> <a href="ajuda.xhtml"> Ajuda </a> </li>
+			
+			
+			</ul>
+		</div>
+		
+		<h2> Informações pessoais para cadastro</h2>
+		
+		<div id="boxCadastroUsuario" class="boxLogin">		
+		
+			
+			<br/>
+			
+	      	<h:form class="formLogin">
+	      			<p:messages autoUpdate="true" />	      		
+		      		
+		      		<p> Nome completo* : </p> 
+						<p:inputText size="30" id="nome" value="#{usuarioController.user.nome}" 
+						required="true" 
+						requiredMessage="Seu nome não foi informado."				
+						/>
+						
+						<br/>						
+						<p:message for="nome" />
+		      		
+		      		<br/>		      		
+		      		
+		      		<p> Email* : </p> 
+					<p:inputText size="30" id="email" value="#{usuarioController.user.email}" 
+					required="true"
+					requiredMessage="Seu email não foi informado."
+					validatorMessage="Seu e-mail não está no formato correto" >	
+					
+					<f:validateRegex
+					pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				
+					</p:inputText>
+					<p:message for="email" />
+		      		
+		      		<br/>
+		      		
+		      				      		
+		      		<p> Nome de usuário* : </p> 
+					<p:inputText size="30" id="nome_usuario" value="#{usuarioController.user.nome_usuario}" 
+					required="true"
+					requiredMessage="Seu nome de usuário não foi informado."
+					validatorMessage="Seu nome de usuário deve conter apenas letras e/ou numeros num total de 1 a 20 caracters">				
+					
+					<f:validateRegex pattern="[\w]{1,20}"/>				
+				
+					</p:inputText>
+					<p:message for="nome_usuario" />
+					
+					
+					
+					<br/>
+					
+					<p> Senha* :</p>
+            		<p:password id="senha1" value="#{usuarioController.user.senha}" feedback="true"
+                    promptLabel="Força da senha" weakLabel="Fraca"
+                    goodLabel="Média" strongLabel="Forte" 
+                    match="senha2"
+                    required="true"
+                    requiredMessage="Sua senha 1 não foi informada."
+                    validatorMessage="A senha 1 não é igual a senha 2."
+                    />
+                    
+            		<p:message for="senha1" />
+            	
+            		<br/>            	
+            	 
+        			<p> Repita a senha anterior* :</p>
+        			<p:password id="senha2" value="#{usuarioController.user.senha}" 
+                    required="true"
+                    requiredMessage="Sua senha 1 não foi informada."                    
+                    />	      		
+		      		
+		      		
+		      		<br></br>
+		      		<br></br>
+		      		
+		      		<p:growl id="growlCheck" showDetail="true" closable="true" />
+		      		
+		      		<p:commandButton  value="Cadastrar" class="botao" action="#{usuarioController.salvar}" type="submit" 
+		      		icon="ui-icon-check" update="growlCheck" />
+		      		 		
+	
+		      		
+		      		
+		      	
+	      	</h:form>		
+		
+		<!-- 
+		    <script>
+		    
+		    	var urlAtual = window.location.pathname;
+		    	if (urlAtual.localeCompare("/cadastro_usuario.xhtml?cadastro=true") == 0){			    
+			    	setTimeout(function() {
+			    	  window.location.href = "index.xhtml";
+			    	}, 3000);		    	
+		    	}
+
+			</script>
+		 -->
+		
+		</div>
+	
+	</div>
+	
+
+
+
+</h:body>
+</html>
