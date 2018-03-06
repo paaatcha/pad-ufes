@@ -24,7 +24,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter{
 		.anyRequest().authenticated();
 		
 		http.formLogin().loginPage("/index.xhtml").permitAll()
-		.defaultSuccessUrl("/pacientes/painel_de_controle.xhtml")
+		.defaultSuccessUrl("/dashboard/home.xhtml")
 		.failureUrl("/index.xhtml?error=true");
 		
 		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
