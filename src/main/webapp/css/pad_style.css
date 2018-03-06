@@ -23,8 +23,10 @@ ul, ol{
 	list-style:none;
 }
 
-body{
+body, html{
 	background:#f0f0f5;
+	height: 100%;
+	width: 100%;	
 }
 
 a img{
@@ -121,6 +123,130 @@ a img{
 	width: 350px;	
 	margin: 30px auto;
 }
+
+/* ######################################## PAINEL DE CONTROLE ################################################ */
+.painelPrincipal{
+	height: auto;	
+	background:#f0f0f5;
+	height: 100%;
+	width: 100%;
+}
+
+.parteSuperior{
+	height: 50px;	
+	background: #48486a;
+}
+
+.parteInferior{
+	height: 100%;
+	width: 100%;	
+}
+
+.parteInferior div{
+	float: left;
+}
+
+.conteudoLateral{
+	height: 100%;
+	width: 300px;	
+	background: #555;
+}
+
+.conteudoLateral li a{	
+	width: 280px;
+	padding: 10px;			
+}
+
+.conteudoLateral li a:hover{	
+	background: #b3b3cb;
+	text-decoration: none;	
+}
+
+.conteudoLateral li img{
+	height: 20px;
+	width: 20px;	
+}
+
+.conteudoLateral li a span{	
+	margin-left: 12px;	
+	font-size: 20px;
+	color: #FFF;
+	text-shadow: 0px 1px 0px #000;
+}
+
+.conteudoInferior{
+	height: auto;
+	width: auto;	
+	margin: 30px;	
+	
+}
+
+.conteudoInferior h2{
+	color: #333;
+	font-size: 25px;
+	text-decoration: underline;
+	
+}
+
+.conteudoInferior p{
+	color: #333;
+	font-size: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#spanEmail{
+	color: #0066ff;
+	font-size: 18px;
+}
+
+#listaHome li{
+	color: #333;
+	font-size: 18px;
+	margin-top: 10px;
+}
+
+#listaHome span{
+	color: #333;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+
+.rodape p{
+	text-align:center;
+	color:#FFF;
+	line-height:35px;
+	font-size: 16px;
+	background: #666;
+}
+
+.parteSuperior p, a{
+	display: block;
+	float: left;	
+	text-shadow: 0px 1px 0px #000;	
+}
+
+.parteSuperior p{	
+	font-size: 25px;
+	font-weight: bold;
+	color: #FFF;
+	margin-top: 10px;
+	margin-left: 30px;		
+}
+
+.parteSuperior a{
+	font-size: 20px;
+	color: #FFF;
+	font-weight: bold;
+	margin-top: 13px;
+	float: right;	
+	margin-right: 30px;
+	
+}
+
+
+
 
 
 

@@ -5,7 +5,10 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import ufes.pad.model.Usuario;
 import ufes.pad.repository.UsuarioRepository;
@@ -53,6 +56,19 @@ public class UsuarioController {
 	        context.addMessage(null, new FacesMessage("Este e-mail já está cadastrado. Insira um nome diferente."));
 		}
 	}
+	
+	public String getNomeUsuarioLogado() {
+		    Authentication authentication =
+		        SecurityContextHolder.getContext().getAuthentication();
+
+		    String nome_usuario = authentication.getName();
+		    Usuario u1 = userRep.buscaPorNomeUsuario(nome_usuario);		    
+		    		    		    
+		    
+		    return WordUtils.capitalize(u1.getNome().toLowerCase());
+		  }
+	
+	
 	
 	public Usuario getUser() {
 		return user;
