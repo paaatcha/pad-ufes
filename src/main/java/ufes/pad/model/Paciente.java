@@ -1,0 +1,495 @@
+package ufes.pad.model;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+public class Paciente implements Serializable {
+
+	/** Serialization id. */
+	private static final long serialVersionUID = 1L;
+	
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)	
+	private Long id;
+	
+	@Column(length=100, nullable = false)
+	private String local_atendimento;	
+	
+	@Temporal(TemporalType.DATE)
+	private Date data_atendimento;
+	
+	@Column(length=15, nullable = false)
+	private String prontuario;
+	
+	@Column(length=150, nullable = false)
+	private String nome_completo;
+	
+	@Column(length=100, nullable = false)
+	private String local_nascimento;
+	
+	@Column(length=40, nullable = false)
+	private String estado_nascimento;
+	
+	@Temporal(TemporalType.DATE)
+	private Date data_nascimento;
+
+	@Column(length=150, nullable = false)
+	private String nome_mae;
+	
+	@Column(length=250, nullable = false)	
+	private String endereco;
+	
+	@Column(length=100, nullable = false)
+	private String atv_principal;
+	
+	@Column(length=2, nullable = false)
+	private String escolaridade;
+	
+	@Column(length=10, nullable = false)
+	private String fumo;
+	
+	@Column(length=10, nullable = false)
+	private String bebida;
+	
+	@Column(length=10, nullable = false)
+	private String renda;
+	
+	@Column(length=30, nullable = false)
+	private String origem_familiar_mae;	
+	
+	@Column(length=30, nullable = false)
+	private String origem_familiar_pai;
+	
+	@Column(length=40, nullable = false)
+	private String agrotoxico = "NENHUM";
+	
+	private int num_comodos;
+	
+	private int num_pessoas_casa;
+	
+	private char sexo;
+	
+	private char agua_encanada;
+	
+	private char rede_esgoto;
+	
+	private int idade_inicio_atv;
+	
+	private int tempo_endereco;
+	
+	private char estado_civil;
+	
+	private char destrofia_solar;
+	
+	private int exp_sol;
+	
+	private char hora_exp_sol;
+	
+	private char chapeu;
+	
+	private char manga_cumprida;
+	
+	private char calca_cumprida;
+	
+	private char filtro_solar;
+	
+	private char hist_cancer_pele;
+	
+	private char hist_cancer;
+	
+	private int num_vezes_atendido;
+	
+	private char tipo_pele;
+	
+
+	
+	public List<String> completarEstados (String query){
+		List<String> result = new ArrayList<String>();
+		query = query.toUpperCase();
+		String[] estados = new String[] {"ACRE","ALAGOAS","AMAPÁ","AMAZONAS","BAHIA","CEARÁ","DISTRITO FEDERAL","ESPÍRITO SANTO","GOIÁS","MARANHÃO",
+				"MATO GROSSO","MATO GROSSO DO SUL","MINAS GERAIS","PARÁ","PARAÍBA","PARANÁ","PERNAMBUCO","PIAUÍ","RIO DE JANEIRO",
+				"RIO GRANDE DO NORTE","RIO GRANDE DO SUL","RONDÔNIA","RORAIMA","SANTA CATARINA","SÃO PAULO","SERGIPE","TOCANTINS"};
+		
+		for (String s : estados){
+			 if (s.startsWith(query)){
+				 result.add(s);
+			 }
+		}		
+		return result;
+	}    
+	
+	public List<String> completarOrigemFamiliar (String query){
+		List<String> result = new ArrayList<String>();
+		query = query.toUpperCase();
+		String[] estados = new String[] {"ALEMANHA", "PORTUGAL", "ITÁLIA", "BRASIL", "ESTADOS UNIDOS", "ESPANHA", "MÉXICO", "NORUEGA", "FRANÇA",
+				"OUTRO", "NÃO SABE", "NAO SABE", "INGLATERRA", "POLÔNIA", "CANADÁ", "ARGENTINA", "URUGUAI", "CHILE", "EQUADOR", "ÁRABE", "EUROPA", "ASIA",
+				"CHINA", "JAPÃO", "CORÉIA", "HUNGRIA", "DINAMARCA", "COLÔMBIA", "LATINA", "AFRICA", "PARAGUAI", "VENEZUELA"};
+		
+		for (String s : estados){
+			 if (s.startsWith(query)){
+				 result.add(s);
+			 }
+		}		
+		return result;
+	}  	
+    
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getLocal_atendimento() {
+		return local_atendimento;
+	}
+
+	public void setLocal_atendimento(String local_atendimento) {
+		this.local_atendimento = local_atendimento;
+	}
+
+	public Date getData_atendimento() {
+		return data_atendimento;
+	}
+
+	public void setData_atendimento(Date data_atendimento) {
+		this.data_atendimento = data_atendimento;
+	}
+
+	public String getNome_completo() {
+		return nome_completo;
+	}
+
+	public void setNome_completo(String nome_completo) {
+		this.nome_completo = nome_completo;
+	}
+
+	public Date getData_nascimento() {
+		return data_nascimento;
+	}
+
+	public void setData_nascimento(Date data_nascimento) {
+		this.data_nascimento = data_nascimento;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public String getNome_mae() {
+		return nome_mae;
+	}
+
+	public void setNome_mae(String nome_mae) {
+		this.nome_mae = nome_mae;
+	}
+
+	public String getLocal_nascimento() {
+		return local_nascimento;
+	}
+
+	public void setLocal_nascimento(String local_nascimento) {
+		this.local_nascimento = local_nascimento;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public char getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(char sexo) {
+		this.sexo = sexo;
+	}
+
+	public int getTempo_endereco() {
+		return tempo_endereco;
+	}
+
+	public void setTempo_endereco(int tempo_endereco) {
+		this.tempo_endereco = tempo_endereco;
+	}
+
+	public char getEstado_civil() {
+		return estado_civil;
+	}
+
+	public void setEstado_civil(char estado_civil) {
+		this.estado_civil = estado_civil;
+	}
+
+
+	public String getEstado_nascimento() {
+		return estado_nascimento;
+	}
+
+
+	public void setEstado_nascimento(String estado_nascimento) {
+		this.estado_nascimento = estado_nascimento;
+	}
+
+
+	public String getProntuario() {
+		return prontuario;
+	}
+
+
+	public void setProntuario(String prontuario) {
+		this.prontuario = prontuario;
+	}
+
+
+	public String getAtv_principal() {
+		return atv_principal;
+	}
+
+
+	public void setAtv_principal(String atv_principal) {
+		this.atv_principal = atv_principal;
+	}
+
+
+	public int getIdade_inicio_atv() {
+		return idade_inicio_atv;
+	}
+
+
+	public void setIdade_inicio_atv(int idade_inicio_atv) {
+		this.idade_inicio_atv = idade_inicio_atv;
+	}
+
+
+	public String getEscolaridade() {
+		return escolaridade;
+	}
+
+
+	public void setEscolaridade(String escolaridade) {
+		this.escolaridade = escolaridade;
+	}
+
+
+	public int getNum_pessoas_casa() {
+		return num_pessoas_casa;
+	}
+
+
+	public void setNum_pessoas_casa(int num_pessoas_casa) {
+		this.num_pessoas_casa = num_pessoas_casa;
+	}
+
+
+	public int getNum_comodos() {
+		return num_comodos;
+	}
+
+
+	public void setNum_comodos(int num_comodos) {
+		this.num_comodos = num_comodos;
+	}
+
+
+	public char getAgua_encanada() {
+		return agua_encanada;
+	}
+
+
+	public void setAgua_encanada(char agua_encanada) {
+		this.agua_encanada = agua_encanada;
+	}
+
+
+	public char getRede_esgoto() {
+		return rede_esgoto;
+	}
+
+
+	public void setRede_esgoto(char rede_esgoto) {
+		this.rede_esgoto = rede_esgoto;
+	}
+
+
+	public String getFumo() {
+		return fumo;
+	}
+
+
+	public void setFumo(String fumo) {
+		this.fumo = fumo;
+	}
+
+
+	public String getBebida() {
+		return bebida;
+	}
+
+
+	public void setBebida(String bebida) {
+		this.bebida = bebida;
+	}
+
+
+	public String getAgrotoxico() {
+		return agrotoxico;
+	}
+
+
+	public void setAgrotoxico(String agrotoxico) {
+		this.agrotoxico = agrotoxico;
+	}
+
+
+	public char getDestrofia_solar() {
+		return destrofia_solar;
+	}
+
+
+	public void setDestrofia_solar(char destrofia_solar) {
+		this.destrofia_solar = destrofia_solar;
+	}
+
+
+	public int getExp_sol() {
+		return exp_sol;
+	}
+
+
+	public void setExp_sol(int exp_sol) {
+		this.exp_sol = exp_sol;
+	}
+
+
+	public char getHora_exp_sol() {
+		return hora_exp_sol;
+	}
+
+
+	public void setHora_exp_sol(char hora_exp_sol) {
+		this.hora_exp_sol = hora_exp_sol;
+	}
+
+
+	public char getChapeu() {
+		return chapeu;
+	}
+
+
+	public void setChapeu(char chapeu) {
+		this.chapeu = chapeu;
+	}
+
+
+	public char getManga_cumprida() {
+		return manga_cumprida;
+	}
+
+
+	public void setManga_cumprida(char manga_cumprida) {
+		this.manga_cumprida = manga_cumprida;
+	}
+
+
+	public char getCalca_cumprida() {
+		return calca_cumprida;
+	}
+
+
+	public void setCalca_cumprida(char calca_cumprida) {
+		this.calca_cumprida = calca_cumprida;
+	}
+
+
+	public char getFiltro_solar() {
+		return filtro_solar;
+	}
+
+
+	public void setFiltro_solar(char filtro_solar) {
+		this.filtro_solar = filtro_solar;
+	}
+
+
+	public String getRenda() {
+		return renda;
+	}
+
+
+	public void setRenda(String renda) {
+		this.renda = renda;
+	}
+
+	public String getOrigem_familiar_mae() {
+		return origem_familiar_mae;
+	}
+
+	public void setOrigem_familiar_mae(String origem_familiar_mae) {
+		this.origem_familiar_mae = origem_familiar_mae;
+	}
+
+	public String getOrigem_familiar_pai() {
+		return origem_familiar_pai;
+	}
+
+	public void setOrigem_familiar_pai(String origem_familiar_pai) {
+		this.origem_familiar_pai = origem_familiar_pai;
+	}
+
+	public char getHist_cancer_pele() {
+		return hist_cancer_pele;
+	}
+
+	public void setHist_cancer_pele(char hist_cancer_pele) {
+		this.hist_cancer_pele = hist_cancer_pele;
+	}
+
+	public char getHist_cancer() {
+		return hist_cancer;
+	}
+
+	public void setHist_cancer(char hist_cancer) {
+		this.hist_cancer = hist_cancer;
+	}
+
+	public int getNum_vezes_atendido() {
+		return num_vezes_atendido;
+	}
+
+	public void setNum_vezes_atendido(int num_vezes_atendido) {
+		this.num_vezes_atendido = num_vezes_atendido;
+	}
+
+	public char getTipo_pele() {
+		return tipo_pele;
+	}
+
+	public void setTipo_pele(char tipo_pele) {
+		this.tipo_pele = tipo_pele;
+	}
+
+
+
+
+	
+	
+	
+	
+	
+}

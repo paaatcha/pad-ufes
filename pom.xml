@@ -6,7 +6,7 @@
 	<groupId>ufes.pad</groupId>
 	<artifactId>pad</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>pad</name>
 	<description>Demo project for Spring Boot</description>

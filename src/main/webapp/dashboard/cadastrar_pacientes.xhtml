@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>PAD - Projeto de Assistência Dermatológica</title>
+	<link href="../css/pad_style.css" rel="stylesheet" type="text/css" />
+	<link href="img/icon.png" rel='shortcut icon'/>
+</h:head>
+
+<h:body>
+
+
+	<div class="painelPrincipal">
+		<div class="parteSuperior">	
+		
+			<p> Projeto de Assistência Dermatológica - PAD</p>
+			
+			<a href="/logout"> Sair </a>
+		
+		</div>
+		
+		
+		<div class="parteInferior">
+		
+			<div class="conteudoLateral">
+			
+				<ul>
+					<li>											
+						<a href="home.xhtml">
+							<img src="../img/homepage.png" alt="Página inicial"/>
+							<span> Home </span> 
+						</a>
+					
+					
+					</li>
+					
+					<li>					
+						<a href="cadastrar_pacientes.xhtml">							
+							<img src="../img/note.png" alt="Cadastrar paciente"/>
+							<span> Cadastrar pacientes </span>
+						</a>
+						
+					</li>
+					
+					<li>					
+						<a href="visualizar_pacientes.xhtml">							
+							<img src="../img/visualizer.png" alt="Visualizar paciente"/>
+							<span> Visualizar pacientes </span>
+						</a>
+						
+					</li>					
+					
+					<li>						
+						<a href="analise_de_dados.xhtml">							
+							<img src="../img/graph.png" alt="Analise de dados"/>
+							<span> Análise dos dados </span>
+						</a>
+					</li>
+					
+					<li>											
+						<a href="configuracoes.xhtml">							
+							<img src="../img/settings.png" alt="Configurações"/> 
+							<span> Configurações </span> 
+						</a>
+					
+					
+					</li>
+				
+				</ul>			
+			
+			</div>
+			
+
+<!-- ########################### CONTEUDO DA PARTE CENTRAL ################################# -->
+			
+			<div class="conteudoInferior">
+			
+				<h2> Cadastrar pacientes </h2>
+				<br/>
+				<br/>
+			
+					      	
+			<h:form class="formLogin" id="cadastroPaciente">
+	      			<p:messages autoUpdate="true" />	      		
+		      		
+		      		<p:fieldset legend="Dados protocolares" toggleable="true" style="margin-bottom:20px">
+        				<h:panelGrid columns="1" cellpadding="5">
+            				<p> Local de atendimento: </p>		      		 
+							<p:inputText size="30" id="local_atendimento" value="#{pacienteController.pac.local_atendimento}"
+							required="true" 
+							requiredMessage="O local de atendimento não foi informado"				
+							/>										
+							<p:message for="local_atendimento" />
+				      		
+				    		<p> Data do atendimento: </p>		      		
+		        			<p:inputMask id="data_atendimento" value="#{pacienteController.pac.data_atendimento}" mask="99/99/9999" 
+		        			required="true"	requiredMessage="A data de atendimento não foi informada.">
+		        				<f:convertDateTime pattern="dd/MM/yyyy" />
+		        			</p:inputMask>
+							<p:message for="data_atendimento" />					 
+					
+							<p> Número do prontuário: </p>		      		 
+							<p:inputText size="15" id="prontuario" value="#{pacienteController.pac.prontuario}"
+							required="true" 
+							requiredMessage="O prontuario não foi informado"				
+							/>										
+							<p:message for="local_atendimento" />	
+            				
+            				
+        					</h:panelGrid>
+    					</p:fieldset>
+		      		
+		      		
+		      		<!-- 
+		      		<p:fieldset legend="Dados protocolares" toggleable="true" style="margin-bottom:20px">
+        				<h:panelGrid columns="1" cellpadding="5">
+	
+            				
+            				
+        					</h:panelGrid>
+    				</p:fieldset>
+		      		 -->
+		      		
+		      		
+					<p:fieldset legend="Informações pessoais" toggleable="true" style="margin-bottom:20px">
+        				<h:panelGrid columns="1" cellpadding="5">		      		  		    			
+		      		      		
+				      		<p> Nome completo do paciente: </p>
+							<p:inputText size="50" id="nome_paciente" value="#{pacienteController.pac.nome_completo}" 
+							required="true"
+							requiredMessage="O nome completo do paciente não foi informado">				
+							</p:inputText>
+							<p:message for="nome_paciente" />
+							
+							<br/>
+							
+				      		<p> Nome completo da mãe: </p>
+							<p:inputText size="50" id="nome_mae" value="#{pacienteController.pac.nome_mae}" 
+							required="true"
+							requiredMessage="O nome completo da mãe não foi informado">				
+							</p:inputText>
+							<p:message for="nome_mae" />
+							
+							<br/>
+							
+				      		<p> Data de nascimento: </p>		      		
+		        			<p:inputMask id="data_nascimento" value="#{pacienteController.pac.data_nascimento}" mask="99/99/9999" 
+		        			required="true"	requiredMessage="A data de nascimento não foi informada.">
+		        				<f:convertDateTime pattern="dd/MM/yyyy" />
+		        			</p:inputMask>
+							<p:message for="data_nascimento" />					 
+							
+							<br/>	
+							
+							<p> Sexo: </p>				
+							<p:selectOneRadio id="sexo" value="#{pacienteController.pac.sexo}" 
+							required="true" requiredMessage="O sexo não foi informado.">
+		      				<f:selectItem itemLabel="Feminino" itemValue="F"/>
+		      				<f:selectItem itemLabel="Masculino" itemValue="M"/>	      		
+		      				</p:selectOneRadio>
+		      				<p:message for="sexo" />     			
+							
+				      		<p> Local de nascimento: </p>
+							<p:inputText size="30" id="local_nascimento" value="#{pacienteController.pac.local_nascimento}" 
+							required="true"
+							requiredMessage="O local de nascimento não foi informado">				
+							</p:inputText>
+							<p:message for="local_nascimento" />
+							
+							<br/>
+							
+							<p> Estado de nascimento: </p>					
+							<p:autoComplete id="estado_nascimento" value="#{pacienteController.pac.estado_nascimento}" completeMethod="#{pacienteController.pac.completarEstados}" />						
+							
+							<p> Estado civil: </p>				
+							<p:selectOneRadio id="estado_civil" value="#{pacienteController.pac.estado_civil}" 
+							required="true" requiredMessage="O estado civil não foi informado.">
+		      				<f:selectItem itemLabel="Solteiro" itemValue="S"/>
+		      				<f:selectItem itemLabel="Casado" itemValue="C"/>
+		      				<f:selectItem itemLabel="Divorciado" itemValue="D"/>
+		      				<f:selectItem itemLabel="Viúvo" itemValue="V"/>	      		
+		      				</p:selectOneRadio>  
+							
+				      		<p> Endereço atual: </p>
+							<p:inputText size="50" id="endereco" value="#{pacienteController.pac.endereco}" 
+							required="true"
+							requiredMessage="O endereço atual não foi informado">				
+							</p:inputText>
+							<p:message for="endereco" />					
+							
+		      				<p> Tempo em que reside no endereço (em anos): </p>
+							<p:spinner size="15" id="tempo_endereco" value="#{pacienteController.pac.tempo_endereco}" min="0"
+							required="true" requiredMessage="Rede de esgoto não informado"/>
+							<p:message for="tempo_endereco" />
+						</h:panelGrid>
+    				</p:fieldset>
+					
+					
+							      		 
+		      		<p:fieldset legend="Informações socioeconômicas" toggleable="true" style="margin-bottom:20px">
+        				<h:panelGrid columns="1" cellpadding="5">
+							<p> Atividade principal: </p>
+							<p:inputText size="25" id="atv_principal" value="#{pacienteController.pac.atv_principal}" 
+							required="true"
+							requiredMessage="A atividade principal não foi informada">				
+							</p:inputText>
+							<p:message for="atv_principal" />	
+							
+							
+							<p> Idade em que começou a exercer a atividade: </p>
+							<p:spinner size="15" id="idade_inicio_atv" value="#{pacienteController.pac.idade_inicio_atv}" min="0"
+							required="true" requiredMessage="Rede de esgoto não informado"/>
+							<p:message for="idade_inicio_atv" />	
+										
+							<p> Nível de escolaridade: </p>			
+						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
+						        <p:selectOneRadio id="escolaridade" value="#{pacienteController.pac.escolaridade}"  layout="grid" columns="3"
+						        required="true" requiredMessage="O nível de escolaridade não foi informado">
+						            <f:selectItem itemLabel="Nenhuma" itemValue="NN"/>
+									<f:selectItem itemLabel="Fundamental incompleto" itemValue="FI"/>
+									<f:selectItem itemLabel="Fundamental completo" itemValue="FC"/>			      				
+									<f:selectItem itemLabel="Ensino médio incompleto" itemValue="EI"/>
+									<f:selectItem itemLabel="Ensino médio completo" itemValue="EC"/>
+									<f:selectItem itemLabel="Superior incompleto" itemValue="SI"/>
+									<f:selectItem itemLabel="Superior completo" itemValue="SC"/>
+						        </p:selectOneRadio>
+   							</h:panelGrid>
+							<p:message for="escolaridade" />
+							
+							<p> Renda familiar (em salários mínimos): </p>			
+						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
+						        <p:selectOneRadio id="renda" value="#{pacienteController.pac.renda}"  layout="grid" columns="2"
+						        required="true" requiredMessage="Renda familiar não foi informado">
+						            <f:selectItem itemLabel="Até 1" itemValue="A1"/>
+									<f:selectItem itemLabel="Entre 3 e 5" itemValue="3-5"/>
+									<f:selectItem itemLabel="Entre 5 e 10" itemValue="5-10"/>			      				
+									<f:selectItem itemLabel="Mais do que 10" itemValue="M10"/>								
+						        </p:selectOneRadio>
+   							</h:panelGrid>
+							<p:message for="renda" />
+							
+							<p> Número de comodos da residência: </p>			
+						    <p:spinner size="15" id="num_comodos" value="#{pacienteController.pac.num_comodos}" min="0"
+						    required="true" requiredMessage="Número de comodos não informado"
+						    />
+						    <p:message for="num_comodos" />
+						    
+						    <p> Número de pessoas que vive na residência: </p>			
+						    <p:spinner size="15" id="num_pessoas_casa" value="#{pacienteController.pac.num_pessoas_casa}" min="0"
+						    required="true" requiredMessage="Número de pessoas na residência não informado"/>
+						    <p:message for="num_pessoas_casa" />	
+						    
+						    <p> Possui rede de esgoto? </p>				
+							<p:selectOneRadio id="rede_esgoto" value="#{pacienteController.pac.rede_esgoto}" 
+							required="true" requiredMessage="Rede de esgoto não informado">
+		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
+		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
+		      				</p:selectOneRadio>
+		      				<p:message for="rede_esgoto" />
+		      				
+		      				<p> Possui agua encanada? </p>				
+							<p:selectOneRadio id="agua_encanada" value="#{pacienteController.pac.agua_encanada}" 
+							required="true" requiredMessage="Rede de esgoto não informado">
+		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
+		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
+		      				</p:selectOneRadio>
+		      				<p:message for="agua_encanada" /> 				
+            				
+        					</h:panelGrid>
+    				</p:fieldset>
+		      		 
+		      		<p:fieldset legend="Mais informações pessoais" toggleable="true" style="margin-bottom:20px">
+        				<h:panelGrid columns="1" cellpadding="5">
+		
+		      				
+		      				<p> Faz uso de cigarro? </p>			
+						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
+						        <p:selectOneRadio id="fumo" value="#{pacienteController.pac.fumo}"  layout="grid" columns="2"
+						        required="true" requiredMessage="Não informou se o paciente é fumante">
+						            <f:selectItem itemLabel="Não" itemValue="NAO"/>
+									<f:selectItem itemLabel="Até 5 cigarros por dia" itemValue="ATE5"/>
+									<f:selectItem itemLabel="De 5 a 10 cigarros por dia" itemValue="5A10"/>			      				
+									<f:selectItem itemLabel="Mais do que 10 cigarros por dia" itemValue="M10"/>
+						        </p:selectOneRadio>
+   							</h:panelGrid>
+							<p:message for="fumo" />
+							
+							<p> Faz uso de bebida alcólica? </p>			
+						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
+						        <p:selectOneRadio id="bebida" value="#{pacienteController.pac.bebida}"  layout="grid" columns="3"
+						        required="true" requiredMessage="Não informou se o paciente faz uso de bebida alcólica">
+						            <f:selectItem itemLabel="Não" itemValue="NAO"/>
+									<f:selectItem itemLabel="Diariamente" itemValue="DIA"/>
+									<f:selectItem itemLabel="Finais de semana" itemValue="FDS"/>									
+						        </p:selectOneRadio>
+   							</h:panelGrid>
+							<p:message for="fumo" />	
+							
+							<p> Faz uso ou mantém contato com agrotóxico? Se sim, qual?</p>		      				
+		      				<p:inputText size="20" id="agrotoxico" value="#{pacienteController.pac.agrotoxico}" />
+		      				
+							<p> Tipo de pele: </p>						            
+					        <p:selectOneRadio id="tipo_pele" value="#{pacienteController.pac.tipo_pele}"  layout="grid" columns="3"
+					        required="true" requiredMessage="Tipo de pele não informado.">
+					            <f:selectItem itemLabel="1" itemValue="1"/>
+								<f:selectItem itemLabel="2" itemValue="2"/>
+								<f:selectItem itemLabel="3" itemValue="3"/>			      				
+								<f:selectItem itemLabel="4" itemValue="4"/>
+								<f:selectItem itemLabel="5" itemValue="5"/>
+					        </p:selectOneRadio>   							
+							<p:message for="destrofia_solar" />		      				
+		      				
+		      				<p> Grau de destrofia solar: </p>			
+						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
+						        <p:selectOneRadio id="destrofia_solar" value="#{pacienteController.pac.destrofia_solar}"  layout="grid" columns="3"
+						        required="true" requiredMessage="Grau de destrofia solar não informado.">
+						            <f:selectItem itemLabel="Leve" itemValue="L"/>
+									<f:selectItem itemLabel="Moderada" itemValue="M"/>
+									<f:selectItem itemLabel="Forte" itemValue="F"/>			      				
+									<f:selectItem itemLabel="Ausente" itemValue="A"/>
+									<f:selectItem itemLabel="Pré-distrofica" itemValue="P"/>
+						        </p:selectOneRadio>
+   							</h:panelGrid>
+							<p:message for="destrofia_solar" />		 
+							
+							<p> Quantas horas fica exposto ao sol por dia? </p>			
+						    <p:spinner size="15" id="exp_sol" value="#{pacienteController.pac.exp_sol}" min="0"
+						    required="true" requiredMessage="Horas de exposição no sol não informado"
+						    />
+						    <p:message for="exp_sol" />     
+						    
+		      				<p> Horário de maior exposição ao sol: </p>			
+						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
+						        <p:selectOneRadio id="hora_exp_sol" value="#{pacienteController.pac.hora_exp_sol}"  layout="grid" columns="3"
+						        required="true" requiredMessage="Horario de exposição ao sol não informado.">
+						            <f:selectItem itemLabel="Antes das 9h" itemValue="M"/>
+									<f:selectItem itemLabel="Entre 9h e 16h" itemValue="T"/>
+									<f:selectItem itemLabel="Ambas" itemValue="A"/>									
+						        </p:selectOneRadio>
+   							</h:panelGrid>
+							<p:message for="hora_exp_sol" />		
+							
+						    <p> Faz uso de chapéu? </p>				
+							<p:selectOneRadio id="chapeu" value="#{pacienteController.pac.chapeu}" 
+							required="true" requiredMessage="Uso de chapéu não informado">
+		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
+		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
+		      				</p:selectOneRadio>
+		      				<p:message for="chapeu" />				    				
+		      				
+		      				<p> Faz uso de camisa de mangas compridas? </p>				
+							<p:selectOneRadio id="manga_cumprida" value="#{pacienteController.pac.manga_cumprida}" 
+							required="true" requiredMessage="Uso de mangas compridas não informado">
+		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
+		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
+		      				</p:selectOneRadio>
+		      				<p:message for="manga_cumprida" />	      				
+		      				
+		      				<p> Faz uso de calças compridas? </p>				
+							<p:selectOneRadio id="calca_cumprida" value="#{pacienteController.pac.calca_cumprida}" 
+							required="true" requiredMessage="Uso de calças compridas não informado">
+		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
+		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
+		      				</p:selectOneRadio>
+		      				<p:message for="calca_cumprida" />
+		      				
+							<p> Faz uso de filtro solar? </p>				
+							<p:selectOneRadio id="filtro_solar" value="#{pacienteController.pac.filtro_solar}" 
+							required="true" requiredMessage="Uso de filtro solar não informado">
+		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
+		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
+		      				</p:selectOneRadio>
+		      				<p:message for="filtro_solar" />		      				
+							
+							<p> Origem familiar materna:</p>												
+							<p:autoComplete id="origem_familiar_mae" value="#{pacienteController.pac.origem_familiar_mae}" completeMethod="#{pacienteController.pac.completarOrigemFamiliar}" 
+							required="true" requiredMessage="Origem familiar materna não informada"/>
+							<p:message for="origem_familiar_mae" />		      				
+							
+							<p> Origem familiar paterna:</p>												
+							<p:autoComplete id="origem_familiar_pai" value="#{pacienteController.pac.origem_familiar_pai}" completeMethod="#{pacienteController.pac.completarOrigemFamiliar}" 
+							required="true" requiredMessage="Origem familiar paterna não informada"/>					
+							<p:message for="origem_familiar_pai" />
+							
+							<p> Possui histórico de câncer de pele na família? </p>				
+							<p:selectOneRadio id="hist_cancer_pele" value="#{pacienteController.pac.hist_cancer_pele}" 
+							required="true" requiredMessage="Histórico de câncer de pele não informado">
+		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
+		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
+		      				</p:selectOneRadio>
+		      				<p:message for="hist_cancer_pele" />
+		      				
+							<p> Possui histórico de outro câncer família? </p>				
+							<p:selectOneRadio id="hist_cancer" value="#{pacienteController.pac.hist_cancer}" 
+							required="true" requiredMessage="Histórico de câncer não informado">
+		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
+		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
+		      				</p:selectOneRadio>
+		      				<p:message for="hist_cancer" />
+		      				
+		      				<p> Já foi atendido pelo PAD anteriormente? Se sim, quantas vezes? </p>			
+						    <p:spinner size="15" id="num_vezes_atendido" value="#{pacienteController.pac.num_vezes_atendido}" min="0"
+						    required="true" requiredMessage="Número de vezes atendido não informado"
+						    />
+						    <p:message for="num_vezes_atendido" /> 									
+            				
+        				</h:panelGrid>        				
+    				</p:fieldset>
+    				
+
+		      		<!-- 
+		      		<p:fieldset legend="Dados protocolares" toggleable="true" style="margin-bottom:20px">
+        				<h:panelGrid columns="1" cellpadding="5">
+	
+            				
+            				
+        					</h:panelGrid>
+    				</p:fieldset>
+		      		 -->    				
+
+
+
+
+		      		 
+								
+					
+					
+					
+					
+      		
+		      		<br></br>
+		      		<br></br>
+		      		
+		      		
+		      		<p:growl id="growlCheck" showDetail="true" closable="true" />		      		 
+		      		
+		      		<p:commandButton  value="Cadastrar" class="botao" action="#{usuarioController.salvar}" type="submit" 
+		      		icon="ui-icon-check" update="growlCheck" />
+		      		 		
+	
+		      		
+		      		
+		      	
+	      	</h:form>
+			
+			
+				
+				
+			
+			</div>
+		
+		
+		
+		</div>	
+	
+	</div>
+	
+
+
+</h:body>
+</html>
