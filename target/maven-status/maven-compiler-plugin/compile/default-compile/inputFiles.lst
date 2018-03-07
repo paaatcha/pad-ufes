@@ -1,4 +1,6 @@
 /home/labcin/eclipse-workspace/pad-ufes/src/main/java/ufes/pad/repository/UsuarioRepository.java
+/home/labcin/eclipse-workspace/pad-ufes/src/main/java/ufes/pad/model/Imagem.java
+/home/labcin/eclipse-workspace/pad-ufes/src/main/java/ufes/pad/model/Lesao.java
 /home/labcin/eclipse-workspace/pad-ufes/src/main/java/ufes/pad/repository/PacienteRepository.java
 /home/labcin/eclipse-workspace/pad-ufes/src/main/java/ufes/pad/security/SecurityWebConfig.java
 /home/labcin/eclipse-workspace/pad-ufes/src/main/java/ufes/pad/model/Paciente.java
