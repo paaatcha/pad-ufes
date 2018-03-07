@@ -8,7 +8,7 @@
 <h:head>
 	<title>PAD - Projeto de Assistência Dermatológica</title>
 	<link href="../css/pad_style.css" rel="stylesheet" type="text/css" />
-	<link href="img/icon.png" rel='shortcut icon'/>
+	<link href="../img/icon.png" rel='shortcut icon'/>
 </h:head>
 
 <h:body>
@@ -137,6 +137,16 @@
 							<p:message for="nome_paciente" />
 							
 							<br/>
+							
+							<p> Número do cartão do SUS: </p>
+							<p:inputMask size="30" id="cartao_sus" value="#{pacienteController.pac.cartao_sus}"
+							mask="999-9999-9999-9999" 
+							required="true"	requiredMessage="O cartão do sus não foi informado">				
+							</p:inputMask>
+							<p:message for="cartao_sus" />
+							
+							<br/>
+							
 							
 				      		<p> Nome completo da mãe: </p>
 							<p:inputText size="50" id="nome_mae" value="#{pacienteController.pac.nome_mae}" 
@@ -406,26 +416,84 @@
 						    <p:spinner size="15" id="num_vezes_atendido" value="#{pacienteController.pac.num_vezes_atendido}" min="0"
 						    required="true" requiredMessage="Número de vezes atendido não informado"
 						    />
-						    <p:message for="num_vezes_atendido" /> 									
+						    <p:message for="num_vezes_atendido" />
+						    
+						    
+						    <p> Observações: </p>
+						    <p:inputTextarea rows="6" cols="50" value="#{pacienteController.pac.obs}"/> 									
             				
         				</h:panelGrid>        				
     				</p:fieldset>
     				
 
-		      		<!-- 
-		      		<p:fieldset legend="Dados protocolares" toggleable="true" style="margin-bottom:20px">
+		      		 
+		      		<p:fieldset legend="Dados técnicos" toggleable="true" style="margin-bottom:20px">
         				<h:panelGrid columns="1" cellpadding="5">
-	
+					      	
+					      	<p> Procedimento: </p>
+							<p:inputText size="30" id="procedimento" value="#{pacienteController.pac.procedimento}" 
+							required="true"
+							requiredMessage="O procedimento não foi informado">				
+							</p:inputText>
+							<p:message for="procedimento" />
+							
+							<br/>
+							
+							<p> Pressão arterial sistolica: </p>
+							<p:inputNumber size="30" id="pres_art_sistolica" value="#{pacienteController.pac.pres_art_sistolica}"
+							minValue="0.0" decimalPlaces="0"
+							required="true" requiredMessage="O pressão arterial sistolica não foi informada">				
+							</p:inputNumber>
+							<p:message for="pres_art_sistolica" />
+							
+							<br/>
+							
+							<p> Pressão arterial diastolica: </p>
+							<p:inputNumber size="30" id="pres_art_diastolica" value="#{pacienteController.pac.pres_art_diastolica}" 
+							minValue="0.0" decimalPlaces="0"
+							required="true" requiredMessage="O pressão arterial diastolica não foi informada">				
+							</p:inputNumber>
+							<p:message for="pres_art_diastolica" />
+							
+							<br/>
+							
+		      				<p> Paciente possui diabetes? </p>				
+							<p:selectOneRadio id="diabetes" value="#{pacienteController.pac.diabetes}" 
+							required="true" requiredMessage="Presença de diabetes não informado">
+		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
+		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
+		      				</p:selectOneRadio>
+		      				<p:message for="diabetes" />
+		      				
+		      				<p> Uso de anticoagulante? </p>				
+							<p:selectOneRadio id="anticoagulante" value="#{pacienteController.pac.anticoagulante}" 
+							required="true" requiredMessage="Anticoagulante não informado">
+		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
+		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
+		      				</p:selectOneRadio>
+		      				<p:message for="anticoagulante" />
+		      				
+		      				<p> Paciente possui infecção? </p>				
+							<p:selectOneRadio id="infeccao" value="#{pacienteController.pac.infeccao}" 
+							required="true" requiredMessage="Infeccao não informado">
+		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
+		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
+		      				</p:selectOneRadio>
+		      				<p:message for="infeccao" />
+		      				
+					      	<p> Paciente possui alergia algum medicamento? </p>
+							<p:inputText size="30" id="alergia" value="#{pacienteController.pac.alergia}" 
+							required="true"
+							requiredMessage="Alergia não foi informado">				
+							</p:inputText>
+							<p:message for="alergia" />
+							
+							<br/>		      				
+		      				
             				
             				
         					</h:panelGrid>
-    				</p:fieldset>
-		      		 -->    				
-
-
-
-
-		      		 
+    				</p:fieldset>	      		 
 								
 					
 					

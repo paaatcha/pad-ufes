@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: pad
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: labcin
+Implementation-Vendor-Id: ufes.pad
+Build-Jdk: 1.8.0_151
+Implementation-URL: http://persapiens.org/pad
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: JoinFaces
+

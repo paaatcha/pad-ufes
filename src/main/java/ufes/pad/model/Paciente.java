@@ -7,9 +7,11 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -72,6 +74,30 @@ public class Paciente implements Serializable {
 	
 	@Column(length=40, nullable = false)
 	private String agrotoxico = "NENHUM";
+	
+	@Column(length=40, nullable = false)
+	private String procedimento;	
+	
+	@Column(length=20, nullable = false)
+	private String cartao_sus;	
+	
+	@ManyToMany	(fetch = FetchType.EAGER)
+	private List<Lesao> lesoes;	
+	
+	private char diabetes;
+	
+	private char anticoagulante;
+	
+	private char infeccao;
+	
+	@Column(length=100, nullable = false)
+	private String alergia = "NÃO";	
+	
+	private String obs;
+	
+	private float pres_art_sistolica;
+	
+	private float pres_art_diastolica;
 	
 	private int num_comodos;
 	
@@ -484,11 +510,85 @@ public class Paciente implements Serializable {
 		this.tipo_pele = tipo_pele;
 	}
 
+	public String getCartao_sus() {
+		return cartao_sus;
+	}
 
+	public void setCartao_sus(String cartao_sus) {
+		this.cartao_sus = cartao_sus;
+	}
 
+	public List<Lesao> getLesoes() {
+		return lesoes;
+	}
 
-	
-	
+	public void setLesoes(List<Lesao> lesoes) {
+		this.lesoes = lesoes;
+	}
+
+	public String getProcedimento() {
+		return procedimento;
+	}
+
+	public void setProcedimento(String procedimento) {
+		this.procedimento = procedimento;
+	}
+
+	public float getPres_art_sistolica() {
+		return pres_art_sistolica;
+	}
+
+	public void setPres_art_sistolica(float pres_art_sistolica) {
+		this.pres_art_sistolica = pres_art_sistolica;
+	}
+
+	public float getPres_art_diastolica() {
+		return pres_art_diastolica;
+	}
+
+	public void setPres_art_diastolica(float pres_art_diastolica) {
+		this.pres_art_diastolica = pres_art_diastolica;
+	}
+
+	public char getDiabetes() {
+		return diabetes;
+	}
+
+	public void setDiabetes(char diabetes) {
+		this.diabetes = diabetes;
+	}
+
+	public char getAnticoagulante() {
+		return anticoagulante;
+	}
+
+	public void setAnticoagulante(char anticoagulante) {
+		this.anticoagulante = anticoagulante;
+	}
+
+	public char getInfeccao() {
+		return infeccao;
+	}
+
+	public void setInfeccao(char infeccao) {
+		this.infeccao = infeccao;
+	}
+
+	public String getAlergia() {
+		return alergia;
+	}
+
+	public void setAlergia(String alergia) {
+		this.alergia = alergia;
+	}
+
+	public String getObs() {
+		return obs;
+	}
+
+	public void setObservacoes(String obs) {
+		this.obs = obs;
+	}	
 	
 	
 	
