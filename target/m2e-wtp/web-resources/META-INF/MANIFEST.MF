@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: pad
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: labcin
+Built-By: patcha
 Implementation-Vendor-Id: ufes.pad
 Build-Jdk: 1.8.0_151
 Implementation-URL: http://persapiens.org/pad
