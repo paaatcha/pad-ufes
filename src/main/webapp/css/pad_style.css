@@ -210,6 +210,15 @@ a img{
 	
 }
 
+.conteudoInferior h3{
+	color: #333;
+	font-size: 22px;
+	margin-bottom: 20px;
+	text-decoration: underline;
+	margin-top: 45px;
+	
+}
+
 .conteudoInferior p{
 	color: #333;
 	font-size: 20px;
@@ -237,4 +246,12 @@ a img{
 	color: #333;
 	font-size: 20px;
 	font-weight: bold;
+}
+
+
+.botaoPac{
+	font-weight: bold;
+	width: 200px;
+	height: 30px;
+	font-weight: bold;	
 }

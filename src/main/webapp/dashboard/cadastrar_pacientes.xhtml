@@ -419,7 +419,7 @@
     				
 
 		      		 
-		      		<p:fieldset legend="Dados técnicos" toggleable="true" style="margin-bottom:20px">
+		      		<p:fieldset legend="Dados técnicos" toggleable="true">
         				<h:panelGrid columns="1" cellpadding="5">
 					      	
 					      	<p> Procedimento: </p>
@@ -498,10 +498,8 @@
 		      		
 		      		<p:growl id="growlCheck" showDetail="true" closable="true" />		      		 
 		      		
-		      		<p:commandButton  value="Cadastrar" class="botao" action="#{usuarioController.salvar}" type="submit" 
-		      		icon="ui-icon-check" update="growlCheck" />
-		      		 		
-	
+		      		<p:commandButton  value="Cadastrar" class="botaoPac" action="#{pacienteController.salvar}" type="submit" 
+		      		icon="ui-icon-check" update="growlCheck" />	      		
 		      		
 		      		
 		      	

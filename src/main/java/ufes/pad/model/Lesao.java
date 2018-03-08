@@ -26,8 +26,11 @@ public class Lesao implements Serializable {
 	@Column(length=40, nullable = false)
 	private String diagnostico_histo;
 	
-	@Column(length=40, nullable = false)
-	private String topografia;
+	@Column(length=100, nullable = false)
+	private String regiao;
+	
+	@Column(length=500, nullable = false)
+	private String obs;
 	
 	private float diametro_maior;
 	private float diametro_menor;
@@ -59,12 +62,12 @@ public class Lesao implements Serializable {
 		this.diagnostico_histo = diagnostico_histo;
 	}
 
-	public String getTopografia() {
-		return topografia;
+	public String getRegiao() {
+		return regiao;
 	}
 
-	public void setTopografia(String topografia) {
-		this.topografia = topografia;
+	public void setRegiao(String topografia) {
+		this.regiao = topografia;
 	}
 
 	public float getDiametro_maior() {
@@ -94,6 +97,14 @@ public class Lesao implements Serializable {
 
 	public void setImagens(List<Imagem> imagens) {
 		this.imagens = imagens;
+	}
+
+	public String getObs() {
+		return obs;
+	}
+
+	public void setObs(String obs) {
+		this.obs = obs;
 	}	
 	
 }

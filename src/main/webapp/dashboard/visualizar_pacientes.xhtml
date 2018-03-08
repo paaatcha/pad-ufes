@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>PAD - Projeto de Assistência Dermatológica</title>
+	<link href="../css/pad_style.css" rel="stylesheet" type="text/css" />
+	<link href="../img/icon.png" rel='shortcut icon'/>
+</h:head>
+
+<h:body>
+
+
+	<div class="painelPrincipal">
+		<div class="parteSuperior">	
+		
+			<p> Projeto de apoio dermatológio - PAD</p>
+			
+			<a href="/logout"> Sair </a>
+		
+		</div>
+		
+		<div class="menu">
+		
+				<ul>
+					<li>											
+						<a href="home.xhtml">
+							<img src="../img/homepage.png" alt="Página inicial"/>
+							<span> Home </span> 
+						</a>
+					
+					
+					</li>
+					
+					<li>					
+						
+						<a href="cadastrar_pacientes.xhtml">	
+							<img src="../img/note.png" alt="Cadastrar paciente"/>					
+							<span> Cadastrar pacientes </span>
+						</a>
+						
+					</li>
+					
+					<li>					
+						<a href="visualizar_pacientes.xhtml">							
+							<img src="../img/visualizer.png" alt="Visualizar paciente"/>
+							<span> Visualizar pacientes </span>
+						</a>
+						
+					</li>					
+					
+					<li>						
+						<a href="analise_de_dados.xhtml">							
+							<img src="../img/graph.png" alt="Analise de dados"/>
+							<span> Análise dos dados </span>
+						</a>
+					</li>
+					
+					<li>											
+						<a href="configuracoes.xhtml">							
+							<img src="../img/settings.png" alt="Configurações"/> 
+							<span> Configurações </span> 
+						</a>
+					
+					
+					</li>
+				
+				</ul>	
+		
+		</div>		
+			
+		<div class="conteudoInferior">
+		
+			<h2> Visualizar pacientes cadastrados </h2>
+		
+		
+			<p>
+				Aqui você pode buscar um paciente pelo número do cartão do SUS ou visualizar todos os pacientes. Tenham em mente que <br/> 
+				caso exista muitos pacientes na base de dados, visualizar todos pode levar alguns minutos.				
+			</p>		
+			
+			<h3> Visualização por busca: </h3>
+			
+			<h:form class="formLogin" id="cadastroPaciente">
+	      			<p:messages autoUpdate="true" />
+	      			<p:growl id="growlCheck" showDetail="true" closable="true" />		    
+	      	
+					<p> Insira o número do cartão do SUS do paciente: </p>
+					<p:inputMask size="30" id="cartao_sus" value="#{pacienteController.cartao_sus_busca}"
+					mask="999-9999-9999-9999" 
+					required="true"	requiredMessage="O cartão do sus não foi informado">				
+					</p:inputMask>
+					<p:message for="cartao_sus" />
+					
+					<br/>								
+									
+					<p:commandButton  value="Buscar paciente" action="#{pacienteController.buscaUnicaCartaoSus}" type="submit" 
+		      		icon="ui-icon-search" update="growlCheck @form:tabelaBuscado" />
+		      		
+		      		
+ 			      	<h:panelGroup id="tabelaBuscado">
+					    <p:dataTable rendered="#{pacienteController.visivel}" value="#{pacienteController.pacBuscado}" var="pac">
+						    <p:column headerText="Nome">
+						        <h:outputText value="#{pac.nome_completo}" />
+						    </p:column>
+						 
+						    <p:column headerText="Cartão do SUS">
+						        <h:outputText value="#{pac.cartao_sus}" />
+						    </p:column>
+						 
+						    <p:column headerText="Data de nascimento">
+						        <h:outputText value="#{pac.data_nascimento}" />
+						    </p:column>
+						 
+						    <p:column headerText="Sexo">
+						        <h:outputText value="#{pac.sexo}" />
+						    </p:column>
+					    </p:dataTable>
+					</h:panelGroup> 	     		
+			
+	      			
+	      			
+	      	</h:form>      	
+	      			      	
+	      	<h3> Visualização de todos os pacientes: </h3>
+			
+			<p>
+				Para visualizar todos os pacientes clique no botão abaixo.
+				<br/>
+				<br/>
+			</p>	      	
+	      			 
+	      			 
+			<h:form class="formLogin">	      			
+	      			<p:growl id="growlCheck2" showDetail="true" closable="true" />		    
+									
+					<p:commandButton  value="Visualizar todos os pacientes" actionListener="#{pacienteController.listarPacientes}"  
+		      		icon=" ui-icon-circle-arrow-s" update="growlCheck2 @form:tabelaTodos" />
+		      		
+		      		<br/><br/>
+		      		
+		      		<h:panelGroup id="tabelaTodos">
+		      		<p:dataTable  rendered="#{pacienteController.visivelTodos}" var="pac" value="#{pacienteController.todosPacs}"
+		      		rows="10" paginator="true"
+		      		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		            rowsPerPageTemplate="5,10,15"		            		            
+		      		>						    
+					    <p:column headerText="Nome">
+					        <h:outputText value="#{pac.nome_completo}" />
+					    </p:column>
+					 
+					    <p:column headerText="Cartão do SUS">
+					        <h:outputText value="#{pac.cartao_sus}" />
+					    </p:column>
+					 
+					    <p:column headerText="Data de nascimento">
+					        <h:outputText value="#{pac.data_nascimento}" />
+					    </p:column>
+					 
+					    <p:column headerText="Sexo">
+					        <h:outputText value="#{pac.sexo}" />
+					    </p:column>
+					</p:dataTable>		      		
+		      		
+		      		</h:panelGroup>
+      			
+	      			
+	      	</h:form>	
+		
+		
+		</div>
+	
+	
+	
+	</div>	
+	
+	
+
+
+</h:body>
+</html>

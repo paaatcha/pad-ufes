@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 public class Paciente implements Serializable {
 
 	/** Serialization id. */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;	
 	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)	
 	private Long id;
@@ -54,7 +54,7 @@ public class Paciente implements Serializable {
 	@Column(length=100, nullable = false)
 	private String atv_principal;
 	
-	@Column(length=2, nullable = false)
+	@Column(length=5, nullable = false) 
 	private String escolaridade;
 	
 	@Column(length=10, nullable = false)
@@ -67,10 +67,10 @@ public class Paciente implements Serializable {
 	private String renda;
 	
 	@Column(length=30, nullable = false)
-	private String origem_familiar_mae;	
+	private String origem_familiar_mae = "NÃO SABE";	
 	
 	@Column(length=30, nullable = false)
-	private String origem_familiar_pai;
+	private String origem_familiar_pai= "NÃO SABE";
 	
 	@Column(length=40, nullable = false)
 	private String agrotoxico = "NENHUM";
@@ -93,7 +93,7 @@ public class Paciente implements Serializable {
 	@Column(length=100, nullable = false)
 	private String alergia = "NÃO";	
 	
-	private String obs;
+	private String obs = "NENHUMA";
 	
 	private float pres_art_sistolica;
 	
@@ -170,6 +170,11 @@ public class Paciente implements Serializable {
 	}  	
     
 	
+	
+	
+	
+/* ###########################################  Getters and Setters ###################################################*/	
+	
 	public Long getId() {
 		return id;
 	}
@@ -183,7 +188,7 @@ public class Paciente implements Serializable {
 	}
 
 	public void setLocal_atendimento(String local_atendimento) {
-		this.local_atendimento = local_atendimento;
+		this.local_atendimento = local_atendimento.toUpperCase();
 	}
 
 	public Date getData_atendimento() {
@@ -199,7 +204,7 @@ public class Paciente implements Serializable {
 	}
 
 	public void setNome_completo(String nome_completo) {
-		this.nome_completo = nome_completo;
+		this.nome_completo = nome_completo.toUpperCase();
 	}
 
 	public Date getData_nascimento() {
@@ -219,7 +224,7 @@ public class Paciente implements Serializable {
 	}
 
 	public void setNome_mae(String nome_mae) {
-		this.nome_mae = nome_mae;
+		this.nome_mae = nome_mae.toUpperCase();
 	}
 
 	public String getLocal_nascimento() {
@@ -235,7 +240,7 @@ public class Paciente implements Serializable {
 	}
 
 	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+		this.endereco = endereco.toUpperCase();
 	}
 
 	public char getSexo() {
@@ -269,7 +274,7 @@ public class Paciente implements Serializable {
 
 
 	public void setEstado_nascimento(String estado_nascimento) {
-		this.estado_nascimento = estado_nascimento;
+		this.estado_nascimento = estado_nascimento.toUpperCase();
 	}
 
 
@@ -289,7 +294,7 @@ public class Paciente implements Serializable {
 
 
 	public void setAtv_principal(String atv_principal) {
-		this.atv_principal = atv_principal;
+		this.atv_principal = atv_principal.toUpperCase();
 	}
 
 
@@ -531,7 +536,7 @@ public class Paciente implements Serializable {
 	}
 
 	public void setProcedimento(String procedimento) {
-		this.procedimento = procedimento;
+		this.procedimento = procedimento.toUpperCase();
 	}
 
 	public float getPres_art_sistolica() {
@@ -583,10 +588,10 @@ public class Paciente implements Serializable {
 	}
 
 	public String getObs() {
-		return obs;
+		return obs.toUpperCase();
 	}
 
-	public void setObservacoes(String obs) {
+	public void setObs(String obs) {
 		this.obs = obs;
 	}	
 	
