@@ -20,16 +20,16 @@ public class Lesao implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)	
 	private Long id;
 	
-	@Column(length=40, nullable = false)
+	@Column(length=40)
 	private String diagnostico_clinico;
 	
-	@Column(length=40, nullable = false)
+	@Column(length=40)
 	private String diagnostico_histo;
 	
 	@Column(length=100, nullable = false)
 	private String regiao;
 	
-	@Column(length=500, nullable = false)
+	@Column(length=500)
 	private String obs;
 	
 	private float diametro_maior;
@@ -51,7 +51,7 @@ public class Lesao implements Serializable {
 	}
 
 	public void setDiagnostico_clinico(String diagnostico_clinico) {
-		this.diagnostico_clinico = diagnostico_clinico;
+		this.diagnostico_clinico = diagnostico_clinico.toUpperCase();
 	}
 
 	public String getDiagnostico_histo() {
@@ -59,15 +59,15 @@ public class Lesao implements Serializable {
 	}
 
 	public void setDiagnostico_histo(String diagnostico_histo) {
-		this.diagnostico_histo = diagnostico_histo;
+		this.diagnostico_histo = diagnostico_histo.toUpperCase();
 	}
 
 	public String getRegiao() {
 		return regiao;
 	}
 
-	public void setRegiao(String topografia) {
-		this.regiao = topografia;
+	public void setRegiao(String regiao) {
+		this.regiao = regiao.toUpperCase();
 	}
 
 	public float getDiametro_maior() {
@@ -104,7 +104,7 @@ public class Lesao implements Serializable {
 	}
 
 	public void setObs(String obs) {
-		this.obs = obs;
+		this.obs = obs.toUpperCase();
 	}	
 	
 }

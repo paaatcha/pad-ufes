@@ -6,7 +6,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import ufes.pad.model.Paciente;
-import ufes.pad.model.Usuario;
 
 @Repository
 public interface PacienteRepository extends JpaRepository<Paciente, Long> {	
@@ -16,7 +15,11 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 	
 	
 	@Query("select p from Paciente p where p.nome_completo=:nome_completo")
-	public Usuario buscaPorNomeUsuario(@Param("nome_completo") String nome_completo);
+	public Paciente buscaPorNomeUsuario(@Param("nome_completo") String nome_completo);
+	
+	
+	@Query("select p from Paciente p where p.id=:id")
+	public Paciente buscaPorId(@Param("id") Long id);
 	
 	/*
 	@Query("selec * from Usuario")

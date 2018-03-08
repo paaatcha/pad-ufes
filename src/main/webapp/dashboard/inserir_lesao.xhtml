@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>PAD - Projeto de Assistência Dermatológica</title>
+	<link href="../css/pad_style.css" rel="stylesheet" type="text/css" />
+	<link href="../img/icon.png" rel='shortcut icon'/>
+</h:head>
+
+<h:body>
+
+
+	<div class="painelPrincipal">
+		<div class="parteSuperior">	
+		
+			<p> Projeto de Assistência Dermatológica - PAD</p>
+			
+			<a href="/logout"> Sair </a>
+		
+		</div>
+		
+		<div class="menu">
+		
+				<ul>
+					<li>											
+						<a href="home.xhtml">
+							<img src="../img/homepage.png" alt="Página inicial"/>
+							<span> Home </span> 
+						</a>
+					
+					
+					</li>
+					
+					<li>					
+						
+						<a href="cadastrar_pacientes.xhtml">	
+							<img src="../img/note.png" alt="Cadastrar paciente"/>					
+							<span> Cadastrar pacientes </span>
+						</a>
+						
+					</li>
+					
+					<li>					
+						<a href="visualizar_pacientes.xhtml">							
+							<img src="../img/visualizer.png" alt="Visualizar paciente"/>
+							<span> Visualizar pacientes </span>
+						</a>
+						
+					</li>					
+					
+					<li>						
+						<a href="analise_de_dados.xhtml">							
+							<img src="../img/graph.png" alt="Analise de dados"/>
+							<span> Análise dos dados </span>
+						</a>
+					</li>
+					
+					<li>											
+						<a href="configuracoes.xhtml">							
+							<img src="../img/settings.png" alt="Configurações"/> 
+							<span> Configurações </span> 
+						</a>
+					
+					
+					</li>
+				
+				</ul>	
+		
+		</div>		
+			
+		<div class="conteudoInferior">
+		
+			<h2> Inserir lesões em pacientes cadastrados </h2>
+		
+		
+			<p>
+				Aqui você pode inserir uma ou mais lesões em pacientes já cadastrados. Este artifício foi criado para inserir a lesão <br/>
+				via smartphone. A ideia é no futuro não realizar essa operação separada da anterior.
+			</p>		
+			
+			<p>
+				Para inserir busque o paciente via ID ou Cartão do SUS. O ID é informado no momento do cadastro.
+			
+			</p>
+			
+			<h3> Selecione o paciente para inserir a lesão: </h3>
+			
+			<p:messages autoUpdate="true" />
+			
+			<h:form class="formLogin" id="buscaPaciente">
+				<p:fieldset legend="Buscando paciente" toggleable="true" style="margin-bottom:20px">	
+        			<h:panelGrid columns="1" cellpadding="5">
+		      			
+		      			<p:growl id="growlCheck" showDetail="true" closable="true" />		    
+		      	
+						<p> Insira o número do cartão do SUS do paciente: </p>					
+						<p:inputMask size="30" id="cartao_sus" value="#{lesaoController.cartaoSusLesao}"
+						mask="999-9999-9999-9999">				
+						</p:inputMask>
+						
+						<br/>
+						<p> OU </p>
+						
+						<p> Insira o ID do paciente: </p>
+						<p:spinner size="15" id="id_pac" value="#{lesaoController.idLesao}" min="1" />				
+						
+						<br/>
+						<br/>								
+										
+						<p:commandButton  value="Buscar paciente" action="#{lesaoController.buscaPacienteParaLesao}" type="submit" 
+			      		icon="ui-icon-search" update="growlCheck @form:tabelaBuscadoLesao" />
+			      		
+			      		<br/>
+			      		<br/>
+			      		
+			      		<p> Se o paciente for o apresentado abaixo, prossiga com a inclusão da lesão</p>
+			      		
+	 			      	<h:panelGroup id="tabelaBuscadoLesao">
+						    <p:dataTable rendered="#{lesaoController.visivelLesao}" value="#{lesaoController.pacLesao}" var="pac">
+							    <p:column headerText="Nome">
+							        <h:outputText value="#{pac.nome_completo}" />
+							    </p:column>
+							 
+							    <p:column headerText="Cartão do SUS">
+							        <h:outputText value="#{pac.cartao_sus}" />
+							    </p:column>
+							 
+							    <p:column headerText="Data de nascimento">
+							        <h:outputText value="#{pac.data_nascimento}" />
+							    </p:column>
+							 
+							    <p:column headerText="Sexo">
+							        <h:outputText value="#{pac.sexo}" />
+							    </p:column>
+						    </p:dataTable>				    
+						    
+	      			
+						</h:panelGroup> 	     		
+				
+        			</h:panelGrid>
+    			</p:fieldset>			
+			
+			</h:form>
+			
+			<h:form class="formLogin" id="inserirLesao">
+			
+				<p:fieldset legend="Inserindo a lesão" toggleable="true" style="margin-bottom:20px">	
+        			<h:panelGrid columns="1" cellpadding="5">
+						<p> Região da lesão: </p>					
+						<p:inputText size="30" id="regiao" value="#{lesaoController.lesaoDada.regiao}" 
+						required="true"
+						requiredMessage="A região da lesão não foi informada">				
+						</p:inputText>
+						<p:message for="regiao" />						
+						
+							
+						<p> Diametro maior: </p>
+						<p:spinner size="15" id="dia_maior" value="#{lesaoController.lesaoDada.diametro_maior}" min="0" />
+						
+						<p> Diametro menor: </p>
+						<p:spinner size="15" id="dia_menor" value="#{lesaoController.lesaoDada.diametro_menor}" min="0" />
+						
+						<p> Diagnóstico clínico: </p>					
+						<p:inputText size="30" id="diag_clin" value="#{lesaoController.lesaoDada.diagnostico_clinico}" 
+						required="true"
+						requiredMessage="O diagnóstico clínico não foi informada">				
+						</p:inputText>
+						<p:message for="diag_clin" />
+							
+						<p> Observações: </p>
+						<p:inputTextarea rows="6" cols="50" value="#{lesaoController.lesaoDada.obs}"/>
+						
+						<br/>
+						
+				 		<h:commandLink value="Adicionar" action="#{lesaoController.inserirLesao}">
+				 					 
+				 		</h:commandLink>				 		
+				 		
+				 		<p:fileUpload label="Adicionar imagens" id="enviaImg" 
+				 			fileUploadListener="#{lesaoController.processaImg}"
+        					sizeLimit="9999999" auto="true" multiple="true"/>
+        					
+        					
+        				<p:commandButton class="botao" id="verLesoes" value="Ver lesões" type="button" />
+        					
+        					
+				 		
+				 		<p:overlayPanel id="painelLesoes" for="verLesoes" hideEffect="fade" dynamic="true" style="width:500px">
+			       			<p:dataTable id="tabelaLesoes"
+							value="#{lesaoController.lesoes}" var="les">
+								<p:column headerText="Região">
+									<h:outputText value="#{les.regiao}" />
+								</p:column>								
+									
+								<p:column headerText="Diametro maior">
+									<h:outputText value="#{les.diametro_maior}" />
+								</p:column>
+								
+								<p:column headerText="Diametro menor">
+									<h:outputText value="#{les.diametro_menor}" />
+								</p:column>
+								
+								<p:column headerText="Diagnóstico clínico">
+									<h:outputText value="#{les.diagnostico_clinico}" />
+								</p:column>							
+																
+						
+								<!-- 
+								<p:column headerText="">
+									<h:form>										
+										<p:commandButton action="#{lesaoController.excluirLesaoTabela}" icon="ui-icon-trash" title="Excluir" update="@all" process="@this" >
+      										<f:setPropertyActionListener
+             									target="#{lesaoController.lesaoDada}"
+             									value="#{lesaoDada}" />             						
+										</p:commandButton>								
+									</h:form>
+								</p:column>
+								 -->					
+							</p:dataTable>
+    					</p:overlayPanel>
+    					
+    					
+    					<p:commandButton class="botao" id="verImgLesoes" value="Ver imagens das lesões" type="button" update="imgLesoes" />
+    					
+						<p:overlayPanel id="imgLesoes" for="verImgLesoes" hideEffect="fade" dynamic="true" style="width:500px">
+			       			<p:dataTable id="tabelaImgLesoes"
+							value="#{lesaoController.pathImgs}" var="img">
+								<p:column headerText="Imagens">									 	
+									<h:graphicImage value="#{img}" style="height:50px; width:50px"/>								
+								</p:column>			
+								
+								<p:column headerText="Path">									
+									<h:outputText value="#{img}" /> 
+								</p:column>														
+									
+						
+								<!-- 
+								<p:column headerText="">
+									<h:form>										
+										<p:commandButton action="#{lesaoController.excluirLesaoTabela}" icon="ui-icon-trash" title="Excluir" update="@all" process="@this" >
+      										<f:setPropertyActionListener
+             									target="#{lesaoController.lesaoDada}"
+             									value="#{lesaoDada}" />             						
+										</p:commandButton>								
+									</h:form>
+								</p:column>
+								 -->					
+							</p:dataTable>
+    					</p:overlayPanel>    							
+
+		      		
+					</h:panelGrid>
+    			</p:fieldset>					
+				 	     		
+	      	</h:form>      				
+			
+
+	      	<br></br>
+	      	  	
+	      			      	
+	      	
+		
+		
+		</div>
+	
+	
+	
+	</div>	
+	
+	
+
+
+</h:body>
+</html>

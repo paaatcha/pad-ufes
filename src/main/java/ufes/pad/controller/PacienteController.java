@@ -3,8 +3,8 @@ package ufes.pad.controller;
 import java.util.List;
 
 import javax.annotation.ManagedBean;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import ufes.pad.model.Paciente;
 import ufes.pad.repository.PacienteRepository;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class PacienteController {
 
 	private Paciente pac = new Paciente();
@@ -27,15 +27,11 @@ public class PacienteController {
 	private boolean visivelTodos = false;
 	private String cartao_sus_busca;
 	
-	
 	public String salvar () {		
 		String ret = "/dashboard/home.xhtml";
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
-			Paciente p1 = pac_rep.buscaPorCartaoSus(this.pac.getCartao_sus());	
-			
-			System.out.println("ENTREI AQUI");
-			
+			Paciente p1 = pac_rep.buscaPorCartaoSus(this.pac.getCartao_sus());			
 			if (p1 == null) {				
 				pac_rep.save(this.pac);
 				context.addMessage(null, new FacesMessage("Paciente cadastrado com sucesso. Utilize o celular para incluir as imagens e dados da lesão."));
@@ -139,9 +135,6 @@ public class PacienteController {
 
 	public void setVisivelTodos(boolean visivelTodos) {
 		this.visivelTodos = visivelTodos;
-	}
-	
-	
-	
+	}	
 	
 }
