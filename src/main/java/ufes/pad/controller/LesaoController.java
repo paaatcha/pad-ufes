@@ -15,6 +15,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ufes.pad.model.Imagem;
 import ufes.pad.model.Lesao;
 import ufes.pad.model.Paciente;
 import ufes.pad.repository.PacienteRepository;
@@ -32,14 +33,30 @@ public class LesaoController {
 	
 	private List<Lesao> lesoes = new ArrayList<Lesao>();
 	
-	private List<String> pathImgs = new ArrayList<String>();
+	private List<Imagem> imagens = new ArrayList<Imagem>();
 	
 	private Lesao lesaoDada = new Lesao();
 	
-	public void inserirLesao () {
+	public void adicionarLesaoPaciente () {		
+		lesaoDada.setImagens(this.imagens);
 		lesoes.add(lesaoDada);
 		
+		System.out.println("Inserindo lesão "+lesaoDada.getRegiao());
+		
+		imagens.clear();
 		lesaoDada = new Lesao();
+	}
+	
+	public String finalizar () {
+		lesoes.clear();
+		imagens.clear();
+				
+		return "dashboard/home.xhtml";
+	}
+	
+	public void adicionar() {		
+		this.pacLesao.setLesoes(lesoes);
+		
 	}
 	
 	public void processaImg(FileUploadEvent event) {
@@ -56,10 +73,11 @@ public class LesaoController {
 			FacesMessage msg = new FacesMessage("O Arquivo ", file.getName()+ " salvo.");
 			FacesContext.getCurrentInstance().addMessage("msgUpdate", msg);
 			
-			pathImgs.add("imgLesoes/" + arq.getFileName());
+			Imagem img = new Imagem();
+			img.setPath("imgLesoes/" + arq.getFileName());
+			imagens.add(img);		
 		
-		
-			System.out.println("O Arquivo " + file.getName() + " salvo.");
+			System.out.println(img.getPath());
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
@@ -139,13 +157,15 @@ public class LesaoController {
 		this.lesaoDada = lesaoDada;
 	}
 
-	public List<String> getPathImgs() {
-		return pathImgs;
+	public List<Imagem> getImagens() {
+		return imagens;
 	}
 
-	public void setPathImgs(List<String> pathImgs) {
-		this.pathImgs = pathImgs;
+	public void setImagens(List<Imagem> imagens) {
+		this.imagens = imagens;
 	}
+
+
 	
 	
 }

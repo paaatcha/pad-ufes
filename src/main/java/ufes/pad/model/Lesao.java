@@ -30,7 +30,7 @@ public class Lesao implements Serializable {
 	private String regiao;
 	
 	@Column(length=500)
-	private String obs;
+	private String obs = "NENHUMA";
 	
 	private float diametro_maior;
 	private float diametro_menor;
