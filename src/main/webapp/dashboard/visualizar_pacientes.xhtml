@@ -45,6 +45,15 @@
 					</li>
 					
 					<li>					
+						
+						<a href="inserir_imagem.xhtml">	
+							<img src="../img/imagem.png" alt="Inserir imagem"/>					
+							<span> Inserir imagem </span>
+						</a>
+						
+					</li>						
+					
+					<li>					
 						<a href="visualizar_pacientes.xhtml">							
 							<img src="../img/visualizer.png" alt="Visualizar paciente"/>
 							<span> Visualizar pacientes </span>
@@ -106,6 +115,10 @@
 				      		
 		 			      	<h:panelGroup id="tabelaBuscado">
 							    <p:dataTable rendered="#{pacienteController.visivel}" value="#{pacienteController.pacBuscado}" var="pac">
+								    <f:facet name="header">
+            							Paciente
+        							</f:facet>	
+        						
 								    <p:column headerText="Nome">
 								        <h:outputText value="#{pac.nome_completo}" />
 								    </p:column>
@@ -118,9 +131,10 @@
 								        <h:outputText value="#{pac.data_nascimento}" />
 								    </p:column>
 								 
-								    <p:column headerText="Sexo">
-								        <h:outputText value="#{pac.sexo}" />
-								    </p:column>
+								    <p:column headerText="Local atendimento">
+								        <h:outputText value="#{pac.local_atendimento}" />
+								    </p:column>								    
+									    
 							    </p:dataTable>
 							</h:panelGroup> 	     		
 					
@@ -153,7 +167,10 @@
 				      		rows="10" paginator="true"
 				      		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				            rowsPerPageTemplate="5,10,15"		            		            
-				      		>						    
+				      		>		
+  								<f:facet name="header">
+            						Pacientes
+        						</f:facet>				    
 							    <p:column headerText="Nome">
 							        <h:outputText value="#{pac.nome_completo}" />
 							    </p:column>
@@ -166,9 +183,9 @@
 							        <h:outputText value="#{pac.data_nascimento}" />
 							    </p:column>
 							 
-							    <p:column headerText="Sexo">
-							        <h:outputText value="#{pac.sexo}" />
-							    </p:column>
+							    <p:column headerText="Local atendimento">
+								        <h:outputText value="#{pac.local_atendimento}" />
+								 </p:column>
 							</p:dataTable>		      		
 				      		
 				      		</h:panelGroup>

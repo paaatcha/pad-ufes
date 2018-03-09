@@ -22,8 +22,6 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepository userRep;
 	
-	private String mensagem;
-	
 	
 // ########################## Methods ##################################
 	public String salvar () {		
@@ -78,14 +76,6 @@ public class UsuarioController {
 
 	public void setUser(Usuario user) {
 		this.user = user;
-	}
-
-	public String getMensagem() {
-		return mensagem;
-	}
-
-	public void setMensagem(String mensagem) {
-		this.mensagem = mensagem;
 	}
 	
 

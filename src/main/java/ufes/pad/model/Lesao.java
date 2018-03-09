@@ -38,7 +38,7 @@ public class Lesao implements Serializable {
 	private float diametro_menor;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@JoinColumn (name="lesao_id")
+	@JoinColumn (name="lesaoId")
 	private List<Imagem> imagens;
 
 	public Long getId() {

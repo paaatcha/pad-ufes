@@ -50,7 +50,7 @@ public class PacienteController {
 			if (p1 == null) {	
 				this.pac.setLesoes(pacLesoes);
 				pac_rep.save(this.pac);
-				context.addMessage(null, new FacesMessage("Paciente cadastrado com sucesso. Utilize o celular para incluir as imagens e dados da lesão."));
+				context.addMessage(null, new FacesMessage("Paciente cadastrado com sucesso. Utilize o celular para incluir as imagens e dados da lesão.\nID do Paciente: " + pac.getId()));
 				pacLesoes.clear();
 				pac = new Paciente();
 			} else if (pacLesoes.isEmpty()) {

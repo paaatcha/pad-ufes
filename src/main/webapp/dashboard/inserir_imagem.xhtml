@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>PAD - Projeto de Assistência Dermatológica</title>
+	<link href="../css/pad_style.css" rel="stylesheet" type="text/css" />
+	<link href="../img/icon.png" rel='shortcut icon'/>
+</h:head>
+
+<h:body>
+
+
+	<div class="painelPrincipal">
+		<div class="parteSuperior">	
+		
+			<p> Projeto de Assistência Dermatológica - PAD</p>
+			
+			<a href="/logout"> Sair </a>
+		
+		</div>
+		
+		<div class="menu">
+		
+				<ul>
+					<li>											
+						<a href="home.xhtml">
+							<img src="../img/homepage.png" alt="Página inicial"/>
+							<span> Home </span> 
+						</a>
+					
+					
+					</li>
+					
+					<li>					
+						
+						<a href="cadastrar_pacientes.xhtml">	
+							<img src="../img/note.png" alt="Cadastrar paciente"/>					
+							<span> Cadastrar pacientes </span>
+						</a>
+						
+					</li>
+					
+					<li>					
+						
+						<a href="inserir_imagem.xhtml">	
+							<img src="../img/imagem.png" alt="Inserir imagem"/>					
+							<span> Inserir imagem </span>
+						</a>
+						
+					</li>						
+					
+					<li>					
+						<a href="visualizar_pacientes.xhtml">							
+							<img src="../img/visualizer.png" alt="Visualizar paciente"/>
+							<span> Visualizar pacientes </span>
+						</a>
+						
+					</li>					
+					
+					<li>						
+						<a href="analise_de_dados.xhtml">							
+							<img src="../img/graph.png" alt="Analise de dados"/>
+							<span> Análise dos dados </span>
+						</a>
+					</li>
+					
+					<li>											
+						<a href="configuracoes.xhtml">							
+							<img src="../img/settings.png" alt="Configurações"/> 
+							<span> Configurações </span> 
+						</a>
+					
+					
+					</li>
+				
+				</ul>	
+		
+		</div>		
+			
+		<div class="conteudoInferior">
+		
+			<h2> Inserir lesões em pacientes cadastrados </h2>
+		
+		
+			<p>
+				Aqui você pode inserir uma ou mais lesões em pacientes já cadastrados. Este artifício foi criado para inserir a lesão <br/>
+				via smartphone. A ideia é no futuro não realizar essa operação separada da anterior.
+			</p>		
+			
+			<p>
+				Para inserir busque o paciente via ID ou Cartão do SUS. O ID é informado no momento do cadastro.
+			
+			</p>
+			
+			<h3> Selecione o paciente para inserir a lesão: </h3>
+			
+			<p:messages autoUpdate="true" />
+			
+			<h:form class="formLogin" id="buscaPaciente">
+				<p:fieldset legend="Buscando paciente" toggleable="true" style="margin-bottom:20px">	
+        			<h:panelGrid columns="1" cellpadding="5">
+		      			
+		      			<p:growl id="growlCheck" showDetail="true" closable="true" />		    
+		      	
+						<p> Insira o número do cartão do SUS do paciente: </p>					
+						<p:inputMask size="30" id="cartao_sus" value="#{lesaoController.cartaoSusLesao}"
+						mask="999-9999-9999-9999">				
+						</p:inputMask>
+						
+						<br/>
+						<p> OU </p>
+						
+						<p> Insira o ID do paciente: </p>
+						<p:spinner size="15" id="id_pac" value="#{lesaoController.idPac}" min="0" />				
+						
+						<br/>
+						<br/>								
+										
+						<p:commandButton  value="Buscar paciente" action="#{lesaoController.buscaPacienteParaLesao}" type="submit" 
+			      		icon="ui-icon-search" update="growlCheck @form:tabelaBuscadoLesao @form:tabelaLesoes" />
+			      		
+			      		<br/>
+			      		<br/>
+			      		
+			      		<p> Se o paciente for o apresentado abaixo, prossiga com a inclusão da lesão</p>
+			      		<br/>
+			      		
+			      		
+	 			      	<h:panelGroup id="tabelaBuscadoLesao">
+						    <p:dataTable rendered="#{lesaoController.visivelLesao}" value="#{lesaoController.pacLesao}" var="pac">
+								<f:facet name="header">
+            						Paciente
+        						</f:facet>							    
+							    <p:column headerText="Nome">
+							        <h:outputText value="#{pac.nome_completo}" />
+							    </p:column>
+							 
+							    <p:column headerText="Cartão do SUS">
+							        <h:outputText value="#{pac.cartao_sus}" />
+							    </p:column>
+							 
+							    <p:column headerText="Data de nascimento">
+							        <h:outputText value="#{pac.data_nascimento}" />
+							    </p:column>
+							 
+							    <p:column headerText="Local de atendimento">
+							        <h:outputText value="#{pac.local_atendimento}" />
+							    </p:column>
+						    </p:dataTable>				    
+						    
+	      			
+						</h:panelGroup>
+						
+	 			      	<h:panelGroup id="tabelaLesoes">
+
+						    <p:dataTable rendered="#{lesaoController.visivelLesao}" value="#{lesaoController.pacLesao.lesoes}" var="les">
+								<f:facet name="header">
+            						Lesões
+        						</f:facet>
+							    <p:column headerText="Região">
+							        <h:outputText value="#{les.regiao}" />
+							    </p:column>
+							 
+							    <p:column headerText="Diagnóstico Clínico">
+							        <h:outputText value="#{les.diagnostico_clinico}" />
+							    </p:column>
+							 
+							    <p:column headerText="ID">
+							        <h:outputText value="#{les.id}" />
+							    </p:column>
+
+						    </p:dataTable>				    
+						    
+	      			
+						</h:panelGroup>						 	     		
+				
+        			</h:panelGrid>
+    			</p:fieldset>			
+			
+			</h:form>
+			
+			<h:form class="formLogin" id="inserirLesao">
+			
+				<p:fieldset legend="Inserindo imagens da lesão" toggleable="true" style="margin-bottom:20px">	
+        			<h:panelGrid columns="1" cellpadding="5">					
+															 					 
+			 			<p:spinner id="idLesao" value="#{lesaoController.idLesaoBanco}"  min="0"
+			 			required="true" requiredMessage="ID lesão não informado" />
+			 			<p:message for="idLesao" />
+			 			
+			 			<br/>
+			 			<p:commandButton value="Enviar ID da lesão" partialSubmit="true" 
+							process="idLesao" icon="i-icon-arrowreturnthick-1-e">
+						
+							<p:ajax event="click" listener="#{lesaoController.msgAddId}" update="growlLesao"/>
+							
+						</p:commandButton>																
+						
+						
+						<br/>
+						<br/>
+			 		
+			 		
+				 		<p:fileUpload label="Adicionar imagens da lesão" id="enviaImg" 
+				 			fileUploadListener="#{lesaoController.processaImg}"
+        					sizeLimit="9999999" auto="true" multiple="true"
+        					update="growlLesao tabelaImgLesoes"	
+        				/>
+        					
+        				<br/>	
+        				
+        				<p:growl id="growlLesao" showDetail="true" closable="true" />
+        				
+        				
+        				<p:commandButton class="botao" id="verImgLesoes" value="Ver imagens" type="button" update="imgLesoes" icon="ui-icon-folder-open"/>
+    					
+						<p:overlayPanel id="imgLesoes" for="verImgLesoes" hideEffect="fade" dynamic="true" style="width:500px">
+			       			<p:dataTable id="tabelaImgLesoes"
+							value="#{lesaoController.imagens}" var="img">
+								<p:column headerText="Imagens">									 	
+									<h:graphicImage value="#{img}" style="height:50px; width:50px"/>								
+								</p:column>			
+								
+								<p:column headerText="Path">									
+									<h:outputText value="#{img}" /> 
+								</p:column>									
+						
+								<!-- 
+								<p:column headerText="">
+									<h:form>										
+										<p:commandButton action="#{lesaoController.excluirLesaoTabela}" icon="ui-icon-trash" title="Excluir" update="@all" process="@this" >
+      										<f:setPropertyActionListener
+             									target="#{lesaoController.lesaoDada}"
+             									value="#{lesaoDada}" />             						
+										</p:commandButton>								
+									</h:form>
+								</p:column>
+								 -->					
+							</p:dataTable>
+        				
+        				</p:overlayPanel>
+        				
+        				<br/>	      		
+		      		
+					</h:panelGrid>
+    			</p:fieldset>
+    			
+    			<p:commandButton value="Concluir" icon="ui-icon-arrowreturnthick-1-e" ajax="false" action="#{lesaoController.concluir}"></p:commandButton> 			
+				 	     		
+	      	</h:form>     			      	
+	      	
+		
+		
+		</div>
+	
+	
+	
+	</div>	
+	
+	
+
+
+</h:body>
+</html>

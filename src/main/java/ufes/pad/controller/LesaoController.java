@@ -15,8 +15,6 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ufes.pad.model.Imagem;
-import ufes.pad.model.Lesao;
 import ufes.pad.model.Paciente;
 import ufes.pad.repository.PacienteRepository;
 
@@ -27,57 +25,47 @@ public class LesaoController {
 	private PacienteRepository pac_rep;
 	
 	private Paciente pacLesao;
-	private Long idLesao = 0L;
+	private Long idPac = 0L;
 	private String cartaoSusLesao = "N";
-	private boolean visivelLesao = false;
+	private boolean visivelLesao = false; 
 	
-	private List<Lesao> lesoes = new ArrayList<Lesao>();
+	private Long idLesaoBanco = 0L;
 	
-	private List<Imagem> imagens = new ArrayList<Imagem>();
+	private List<String> imagens = new ArrayList<String>();
 	
-	private Lesao lesaoDada = new Lesao();
-	
-	public void adicionarLesaoPaciente () {		
-		lesaoDada.setImagens(this.imagens);
-		lesoes.add(lesaoDada);
-		
-		System.out.println("Inserindo lesão "+lesaoDada.getRegiao());
-		
+	public String concluir () {
 		imagens.clear();
-		lesaoDada = new Lesao();
+		visivelLesao = false;
+		idPac = 0L;
+		idLesaoBanco = 0L;
+		cartaoSusLesao = "N";
+		return "/dashboard/home.xhtml";
 	}
-	
-	public String finalizar () {
-		lesoes.clear();
-		imagens.clear();
-				
-		return "dashboard/home.xhtml";
-	}
-	
-	public void adicionar() {		
-		this.pacLesao.setLesoes(lesoes);
-		
+
+	public void msgAddId () {
+		FacesMessage msg = new FacesMessage("O ID adicionado.");
+		FacesContext.getCurrentInstance().addMessage("msgUpdate", msg);		
 	}
 	
 	public void processaImg(FileUploadEvent event) {
+		System.out.println("Adicionando imagems...");
 		try {
 			UploadedFile arq = event.getFile();
 			InputStream in = new BufferedInputStream(arq.getInputstream());
-			File file = new File("src/main/webapp/dashboard/imgLesoes/" + arq.getFileName());
+			String nomeImg = "Pac_"+idPac+"_lesao_"+idLesaoBanco+"_"+arq.getFileName();
+			File file = new File("src/main/webapp/dashboard/imgLesoes/" + nomeImg);
     		FileOutputStream fout = new FileOutputStream(file);
 
 		while (in.available() != 0) {
 			fout.write(in.read());
 		}
 			fout.close();
-			FacesMessage msg = new FacesMessage("O Arquivo ", file.getName()+ " salvo.");
+			FacesMessage msg = new FacesMessage("A imagem", file.getName()+ " foi salva com sucesso.");
 			FacesContext.getCurrentInstance().addMessage("msgUpdate", msg);
 			
-			Imagem img = new Imagem();
-			img.setPath("imgLesoes/" + arq.getFileName());
-			imagens.add(img);		
-		
-			System.out.println(img.getPath());
+
+			imagens.add("imgLesoes/" + nomeImg);		
+
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
@@ -86,9 +74,9 @@ public class LesaoController {
 	
 	public void buscaPacienteParaLesao() {
 		try {
-			if (getIdLesao() != 0L) {
-				System.out.println(getIdLesao().getClass());
-				setPacLesao(pac_rep.buscaPorId(getIdLesao()));
+			if (getIdPac() != 0L) {
+				System.out.println(getIdPac().getClass());
+				setPacLesao(pac_rep.buscaPorId(getIdPac()));
 			} else if (getCartaoSusLesao().equals("N")) {
 				setPacLesao(pac_rep.buscaPorCartaoSus(getCartaoSusLesao()));
 			} else {
@@ -109,6 +97,8 @@ public class LesaoController {
 		}			
 	}
 
+/* ###########################################  Getters and Setters ###################################################*/	
+	
 	public Paciente getPacLesao() {
 		return pacLesao;
 	}
@@ -117,12 +107,12 @@ public class LesaoController {
 		this.pacLesao = pacLesao;
 	}
 
-	public Long getIdLesao() {
-		return idLesao;
+	public Long getIdPac() {
+		return idPac;
 	}
 
-	public void setIdLesao(Long idLesao) {
-		this.idLesao = idLesao;
+	public void setIdPac(Long idPac) {
+		this.idPac = idPac;
 	}
 
 	public String getCartaoSusLesao() {
@@ -141,30 +131,26 @@ public class LesaoController {
 		this.visivelLesao = visivelLesao;
 	}
 
-	public List<Lesao> getLesoes() {
-		return lesoes;
-	}
-
-	public void setLesoes(List<Lesao> lesoes) {
-		this.lesoes = lesoes;
-	}
-
-	public Lesao getLesaoDada() {
-		return lesaoDada;
-	}
-
-	public void setLesaoDada(Lesao lesaoDada) {
-		this.lesaoDada = lesaoDada;
-	}
-
-	public List<Imagem> getImagens() {
+	public List<String> getImagens() {
 		return imagens;
 	}
 
-	public void setImagens(List<Imagem> imagens) {
+	public void setImagens(List<String> imagens) {
 		this.imagens = imagens;
 	}
 
+
+	public Long getIdLesaoBanco() {
+		return idLesaoBanco;
+	}
+
+
+	public void setIdLesaoBanco(Long idLesaoBanco) {
+		this.idLesaoBanco = idLesaoBanco;
+	}
+
+
+	
 
 	
 	

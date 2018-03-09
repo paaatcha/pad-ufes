@@ -84,7 +84,7 @@ public class Paciente implements Serializable {
 	private String cartao_sus;	
 	
 	@OneToMany	(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@JoinColumn (name="paciente_id")
+	@JoinColumn (name="pacienteId")
 	private List<Lesao> lesoes;	
 	
 	private char diabetes;
