@@ -3,13 +3,15 @@ package ufes.pad.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Lesao implements Serializable {
@@ -35,7 +37,8 @@ public class Lesao implements Serializable {
 	private float diametro_maior;
 	private float diametro_menor;
 	
-	@ManyToMany	(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@JoinColumn (name="lesao_id")
 	private List<Imagem> imagens;
 
 	public Long getId() {

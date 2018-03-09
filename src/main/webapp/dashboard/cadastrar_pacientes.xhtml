@@ -418,6 +418,87 @@
     				</p:fieldset>
     				
 
+		      		<p:fieldset legend="Dados da lesão" style="margin-bottom:20px" toggleable="true">
+        				<h:panelGrid columns="1" cellpadding="5">
+							<p> Região da lesão: </p>					
+							<p:inputText size="30" id="regiao" value="#{pacienteController.lesao.regiao}" 
+							required="true"
+							requiredMessage="A região da lesão não foi informada">				
+							</p:inputText>
+							<p:message for="regiao" />						
+							
+								
+							<p> Diametro maior (mm): </p>
+							<p:spinner size="15" id="dia_maior" value="#{pacienteController.lesao.diametro_maior}" min="0" stepFactor="0.1"/>
+							
+							<p> Diametro menor (mm): </p>
+							<p:spinner size="15" id="dia_menor" value="#{pacienteController.lesao.diametro_menor}" min="0" stepFactor="0.1"/>
+							
+							<p> Diagnóstico clínico: </p>					
+							<p:inputText size="30" id="diag_clin" value="#{pacienteController.lesao.diagnostico_clinico}" 
+							required="true"
+							requiredMessage="O diagnóstico clínico não foi informada">				
+							</p:inputText>
+							<p:message for="diag_clin" />
+								
+							<p> Observações: </p>
+							<p:inputTextarea id="obs_les" rows="6" cols="50" value="#{pacienteController.lesao.obs}"/>
+							
+							<br/>						
+							
+							<p:growl id="growlLesao" showDetail="true" closable="true" />			
+							
+							<p:commandButton value="Enviar lesão" partialSubmit="true" 
+							process="regiao dia_maior dia_menor diag_clin obs_les" icon="i-icon-arrowreturnthick-1-e">						
+																
+							</p:commandButton>
+							
+							<p:commandButton value="Inserir na lista" icon="ui-icon-plus">						
+								<p:ajax event="click" update="tabelaLesoes growlLesao" listener="#{pacienteController.inserirLesao}" />								
+							</p:commandButton>
+							
+																				
+							
+							
+							<p:commandButton class="botao" id="verLesoes" value="Ver lesões adicionadas" type="button" icon="ui-icon-folder-open"/>
+							
+							<p:overlayPanel id="painelLesoes" for="verLesoes" hideEffect="fade" dynamic="true" style="width:500px">
+				       			<p:dataTable id="tabelaLesoes"				       			
+								value="#{pacienteController.pacLesoes}" var="les">
+									<p:column headerText="Região">
+										<h:outputText value="#{les.regiao}" />
+									</p:column>								
+										
+									<p:column headerText="Diametro maior">
+										<h:outputText value="#{les.diametro_maior}" />
+									</p:column>
+									
+									<p:column headerText="Diametro menor">
+										<h:outputText value="#{les.diametro_menor}" />
+									</p:column>
+									
+									<p:column headerText="Diagnóstico clínico">
+										<h:outputText value="#{les.diagnostico_clinico}" />
+									</p:column>							
+																	
+							
+									<!-- 
+									<p:column headerText="">
+										<h:form>										
+											<p:commandButton action="#{lesaoController.excluirLesaoTabela}" icon="ui-icon-trash" title="Excluir" update="@all" process="@this" >
+	      										<f:setPropertyActionListener
+	             									target="#{lesaoController.lesaoDada}"
+	             									value="#{lesaoDada}" />             						
+											</p:commandButton>								
+										</h:form>
+									</p:column>
+									 -->					
+								</p:dataTable>
+    						</p:overlayPanel>							
+							
+						</h:panelGrid>
+					</p:fieldset>
+
 		      		 
 		      		<p:fieldset legend="Dados técnicos" toggleable="true">
         				<h:panelGrid columns="1" cellpadding="5">
@@ -499,7 +580,7 @@
 		      		<p:growl id="growlCheck" showDetail="true" closable="true" />		      		 
 		      		
 		      		<p:commandButton  value="Cadastrar" class="botaoPac" action="#{pacienteController.salvar}" type="submit" 
-		      		icon="ui-icon-check" update="growlCheck" />	      		
+		      		icon="ui-icon-check" update="growlCheck" ajax="false"/>	      		
 		      		
 		      		
 		      	

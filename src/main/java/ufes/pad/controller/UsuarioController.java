@@ -37,6 +37,7 @@ public class UsuarioController {
 				user.setNome(user.getNome().toUpperCase());
 				userRep.save(this.user);
 				context.addMessage(null, new FacesMessage("Usuário cadastrado com sucesso. Aguarde liberação do administrador para acessar o sistema."));
+				user = new Usuario ();
 			} else {
 				ret = null;  
 		        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Este nome de usuário ou e-mail já está cadastrado. Insira um nome diferente.", "  "));
