@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.annotation.ManagedBean;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.FileUploadEvent;
@@ -19,11 +20,11 @@ import ufes.pad.model.Paciente;
 import ufes.pad.repository.PacienteRepository;
 
 @ManagedBean
+@ViewScoped
 public class LesaoController {
 	
 	@Autowired
-	private PacienteRepository pac_rep;
-	
+	private PacienteRepository pac_rep;	
 	private Paciente pacLesao;
 	private Long idPac = 0L;
 	private String cartaoSusLesao = "N";
@@ -48,9 +49,9 @@ public class LesaoController {
 	}
 	
 	public void processaImg(FileUploadEvent event) {
-		System.out.println("Adicionando imagems...");
+		
 		try {
-			UploadedFile arq = event.getFile();
+			UploadedFile arq = event.getFile();			
 			InputStream in = new BufferedInputStream(arq.getInputstream());
 			String nomeImg = "Pac_"+idPac+"_lesao_"+idLesaoBanco+"_"+arq.getFileName();
 			File file = new File("src/main/webapp/dashboard/imgLesoes/" + nomeImg);
@@ -64,7 +65,8 @@ public class LesaoController {
 			FacesContext.getCurrentInstance().addMessage("msgUpdate", msg);
 			
 
-			imagens.add("imgLesoes/" + nomeImg);		
+			imagens.add("imgLesoes/" + nomeImg);
+			System.out.println("Adicionando imagems...");
 
 		}
 		catch (Exception ex) {

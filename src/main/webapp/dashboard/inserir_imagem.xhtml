@@ -115,13 +115,16 @@
 						<p> OU </p>
 						
 						<p> Insira o ID do paciente: </p>
-						<p:spinner size="15" id="id_pac" value="#{lesaoController.idPac}" min="0" />				
-						
+						<p:spinner size="15" id="id_pac" value="#{lesaoController.idPac}" min="0" />						
+
 						<br/>
 						<br/>								
 										
 						<p:commandButton  value="Buscar paciente" action="#{lesaoController.buscaPacienteParaLesao}" type="submit" 
-			      		icon="ui-icon-search" update="growlCheck @form:tabelaBuscadoLesao @form:tabelaLesoes" />
+			      		icon="ui-icon-search" update="growlCheck @form:tabelaBuscadoLesao @form:tabelaLesoes" >    			
+			      			
+			      			
+			      		</p:commandButton>
 			      		
 			      		<br/>
 			      		<br/>
@@ -189,16 +192,25 @@
         			<h:panelGrid columns="1" cellpadding="5">					
 															 					 
 			 			<p:spinner id="idLesao" value="#{lesaoController.idLesaoBanco}"  min="0"
-			 			required="true" requiredMessage="ID lesão não informado" />
+			 			required="true" requiredMessage="ID lesão não informado">
+			 				<p:ajax event="change"  update="out out2" />
+			 			</p:spinner>
 			 			<p:message for="idLesao" />
 			 			
 			 			<br/>
+			 			
+
 			 			<p:commandButton value="Enviar ID da lesão" partialSubmit="true" 
 							process="idLesao" icon="i-icon-arrowreturnthick-1-e">
 						
 							<p:ajax event="click" listener="#{lesaoController.msgAddId}" update="growlLesao"/>
 							
 						</p:commandButton>																
+						
+						<br/>
+						
+			 			ID do paciente selecionado:  <h:outputText id="out" value="#{lesaoController.idPac}" />
+			 			ID da lesão selecionada: <h:outputText id="out2" value="#{lesaoController.idLesaoBanco}" />		 			
 						
 						
 						<br/>
@@ -207,8 +219,9 @@
 			 		
 				 		<p:fileUpload label="Adicionar imagens da lesão" id="enviaImg" 
 				 			fileUploadListener="#{lesaoController.processaImg}"
-        					sizeLimit="9999999" auto="true" multiple="true"
-        					update="growlLesao tabelaImgLesoes"	
+        					auto="true" multiple="true"
+        					update="growlLesao tabelaImgLesoes"
+        					sizeLimit="10000000"
         				/>
         					
         				<br/>	

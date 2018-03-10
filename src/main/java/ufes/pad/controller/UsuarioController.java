@@ -1,8 +1,8 @@
 package ufes.pad.controller;
 
 import javax.annotation.ManagedBean;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -14,7 +14,7 @@ import ufes.pad.model.Usuario;
 import ufes.pad.repository.UsuarioRepository;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class UsuarioController {
 
 	private Usuario user = new Usuario();

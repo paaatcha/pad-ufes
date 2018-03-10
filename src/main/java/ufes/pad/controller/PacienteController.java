@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.ManagedBean;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +15,14 @@ import ufes.pad.model.Paciente;
 import ufes.pad.repository.PacienteRepository;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class PacienteController {
 
 	private Paciente pac = new Paciente();
 	private List<Paciente> todosPacs;
 	private Paciente pacBuscado;
 	
-	@Autowired
+	@Autowired 
 	private PacienteRepository pac_rep;
 	
 	private boolean visivel = false;
