@@ -29,6 +29,8 @@ public class PacienteController {
 	private boolean visivelTodos = false;
 	private String cartao_sus_busca;
 	
+	private Lesao lesaoParaExcluir;
+	
 	
 	private List<Lesao> pacLesoes = new ArrayList<Lesao>();
 	private Lesao lesao = new Lesao ();
@@ -86,7 +88,8 @@ public class PacienteController {
 	}
 	
 	public void excluirLesao () {
-		this.pacLesoes.remove(this.lesao);
+		System.out.println("Excluindo lesão "+lesaoParaExcluir.getRegiao());
+		this.pacLesoes.remove(this.lesaoParaExcluir);
 	}
 	
 	public String salvar () {		
@@ -222,6 +225,14 @@ public class PacienteController {
 
 	public void setPacLesoes(List<Lesao> pacLesoes) {
 		this.pacLesoes = pacLesoes;
+	}
+
+	public Lesao getLesaoParaExcluir() {
+		return lesaoParaExcluir;
+	}
+
+	public void setLesaoParaExcluir(Lesao lesaoParaExcluir) {
+		this.lesaoParaExcluir = lesaoParaExcluir;
 	}	
 	
 }

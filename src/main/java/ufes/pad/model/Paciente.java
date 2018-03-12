@@ -26,10 +26,10 @@ public class Paciente implements Serializable {
 	private Long id;
 	
 	@Column(length=100, nullable = false)
-	private String local_atendimento = "ITAGUAÇU";	
+	private String local_atendimento;	
 	
 	@Temporal(TemporalType.DATE)
-	private Date data_atendimento;
+	private Date data_atendimento = new Date();
 	
 	@Column(length=15, nullable = false)
 	private String prontuario;

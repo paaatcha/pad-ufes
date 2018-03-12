@@ -443,10 +443,10 @@
 							
 								
 							<p> Diametro maior (mm): </p>
-							<p:spinner size="15" id="dia_maior" value="#{pacienteController.lesao.diametro_maior}" min="0" />
+							<p:spinner size="15" id="dia_maior" value="#{pacienteController.lesao.diametro_maior}" min="0" stepFactor="0.25"/>
 							
 							<p> Diametro menor (mm): </p>
-							<p:spinner size="15" id="dia_menor" value="#{pacienteController.lesao.diametro_menor}" min="0" />
+							<p:spinner size="15" id="dia_menor" value="#{pacienteController.lesao.diametro_menor}" min="0" stepFactor="0.25"/>
 							
 							<p> Diagnóstico clínico: </p>							
 							<p:autoComplete size="30" id="diag_clin" value="#{pacienteController.lesao.diagnostico_clinico}"
@@ -509,17 +509,16 @@
 									</p:column>									
 																	
 							
-									 <!-- 
-									<p:column headerText="">
-										<h:form>										
-											<p:commandButton action="#{pacienteController.excluirLesao}" icon="ui-icon-trash" title="Excluir" update="@all" process="@this">
-	      										<f:setPropertyActionListener
-	             									target="#{pacienteController.pacLesoes}"
-	             									value="#{les}" />             						
-											</p:commandButton>								
-										</h:form>
-									</p:column>
-									 -->
+									 
+									<p:column headerText="">																		
+										<p:commandButton action="#{pacienteController.excluirLesao}" icon="ui-icon-trash" title="Excluir" update="tabelaLesoes" process="@this">
+	      									<f:setPropertyActionListener value="#{les}" target="#{pacienteController.lesaoParaExcluir}" />          						
+										</p:commandButton>								
+										
+									</p:column>			
+									
+
+															
 									 				
 								</p:dataTable>
     						</p:overlayPanel>							
