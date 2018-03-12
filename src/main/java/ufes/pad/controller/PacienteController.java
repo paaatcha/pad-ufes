@@ -34,12 +34,59 @@ public class PacienteController {
 	private Lesao lesao = new Lesao ();
 	
 	
+	public List<String> completarEstados (String query){
+		List<String> result = new ArrayList<String>();
+		query = query.toUpperCase();
+		String[] estados = new String[] {"ACRE","ALAGOAS","AMAPÁ","AMAZONAS","BAHIA","CEARÁ","DISTRITO FEDERAL","ESPÍRITO SANTO","GOIÁS","MARANHÃO",
+				"MATO GROSSO","MATO GROSSO DO SUL","MINAS GERAIS","PARÁ","PARAÍBA","PARANÁ","PERNAMBUCO","PIAUÍ","RIO DE JANEIRO",
+				"RIO GRANDE DO NORTE","RIO GRANDE DO SUL","RONDÔNIA","RORAIMA","SANTA CATARINA","SÃO PAULO","SERGIPE","TOCANTINS"};
+		
+		for (String s : estados){
+			 if (s.startsWith(query)){
+				 result.add(s);
+			 }
+		}		
+		return result;
+	}  
+	
+	public List<String> completarOrigemFamiliar (String query){
+		List<String> result = new ArrayList<String>();
+		query = query.toUpperCase();
+		String[] estados = new String[] {"ALEMANHA", "POMERANO", "PORTUGAL", "ITÁLIA", "BRASIL", "ESTADOS UNIDOS", "ESPANHA", "MÉXICO", "NORUEGA", "FRANÇA",
+				"OUTRO", "NÃO SABE", "NAO SABE", "INGLATERRA", "POLÔNIA", "CANADÁ", "ARGENTINA", "URUGUAI", "CHILE", "EQUADOR", "ÁRABE", "EUROPA", "ASIA",
+				"CHINA", "JAPÃO", "CORÉIA", "HUNGRIA", "DINAMARCA", "COLÔMBIA", "LATINA", "AFRICA", "PARAGUAI", "VENEZUELA"};
+		
+		for (String s : estados){
+			 if (s.startsWith(query)){
+				 result.add(s);
+			 }
+		}		
+		return result;
+	}
+	
+	public List<String> completarDiagnosticoLesao (String query){
+		List<String> result = new ArrayList<String>();
+		query = query.toUpperCase();
+		String[] diag = new String[] {"CARCINOMA BASOCELULAR", "CARCINOMA ESPINOCELULAR", "DOENÇA DE BOWN", "CEROTOSE ACTÍNICA"};
+		
+		for (String s : diag){
+			 if (s.startsWith(query)){
+				 result.add(s);
+			 }
+		}		
+		return result;
+	}
+	
 	public void inserirLesao () {		
 		System.out.println(lesao.getDiagnostico_clinico() +" "+lesao.getRegiao()+" "+lesao.getDiametro_maior()+" "+lesao.getDiametro_menor());
 		getPacLesoes().add(lesao);		
 		lesao = new Lesao ();
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Lesão adicionada"));
+	}
+	
+	public void excluirLesao () {
+		this.pacLesoes.remove(this.lesao);
 	}
 	
 	public String salvar () {		
@@ -53,6 +100,7 @@ public class PacienteController {
 				context.addMessage(null, new FacesMessage("Paciente cadastrado com sucesso. Utilize o celular para incluir as imagens e dados da lesão.\nID do Paciente: " + pac.getId()));
 				pacLesoes.clear();
 				pac = new Paciente();
+				lesao = new Lesao();
 			} else if (pacLesoes.isEmpty()) {
 				ret =  null;
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Você está cadastrando um paciente sem lesões adicionadas!", "  "));

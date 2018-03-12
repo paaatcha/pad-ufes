@@ -1,7 +1,6 @@
 package ufes.pad.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class Paciente implements Serializable {
 	private Long id;
 	
 	@Column(length=100, nullable = false)
-	private String local_atendimento;	
+	private String local_atendimento = "ITAGUAÇU";	
 	
 	@Temporal(TemporalType.DATE)
 	private Date data_atendimento;
@@ -42,7 +41,7 @@ public class Paciente implements Serializable {
 	private String local_nascimento;
 	
 	@Column(length=40, nullable = false)
-	private String estado_nascimento;
+	private String estado_nascimento = "ESPÍRITO SANTO";
 	
 	@Temporal(TemporalType.DATE)
 	private Date data_nascimento;
@@ -75,11 +74,8 @@ public class Paciente implements Serializable {
 	private String origem_familiar_pai= "NÃO SABE";
 	
 	@Column(length=40, nullable = false)
-	private String agrotoxico = "NENHUM";
-	
-	@Column(length=40, nullable = false)
-	private String procedimento;	
-	
+	private String agrotoxico = "NENHUM";	
+		
 	@Column(length=20, nullable = false)
 	private String cartao_sus;	
 	
@@ -91,8 +87,6 @@ public class Paciente implements Serializable {
 	
 	private char anticoagulante;
 	
-	private char infeccao;
-	
 	@Column(length=100, nullable = false)
 	private String alergia = "NÃO";	
 	
@@ -102,7 +96,8 @@ public class Paciente implements Serializable {
 	
 	private float pres_art_diastolica;
 	
-	private int num_comodos;
+	@Column(length=5, nullable = false)
+	private String num_comodos;
 	
 	private int num_pessoas_casa;
 	
@@ -140,41 +135,7 @@ public class Paciente implements Serializable {
 	
 	private char tipo_pele;
 	
-
-	
-	public List<String> completarEstados (String query){
-		List<String> result = new ArrayList<String>();
-		query = query.toUpperCase();
-		String[] estados = new String[] {"ACRE","ALAGOAS","AMAPÁ","AMAZONAS","BAHIA","CEARÁ","DISTRITO FEDERAL","ESPÍRITO SANTO","GOIÁS","MARANHÃO",
-				"MATO GROSSO","MATO GROSSO DO SUL","MINAS GERAIS","PARÁ","PARAÍBA","PARANÁ","PERNAMBUCO","PIAUÍ","RIO DE JANEIRO",
-				"RIO GRANDE DO NORTE","RIO GRANDE DO SUL","RONDÔNIA","RORAIMA","SANTA CATARINA","SÃO PAULO","SERGIPE","TOCANTINS"};
-		
-		for (String s : estados){
-			 if (s.startsWith(query)){
-				 result.add(s);
-			 }
-		}		
-		return result;
-	}    
-	
-	public List<String> completarOrigemFamiliar (String query){
-		List<String> result = new ArrayList<String>();
-		query = query.toUpperCase();
-		String[] estados = new String[] {"ALEMANHA", "PORTUGAL", "ITÁLIA", "BRASIL", "ESTADOS UNIDOS", "ESPANHA", "MÉXICO", "NORUEGA", "FRANÇA",
-				"OUTRO", "NÃO SABE", "NAO SABE", "INGLATERRA", "POLÔNIA", "CANADÁ", "ARGENTINA", "URUGUAI", "CHILE", "EQUADOR", "ÁRABE", "EUROPA", "ASIA",
-				"CHINA", "JAPÃO", "CORÉIA", "HUNGRIA", "DINAMARCA", "COLÔMBIA", "LATINA", "AFRICA", "PARAGUAI", "VENEZUELA"};
-		
-		for (String s : estados){
-			 if (s.startsWith(query)){
-				 result.add(s);
-			 }
-		}		
-		return result;
-	}  	
-    
-	
-	
-	
+	private char HAS;
 	
 /* ###########################################  Getters and Setters ###################################################*/	
 	
@@ -331,12 +292,12 @@ public class Paciente implements Serializable {
 	}
 
 
-	public int getNum_comodos() {
+	public String getNum_comodos() {
 		return num_comodos;
 	}
 
 
-	public void setNum_comodos(int num_comodos) {
+	public void setNum_comodos(String num_comodos) {
 		this.num_comodos = num_comodos;
 	}
 
@@ -534,14 +495,6 @@ public class Paciente implements Serializable {
 		this.lesoes = lesoes;
 	}
 
-	public String getProcedimento() {
-		return procedimento;
-	}
-
-	public void setProcedimento(String procedimento) {
-		this.procedimento = procedimento.toUpperCase();
-	}
-
 	public float getPres_art_sistolica() {
 		return pres_art_sistolica;
 	}
@@ -574,14 +527,6 @@ public class Paciente implements Serializable {
 		this.anticoagulante = anticoagulante;
 	}
 
-	public char getInfeccao() {
-		return infeccao;
-	}
-
-	public void setInfeccao(char infeccao) {
-		this.infeccao = infeccao;
-	}
-
 	public String getAlergia() {
 		return alergia;
 	}
@@ -596,6 +541,14 @@ public class Paciente implements Serializable {
 
 	public void setObs(String obs) {
 		this.obs = obs;
+	}
+
+	public char getHAS() {
+		return HAS;
+	}
+
+	public void setHAS(char hAS) {
+		HAS = hAS;
 	}	
 	
 	

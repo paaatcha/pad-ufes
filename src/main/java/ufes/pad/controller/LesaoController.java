@@ -76,22 +76,21 @@ public class LesaoController {
 	
 	public void buscaPacienteParaLesao() {
 		try {
-			if (getIdPac() != 0L) {
-				System.out.println(getIdPac().getClass());
-				setPacLesao(pac_rep.buscaPorId(getIdPac()));
-			} else if (getCartaoSusLesao().equals("N")) {
-				setPacLesao(pac_rep.buscaPorCartaoSus(getCartaoSusLesao()));
-			} else {
-				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Você deve informar o ID ou cartão do SUS", "  "));
-			}								
 			
-			if (getPacLesao()==null) {
+			if (getIdPac() == 0L && getCartaoSusLesao().equals("N")) {
 				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Nenhum paciente foi encontrado com este número de cartão. Tente visualizar todos para encontrá-lo, caso não encontre, ele não está registrado no banco.", "  "));
-				this.setVisivelLesao(false);
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Você deve informar o ID ou cartão do SUS", "  "));				
 			} else {
 				this.setVisivelLesao(true);
+				this.pacLesao = (pac_rep.buscaPorId(getIdPac()));				
+				if (pacLesao == null) {
+					this.pacLesao = (pac_rep.buscaPorCartaoSus(getCartaoSusLesao()));
+					if (pacLesao == null) {
+						FacesContext context = FacesContext.getCurrentInstance();
+						context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Nenhum paciente foi encontrado com este número de cartão. Tente visualizar todos para encontrá-lo, caso não encontre, ele não está registrado no banco.", "  "));
+						this.setVisivelLesao(false);						
+					}
+				}				
 			}
 		} catch (Exception e) {
 			FacesContext context = FacesContext.getCurrentInstance();

@@ -22,14 +22,17 @@ public class Lesao implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)	
 	private Long id;
 	
-	@Column(length=40)
+	@Column(length=100)
 	private String diagnostico_clinico;
 	
-	@Column(length=40)
+	@Column(length=100)
 	private String diagnostico_histo;
 	
 	@Column(length=100, nullable = false)
 	private String regiao;
+	
+	@Column(length=150, nullable = false)
+	private String procedimento;
 	
 	@Column(length=500)
 	private String obs = "NENHUMA";
@@ -108,6 +111,14 @@ public class Lesao implements Serializable {
 
 	public void setObs(String obs) {
 		this.obs = obs.toUpperCase();
+	}
+
+	public String getProcedimento() {
+		return procedimento;
+	}
+
+	public void setProcedimento(String procedimento) {
+		this.procedimento = procedimento.toUpperCase();
 	}	
 	
 }

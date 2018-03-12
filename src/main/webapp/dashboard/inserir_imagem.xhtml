@@ -93,6 +93,7 @@
 			
 			<p>
 				Para inserir busque o paciente via ID ou Cartão do SUS. O ID é informado no momento do cadastro.
+				A prioridade da busca é sempre o ID. Caso você informe um ID diferente de 0, ele sempre busca o ID primeiro, depois o cartão do SUS.
 			
 			</p>
 			
@@ -114,7 +115,7 @@
 						<br/>
 						<p> OU </p>
 						
-						<p> Insira o ID do paciente: </p>
+						<p> Insira o ID do paciente (busca prioritária, se for diferente de 0, sempre busca pelo ID): </p>
 						<p:spinner size="15" id="id_pac" value="#{lesaoController.idPac}" min="0" />						
 
 						<br/>
@@ -171,6 +172,10 @@
 							    <p:column headerText="Diagnóstico Clínico">
 							        <h:outputText value="#{les.diagnostico_clinico}" />
 							    </p:column>
+							    
+								<p:column headerText="Procedimento">
+							        <h:outputText value="#{les.procedimento}" />
+							    </p:column>							    
 							 
 							    <p:column headerText="ID">
 							        <h:outputText value="#{les.id}" />
