@@ -81,10 +81,21 @@ public class PacienteController {
 	
 	public void inserirLesao () {		
 		System.out.println(lesao.getDiagnostico_clinico() +" "+lesao.getRegiao()+" "+lesao.getDiametro_maior()+" "+lesao.getDiametro_menor());
-		getPacLesoes().add(lesao);		
-		lesao = new Lesao ();
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage("Lesão adicionada"));
+		
+		if (lesao.getRegiao() != null && lesao.getDiagnostico_clinico() != null && lesao.getProcedimento() != null) {
+		
+			getPacLesoes().add(lesao);		
+			lesao = new Lesao ();			
+			context.addMessage(null, new FacesMessage("Lesão adicionada"));
+		} else {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Você não preencheu todos os campos obrigatorios de uma lesão. Verifique se esqueceu algum campo e tente novamente!", "  "));
+			//context.addMessage(null, new FacesMessage("Vai cagar"));
+			//System.out.println("ENTREI AQUI");
+		}
+		lesao.setRegiao("");
+		lesao.setDiagnostico_clinico("");
+		lesao.setProcedimento("");
 	}
 	
 	public void excluirLesao () {
