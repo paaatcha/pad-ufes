@@ -196,7 +196,7 @@ public class Paciente implements Serializable {
 	}
 
 	public void setLocal_nascimento(String local_nascimento) {
-		this.local_nascimento = local_nascimento;
+		this.local_nascimento = local_nascimento.toUpperCase();
 	}
 
 	public String getEndereco() {

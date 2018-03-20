@@ -483,12 +483,22 @@
 								
 							</p:inputTextarea>
 							
-							<br/>						
+							<br/>				
 							
+							<p> Imagen(s) da lesão: </p>		
+							<p:fileUpload label="Procurar Imagem" uploadLabel="Enviar" 
+								cancelLabel="Cancelar" id="imgLesao" 
+					 			fileUploadListener="#{pacienteController.inserirImagemLista}"
+	        					multiple="true"	        					
+	        					sizeLimit="10000000"
+	        					update="growlLesao"
+	        				/>
+							
+							<br/> <br/>
 							<p:growl id="growlLesao" showDetail="true" closable="true" />
 							 
 							
-							<p:commandButton value="Inserir na lista" icon="ui-icon-plus">						
+							<p:commandButton value="Inserir lesão" icon="ui-icon-plus">						
 								<p:ajax event="click" update="tabelaLesoes growlLesao regiao dia_maior dia_menor diag_clin procedimento obs_les"								
 								 listener="#{pacienteController.inserirLesao}" />								
 							</p:commandButton>										
@@ -517,9 +527,7 @@
 									
 									<p:column headerText="Procedimento">
 										<h:outputText value="#{les.procedimento}" />
-									</p:column>									
-																	
-							
+									</p:column>						
 									 
 									<p:column headerText="">																		
 										<p:commandButton action="#{pacienteController.excluirLesao}" icon="ui-icon-trash" title="Excluir" update="tabelaLesoes" process="@this">

@@ -1,6 +1,11 @@
 package ufes.pad.controller;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.ManagedBean;
@@ -8,8 +13,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ufes.pad.model.Imagem;
 import ufes.pad.model.Lesao;
 import ufes.pad.model.Paciente;
 import ufes.pad.repository.PacienteRepository;
@@ -33,7 +41,9 @@ public class PacienteController {
 	
 	
 	private List<Lesao> pacLesoes = new ArrayList<Lesao>();
-	private Lesao lesao = new Lesao ();
+	private List<Imagem> pacImagens = new ArrayList<Imagem>();
+	private Lesao lesao = new Lesao ();	
+	private Imagem img = new Imagem ();
 	
 	
 	public List<String> completarEstados (String query){
@@ -84,19 +94,48 @@ public class PacienteController {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		if (lesao.getRegiao() != null && lesao.getDiagnostico_clinico() != null && lesao.getProcedimento() != null) {
-		
-			getPacLesoes().add(lesao);		
+			lesao.setImagens(pacImagens);
+			pacImagens.clear();
+			pacLesoes.add(lesao);		
 			lesao = new Lesao ();			
-			context.addMessage(null, new FacesMessage("Lesão adicionada"));
+			context.addMessage(null, new FacesMessage("Lesão adicionada com sucesso."));
 		} else {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Você não preencheu todos os campos obrigatorios de uma lesão. Verifique se esqueceu algum campo e tente novamente!", "  "));
-			//context.addMessage(null, new FacesMessage("Vai cagar"));
-			//System.out.println("ENTREI AQUI");
 		}
-		lesao.setRegiao("");
-		lesao.setDiagnostico_clinico("");
-		lesao.setProcedimento("");
+		lesao = null;
+		lesao = new Lesao();
 	}
+	
+	
+	public void inserirImagemLista (FileUploadEvent event) {
+		
+		try {
+			UploadedFile arq = event.getFile();		
+			InputStream in = new BufferedInputStream(arq.getInputstream());
+			String pathImg = (new Date().getTime())+ "_" + arq.getFileName();
+			File file = new File("src/main/webapp/dashboard/imgLesoes/" + pathImg);
+    		FileOutputStream fout = new FileOutputStream(file);
+
+		while (in.available() != 0) {
+			fout.write(in.read());
+		}
+			fout.close();
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage("Imagem adicionada com sucesso."));
+			
+			img.setPath(pathImg);
+			pacImagens.add(img);
+			img = new Imagem ();
+
+			//imagens.add("imgLesoes/" + nomeImg);
+			System.out.println("Adicionando " + pathImg);
+
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}		
+	}	
+	
 	
 	public void excluirLesao () {
 		System.out.println("Excluindo lesão "+lesaoParaExcluir.getRegiao());
@@ -107,17 +146,18 @@ public class PacienteController {
 		String ret = "/dashboard/cadastar_pacientes.xhtml";
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
-			Paciente p1 = pac_rep.buscaPorCartaoSus(this.pac.getCartao_sus());			
-			if (p1 == null) {	
+			Paciente p1 = pac_rep.buscaPorCartaoSus(this.pac.getCartao_sus());	
+			
+			if (pacLesoes.isEmpty()) {
+				ret =  null;
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Você está cadastrando um paciente sem lesões adicionadas! Essa operação não é permitida.", "  "));
+			} else if (p1 == null) {				
 				this.pac.setLesoes(pacLesoes);
 				pac_rep.save(this.pac);
-				context.addMessage(null, new FacesMessage("Paciente cadastrado com sucesso. Utilize o celular para incluir as imagens e dados da lesão.\nID do Paciente: " + pac.getId()));
+				context.addMessage(null, new FacesMessage("Paciente cadastrado com sucesso. \nID do Paciente: " + pac.getId()));
 				pacLesoes.clear();
 				pac = new Paciente();
 				lesao = new Lesao();
-			} else if (pacLesoes.isEmpty()) {
-				ret =  null;
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Você está cadastrando um paciente sem lesões adicionadas!", "  "));
 			} else {
 				ret = null;  
 		        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Este cartão do SUS já está cadastrado! Visualize o paciente na página de visualização.", "  "));
@@ -126,7 +166,7 @@ public class PacienteController {
 						
 		} catch (Exception e) {
 			e.printStackTrace();
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO! Problema na comunicação com banco de dados", "  "));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO! Problema na comunicação com banco de dados. Tente novamente. Se o problema persistir, entre em contato com o administrador do sistema.", "  "));
 			ret = null;
 		}		
 		return ret;
