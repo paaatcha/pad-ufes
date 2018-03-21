@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Paciente implements Serializable {
@@ -136,6 +137,10 @@ public class Paciente implements Serializable {
 	private char tipo_pele;
 	
 	private char HAS;
+	
+	// Atributos que não vão para o banco
+	@Transient
+	private int idade;
 	
 /* ###########################################  Getters and Setters ###################################################*/	
 	
@@ -549,6 +554,14 @@ public class Paciente implements Serializable {
 
 	public void setHAS(char hAS) {
 		HAS = hAS;
+	}
+
+	public int getIdade() {
+		return idade;
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
 	}	
 	
 	

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>PAD - Programa de Assistência Dermatológica</title>
+	<link href="../css/pad_style.css" rel="stylesheet" type="text/css" />
+	<link href="../img/icon.png" rel='shortcut icon'/>
+</h:head>
+
+<h:body>
+
+
+	<div class="painelPrincipal">
+		<div class="parteSuperior">	
+		
+			<p> Programa de Assistência Dermatológica - PAD</p>
+			
+			<a href="/logout"> Sair </a>
+		
+		</div>
+		
+	<div class="menu">
+		
+				<ul>
+					<li>											
+						<a href="home.xhtml">
+							<img src="../img/homepage.png" alt="Página inicial"/>
+							<span> Home </span> 
+						</a>
+					
+					
+					</li>
+					
+					<li>					
+						
+						<a href="cadastrar_pacientes.xhtml">	
+							<img src="../img/note.png" alt="Cadastrar paciente"/>					
+							<span> Cadastrar pacientes </span>
+						</a>
+						
+					</li>
+					
+					
+					<li>					
+						<a href="visualizar_paciente.xhtml">							
+							<img src="../img/onePerson.png" alt="Visualizar paciente"/>
+							<span> Visualizar paciente </span>
+						</a>
+						
+					</li>
+					
+					<li>					
+						<a href="visualizar_todos_pacientes.xhtml">							
+							<img src="../img/manyPersons.png" alt="Visualizar paciente"/>
+							<span> Visualizar todos os pacientes </span>
+						</a>
+						
+					</li>					
+					
+					<li>						
+						<a href="analise_de_dados.xhtml">							
+							<img src="../img/graph.png" alt="Analise de dados"/>
+							<span> Análise dos dados </span>
+						</a>
+					</li>
+					
+					<li>											
+						<a href="configuracoes.xhtml">							
+							<img src="../img/settings.png" alt="Configurações"/> 
+							<span> Configurações </span> 
+						</a>
+					
+					
+					</li>
+				
+				</ul>	
+		
+		</div>	
+			
+		<div class="conteudoInferior">
+		
+			<h2> Visualizar todos os pacientes cadastrados </h2>
+			
+			<p>				
+				Todos os pacientes cadastrados no banco estão listados na tabela abaixo. 
+				<br/>				
+			</p>			
+			
+			 <f:metadata>
+    			<f:event type="preRenderView" listener="#{visualizacaoController.listarPacientes}"/>
+ 			 </f:metadata>	      	
+	      			 
+				
+				
+				<p:growl id="growlCheck" showDetail="true" closable="true" />	
+				
+	      		
+				      		
+				      		
+				      		<br/><br/>
+				      		
+				      		<h:panelGroup id="tabelaTodos">
+					      		<p:dataTable  var="pac" value="#{visualizacaoController.todosPacs}"
+					      		rows="10" paginator="true"
+					      		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					            rowsPerPageTemplate="5,10,15,20,25,30"	
+					            style="text-align:center;"			                        		            
+					      		>		
+	            									      		
+	  								<f:facet name="header">
+	            						Pacientes
+	        						</f:facet>				 
+	        						
+	        						   
+								    <p:column headerText="Nome completo">
+								        <h:outputText value="#{pac.nome_completo}" />
+								    </p:column>
+								 
+								    <p:column headerText="Cartão do SUS">
+								        <h:outputText value="#{pac.cartao_sus}" />
+								    </p:column>
+								 
+								    <p:column headerText="Idade">							    	
+								        <h:outputText value="#{pac.idade}" />
+								    </p:column>
+								 
+								    <p:column headerText="Atividade principal">
+									        <h:outputText value="#{pac.atv_principal}" />
+									 </p:column>
+									 
+								    <p:column headerText="Local de atendimento">
+									        <h:outputText value="#{pac.local_atendimento}" />									        
+									</p:column>								 
+									 
+									
+							        <p:column headerText="Lesão">
+							        	<h:form>
+							        	
+							        	<p:commandButton update="dialogLesoes" oncomplete="PF('lesaoDialog').show()" 
+							        	value="Ver lesões" icon="ui-icon-folder-open" />
+							        							            
+							           		<p:dialog header="Informações das lesões do paciente" 
+									           widgetVar="lesaoDialog" modal="true" 
+									           showEffect="fade" hideEffect="fade" resizable="false"
+									           style="width:700px; text-align:center;"
+									           id="dialogLesoes">
+				           						           
+							       					<p:dataTable id="tabelaLesoes"				       			
+													value="#{pac.lesoes}" var="les"
+													style="width:700px">
+													
+														<p:column headerText="Região">
+															<h:outputText value="#{les.regiao}" />
+														</p:column>								
+															
+														<p:column headerText="Diametro maior">
+															<h:outputText value="#{les.diametro_maior}" />
+														</p:column>
+														
+														<p:column headerText="Diametro menor">
+															<h:outputText value="#{les.diametro_menor}" />
+														</p:column>
+														
+														<p:column headerText="Diagnóstico clínico">
+															<h:outputText value="#{les.diagnostico_clinico}" />
+														</p:column>							
+														
+														<p:column headerText="Procedimento">
+															<h:outputText value="#{les.procedimento}" />
+														</p:column>	
+																						 				
+													</p:dataTable>
+													
+  											</p:dialog>
+							            	
+							            </h:form>						            		            
+							        </p:column>							        				        
+							        						 
+								</p:dataTable>				      		
+				      		</h:panelGroup>				      		
+				      	
+				          	
+							
+		      		
+							
+							 				      		
+	      
+	      					<p:commandButton value="Imprimir página" type="button" icon="ui-icon-print" style="display:block; margin-top: 20px">
+    							<p:printer target="tabelaTodos" />
+							</p:commandButton>
+							
+							
+						
+	      
+	      		   
+		
+		
+		</div>
+	
+	
+	
+	</div>	
+	
+	
+
+
+</h:body>
+</html>

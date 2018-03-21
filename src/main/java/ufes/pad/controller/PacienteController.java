@@ -31,10 +31,8 @@ public class PacienteController {
 	private Paciente pacBuscado;
 	
 	@Autowired 
-	private PacienteRepository pac_rep;
+	private PacienteRepository pac_rep;	
 	
-	private boolean visivel = false;
-	private boolean visivelTodos = false;
 	private String cartao_sus_busca;
 	
 	private Lesao lesaoParaExcluir;
@@ -91,14 +89,14 @@ public class PacienteController {
 	
 	public void inserirLesao () {		
 		System.out.println(lesao.getDiagnostico_clinico() +" "+lesao.getRegiao()+" "+lesao.getDiametro_maior()+" "+lesao.getDiametro_menor());
-		FacesContext context = FacesContext.getCurrentInstance();
+		FacesContext context = FacesContext.getCurrentInstance();		
 		
 		if (lesao.getRegiao() != null && lesao.getDiagnostico_clinico() != null && lesao.getProcedimento() != null) {
-			lesao.setImagens(pacImagens);
-			pacImagens.clear();
-			pacLesoes.add(lesao);		
-			lesao = new Lesao ();			
-			context.addMessage(null, new FacesMessage("Lesão adicionada com sucesso."));
+			lesao.setImagens(pacImagens);						
+			pacLesoes.add(lesao);			
+			lesao = new Lesao ();		
+			pacImagens = new ArrayList<Imagem>();			
+			context.addMessage(null, new FacesMessage("Lesão adicionada com sucesso."));			
 		} else {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Você não preencheu todos os campos obrigatorios de uma lesão. Verifique se esqueceu algum campo e tente novamente!", "  "));
 		}
@@ -106,9 +104,23 @@ public class PacienteController {
 		lesao = new Lesao();
 	}
 	
+	private void printImgs (List<Imagem> imgs) {
+		System.out.println("Imprimindo imagens");
+		for (Imagem img: imgs) {
+			System.out.println(img.getPath());
+		}
+	}
+	
+	private void printLesoes (List<Lesao> lesoes) {
+		System.out.println("Imprimindo lesoes");
+		for (Lesao les: lesoes) {
+			System.out.println(les.getRegiao() + " - " + les.getDiagnostico_clinico());
+			printImgs(les.getImagens());
+		}
+	}
 	
 	public void inserirImagemLista (FileUploadEvent event) {
-		
+		FacesContext context = FacesContext.getCurrentInstance();
 		try {
 			UploadedFile arq = event.getFile();		
 			InputStream in = new BufferedInputStream(arq.getInputstream());
@@ -119,20 +131,17 @@ public class PacienteController {
 		while (in.available() != 0) {
 			fout.write(in.read());
 		}
-			fout.close();
-			FacesContext context = FacesContext.getCurrentInstance();
+			fout.close();			
 			context.addMessage(null, new FacesMessage("Imagem adicionada com sucesso."));
 			
 			img.setPath(pathImg);
 			pacImagens.add(img);
 			img = new Imagem ();
-
-			//imagens.add("imgLesoes/" + nomeImg);
 			System.out.println("Adicionando " + pathImg);
-
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problema no envio da imagem. Tente novamente. Caso não consiga, entre em contato com o administrador do sistema.", "  "));
 		}		
 	}	
 	
@@ -151,7 +160,8 @@ public class PacienteController {
 			if (pacLesoes.isEmpty()) {
 				ret =  null;
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Você está cadastrando um paciente sem lesões adicionadas! Essa operação não é permitida.", "  "));
-			} else if (p1 == null) {				
+			} else if (p1 == null) {		
+				printLesoes(pacLesoes);
 				this.pac.setLesoes(pacLesoes);
 				pac_rep.save(this.pac);
 				context.addMessage(null, new FacesMessage("Paciente cadastrado com sucesso. \nID do Paciente: " + pac.getId()));
@@ -172,6 +182,7 @@ public class PacienteController {
 		return ret;
 	}	
 	
+	/*
 	public List<Paciente> listarPacientes () {		
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
@@ -202,7 +213,7 @@ public class PacienteController {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));			
 		}		
-	}
+	}*/
 	
 	
 /* ###########################################  Getters and Setters ###################################################*/
@@ -220,14 +231,6 @@ public class PacienteController {
 
 	public void setUserRep(PacienteRepository pac_rep) {
 		this.pac_rep = pac_rep;
-	}
-
-	public boolean isVisivel() {
-		return visivel;
-	}
-
-	public void setVisivel(boolean visivel) {
-		this.visivel = visivel;
 	}
 
 	public Paciente getPacBuscado() {
@@ -252,14 +255,6 @@ public class PacienteController {
 
 	public void setTodosPacs(List<Paciente> todosPacs) {
 		this.todosPacs = todosPacs;
-	}
-
-	public boolean isVisivelTodos() {
-		return visivelTodos;
-	}
-
-	public void setVisivelTodos(boolean visivelTodos) {
-		this.visivelTodos = visivelTodos;
 	}
 
 	public Lesao getLesao() {

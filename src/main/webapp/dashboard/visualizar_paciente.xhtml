@@ -6,7 +6,7 @@
   xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-	<title>PAD - Projeto de Assistência Dermatológica</title>
+	<title>PAD - Programa de Assistência Dermatológica</title>
 	<link href="../css/pad_style.css" rel="stylesheet" type="text/css" />
 	<link href="../img/icon.png" rel='shortcut icon'/>
 </h:head>
@@ -17,7 +17,7 @@
 	<div class="painelPrincipal">
 		<div class="parteSuperior">	
 		
-			<p> Projeto de Assistência Dermatológica - PAD</p>
+			<p> Programa de Assistência Dermatológica - PAD</p>
 			
 			<a href="/logout"> Sair </a>
 		
@@ -44,19 +44,19 @@
 						
 					</li>
 					
-					<li>					
-						
-						<a href="inserir_imagem.xhtml">	
-							<img src="../img/imagem.png" alt="Inserir imagem"/>					
-							<span> Inserir imagem </span>
-						</a>
-						
-					</li>						
 					
 					<li>					
-						<a href="visualizar_pacientes.xhtml">							
-							<img src="../img/visualizer.png" alt="Visualizar paciente"/>
-							<span> Visualizar pacientes </span>
+						<a href="visualizar_paciente.xhtml">							
+							<img src="../img/onePerson.png" alt="Visualizar paciente"/>
+							<span> Visualizar paciente </span>
+						</a>
+						
+					</li>
+					
+					<li>					
+						<a href="visualizar_todos_pacientes.xhtml">							
+							<img src="../img/manyPersons.png" alt="Visualizar paciente"/>
+							<span> Visualizar todos os pacientes </span>
 						</a>
 						
 					</li>					
@@ -83,18 +83,19 @@
 			
 		<div class="conteudoInferior">
 		
-			<h2> Visualizar pacientes cadastrados </h2>
-		
-		
+			<h2> Visualizar paciente</h2>
+			
 			<p>
-				Aqui você pode buscar um paciente pelo número do cartão do SUS ou visualizar todos os pacientes. Tenham em mente que <br/> 
-				caso exista muitos pacientes na base de dados, visualizar todos pode levar alguns minutos.				
-			</p>		
+				Para visualizar todos os dados do paciente busque o mesmo inserindo o cartão do SUS no campo abaixo.				
 			
+			</p>
+		
 			
-			<p:fieldset legend="Visualização por busca" toggleable="true" style="margin-bottom:20px">	
+			<h:form class="formLogin" id="cadastroPaciente">
+			
+			<p:fieldset legend="Buscar paciente" toggleable="true" style="margin-bottom:20px; margin-top:20px;">	
         		<h:panelGrid columns="1" cellpadding="5">
-					<h:form class="formLogin" id="cadastroPaciente">
+					
 			      			<p:messages autoUpdate="true" />
 			      			<p:growl id="growlCheck" showDetail="true" closable="true" />		    
 			      	
@@ -136,64 +137,18 @@
 								    </p:column>								    
 									    
 							    </p:dataTable>
-							</h:panelGroup> 	     		
+							</h:panelGroup> 	    		
+					
 					
 			      			
 			      			
-			      	</h:form>   
+			      	  
 	      		</h:panelGrid>
-	      	</p:fieldset>	      	
+	      	</p:fieldset>
+	      	
+	      </h:form> 	      	
 			
-			<p>
-				<br/>
-				<br/>
-				Para visualizar todos os pacientes clique no botão abaixo.
-				<br/>
-				<br/>
-			</p>	      	
-	      			 
-			<p:fieldset legend="Visualizar todos os pacientes" toggleable="true" style="margin-bottom:20px">	
-        		<h:panelGrid columns="1" cellpadding="5">	      			 
-					<h:form class="formLogin">	      			
-			      			<p:growl id="growlCheck2" showDetail="true" closable="true" />		    
-											
-							<p:commandButton  value="Visualizar todos os pacientes" actionListener="#{pacienteController.listarPacientes}"  
-				      		icon=" ui-icon-circle-arrow-s" update="growlCheck2 @form:tabelaTodos" />
-				      		
-				      		<br/><br/>
-				      		
-				      		<h:panelGroup id="tabelaTodos">
-				      		<p:dataTable  rendered="#{pacienteController.visivelTodos}" var="pac" value="#{pacienteController.todosPacs}"
-				      		rows="10" paginator="true"
-				      		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				            rowsPerPageTemplate="5,10,15"		            		            
-				      		>		
-  								<f:facet name="header">
-            						Pacientes
-        						</f:facet>				    
-							    <p:column headerText="Nome">
-							        <h:outputText value="#{pac.nome_completo}" />
-							    </p:column>
-							 
-							    <p:column headerText="Cartão do SUS">
-							        <h:outputText value="#{pac.cartao_sus}" />
-							    </p:column>
-							 
-							    <p:column headerText="Data de nascimento">
-							        <h:outputText value="#{pac.data_nascimento}" />
-							    </p:column>
-							 
-							    <p:column headerText="Local atendimento">
-								        <h:outputText value="#{pac.id}" />
-								 </p:column>
-							</p:dataTable>		      		
-				      		
-				      		</h:panelGroup>
-		      			
-			      			
-			      	</h:form>
-				</h:panelGrid>
-	      	</p:fieldset>   
+  
 		
 		
 		</div>

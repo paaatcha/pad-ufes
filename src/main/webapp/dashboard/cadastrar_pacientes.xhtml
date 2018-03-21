@@ -6,7 +6,7 @@
   xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-	<title>PAD - Projeto de Assistência Dermatológica</title>
+	<title>PAD - Programa de Assistência Dermatológica</title>
 	<link href="../css/pad_style.css" rel="stylesheet" type="text/css" />
 	<link href="../img/icon.png" rel='shortcut icon'/>
 </h:head>
@@ -17,7 +17,7 @@
 	<div class="painelPrincipal">
 		<div class="parteSuperior">	
 		
-			<p> Projeto de Assistência Dermatológica - PAD</p>
+			<p> Programa de Assistência Dermatológica - PAD</p>
 			
 			<a href="/logout"> Sair </a>
 		
@@ -432,118 +432,7 @@
     				</p:fieldset>
     				
 
-		      		<p:fieldset legend="Dados da lesão" style="margin-bottom:20px" toggleable="true">
-        				<h:panelGrid columns="1" cellpadding="5">
-							<p> Região da lesão: </p>					
-							<p:inputText size="30" id="regiao" value="#{pacienteController.lesao.regiao}">
-							
-								<p:ajax event="change" />
-											
-							</p:inputText>
-									
-							
-							
-							<p> Diametro maior (mm): </p>
-							<p:spinner size="15" id="dia_maior" value="#{pacienteController.lesao.diametro_maior}" min="0" stepFactor="0.25">
-							
-								<p:ajax event="change" />
-								
-							</p:spinner>
-							
-							<p> Diametro menor (mm): </p>
-							<p:spinner size="15" id="dia_menor" value="#{pacienteController.lesao.diametro_menor}" min="0" stepFactor="0.25">
-							
-								<p:ajax event="change" />
-								
-							</p:spinner>
-							
-							<p> Diagnóstico clínico: </p>							
-							<p:autoComplete size="30" id="diag_clin" value="#{pacienteController.lesao.diagnostico_clinico}"
-							completeMethod="#{pacienteController.completarDiagnosticoLesao}">
-							
-								<p:ajax event="change" />
-								
-							</p:autoComplete>
-							
-							
-							<p> Procedimento: </p>
-							<p:inputText size="30" id="procedimento" value="#{pacienteController.lesao.procedimento}">
-							
-								<p:ajax event="change" />
-												
-							</p:inputText>
-							
-							
-							<br/>
-								
-							<p> Observações: </p>
-							<p:inputTextarea id="obs_les" rows="3" cols="30" value="#{pacienteController.lesao.obs}">
-							
-								<p:ajax event="change" />
-								
-							</p:inputTextarea>
-							
-							<br/>				
-							
-							<p> Imagen(s) da lesão: </p>		
-							<p:fileUpload label="Procurar Imagem" uploadLabel="Enviar" 
-								cancelLabel="Cancelar" id="imgLesao" 
-					 			fileUploadListener="#{pacienteController.inserirImagemLista}"
-	        					multiple="true"	        					
-	        					sizeLimit="10000000"
-	        					update="growlLesao"
-	        				/>
-							
-							<br/> <br/>
-							<p:growl id="growlLesao" showDetail="true" closable="true" />
-							 
-							
-							<p:commandButton value="Inserir lesão" icon="ui-icon-plus">						
-								<p:ajax event="click" update="tabelaLesoes growlLesao regiao dia_maior dia_menor diag_clin procedimento obs_les"								
-								 listener="#{pacienteController.inserirLesao}" />								
-							</p:commandButton>										
-							
-							
-							<p:commandButton class="botao" id="verLesoes" value="Ver lesões adicionadas" type="button" icon="ui-icon-folder-open"/>
-							
-							<p:overlayPanel id="painelLesoes" for="verLesoes" hideEffect="fade" dynamic="true" style="width:500px">
-				       			<p:dataTable id="tabelaLesoes"				       			
-								value="#{pacienteController.pacLesoes}" var="les">
-									<p:column headerText="Região">
-										<h:outputText value="#{les.regiao}" />
-									</p:column>								
-										
-									<p:column headerText="Diametro maior">
-										<h:outputText value="#{les.diametro_maior}" />
-									</p:column>
-									
-									<p:column headerText="Diametro menor">
-										<h:outputText value="#{les.diametro_menor}" />
-									</p:column>
-									
-									<p:column headerText="Diagnóstico clínico">
-										<h:outputText value="#{les.diagnostico_clinico}" />
-									</p:column>							
-									
-									<p:column headerText="Procedimento">
-										<h:outputText value="#{les.procedimento}" />
-									</p:column>						
-									 
-									<p:column headerText="">																		
-										<p:commandButton action="#{pacienteController.excluirLesao}" icon="ui-icon-trash" title="Excluir" update="tabelaLesoes" process="@this">
-	      									<f:setPropertyActionListener value="#{les}" target="#{pacienteController.lesaoParaExcluir}" />          						
-										</p:commandButton>								
-										
-									</p:column>			
-									
-
-															
-									 				
-								</p:dataTable>
-    						</p:overlayPanel>							
-							
-						</h:panelGrid>
-					</p:fieldset>
+		      		
 
 		      		 
 		      		<p:fieldset legend="Dados técnicos" toggleable="true">
@@ -605,6 +494,120 @@
         					</h:panelGrid>
     				</p:fieldset>	      		 
 								
+
+					<p:fieldset legend="Dados da lesão" style="margin-bottom:20px; margin-top:20px;" toggleable="true">
+        				<h:panelGrid columns="1" cellpadding="5">
+							<p> Região da lesão: </p>					
+							<p:inputText size="30" id="regiao" value="#{pacienteController.lesao.regiao}">
+							
+								<p:ajax event="change" />
+											
+							</p:inputText>
+									
+							
+							
+							<p> Diametro maior (mm): </p>
+							<p:spinner size="15" id="dia_maior" value="#{pacienteController.lesao.diametro_maior}" min="0" stepFactor="0.25">
+							
+								<p:ajax event="change" />
+								
+							</p:spinner>
+							
+							<p> Diametro menor (mm): </p>
+							<p:spinner size="15" id="dia_menor" value="#{pacienteController.lesao.diametro_menor}" min="0" stepFactor="0.25">
+							
+								<p:ajax event="change" />
+								
+							</p:spinner>
+							
+							<p> Diagnóstico clínico: </p>							
+							<p:autoComplete size="30" id="diag_clin" value="#{pacienteController.lesao.diagnostico_clinico}"
+							completeMethod="#{pacienteController.completarDiagnosticoLesao}">
+							
+								<p:ajax event="change" />
+								
+							</p:autoComplete>
+							
+							
+							<p> Procedimento: </p>
+							<p:inputText size="30" id="procedimento" value="#{pacienteController.lesao.procedimento}">
+							
+								<p:ajax event="change" />
+												
+							</p:inputText>
+							
+							
+							<br/>
+								
+							<p> Observações: </p>
+							<p:inputTextarea id="obs_les" rows="3" cols="30" value="#{pacienteController.lesao.obs}">
+							
+								<p:ajax event="change" />
+								
+							</p:inputTextarea>
+							
+							<br/>				
+							
+							<p> Inserir imagem(s) da lesão: </p>		
+							<p:fileUpload label="Procurar Imagem" uploadLabel="Enviar" 
+								cancelLabel="Cancelar" id="imgLesao" 
+					 			fileUploadListener="#{pacienteController.inserirImagemLista}"
+	        					multiple="true"	        					
+	        					sizeLimit="10000000"
+	        					update="growlLesao"
+	        				/>
+							
+							<br/> <br/>
+							<p:growl id="growlLesao" showDetail="true" closable="true" />
+							 
+							
+							<p:commandButton value="Inserir lesão" icon="ui-icon-plus">						
+								<p:ajax event="click" update="tabelaLesoes growlLesao regiao dia_maior dia_menor diag_clin procedimento obs_les"								
+								 listener="#{pacienteController.inserirLesao}" />								
+							</p:commandButton>										
+							
+							
+							<p:commandButton class="botao" id="verLesoes" value="Ver lesões adicionadas" type="button" icon="ui-icon-folder-open"/>
+							
+							<p:overlayPanel id="painelLesoes" for="verLesoes" hideEffect="fade" dynamic="true" style="width:500px">
+				       			<p:dataTable id="tabelaLesoes"				       			
+								value="#{pacienteController.pacLesoes}" var="les">
+									<p:column headerText="Região">
+										<h:outputText value="#{les.regiao}" />
+									</p:column>								
+										
+									<p:column headerText="Diametro maior">
+										<h:outputText value="#{les.diametro_maior}" />
+									</p:column>
+									
+									<p:column headerText="Diametro menor">
+										<h:outputText value="#{les.diametro_menor}" />
+									</p:column>
+									
+									<p:column headerText="Diagnóstico clínico">
+										<h:outputText value="#{les.diagnostico_clinico}" />
+									</p:column>							
+									
+									<p:column headerText="Procedimento">
+										<h:outputText value="#{les.procedimento}" />
+									</p:column>
+															
+									 
+									<p:column headerText="">																		
+										<p:commandButton action="#{pacienteController.excluirLesao}" icon="ui-icon-trash" title="Excluir" update="tabelaLesoes" process="@this">
+	      									<f:setPropertyActionListener value="#{les}" target="#{pacienteController.lesaoParaExcluir}" />          						
+										</p:commandButton>								
+										
+									</p:column>			
+									
+
+															
+									 				
+								</p:dataTable>
+    						</p:overlayPanel>							
+							
+						</h:panelGrid>
+					</p:fieldset>								
 					
 					
 					

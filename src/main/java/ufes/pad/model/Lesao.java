@@ -42,7 +42,7 @@ public class Lesao implements Serializable {
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@JoinColumn (name="lesaoId")
-	private List<Imagem> imagens;
+	private List<Imagem> imagens;		
 
 	public Long getId() {
 		return id;

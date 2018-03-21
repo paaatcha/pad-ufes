@@ -198,19 +198,9 @@
 															 					 
 			 			<p:spinner id="idLesao" value="#{lesaoController.idLesaoBanco}"  min="0"
 			 			required="true" requiredMessage="ID lesão não informado">
-			 				<p:ajax event="change"  update="out out2" />
+			 				<p:ajax event="change"  update="out out2 growlLesao" listener="#{lesaoController.msgAddId}"/>
 			 			</p:spinner>
-			 			<p:message for="idLesao" />
-			 			
-			 			<br/>
-			 			
-
-			 			<p:commandButton value="Enviar ID da lesão" partialSubmit="true" 
-							process="idLesao" icon="i-icon-arrowreturnthick-1-e">
-						
-							<p:ajax event="click" listener="#{lesaoController.msgAddId}" update="growlLesao"/>
-							
-						</p:commandButton>																
+			 			<p:message for="idLesao" />		 									
 						
 						<br/>
 						
@@ -228,6 +218,15 @@
         					update="growlLesao tabelaImgLesoes"
         					sizeLimit="10000000"
         				/>
+        				
+						<p> Inserir imagem(s) da lesão: </p>		
+						<p:fileUpload label="Procurar Imagem" uploadLabel="Enviar" 
+							cancelLabel="Cancelar" id="imgLesao" 
+				 			fileUploadListener="#{pacienteController.inserirImagemLista}"
+        					multiple="true"	        					
+        					sizeLimit="10000000"
+        					update="growlLesao tabelaImgLesoes"
+        				/>        				
         					
         				<br/>	
         				
