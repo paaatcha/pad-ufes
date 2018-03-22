@@ -33,13 +33,14 @@ public class PacienteController {
 	@Autowired 
 	private PacienteRepository pac_rep;	
 		
-	private Lesao lesaoParaExcluir;
-	
+	private Lesao lesaoSelecionada;	
 	
 	private List<Lesao> pacLesoes = new ArrayList<Lesao>();
-	private List<Imagem> pacImagens = new ArrayList<Imagem>();
+	private List<Imagem> pacImagens = new ArrayList<Imagem>();	
 	private Lesao lesao = new Lesao ();	
 	private Imagem img = new Imagem ();
+	private List<String> imgsPath; 
+	
 	
 	
 	public List<String> completarEstados (String query){
@@ -143,10 +144,33 @@ public class PacienteController {
 		}		
 	}	
 	
+	/*public List<String> pegaImagensCadastro (){
+		List<String> imgsPath = new ArrayList<String>();		
+		
+		System.out.println("FUNCAO DE PEGAR IMAGENS. Lesão: " + lesao.getRegiao() );
+		
+		for (Imagem img : lesaoSelecionada.getImagens()) {
+			System.out.println("Adicionando o path: " + img.getPath());
+			imgsPath.add(img.getPath());
+		}	
+		
+		return imgsPath;
+	}	*/
+	
+	
+	// VERIFICAR SE A IMAGEM ESTA NA LISTA, SE NAO INSERIR. DEPOIS TRATAR A EXCLUSÃO
+	public void copiaLesaoSelecionada () {		
+		imgsPath = new ArrayList<String>();		
+		System.out.println("Funcao de copia: " + lesaoSelecionada.getRegiao());		
+		for (Imagem img : lesaoSelecionada.getImagens()) {
+			System.out.println("Adicionando o path: " + img.getPath());
+			imgsPath.add(img.getPath());
+		}		
+	}	
 	
 	public void excluirLesao () {
-		System.out.println("Excluindo lesão "+lesaoParaExcluir.getRegiao());
-		this.pacLesoes.remove(this.lesaoParaExcluir);
+		System.out.println("Excluindo lesão "+lesaoSelecionada.getRegiao());
+		this.pacLesoes.remove(this.lesaoSelecionada);
 	}
 	
 	public String salvar () {		
@@ -223,12 +247,21 @@ public class PacienteController {
 		this.pacLesoes = pacLesoes;
 	}
 
-	public Lesao getLesaoParaExcluir() {
-		return lesaoParaExcluir;
+	public Lesao getlesaoSelecionada() {
+		return lesaoSelecionada;
 	}
 
-	public void setLesaoParaExcluir(Lesao lesaoParaExcluir) {
-		this.lesaoParaExcluir = lesaoParaExcluir;
-	}	
-	
+	public void setlesaoSelecionada(Lesao lesaoSelecionada) {
+		this.lesaoSelecionada = lesaoSelecionada;
+	}
+
+	public List<String> getImgsPath() {
+		return imgsPath;
+	}
+
+	public void setImgsPath(List<String> imgsPath) {
+		this.imgsPath = imgsPath;
+	}
+
+
 }

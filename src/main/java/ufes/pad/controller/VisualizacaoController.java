@@ -98,6 +98,8 @@ public class VisualizacaoController {
 		return imgsPath;
 	}
 	
+
+	
 // ############################### FUNCOES PARA VISUALIZAÇÕES ##############################################	
 
 	public String printData (Date d) {

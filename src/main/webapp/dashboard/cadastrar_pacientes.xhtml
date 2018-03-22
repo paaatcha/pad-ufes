@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:p="http://primefaces.org/ui"
-  xmlns:f="http://java.sun.com/jsf/core">
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <h:head>
 	<title>PAD - Programa de Assistência Dermatológica</title>
@@ -84,7 +85,7 @@
 			<h2> Cadastrar pacientes </h2>
 				      	
 			<h:form class="formLogin" id="cadastroPaciente">
-	      			<p:messages autoUpdate="true" />	      		
+	      				      		
 		      		
 		      		<p:fieldset legend="Dados protocolares" toggleable="true" style="margin-bottom:20px">
         				<h:panelGrid columns="1" cellpadding="5">
@@ -107,7 +108,7 @@
 							required="true" 
 							requiredMessage="O prontuario não foi informado"				
 							/>										
-							<p:message for="local_atendimento" />	
+							<p:message for="prontuario" />	
             				
             				
         					</h:panelGrid>
@@ -280,7 +281,7 @@
 		      				
 		      				<p> Possui agua encanada? </p>				
 							<p:selectOneRadio id="agua_encanada" value="#{pacienteController.pac.agua_encanada}" 
-							required="true" requiredMessage="Rede de esgoto não informado">
+							required="true" requiredMessage="Água encanda não informada">
 		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
 		      				</p:selectOneRadio>
@@ -328,7 +329,7 @@
 								<f:selectItem itemLabel="4" itemValue="4"/>
 								<f:selectItem itemLabel="5" itemValue="5"/>
 					        </p:selectOneRadio>   							
-							<p:message for="destrofia_solar" />		      				
+							<p:message for="tipo_pele" />		      				
 		      				
 		      				<p> Grau de destrofia solar: </p>			
 						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
@@ -569,7 +570,7 @@
 							
 							<p:commandButton class="botao" id="verLesoes" value="Ver lesões adicionadas" type="button" icon="ui-icon-folder-open"/>
 							
-							<p:overlayPanel id="painelLesoes" for="verLesoes" hideEffect="fade" dynamic="true" style="width:500px">
+							<p:overlayPanel id="painelLesoes" for="verLesoes" hideEffect="fade" dynamic="true" style="width:800px; text-align: center;">
 				       			<p:dataTable id="tabelaLesoes"				       			
 								value="#{pacienteController.pacLesoes}" var="les">
 									<p:column headerText="Região">
@@ -591,22 +592,41 @@
 									<p:column headerText="Procedimento">
 										<h:outputText value="#{les.procedimento}" />
 									</p:column>
-															
+												
+												
+									<p:column headerText="Imagem">										        	
+									        	<p:commandButton update="@form:dialogImagem" 
+									        	value="Ver" action="#{pacienteController.copiaLesaoSelecionada}" icon="ui-icon-image" process="@this" oncomplete="PF('imagemDialog').loadContents()">
+									        		<f:setPropertyActionListener value="#{les}" target="#{pacienteController.lesaoSelecionada}" />									        		
+									        	</p:commandButton>    			            		            
+									</p:column>														
 									 
-									<p:column headerText="">																		
+									<p:column headerText="Excluir">																		
 										<p:commandButton action="#{pacienteController.excluirLesao}" icon="ui-icon-trash" title="Excluir" update="tabelaLesoes" process="@this">
-	      									<f:setPropertyActionListener value="#{les}" target="#{pacienteController.lesaoParaExcluir}" />          						
+	      									<f:setPropertyActionListener value="#{les}" target="#{pacienteController.lesaoSelecionada}" />          						
 										</p:commandButton>								
 										
-									</p:column>			
-									
-
-															
+									</p:column>														
 									 				
 								</p:dataTable>
     						</p:overlayPanel>							
 							
 						</h:panelGrid>
+						
+		           		<p:dialog header="Imagem da lesão" 
+			           widgetVar="imagemDialog" modal="true"
+			           showEffect="fade" hideEffect="fade" resizable="false"
+			           style="width:400px; text-align:center;"
+			           id="dialogImagem">						
+							
+						
+							
+							<h:outputText value="Regiao: #{pacienteController.lesaoSelecionada.regiao}"/>
+							
+						
+									
+						</p:dialog>		
+						
 					</p:fieldset>								
 					
 					
