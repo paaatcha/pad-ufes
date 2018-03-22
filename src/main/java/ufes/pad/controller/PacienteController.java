@@ -28,13 +28,11 @@ public class PacienteController {
 
 	private Paciente pac = new Paciente();
 	private List<Paciente> todosPacs;
-	private Paciente pacBuscado;
+	
 	
 	@Autowired 
 	private PacienteRepository pac_rep;	
-	
-	private String cartao_sus_busca;
-	
+		
 	private Lesao lesaoParaExcluir;
 	
 	
@@ -182,38 +180,6 @@ public class PacienteController {
 		return ret;
 	}	
 	
-	/*
-	public List<Paciente> listarPacientes () {		
-		FacesContext context = FacesContext.getCurrentInstance();
-		try {
-			setTodosPacs(pac_rep.findAll());
-			if (this.todosPacs.isEmpty()) {
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Não existe nenhum paciente neste banco de dados.", "  "));
-			} else {
-				this.visivelTodos = true;				
-			}
-			return getTodosPacs();
-		} catch (Exception e) {			
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));
-			return null;
-		}		
-	}	
-	
-	public void buscaUnicaCartaoSus () {
-		try {
-			pacBuscado =  pac_rep.buscaPorCartaoSus(cartao_sus_busca);			
-			
-			if (pacBuscado==null) {
-				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Nenhum paciente foi encontrado com este número de cartão. Tente visualizar todos para encontrá-lo, caso não encontre, ele não está registrado no banco.", "  "));
-			} else {
-				this.visivel=true;
-			}
-		} catch (Exception e) {
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));			
-		}		
-	}*/
 	
 	
 /* ###########################################  Getters and Setters ###################################################*/
@@ -231,22 +197,6 @@ public class PacienteController {
 
 	public void setUserRep(PacienteRepository pac_rep) {
 		this.pac_rep = pac_rep;
-	}
-
-	public Paciente getPacBuscado() {
-		return pacBuscado;
-	}
-
-	public void setPacBuscado(Paciente pacBuscado) {
-		this.pacBuscado = pacBuscado;
-	}
-
-	public String getCartao_sus_busca() {
-		return cartao_sus_busca;
-	}
-
-	public void setCartao_sus_busca(String cartao_sus_busca) {
-		this.cartao_sus_busca = cartao_sus_busca;
 	}
 
 	public List<Paciente> getTodosPacs() {

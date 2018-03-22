@@ -1,5 +1,7 @@
 package ufes.pad.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,6 +22,9 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 	
 	@Query("select p from Paciente p where p.id=:id")
 	public Paciente buscaPorId(@Param("id") Long id);
+	
+	@Query(nativeQuery=true, value="select * from paciente order by paciente.nome_completo")
+	List<Paciente> listarPacientes ();	
 	
 	/*
 	@Query("selec * from Usuario")

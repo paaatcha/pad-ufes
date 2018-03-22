@@ -26,7 +26,11 @@ public class VisualizacaoController {
 	
 	private Paciente pacSelecionadoLesao;
 	
-	private int idadePac;
+	private String cartao_sus_busca = "702-5083-6632-6434";
+
+	private Paciente pacBuscado;
+	
+	private boolean liberarVisualizacao = false;
 	
 	public int calcIdadePac (Date dataNascimento) {
 		LocalDate hoje = LocalDate.now();		
@@ -48,7 +52,7 @@ public class VisualizacaoController {
 	public void listarPacientes () {		
 		FacesContext context = FacesContext.getCurrentInstance();		
 		try {
-			setTodosPacs(pac_rep.findAll());
+			setTodosPacs(pac_rep.listarPacientes());
 			if (this.todosPacs.isEmpty()) {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Não existe nenhum paciente neste banco de dados.", "  "));				
 			} 
@@ -59,6 +63,27 @@ public class VisualizacaoController {
 		preencheIdadePacs (this.todosPacs);		
 		
 	}	
+	
+	public void buscaUnicaCartaoSus () {
+		try {
+			pacBuscado =  pac_rep.buscaPorCartaoSus(cartao_sus_busca);			
+			
+			if (pacBuscado==null) {
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Nenhum paciente foi encontrado com este número de cartão. Verifique se o número foi digitado corretamente. Tente visualizar todos para encontrá-lo, caso não encontre, ele não está registrado no banco.", "  "));
+			} else {
+				this.liberarVisualizacao=true;
+				Date dNasc = (Date) pacBuscado.getData_nascimento();
+				pacBuscado.setIdade(calcIdadePac(dNasc));
+				System.out.println("Paciente encontrado com sucesso");;
+			}
+		} catch (Exception e) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));			
+		}		
+	}
+	
+// ########################################################################################################
 	
 	public List<Paciente> getTodosPacs() {
 		return todosPacs;
@@ -77,12 +102,28 @@ public class VisualizacaoController {
 		this.pacSelecionadoLesao = pacSelecionadoLesao;
 	}
 
-	public int getIdadePac() {
-		return idadePac;
+	public String getCartao_sus_busca() { 
+		return cartao_sus_busca;
 	}
 
-	public void setIdadePac(int idadePac) {
-		this.idadePac = idadePac;
+	public void setCartao_sus_busca(String cartao_sus_busca) {
+		this.cartao_sus_busca = cartao_sus_busca;
+	}
+
+	public Paciente getPacBuscado() {
+		return pacBuscado;
+	}
+
+	public void setPacBuscado(Paciente pacBuscado) {
+		this.pacBuscado = pacBuscado;
+	}
+
+	public boolean isLiberarVisualizacao() {
+		return liberarVisualizacao;
+	}
+
+	public void setLiberarVisualizacao(boolean liberarVisualizacao) {
+		this.liberarVisualizacao = liberarVisualizacao;
 	}	
 	
 }

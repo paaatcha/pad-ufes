@@ -100,7 +100,7 @@
 			      			<p:growl id="growlCheck" showDetail="true" closable="true" />		    
 			      	
 							<p> Insira o número do cartão do SUS do paciente: </p>
-							<p:inputMask size="30" id="cartao_sus" value="#{pacienteController.cartao_sus_busca}"
+							<p:inputMask size="30" id="cartao_sus" value="#{visualizacaoController.cartao_sus_busca}"
 							mask="999-9999-9999-9999" 
 							required="true"	requiredMessage="O cartão do sus não foi informado">				
 							</p:inputMask>
@@ -108,48 +108,89 @@
 							
 							<br/>								
 											
-							<p:commandButton  value="Buscar paciente" action="#{pacienteController.buscaUnicaCartaoSus}" type="submit" 
-				      		icon="ui-icon-search" update="growlCheck @form:tabelaBuscado" />
+							<p:commandButton  value="Buscar paciente" action="#{visualizacaoController.buscaUnicaCartaoSus}" type="submit" 
+				      		icon="ui-icon-search" update="growlCheck dadosPaciente" />
 				      		
 				      		<br/>
-				      		<br/>
-				      		
-		 			      	<h:panelGroup id="tabelaBuscado">
-							    <p:dataTable rendered="#{pacienteController.visivel}" value="#{pacienteController.pacBuscado}" var="pac">
-								    <f:facet name="header">
-            							Paciente
-        							</f:facet>	
-        						
-								    <p:column headerText="Nome">
-								        <h:outputText value="#{pac.nome_completo}" />
-								    </p:column>
-								 
-								    <p:column headerText="Cartão do SUS">
-								        <h:outputText value="#{pac.cartao_sus}" />
-								    </p:column>
-								 
-								    <p:column headerText="Data de nascimento">
-								        <h:outputText value="#{pac.data_nascimento}" />
-								    </p:column>
-								 
-								    <p:column headerText="Local atendimento">
-								        <h:outputText value="#{pac.local_atendimento}" />
-								    </p:column>								    
-									    
-							    </p:dataTable>
-							</h:panelGroup> 	    		
-					
-					
-			      			
-			      			
+				      		<br/>		      			
 			      	  
 	      		</h:panelGrid>
 	      	</p:fieldset>
 	      	
-	      </h:form> 	      	
-			
+	      	<p:fieldset legend="Dados do paciente" toggleable="true" 
+	      	style="margin-bottom:20px; margin-top:20px;"	      	
+	      	id="dadosPaciente">	
+	      	<h:panelGroup rendered="#{visualizacaoController.liberarVisualizacao}">
+
+					<br/>	      					 
+				    <h:outputText class="campoPac" value="Nome: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.nome_completo}" />
+				    <br/><br/>
+				    
+					<h:outputText class="campoPac" value="Idade: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.idade} anos" />
+				    <br/><br/>
+				    
+				    <h:outputText class="campoPac" value="Atividade principal: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.atv_principal}" />
+				    <br/><br/>
+				    
+				    <h:outputText class="campoPac" value="Local de nascimento: " />
+				    <h:outputText class="valorPac" 
+				    value="#{visualizacaoController.pacBuscado.local_nascimento} - #{visualizacaoController.pacBuscado.estado_nascimento}" />
+				    <br/><br/>	
+				    
+				    <h:outputText class="campoPac" value="Local de atendimento: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.local_atendimento}" />
+				    <br/><br/>				    			    
+				 
+				    <h:outputText class="campoPac" value="Nome da mãe: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.nome_mae}" />
+				    <br/><br/>
+				    				    
+				 	<h:outputText class="campoPac" value="Origem familiar paterna: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.origem_familiar_pai}" />
+				    <br/><br/>
+				    
+				 	<h:outputText class="campoPac" value="Origem familiar materna: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.origem_familiar_mae}" />
+				    <br/><br/>				    
+				          		
+	      				      		
+					<p:dataTable var="les" value="#{visualizacaoController.pacBuscado.lesoes}">
+						
+						<f:facet name="header">
+	            			Lesões
+	        			</f:facet>  
+					
+						<p:column headerText="Região">
+							<h:outputText value="#{les.regiao}" />
+						</p:column>								
+							
+						<p:column headerText="Diametro maior">
+							<h:outputText value="#{les.diametro_maior}" />
+						</p:column>
+						
+						<p:column headerText="Diametro menor">
+							<h:outputText value="#{les.diametro_menor}" />
+						</p:column>
+						
+						<p:column headerText="Diagnóstico clínico">
+							<h:outputText value="#{les.diagnostico_clinico}" />
+						</p:column>							
+						
+						<p:column headerText="Procedimento">
+							<h:outputText value="#{les.procedimento}" />
+						</p:column>	
+					</p:dataTable>	      		
+	      		
+	      	</h:panelGroup>
+	      	</p:fieldset>
+	      	
+	      </h:form> 	 
+
   
-		
+
 		
 		</div>
 	
