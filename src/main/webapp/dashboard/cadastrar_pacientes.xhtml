@@ -204,7 +204,7 @@
 							
 		      				<p> Tempo em que reside no endereço (em anos): </p>
 							<p:spinner size="15" id="tempo_endereco" value="#{pacienteController.pac.tempo_endereco}" min="0"
-							required="true" requiredMessage="Rede de esgoto não informado"/>
+							required="true" requiredMessage="Tempo em que reside no endereço não informado"/>
 							<p:message for="tempo_endereco" />
 						</h:panelGrid>
     				</p:fieldset>
@@ -223,7 +223,7 @@
 							
 							<p> Idade em que começou a exercer a atividade: </p>
 							<p:spinner size="15" id="idade_inicio_atv" value="#{pacienteController.pac.idade_inicio_atv}" min="0"
-							required="true" requiredMessage="Rede de esgoto não informado"/>
+							required="true" requiredMessage="Idade em que começou a exercer a profissão não informado"/>
 							<p:message for="idade_inicio_atv" />	
 										
 							<p> Nível de escolaridade: </p>			
@@ -314,7 +314,7 @@
 									<f:selectItem itemLabel="Finais de semana" itemValue="FDS"/>									
 						        </p:selectOneRadio>
    							</h:panelGrid>
-							<p:message for="fumo" />	
+							<p:message for="bebida" />	
 							
 							<p> Faz uso ou mantém contato com agrotóxico? Se sim, qual?</p>		      				
 		      				<p:inputText size="20" id="agrotoxico" value="#{pacienteController.pac.agrotoxico}" />

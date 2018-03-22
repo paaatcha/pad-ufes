@@ -264,3 +264,8 @@ a img{
 .valorPac{
 	font-size: 14px;
 }
+
+.imgDialog {
+	max-width:450px;
+	max-height:450px;	
+}

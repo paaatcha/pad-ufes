@@ -1,8 +1,10 @@
 package ufes.pad.controller;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.ManagedBean;
@@ -12,6 +14,8 @@ import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ufes.pad.model.Imagem;
+import ufes.pad.model.Lesao;
 import ufes.pad.model.Paciente;
 import ufes.pad.repository.PacienteRepository;
 
@@ -26,7 +30,7 @@ public class VisualizacaoController {
 	
 	private Paciente pacSelecionadoLesao;
 	
-	private String cartao_sus_busca = "702-5083-6632-6434";
+	private String cartao_sus_busca = "111-1111-1111-1111";
 
 	private Paciente pacBuscado;
 	
@@ -45,7 +49,7 @@ public class VisualizacaoController {
 			Date dNasc = (Date) pacientes.get(i).getData_nascimento();
 			pacientes.get(i).setIdade(calcIdadePac(dNasc));
 //			System.out.println(pacientes.get(i).getIdade());
-//			System.out.println(pacientes.get(i).getData_nascimento().getClass());
+//			System.out.println(pacientes.get(i).getData_nascimento().getClass());			
 		}
 	}
 	
@@ -83,7 +87,147 @@ public class VisualizacaoController {
 		}		
 	}
 	
-// ########################################################################################################
+	public List<String> pegaImagensLesao (Lesao les){
+		List<String> imgsPath = new ArrayList<String>();
+		List<Imagem> imgs = les.getImagens();
+		
+		for (Imagem img : imgs) {
+			imgsPath.add(img.getPath());
+		}	
+		
+		return imgsPath;
+	}
+	
+// ############################### FUNCOES PARA VISUALIZAÇÕES ##############################################	
+
+	public String printData (Date d) {
+		d = (Date) d;
+		SimpleDateFormat brasil = new SimpleDateFormat("dd/MM/yyyy");
+		
+		return brasil.format(d).toString();
+	}
+	
+	public String printEstadoCivil() {
+		switch (pacBuscado.getEstado_civil()) {
+			case 'C':
+				return "CASADO";
+			case 'S':
+				return "SOLTEIRO";
+			case 'V':
+				return "VIÚVO";
+			case 'D':
+				return "DIVORCIADO";
+			default:
+				return "DESCONHECIDO";
+		}
+		
+	}
+	
+	public String printDestrofia() {
+		switch (pacBuscado.getDestrofia_solar()) {
+			case 'L':
+				return "LEVE";
+			case 'M':
+				return "MODERADA";
+			case 'F':
+				return "FORTE";
+			case 'A':
+				return "AUSENTE";
+			case 'P':
+				return "PRÉ-DISTRÓFICA";
+			default:
+				return "DESCONHECIDO";
+		}
+		
+	}
+	
+	public String printExposicaoSol() {
+		switch (pacBuscado.getHora_exp_sol()) {
+			case 'M':
+				return "PARTE DA MANHÃ";
+			case 'T':
+				return "PARTE DA TARDE";
+			case 'A':
+				return "TANTO A TARDE QUANTO DE MANHÃ";			
+			default:
+				return "DESCONHECIDO";
+		}
+		
+	}   
+		
+	public String printRenda() {
+		if (pacBuscado.getRenda().equals("A1")) {
+			return "MENOR OU IGUAL A 1";
+		} else if (pacBuscado.getRenda().equals("1-5")) {
+			return "MAIOR QUE 1 E MENOR OU IGUAL A 5";			
+		} else if (pacBuscado.getRenda().equals("5-10")) {
+			return "MAIS QUE 5 E MENOR OU IGUAL A 10";
+		} else {
+			return "MAIS DO QUE 10";
+		}
+		
+	}	
+	
+	public String printNumComodos() {
+		if (pacBuscado.getNum_comodos().equals("1-3")) {
+			return "DE 1 A 3";
+		} else if (pacBuscado.getNum_comodos().equals("4-5")) {
+			return "DE 4 A 5";			
+		} else {
+			return "MAIS DE 5";
+		}
+		
+	}	
+	
+	public String printBebida() {
+		if (pacBuscado.getBebida().equals("DIA")) {
+			return "DIARIAMENTE";
+		} else if (pacBuscado.getBebida().equals("FDS")) {
+			return "FIM DE SEMANA";			
+		} else {
+			return "NÃO BEBE";
+		}
+		
+	}
+	
+	public String printCigarro() {
+		if (pacBuscado.getFumo().equals("ATE5")) {
+			return "MENOS DE 5 CIGARROS POR DIA";
+		} else if (pacBuscado.getFumo().equals("5A10")) {
+			return "DE 5 A 10 CIGARROS POR DIA";			
+		} else if (pacBuscado.getFumo().equals("M10")) {
+			return "MAIS DE 10 CIGARROS POR DIA";
+		} else {
+			return "NÃO FUMA";
+		}
+		
+	}	
+	
+	public String printSimNao (char tipo) {
+		if (tipo == 'S') {
+			return "SIM";
+		} else {
+			return "NÃO";
+		}
+	}
+	
+	public String printSexo () {
+		if (pacBuscado.getSexo() == 'F') {
+			return "FEMININO";
+		} else {
+			return "MASCULINO";
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+// ############################### GETTERS AND SETTERS #####################################################
 	
 	public List<Paciente> getTodosPacs() {
 		return todosPacs;

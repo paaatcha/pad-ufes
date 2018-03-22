@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:p="http://primefaces.org/ui"
-  xmlns:f="http://java.sun.com/jsf/core">
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <h:head>
 	<title>PAD - Programa de Assistência Dermatológica</title>
@@ -117,37 +118,49 @@
 	      		</h:panelGrid>
 	      	</p:fieldset>
 	      	
-	      	<p:fieldset legend="Dados do paciente" toggleable="true" 
+	      	<p:fieldset legend="Dados do paciente"
 	      	style="margin-bottom:20px; margin-top:20px;"	      	
 	      	id="dadosPaciente">	
 	      	<h:panelGroup rendered="#{visualizacaoController.liberarVisualizacao}">
-
-					<br/>	      					 
+					
+					<p:fieldset legend="Informações pessoais" toggleable="true">				    					 
 				    <h:outputText class="campoPac" value="Nome: " />
 				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.nome_completo}" />
+				    <br/><br/>
+				    
+				    <h:outputText class="campoPac" value="Número do prontuário: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.prontuario}" />
+				    <br/><br/>
+				    
+					<h:outputText class="campoPac" value="Número do cartão do SUS: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.cartao_sus}" />
+				    <br/><br/>				    
+				    
+				    <h:outputText class="campoPac" value="Nome da mãe: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.nome_mae}" />
+				    <br/><br/>
+				    
+				    <h:outputText class="campoPac" value="Data de Nascimento: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.printData(visualizacaoController.pacBuscado.data_nascimento)}" />
 				    <br/><br/>
 				    
 					<h:outputText class="campoPac" value="Idade: " />
 				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.idade} anos" />
 				    <br/><br/>
 				    
-				    <h:outputText class="campoPac" value="Atividade principal: " />
-				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.atv_principal}" />
+				    <h:outputText class="campoPac" value="Sexo: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.printSexo()}" />
 				    <br/><br/>
+				    
+				    <h:outputText class="campoPac" value="Estado civil: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.printEstadoCivil()}" />
+				    <br/><br/>	    
 				    
 				    <h:outputText class="campoPac" value="Local de nascimento: " />
 				    <h:outputText class="valorPac" 
 				    value="#{visualizacaoController.pacBuscado.local_nascimento} - #{visualizacaoController.pacBuscado.estado_nascimento}" />
 				    <br/><br/>	
 				    
-				    <h:outputText class="campoPac" value="Local de atendimento: " />
-				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.local_atendimento}" />
-				    <br/><br/>				    			    
-				 
-				    <h:outputText class="campoPac" value="Nome da mãe: " />
-				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.nome_mae}" />
-				    <br/><br/>
-				    				    
 				 	<h:outputText class="campoPac" value="Origem familiar paterna: " />
 				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.origem_familiar_pai}" />
 				    <br/><br/>
@@ -155,34 +168,231 @@
 				 	<h:outputText class="campoPac" value="Origem familiar materna: " />
 				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.origem_familiar_mae}" />
 				    <br/><br/>				    
-				          		
-	      				      		
-					<p:dataTable var="les" value="#{visualizacaoController.pacBuscado.lesoes}">
-						
-						<f:facet name="header">
-	            			Lesões
-	        			</f:facet>  
-					
-						<p:column headerText="Região">
-							<h:outputText value="#{les.regiao}" />
-						</p:column>								
+				    
+				    <h:outputText class="campoPac" value="Atividade principal: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.atv_principal}" />
+				    <br/><br/>
+				    
+				    <h:outputText class="campoPac" value="Idade em que começou a exercê-la: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.idade_inicio_atv} anos" />
+				    <br/><br/>				    
+				    
+				    <h:outputText class="campoPac" value="Local de atendimento: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.local_atendimento}" />
+				    <br/><br/>
+				    
+				    <h:outputText class="campoPac" value="Data do Atendimento: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.printData(visualizacaoController.pacBuscado.data_atendimento)}" />
+				    <br/><br/>
+				    
+				    <h:outputText class="campoPac" value="Número de vezes que já foi atendido pelo PAD: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.num_vezes_atendido}" />
+				    <br/><br/>	
+				    
+				    <h:outputText class="campoPac" value="Endereço: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.endereco}" />
+				    <br/><br/>
+				    
+				    <h:outputText class="campoPac" value="Tempo em que reside no endereço: " />
+				    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.tempo_endereco} anos" />
+				    <br/>
+				    
+				    </p:fieldset>					    
+				    
+				    
+				    <p:fieldset legend="Informações do cotidiano e socieconômicas" toggleable="true" 
+			    	style="margin-top: 15px">
+			    	
+			    		<h:outputText class="campoPac" value="Tempo de exposição ao sol por dia: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.exp_sol} horas" />
+					    <br/> <br/>
+					    
+						<h:outputText class="campoPac" value="Parte do dia em que fica mais exposto: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printExposicaoSol()}" />
+					    <br/> <br/>					    
+				    
+					    <h:outputText class="campoPac" value="Contato com agrotóxico: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.agrotoxico}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="Uso de bebida: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printBebida()}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="Uso de cigarro: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printCigarro()}" />
+					    <br/> <br/>					    
+					    
+					    <h:outputText class="campoPac" value="Uso de chapéu: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printSimNao(visualizacaoController.pacBuscado.chapeu)}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="Uso de calças compridas: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printSimNao(visualizacaoController.pacBuscado.calca_cumprida)}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="Uso de camisa de mangas compridas: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printSimNao(visualizacaoController.pacBuscado.manga_cumprida)}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="Uso de filtro solar: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printSimNao(visualizacaoController.pacBuscado.filtro_solar)}" />
+					    <br/> <br/>			    
+				    
+				    	<p:separator />
+				    	
+				    	<br/>					    
+					    <h:outputText class="campoPac" value="Renda familiar: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printRenda()} SALÁRIO(S) MÍNIMOS" />
+					    <br/> <br/>
+				    	
+				    				    
+					    <h:outputText class="campoPac" value="Número de comodos na residência: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printNumComodos()}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="Número de pessoas que vive na residência: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.num_pessoas_casa}" />
+					    <br/> <br/>
+					    
+						<h:outputText class="campoPac" value="Agua encanada: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printSimNao(visualizacaoController.pacBuscado.agua_encanada)}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="Rede esgoto: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printSimNao(visualizacaoController.pacBuscado.rede_esgoto)}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="Observação em geral: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.obs}" />
+					    <br/> <br/>					    
+				    
+				    </p:fieldset>				    
+				    
+				    
+				    <p:fieldset legend="Informações técnicas" toggleable="true" 
+			    	style="margin-top: 15px">	
+			    	
+				    	<h:outputText class="campoPac" value="Tipo de pele: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.tipo_pele}" />
+					    <br/> <br/>
+				    	
+				    	<h:outputText class="campoPac" value="Grau de destrofia solar: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printDestrofia()}" />
+					    <br/> <br/>				    			    	
+			    	
+				    	<h:outputText class="campoPac" value="Alergia a medicamento: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.alergia}" />
+					    <br/> <br/>			    
+					    
+					    <h:outputText class="campoPac" value="Diabetes: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printSimNao(visualizacaoController.pacBuscado.diabetes)}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="Anticoagulante: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printSimNao(visualizacaoController.pacBuscado.anticoagulante)}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="Pressão arterial sistolica: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.pres_art_sistolica}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="Pressão arterial diastolica: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.pres_art_diastolica}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="HAS: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printSimNao(visualizacaoController.pacBuscado.HAS)}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="Histórico de câncer de pele na família: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printSimNao(visualizacaoController.pacBuscado.hist_cancer_pele)}" />
+					    <br/> <br/>
+					    
+					    <h:outputText class="campoPac" value="Histórico de outro câncer na família: " />
+					    <h:outputText class="valorPac" value="#{visualizacaoController.printSimNao(visualizacaoController.pacBuscado.hist_cancer)}" />
+					    <br/> <br/>		    
+					    				    
+				    
+				    </p:fieldset>
+				    
+				    
+
+				    
+				    
+				    
+				    
+			    	<p:fieldset legend="Informações sobre as lesões" toggleable="true" 
+			    	style="margin-top: 15px">			    		
+      				      		
+						<p:dataTable var="les" value="#{visualizacaoController.pacBuscado.lesoes}" style="text-align: center">
 							
-						<p:column headerText="Diametro maior">
-							<h:outputText value="#{les.diametro_maior}" />
-						</p:column>
+							<f:facet name="header">
+		            			Lesões
+		        			</f:facet>  
 						
-						<p:column headerText="Diametro menor">
-							<h:outputText value="#{les.diametro_menor}" />
-						</p:column>
-						
-						<p:column headerText="Diagnóstico clínico">
-							<h:outputText value="#{les.diagnostico_clinico}" />
-						</p:column>							
-						
-						<p:column headerText="Procedimento">
-							<h:outputText value="#{les.procedimento}" />
-						</p:column>	
-					</p:dataTable>	      		
+							<p:column headerText="Região">
+								<h:outputText value="#{les.regiao}" />
+							</p:column>								
+								
+							<p:column headerText="Diametro maior">
+								<h:outputText value="#{les.diametro_maior}" />
+							</p:column>
+							
+							<p:column headerText="Diametro menor">
+								<h:outputText value="#{les.diametro_menor}" />
+							</p:column>
+							
+							<p:column headerText="Diagnóstico clínico">
+								<h:outputText value="#{les.diagnostico_clinico}" />
+							</p:column>							
+							
+							<p:column headerText="Procedimento">
+								<h:outputText value="#{les.procedimento}" />
+							</p:column>
+							
+							<p:column headerText="Observação">
+								<h:outputText value="#{les.obs}" />
+							</p:column>														
+							
+							<p:column headerText="Lesão">
+							        	<h:form>
+							        	
+							        	<p:commandButton update="dialogImagem" oncomplete="PF('imagemDialog').show()" 
+							        	value="Ver imagem" icon="ui-icon-image" />
+							        							            
+							           		<p:dialog header="Imagem da lesão" 
+									           widgetVar="imagemDialog" modal="true" 
+									           showEffect="fade" hideEffect="fade" resizable="false"
+									           style="width:400px; text-align:center;"
+									           id="dialogImagem">
+												
+												<p:commandButton value="Anterior" type="button" onclick="PF('switcher').previous();"
+    											icon="ui-icon-circle-triangle-w" id="prev"/>
+												<p:commandButton value="Próxima" type="button" onclick="PF('switcher').next();"
+    											icon="ui-icon-circle-triangle-e" id="next"/>
+ 
+												<p:imageSwitch effect="fade" widgetVar="switcher" id="manuelSwitcher"
+												    slideshowAuto="false">
+												    <ui:repeat value="#{visualizacaoController.pegaImagensLesao(les)}" var="img"
+												     id="manuelSwitcherImages">
+												     
+												        <p:graphicImage url="imgLesoes/#{img}" id="image"
+												        class="imgDialog"/>
+												        
+												    </ui:repeat>
+												</p:imageSwitch>
+															
+  											</p:dialog>
+							            	
+							            </h:form>						            		            
+							        </p:column>								
+							
+									
+						</p:dataTable>
+				
+					</p:fieldset>	      		
+	      		
 	      		
 	      	</h:panelGroup>
 	      	</p:fieldset>
