@@ -1,45 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      template="/decoratorInicio/decorator_inicio.xhtml">
 
-<h:head>
-	<title>PAD - Projeto de Assistência Dermatológica</title>
-	<link href="css/pad_style.css" rel="stylesheet" type="text/css" />
-	<link href="img/icon.png" rel='shortcut icon'/>
-</h:head>
-
-<h:body>
-	<div class="boxLoginPrincipal"> 
 	
-		<div class="boxMenuLogin">
-			<ul>
-				<li> <a href="index.xhtml"> Home </a> </li>
-				<li> <a href="cadastro_usuario.xhtml"> Cadastrar </a> </li>
-				<li> <a href="ajuda.xhtml"> Ajuda </a> </li>
-			
-			
-			</ul>
-		</div>
-		
+	
+	<ui:define name="titulo"> Esqueci minha senha: </ui:define>	
 		<h2> Esqueci minha senha: </h2>
 		
-		<div class="boxLogin" id="boxAjuda">		
+		
+	<ui:define name="boxCentral">			
 		
 	      	<p id="pajuda"> Em construção.
 	      		
 	      		<br/> <br/>
 	      		Caso tenha alguma outra dúvida, envie um email para <span> pacheco.comp@gmail.com </span> e aguarde retorno.	      	
 	      	
-	      	</p>
-		
-		</div>
+	      	</p>		
 
-	</div>
+	</ui:define>
 	
 
+</ui:composition>
 
-
-</h:body>
-</html>

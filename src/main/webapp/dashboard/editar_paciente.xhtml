@@ -11,27 +11,30 @@
       
       <ui:define name="conteudoInferiorPagina">
       
+	
+      
+      
 			<h:form class="formLogin" id="cadastroPaciente">
 	      				      		
 		      		
 		      		<p:fieldset legend="Dados protocolares" toggleable="true" style="margin-bottom:20px">
         				<h:panelGrid columns="1" cellpadding="5">
             				<p> Local de atendimento: </p>		      		 
-							<p:inputText size="30" id="local_atendimento" value="#{pacienteController.pac.local_atendimento}"
+							<p:inputText size="30" id="local_atendimento" value="#{edicaoController.pacBuscado.local_atendimento}"
 							required="true" 
 							requiredMessage="O local de atendimento não foi informado"				
 							/>										
 							<p:message for="local_atendimento" />
 				      		
 				    		<p> Data do atendimento: </p>		      		
-		        			<p:inputMask id="data_atendimento" value="#{pacienteController.pac.data_atendimento}" mask="99/99/9999" 
+		        			<p:inputMask id="data_atendimento" value="#{edicaoController.pacBuscado.data_atendimento}" mask="99/99/9999" 
 		        			required="true"	requiredMessage="A data de atendimento não foi informada.">
 		        				<f:convertDateTime pattern="dd/MM/yyyy" />
 		        			</p:inputMask>
 							<p:message for="data_atendimento" />					 
 					
 							<p> Número do prontuário: </p>		      		 
-							<p:inputText size="15" id="prontuario" value="#{pacienteController.pac.prontuario}"
+							<p:inputText size="15" id="prontuario" value="#{edicaoController.pacBuscado.prontuario}"
 							required="true" 
 							requiredMessage="O prontuario não foi informado"				
 							/>										
@@ -57,7 +60,7 @@
         				<h:panelGrid columns="1" cellpadding="5">		      		  		    			
 		      		      		
 				      		<p> Nome completo do paciente: </p>
-							<p:inputText size="50" id="nome_paciente" value="#{pacienteController.pac.nome_completo}" 
+							<p:inputText size="50" id="nome_paciente" value="#{edicaoController.pacBuscado.nome_completo}" 
 							required="true"
 							requiredMessage="O nome completo do paciente não foi informado">				
 							</p:inputText>
@@ -66,7 +69,7 @@
 							<br/>
 							
 							<p> Número do cartão do SUS: </p>
-							<p:inputMask size="30" id="cartao_sus" value="#{pacienteController.pac.cartao_sus}"
+							<p:inputMask size="30" id="cartao_sus" value="#{edicaoController.pacBuscado.cartao_sus}"
 							mask="999-9999-9999-9999" 
 							required="true"	requiredMessage="O cartão do sus não foi informado">				
 							</p:inputMask>
@@ -76,7 +79,7 @@
 							
 							
 				      		<p> Nome completo da mãe: </p>
-							<p:inputText size="50" id="nome_mae" value="#{pacienteController.pac.nome_mae}" 
+							<p:inputText size="50" id="nome_mae" value="#{edicaoController.pacBuscado.nome_mae}" 
 							required="true"
 							requiredMessage="O nome completo da mãe não foi informado">				
 							</p:inputText>
@@ -85,7 +88,7 @@
 							<br/>
 							
 				      		<p> Data de nascimento: </p>		      		
-		        			<p:inputMask id="data_nascimento" value="#{pacienteController.pac.data_nascimento}" mask="99/99/9999" 
+		        			<p:inputMask id="data_nascimento" value="#{edicaoController.pacBuscado.data_nascimento}" mask="99/99/9999" 
 		        			required="true"	requiredMessage="A data de nascimento não foi informada.">
 		        				<f:convertDateTime pattern="dd/MM/yyyy" />
 		        			</p:inputMask>
@@ -94,7 +97,7 @@
 							<br/>	
 							
 							<p> Sexo: </p>				
-							<p:selectOneRadio id="sexo" value="#{pacienteController.pac.sexo}" 
+							<p:selectOneRadio id="sexo" value="#{edicaoController.pacBuscado.sexo}" 
 							required="true" requiredMessage="O sexo não foi informado.">
 		      				<f:selectItem itemLabel="Feminino" itemValue="F"/>
 		      				<f:selectItem itemLabel="Masculino" itemValue="M"/>	      		
@@ -102,7 +105,7 @@
 		      				<p:message for="sexo" />     			
 							
 				      		<p> Local de nascimento: </p>
-							<p:inputText size="30" id="local_nascimento" value="#{pacienteController.pac.local_nascimento}" 
+							<p:inputText size="30" id="local_nascimento" value="#{edicaoController.pacBuscado.local_nascimento}" 
 							required="true"
 							requiredMessage="O local de nascimento não foi informado">				
 							</p:inputText>
@@ -111,10 +114,10 @@
 							<br/>
 							
 							<p> Estado de nascimento: </p>					
-							<p:autoComplete id="estado_nascimento" value="#{pacienteController.pac.estado_nascimento}" completeMethod="#{pacienteController.completarEstados}" />						
+							<p:autoComplete id="estado_nascimento" value="#{edicaoController.pacBuscado.estado_nascimento}" completeMethod="#{pacienteController.completarEstados}" />						
 							
 							<p> Estado civil: </p>				
-							<p:selectOneRadio id="estado_civil" value="#{pacienteController.pac.estado_civil}" 
+							<p:selectOneRadio id="estado_civil" value="#{edicaoController.pacBuscado.estado_civil}" 
 							required="true" requiredMessage="O estado civil não foi informado.">
 		      				<f:selectItem itemLabel="Solteiro" itemValue="S"/>
 		      				<f:selectItem itemLabel="Casado" itemValue="C"/>
@@ -124,14 +127,14 @@
 							<p:message for="estado_civil" />					
 							
 				      		<p> Endereço atual: </p>
-							<p:inputText size="50" id="endereco" value="#{pacienteController.pac.endereco}" 
+							<p:inputText size="50" id="endereco" value="#{edicaoController.pacBuscado.endereco}" 
 							required="true"
 							requiredMessage="O endereço atual não foi informado">				
 							</p:inputText>
 							<p:message for="endereco" />					
 							
 		      				<p> Tempo em que reside no endereço (em anos): </p>
-							<p:spinner size="15" id="tempo_endereco" value="#{pacienteController.pac.tempo_endereco}" min="0"
+							<p:spinner size="15" id="tempo_endereco" value="#{edicaoController.pacBuscado.tempo_endereco}" min="0"
 							required="true" requiredMessage="Tempo em que reside no endereço não informado"/>
 							<p:message for="tempo_endereco" />
 						</h:panelGrid>
@@ -142,7 +145,7 @@
 		      		<p:fieldset legend="Informações socioeconômicas" toggleable="true" style="margin-bottom:20px">
         				<h:panelGrid columns="1" cellpadding="5">
 							<p> Atividade principal: </p>
-							<p:inputText size="25" id="atv_principal" value="#{pacienteController.pac.atv_principal}" 
+							<p:inputText size="25" id="atv_principal" value="#{edicaoController.pacBuscado.atv_principal}" 
 							required="true"
 							requiredMessage="A atividade principal não foi informada">				
 							</p:inputText>
@@ -150,13 +153,13 @@
 							
 							
 							<p> Idade em que começou a exercer a atividade: </p>
-							<p:spinner size="15" id="idade_inicio_atv" value="#{pacienteController.pac.idade_inicio_atv}" min="0"
+							<p:spinner size="15" id="idade_inicio_atv" value="#{edicaoController.pacBuscado.idade_inicio_atv}" min="0"
 							required="true" requiredMessage="Idade em que começou a exercer a profissão não informado"/>
 							<p:message for="idade_inicio_atv" />	
 										
 							<p> Nível de escolaridade: </p>			
 						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
-						        <p:selectOneRadio id="escolaridade" value="#{pacienteController.pac.escolaridade}"  layout="grid" columns="3"
+						        <p:selectOneRadio id="escolaridade" value="#{edicaoController.pacBuscado.escolaridade}"  layout="grid" columns="3"
 						        required="true" requiredMessage="O nível de escolaridade não foi informado">
 						            <f:selectItem itemLabel="Nenhuma" itemValue="NN"/>
 									<f:selectItem itemLabel="Fundamental incompleto" itemValue="FI"/>
@@ -171,7 +174,7 @@
 							
 							<p> Renda familiar (em salários mínimos): </p>			
 						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
-						        <p:selectOneRadio id="renda" value="#{pacienteController.pac.renda}"  layout="grid" columns="2"
+						        <p:selectOneRadio id="renda" value="#{edicaoController.pacBuscado.renda}"  layout="grid" columns="2"
 						        required="true" requiredMessage="Renda familiar não foi informado">
 						            <f:selectItem itemLabel="Menor ou igual a 1" itemValue="A1"/>
 									<f:selectItem itemLabel="Maior que 1 e menor ou igual a 5" itemValue="1-5"/>
@@ -183,7 +186,7 @@
 							
 							<p> Número de comodos da residência: </p>			
 						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
-						        <p:selectOneRadio id="num_comodos" value="#{pacienteController.pac.num_comodos}"  layout="grid" columns="2"
+						        <p:selectOneRadio id="num_comodos" value="#{edicaoController.pacBuscado.num_comodos}"  layout="grid" columns="2"
 						        required="true" requiredMessage="Número de comodos não foi informado">
 						            <f:selectItem itemLabel="De 1 a 3" itemValue="1-3"/>
 									<f:selectItem itemLabel="De 4 a 5" itemValue="4-5"/>
@@ -194,12 +197,12 @@
 						    
 						    
 						    <p> Número de pessoas que vive na residência: </p>			
-						    <p:spinner size="15" id="num_pessoas_casa" value="#{pacienteController.pac.num_pessoas_casa}" min="0"
+						    <p:spinner size="15" id="num_pessoas_casa" value="#{edicaoController.pacBuscado.num_pessoas_casa}" min="0"
 						    required="true" requiredMessage="Número de pessoas na residência não informado"/>
 						    <p:message for="num_pessoas_casa" />	
 						    
 						    <p> Possui rede de esgoto? </p>				
-							<p:selectOneRadio id="rede_esgoto" value="#{pacienteController.pac.rede_esgoto}" 
+							<p:selectOneRadio id="rede_esgoto" value="#{edicaoController.pacBuscado.rede_esgoto}" 
 							required="true" requiredMessage="Rede de esgoto não informado">
 		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
@@ -207,7 +210,7 @@
 		      				<p:message for="rede_esgoto" />
 		      				
 		      				<p> Possui agua encanada? </p>				
-							<p:selectOneRadio id="agua_encanada" value="#{pacienteController.pac.agua_encanada}" 
+							<p:selectOneRadio id="agua_encanada" value="#{edicaoController.pacBuscado.agua_encanada}" 
 							required="true" requiredMessage="Água encanda não informada">
 		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
@@ -223,7 +226,7 @@
 		      				
 		      				<p> Faz uso de cigarro? </p>			
 						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
-						        <p:selectOneRadio id="fumo" value="#{pacienteController.pac.fumo}"  layout="grid" columns="2"
+						        <p:selectOneRadio id="fumo" value="#{edicaoController.pacBuscado.fumo}"  layout="grid" columns="2"
 						        required="true" requiredMessage="Não informou se o paciente é fumante">
 						            <f:selectItem itemLabel="Não" itemValue="NAO"/>
 									<f:selectItem itemLabel="Menos 5 cigarros por dia" itemValue="ATE5"/>
@@ -235,7 +238,7 @@
 							
 							<p> Faz uso de bebida alcólica? </p>			
 						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
-						        <p:selectOneRadio id="bebida" value="#{pacienteController.pac.bebida}"  layout="grid" columns="3"
+						        <p:selectOneRadio id="bebida" value="#{edicaoController.pacBuscado.bebida}"  layout="grid" columns="3"
 						        required="true" requiredMessage="Não informou se o paciente faz uso de bebida alcólica">
 						            <f:selectItem itemLabel="Não" itemValue="NAO"/>
 									<f:selectItem itemLabel="Diariamente" itemValue="DIA"/>
@@ -245,10 +248,10 @@
 							<p:message for="bebida" />	
 							
 							<p> Faz uso ou mantém contato com agrotóxico? Se sim, qual?</p>		      				
-		      				<p:inputText size="20" id="agrotoxico" value="#{pacienteController.pac.agrotoxico}" />
+		      				<p:inputText size="20" id="agrotoxico" value="#{edicaoController.pacBuscado.agrotoxico}" />
 		      				
 							<p> Tipo de pele: </p>						            
-					        <p:selectOneRadio id="tipo_pele" value="#{pacienteController.pac.tipo_pele}"  layout="grid" columns="3"
+					        <p:selectOneRadio id="tipo_pele" value="#{edicaoController.pacBuscado.tipo_pele}"  layout="grid" columns="3"
 					        required="true" requiredMessage="Tipo de pele não informado.">
 					            <f:selectItem itemLabel="1" itemValue="1"/>
 								<f:selectItem itemLabel="2" itemValue="2"/>
@@ -260,7 +263,7 @@
 		      				
 		      				<p> Grau de destrofia solar: </p>			
 						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
-						        <p:selectOneRadio id="destrofia_solar" value="#{pacienteController.pac.destrofia_solar}"  layout="grid" columns="3"
+						        <p:selectOneRadio id="destrofia_solar" value="#{edicaoController.pacBuscado.destrofia_solar}"  layout="grid" columns="3"
 						        required="true" requiredMessage="Grau de destrofia solar não informado.">
 						            <f:selectItem itemLabel="Leve" itemValue="L"/>
 									<f:selectItem itemLabel="Moderada" itemValue="M"/>
@@ -272,14 +275,14 @@
 							<p:message for="destrofia_solar" />		 
 							
 							<p> Quantas horas fica exposto ao sol por dia? </p>			
-						    <p:spinner size="15" id="exp_sol" value="#{pacienteController.pac.exp_sol}" min="0"
+						    <p:spinner size="15" id="exp_sol" value="#{edicaoController.pacBuscado.exp_sol}" min="0"
 						    required="true" requiredMessage="Horas de exposição no sol não informado"
 						    />
 						    <p:message for="exp_sol" />     
 						    
 		      				<p> Horário de maior exposição ao sol: </p>			
 						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
-						        <p:selectOneRadio id="hora_exp_sol" value="#{pacienteController.pac.hora_exp_sol}"  layout="grid" columns="3"
+						        <p:selectOneRadio id="hora_exp_sol" value="#{edicaoController.pacBuscado.hora_exp_sol}"  layout="grid" columns="3"
 						        required="true" requiredMessage="Horario de exposição ao sol não informado.">
 						            <f:selectItem itemLabel="09h > 16h" itemValue="M"/>
 									<f:selectItem itemLabel="Entre 9h e 16h" itemValue="T"/>
@@ -289,7 +292,7 @@
 							<p:message for="hora_exp_sol" />		
 							
 						    <p> Faz uso de chapéu? </p>				
-							<p:selectOneRadio id="chapeu" value="#{pacienteController.pac.chapeu}" 
+							<p:selectOneRadio id="chapeu" value="#{edicaoController.pacBuscado.chapeu}" 
 							required="true" requiredMessage="Uso de chapéu não informado">
 		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
@@ -297,7 +300,7 @@
 		      				<p:message for="chapeu" />				    				
 		      				
 		      				<p> Faz uso de camisa de mangas compridas? </p>				
-							<p:selectOneRadio id="manga_cumprida" value="#{pacienteController.pac.manga_cumprida}" 
+							<p:selectOneRadio id="manga_cumprida" value="#{edicaoController.pacBuscado.manga_cumprida}" 
 							required="true" requiredMessage="Uso de mangas compridas não informado">
 		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
@@ -305,7 +308,7 @@
 		      				<p:message for="manga_cumprida" />	      				
 		      				
 		      				<p> Faz uso de calças compridas? </p>				
-							<p:selectOneRadio id="calca_cumprida" value="#{pacienteController.pac.calca_cumprida}" 
+							<p:selectOneRadio id="calca_cumprida" value="#{edicaoController.pacBuscado.calca_cumprida}" 
 							required="true" requiredMessage="Uso de calças compridas não informado">
 		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
@@ -313,7 +316,7 @@
 		      				<p:message for="calca_cumprida" />
 		      				
 							<p> Faz uso de filtro solar? </p>				
-							<p:selectOneRadio id="filtro_solar" value="#{pacienteController.pac.filtro_solar}" 
+							<p:selectOneRadio id="filtro_solar" value="#{edicaoController.pacBuscado.filtro_solar}" 
 							required="true" requiredMessage="Uso de filtro solar não informado">
 		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
@@ -321,17 +324,17 @@
 		      				<p:message for="filtro_solar" />		      				
 							
 							<p> Origem familiar materna:</p>												
-							<p:autoComplete id="origem_familiar_mae" value="#{pacienteController.pac.origem_familiar_mae}" completeMethod="#{pacienteController.completarOrigemFamiliar}" 
+							<p:autoComplete id="origem_familiar_mae" value="#{edicaoController.pacBuscado.origem_familiar_mae}" completeMethod="#{pacienteController.completarOrigemFamiliar}" 
 							required="true" requiredMessage="Origem familiar materna não informada"/>
 							<p:message for="origem_familiar_mae" />		      				
 							
 							<p> Origem familiar paterna:</p>												
-							<p:autoComplete id="origem_familiar_pai" value="#{pacienteController.pac.origem_familiar_pai}" completeMethod="#{pacienteController.completarOrigemFamiliar}" 
+							<p:autoComplete id="origem_familiar_pai" value="#{edicaoController.pacBuscado.origem_familiar_pai}" completeMethod="#{pacienteController.completarOrigemFamiliar}" 
 							required="true" requiredMessage="Origem familiar paterna não informada"/>					
 							<p:message for="origem_familiar_pai" />
 							
 							<p> Possui histórico de câncer de pele na família? </p>				
-							<p:selectOneRadio id="hist_cancer_pele" value="#{pacienteController.pac.hist_cancer_pele}" 
+							<p:selectOneRadio id="hist_cancer_pele" value="#{edicaoController.pacBuscado.hist_cancer_pele}" 
 							required="true" requiredMessage="Histórico de câncer de pele não informado">
 		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
@@ -339,7 +342,7 @@
 		      				<p:message for="hist_cancer_pele" />
 		      				
 							<p> Possui histórico de outro câncer família? </p>				
-							<p:selectOneRadio id="hist_cancer" value="#{pacienteController.pac.hist_cancer}" 
+							<p:selectOneRadio id="hist_cancer" value="#{edicaoController.pacBuscado.hist_cancer}" 
 							required="true" requiredMessage="Histórico de câncer não informado">
 		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
@@ -347,14 +350,14 @@
 		      				<p:message for="hist_cancer" />
 		      				
 		      				<p> Já foi atendido pelo PAD anteriormente? Se sim, quantas vezes? </p>			
-						    <p:spinner size="15" id="num_vezes_atendido" value="#{pacienteController.pac.num_vezes_atendido}" min="0"
+						    <p:spinner size="15" id="num_vezes_atendido" value="#{edicaoController.pacBuscado.num_vezes_atendido}" min="0"
 						    required="true" requiredMessage="Número de vezes atendido não informado"
 						    />
 						    <p:message for="num_vezes_atendido" />
 						    
 						    
 						    <p> Observações: </p>
-						    <p:inputTextarea rows="3" cols="30" value="#{pacienteController.pac.obs}"/> 									
+						    <p:inputTextarea rows="3" cols="30" value="#{edicaoController.pacBuscado.obs}"/> 									
             				
         				</h:panelGrid>        				
     				</p:fieldset>
@@ -367,7 +370,7 @@
         				<h:panelGrid columns="1" cellpadding="5">
 							
 							<p> Pressão arterial sistolica: </p>
-							<p:inputNumber size="10" id="pres_art_sistolica" value="#{pacienteController.pac.pres_art_sistolica}"
+							<p:inputNumber size="10" id="pres_art_sistolica" value="#{edicaoController.pacBuscado.pres_art_sistolica}"
 							minValue="0.0" decimalPlaces="0"
 							required="true" requiredMessage="O pressão arterial sistolica não foi informada">				
 							</p:inputNumber>
@@ -376,7 +379,7 @@
 							<br/>
 							
 							<p> Pressão arterial diastolica: </p>
-							<p:inputNumber size="10" id="pres_art_diastolica" value="#{pacienteController.pac.pres_art_diastolica}" 
+							<p:inputNumber size="10" id="pres_art_diastolica" value="#{edicaoController.pacBuscado.pres_art_diastolica}" 
 							minValue="0.0" decimalPlaces="0"
 							required="true" requiredMessage="O pressão arterial diastolica não foi informada">				
 							</p:inputNumber>
@@ -385,7 +388,7 @@
 							<br/>
 							
 		      				<p> HAS: </p>				
-							<p:selectOneRadio id="HAS" value="#{pacienteController.pac.HAS}" 
+							<p:selectOneRadio id="HAS" value="#{edicaoController.pacBuscado.HAS}" 
 							required="true" requiredMessage="HAS não informado">
 		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
@@ -393,7 +396,7 @@
 		      				<p:message for="HAS" />							
 							
 		      				<p> Paciente possui diabetes? </p>				
-							<p:selectOneRadio id="diabetes" value="#{pacienteController.pac.diabetes}" 
+							<p:selectOneRadio id="diabetes" value="#{edicaoController.pacBuscado.diabetes}" 
 							required="true" requiredMessage="Presença de diabetes não informado">
 		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
@@ -401,7 +404,7 @@
 		      				<p:message for="diabetes" />
 		      				
 		      				<p> Uso de anticoagulante? </p>				
-							<p:selectOneRadio id="anticoagulante" value="#{pacienteController.pac.anticoagulante}" 
+							<p:selectOneRadio id="anticoagulante" value="#{edicaoController.pacBuscado.anticoagulante}" 
 							required="true" requiredMessage="Anticoagulante não informado">
 		      				<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      				<f:selectItem itemLabel="Não" itemValue="N"/>	      		
@@ -409,7 +412,7 @@
 		      				<p:message for="anticoagulante" />
 		      				
 					      	<p> Paciente possui alergia algum medicamento? </p>
-							<p:inputText size="30" id="alergia" value="#{pacienteController.pac.alergia}" 
+							<p:inputText size="30" id="alergia" value="#{edicaoController.pacBuscado.alergia}" 
 							required="true"
 							requiredMessage="Alergia não foi informado">				
 							</p:inputText>
@@ -420,7 +423,179 @@
             				
             				
         					</h:panelGrid>
-    				</p:fieldset>				
+    				</p:fieldset>	      		 
+					
+					
+					<!-- Completar lesao do zero pois não existe lesão cadastrada para o paciente -->
+					<h:panelGroup rendered="#{edicaoController.lesaoVazia}">
+						<p:fieldset legend="Inserir Lesão" style="margin-bottom:20px; margin-top:20px;" toggleable="true">        				
+        						<p> Este paciente não possui lesão cadastrada. Insira as lesões </p>
+        						
+        						
+								<p> Região da lesão: </p>					
+								<p:inputText size="30" id="regiao" value="#{edicaoController.lesao.regiao}">
+								
+									<p:ajax event="change" />
+												
+								</p:inputText>
+										
+								
+								
+								<p> Diametro maior (mm): </p>
+								<p:spinner size="15" id="dia_maior" value="#{edicaoController.lesao.diametro_maior}" min="0" stepFactor="0.25">
+								
+									<p:ajax event="change" />
+									
+								</p:spinner>
+								
+								<p> Diametro menor (mm): </p>
+								<p:spinner size="15" id="dia_menor" value="#{edicaoController.lesao.diametro_menor}" min="0" stepFactor="0.25">
+								
+									<p:ajax event="change" />
+									
+								</p:spinner>
+								
+								<p> Diagnóstico clínico: </p>							
+								<p:autoComplete size="30" id="diag_clin" value="#{edicaoController.lesao.diagnostico_clinico}"
+								completeMethod="#{pacienteController.completarDiagnosticoLesao}">
+								
+									<p:ajax event="change" />
+									
+								</p:autoComplete>
+								
+								
+								<p> Procedimento: </p>
+								<p:inputText size="30" id="procedimento" value="#{edicaoController.lesao.procedimento}">
+								
+									<p:ajax event="change" />
+													
+								</p:inputText>
+								
+								
+								<br/>
+									
+								<p> Observações: </p>
+								<p:inputTextarea id="obs_les" rows="3" cols="30" value="#{edicaoController.lesao.obs}">
+								
+									<p:ajax event="change" />
+									
+								</p:inputTextarea>
+								
+								<br/>				
+								
+								<p> Inserir imagem(s) da lesão: </p>		
+								<p:fileUpload label="Procurar Imagem" uploadLabel="Enviar" 
+									cancelLabel="Cancelar" id="imgLesao" 
+						 			fileUploadListener="#{edicaoController.inserirImagemLista}"
+		        					multiple="true"	        					
+		        					sizeLimit="10000000"
+		        					update="growlLesao"
+		        				/>
+								
+								<br/> <br/>
+								<p:growl id="growlLesao" showDetail="true" closable="true" />
+								 
+								
+								<p:commandButton value="Inserir lesão" icon="ui-icon-plus">						
+									<p:ajax event="click" update="tabelaLesoes growlLesao regiao dia_maior dia_menor diag_clin procedimento obs_les"								
+									 listener="#{edicaoController.inserirLesao}" />								
+								</p:commandButton>										
+								
+								
+								<p:commandButton class="botao" id="verLesoes" value="Ver lesões adicionadas" type="button" icon="ui-icon-folder-open"/>
+								
+								<p:overlayPanel id="painelLesoes" for="verLesoes" hideEffect="fade" dynamic="true" style="width:800px; text-align: center;">
+					       			<p:dataTable id="tabelaLesoes"				       			
+									value="#{edicaoController.pacLesoes}" var="les">
+										<p:column headerText="Região">
+											<h:outputText value="#{les.regiao}" />
+										</p:column>								
+											
+										<p:column headerText="Diametro maior">
+											<h:outputText value="#{les.diametro_maior}" />
+										</p:column>
+										
+										<p:column headerText="Diametro menor">
+											<h:outputText value="#{les.diametro_menor}" />
+										</p:column>
+										
+										<p:column headerText="Diagnóstico clínico">
+											<h:outputText value="#{les.diagnostico_clinico}" />
+										</p:column>							
+										
+										<p:column headerText="Procedimento">
+											<h:outputText value="#{les.procedimento}" />
+										</p:column>
+													
+													
+										<p:column headerText="Imagem">										        	
+										        	<p:commandButton update="@form:dialogImagem" 
+										        	value="Ver" icon="ui-icon-image" process="@this" oncomplete="PF('imagemDialog').loadContents()">
+										        		<f:setPropertyActionListener value="#{les}" target="#{edicaoController.lesaoSelecionada}" />									        		
+										        	</p:commandButton>    			            		            
+										</p:column>														
+										 
+										<p:column headerText="Excluir">																		
+											<p:commandButton action="#{edicaoController.excluirLesao}" icon="ui-icon-trash" title="Excluir" update="tabelaLesoes" process="@this">
+		      									<f:setPropertyActionListener value="#{les}" target="#{edicaoController.lesaoSelecionada}" />          						
+											</p:commandButton>								
+											
+										</p:column>														
+										 				
+									</p:dataTable>
+	    						</p:overlayPanel>							
+								
+							
+							
+			           		<p:dialog header="Imagem da lesão" 
+				           widgetVar="imagemDialog" modal="true"
+				           showEffect="fade" hideEffect="fade" resizable="false"
+				           style="width:400px; text-align:center;"
+				           id="dialogImagem">				
+								
+								<p:commandButton value="Anterior" type="button" onclick="PF('switcher').previous();"
+											icon="ui-icon-circle-triangle-w" id="prev"/>
+								
+								<p:commandButton value="Próxima" type="button" onclick="PF('switcher').next();"
+											icon="ui-icon-circle-triangle-e" id="next"/>								
+									
+								<p:imageSwitch effect="fade" widgetVar="switcher" id="manuelSwitcher"
+								    slideshowAuto="false">
+								    
+								<ui:repeat value="#{edicaoController.lesaoSelecionada.imagens}" var="img"
+									id="manuelSwitcherImages">
+								     
+								        <p:graphicImage url="imgLesoes/#{img.path}" id="image"
+													    class="imgDialog"/>
+								        
+								    </ui:repeat>
+								    
+								</p:imageSwitch>							
+								
+							
+										
+							</p:dialog>		
+		        				
+													
+						</p:fieldset>
+					
+					</h:panelGroup>	
+					
+					
+								
+					<!-- Editar lesão já existente -->
+					<h:panelGroup rendered="#{edicaoController.lesaoCompleta}">
+						<p:fieldset legend="Dados da lesão" style="margin-bottom:20px; margin-top:20px;" toggleable="true">        				
+        	
+        				
+													
+						</p:fieldset>
+					
+					</h:panelGroup>								
+					
+					
+					
+					
       		
 		      		<br></br>
 		      		<br></br>
@@ -428,9 +603,8 @@
 		      		
 		      		<p:growl id="growlCheck" showDetail="true" closable="true" />		      		 
 		      		
-		      		<p:commandButton  value="Cadastrar" class="botaoPac" action="#{pacienteController.salvarPaciente}" type="submit" 
-		      		icon="ui-icon-check" update="growlCheck" ajax="false"/>	      		
-		      		
+		      		<p:commandButton  value="Editar" class="botaoPac" action="#{edicaoController.editarPaciente}" type="submit"
+		      		icon="ui-icon-pencil" update="growlCheck"  />
 		      		
 		      	
 	      	</h:form>     

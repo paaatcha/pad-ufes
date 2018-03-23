@@ -103,17 +103,17 @@ public class PacienteController {
 		lesao = new Lesao();
 	}
 	
-	private void printImgs (List<Imagem> imgs) {
+	static public void printImgs (List<Imagem> imgs) {
 		System.out.println("Imprimindo imagens");
 		for (Imagem img: imgs) {
 			System.out.println(img.getPath());
 		}
 	}
 	
-	private void printLesoes (List<Lesao> lesoes) {
+	static public void printLesoes (List<Lesao> lesoes) {
 		System.out.println("Imprimindo lesoes");
 		for (Lesao les: lesoes) {
-			System.out.println(les.getRegiao() + " - " + les.getDiagnostico_clinico());
+			System.out.println("Regiao: " + les.getRegiao() + " - " + "Diagnostico: " + les.getDiagnostico_clinico());
 			printImgs(les.getImagens());
 		}
 	}
@@ -143,32 +143,7 @@ public class PacienteController {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problema no envio da imagem. Tente novamente. Caso não consiga, entre em contato com o administrador do sistema.", "  "));
 		}		
 	}	
-	
-	/*public List<String> pegaImagensCadastro (){
-		List<String> imgsPath = new ArrayList<String>();		
-		
-		System.out.println("FUNCAO DE PEGAR IMAGENS. Lesão: " + lesao.getRegiao() );
-		
-		for (Imagem img : lesaoSelecionada.getImagens()) {
-			System.out.println("Adicionando o path: " + img.getPath());
-			imgsPath.add(img.getPath());
-		}	
-		
-		return imgsPath;
-	}	*/
-	
-	
-	// VERIFICAR SE A IMAGEM ESTA NA LISTA, SE NAO INSERIR. DEPOIS TRATAR A EXCLUSÃO
-//	public void copiaLesaoSelecionada () {		
-//		imgsPath = new ArrayList<String>();		
-//		System.out.println("Funcao de copia: " + lesaoSelecionada.getRegiao());	
-//		printImgs(lesaoSelecionada.getImagens());
-//		for (Imagem img : lesaoSelecionada.getImagens()) {
-//			System.out.println("Adicionando o path: " + img.getPath());
-//			imgsPath.add(img.getPath());
-//		}		
-//	}	
-	
+
 	public void excluirImagensServer (List<Imagem> imgs) {
 		
 		for (Imagem img : imgs) {		
@@ -196,8 +171,32 @@ public class PacienteController {
 		this.pacLesoes.remove(this.lesaoSelecionada);
 	}
 	
-	public String salvar () {		
+	public String salvarPaciente () {		
 		String ret = "/dashboard/cadastar_pacientes.xhtml";
+		FacesContext context = FacesContext.getCurrentInstance();
+		try {
+			Paciente p1 = pac_rep.buscaPorCartaoSus(this.pac.getCartao_sus());	
+			
+			if (p1 == null) {				
+				pac_rep.save(this.pac);
+				context.addMessage(null, new FacesMessage("Paciente cadastrado com sucesso. \nID do Paciente: " + pac.getId()));				
+				pac = new Paciente();
+				
+			} else {
+				ret = null;  
+		        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Este cartão do SUS já está cadastrado! Visualize o paciente na página de visualização.", "  "));
+			}						
+		} catch (Exception e) {
+			e.printStackTrace();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO! Problema na comunicação com banco de dados. Tente novamente. Se o problema persistir, entre em contato com o administrador do sistema.", "  "));
+			ret = null;
+		}		
+		return ret;
+	}
+	
+	
+	public String salvarPacienteAntigo () {		
+		String ret = "/dashboard/cadastar_pacientes_antigos.xhtml";
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
 			Paciente p1 = pac_rep.buscaPorCartaoSus(this.pac.getCartao_sus());	
@@ -225,8 +224,7 @@ public class PacienteController {
 			ret = null;
 		}		
 		return ret;
-	}	
-	
+	} 	
 	
 	
 /* ###########################################  Getters and Setters ###################################################*/

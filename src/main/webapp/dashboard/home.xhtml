@@ -1,89 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="decoratorDashboard/decorator_dashboard.xhtml">
 
-<h:head>
-	<title>PAD - Programa de Assistência Dermatológica</title>
-	<link href="../css/pad_style.css" rel="stylesheet" type="text/css" />
-	<link href="../img/icon.png" rel='shortcut icon'/>
-</h:head>
-
-<h:body>
-
-
-	<div class="painelPrincipal">
-		<div class="parteSuperior">	
+	
+	
+	<ui:define name="titulo"> Bem vindo <h:outputText value="#{usuarioController.getNomeUsuarioLogado()}" /> </ui:define>		
 		
-			<p> Programa de Assistência Dermatológica - PAD</p>
-			
-			<a href="/logout"> Sair </a>
 		
-		</div>
-		
-		<div class="menu">
-		
-				<ul>
-					<li>											
-						<a href="home.xhtml">
-							<img src="../img/homepage.png" alt="Página inicial"/>
-							<span> Home </span> 
-						</a>
-					
-					
-					</li>
-					
-					<li>					
-						
-						<a href="cadastrar_pacientes.xhtml">	
-							<img src="../img/note.png" alt="Cadastrar paciente"/>					
-							<span> Cadastrar pacientes </span>
-						</a>
-						
-					</li>
-					
-					
-					<li>					
-						<a href="visualizar_paciente.xhtml">							
-							<img src="../img/onePerson.png" alt="Visualizar paciente"/>
-							<span> Visualizar paciente </span>
-						</a>
-						
-					</li>
-					
-					<li>					
-						<a href="visualizar_todos_pacientes.xhtml">							
-							<img src="../img/manyPersons.png" alt="Visualizar paciente"/>
-							<span> Visualizar todos os pacientes </span>
-						</a>
-						
-					</li>					
-					
-					<li>						
-						<a href="analise_de_dados.xhtml">							
-							<img src="../img/graph.png" alt="Analise de dados"/>
-							<span> Análise dos dados </span>
-						</a>
-					</li>
-					
-					<li>											
-						<a href="configuracoes.xhtml">							
-							<img src="../img/settings.png" alt="Configurações"/> 
-							<span> Configurações </span> 
-						</a>
-					
-					
-					</li>
-				
-				</ul>	
-		
-		</div>		
-			
-		<div class="conteudoInferior">
-		
-			<h2> Bem vindo <h:outputText value="#{usuarioController.getNomeUsuarioLogado()}" /> </h2>
-		
+	<ui:define name="conteudoInferiorPagina">			
 		
 			<p>
 				No menu acima você encontra as opções disponíveis e implementadas no sistema. Abaixo você encontra uma breve descrição
@@ -97,13 +26,22 @@
 				</li>
 				
 				<li>
-					<span> Cadastrar pacientes: </span> para cadastrar um novo paciente acesse essa funcionalidade. Nela será necessário preencher o formulário <br/> com todos os dados  dos pacientes e do diagnóstico clínico, bem como uma ou mais imagens da lesão.
+					<span> Cadastrar pacientes: </span> para cadastrar um novo paciente acesse essa funcionalidade. Nela será necessário preencher o formulário <br/>
+					com todos os dados  dos pacientes. As informações em relação a lesão e inserção de imagens, devem ser realizados pelo aplicativo.
 				</li>
 				
 				<li>
-					<span> Visualizar pacientes: </span> para visualizar os pacientes cadastrados no banco de dados acesse essa funcionalidade. Aqui você tem acesso <br/>
-					ao diagnóstico clínico e as imagens cadastradas.
+					<span> Visualizar paciente: </span> esta funcionalidade deve ser usada para visualizar todos os dados de um único paciente. <br/>
+					Para isso é necessário inserir o cartão do sus do paciente para uma busca no banco de dados					
+					
 				</li>
+				
+				<li>
+					<span> Visualizar todos pacientes: </span> Todos os pacientes são exibidos em uma tabela. Todavia, nem todos os dados são apresentados. <br/>
+					Para uma visualização completa é necessário buscar o paciente na seção anterior. Tenha em mente que o processo pode levar alguns segundos <br/>
+					dependendo da quantidade de pacientes a serem recuperados no banco de dados.
+					
+				</li>				
 				
 				<li>
 					<span> Análise de dados: </span> esta funcionalidade realiza uma análise de dados em relação aos pacientes cadastrados no banco de dados. <br/>
@@ -113,28 +51,30 @@
 				
 				<li>
 					<span> Configurações: </span> esta função é destinada para alteração de senha, nome de usuário e/ou e-mail.
-				</li>				
-			
+				</li>		
 			
 			</ul>	
+	
+			<h4> Inserindo um paciente antigo </h4>
+			<p>
+				Para inserir um paciente antigo, ou seja, uma ficha que é anterior a este sistema, acesse ao <a id="linkPacAntigo" href="cadastrar_pacientes_antigos.xhtml"> cadastro de pacientes antigos </a> <br/>
+				A diferença entre o cadastro do menu e este cadastro é que as informações de lesões e imagens são inseridas todas em um <br/>
+				mesmo formulário sem a necessidade do uso do aplicativo no smartphone.
+			</p>
 			
+			
+			
+			<h4> Resolução de problemas </h4>
 			
 			<p>
-				Qualquer problema encontrado ou dúvida em relação ao sistema envie um e-mail para <span id="spanEmail"> pacheco.comp@gmail.com</span>.
-			
-			
+				Qualquer problema encontrado, bug ou dúvida em relação ao sistema envie um e-mail para <span id="spanEmail"> pacheco.comp@gmail.com</span>. <br/>
+				O seu contato é importanto para encontrarmos possíveis bugs e corrigi-los para que o sistema fique cada vez mais estável e confiável.			
 			</p>			
-			
-			
-		
-		</div>
-	
-	
-	
-	</div>	
-	
+				
 	
 
+	</ui:define>
+	
 
-</h:body>
-</html>
+</ui:composition>
+

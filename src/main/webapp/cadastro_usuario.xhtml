@@ -1,37 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:p="http://primefaces.org/ui"
-  xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      template="/decoratorInicio/decorator_inicio.xhtml">
 
-<h:head>
-	<title>PAD - Projeto de Assistência Dermatológica</title>
-	<link href="css/pad_style.css" rel="stylesheet" type="text/css" />
-	<link href="img/icon.png" rel='shortcut icon'/>
-</h:head>
-
-<h:body>
-	<div class="boxLoginPrincipal"> 
 	
-		<div class="boxMenuLogin">
-			<ul>
-				<li> <a href="index.xhtml"> Home </a> </li>
-				<li> <a href="cadastro_usuario.xhtml"> Cadastrar </a> </li>
-				<li> <a href="ajuda.xhtml"> Ajuda </a> </li>
-			
-			
-			</ul>
-		</div>
+	
+	<ui:define name="titulo"> Informações pessoais para cadastro </ui:define>		
 		
-		<h2> Informações pessoais para cadastro</h2>
+	<ui:define name="boxCentral">			
 		
-		<div id="boxCadastroUsuario" class="boxLogin">		
-		
+<br/>
 			
-			<br/>
-			
-	      	<h:form class="formLogin">
+	      	<h:form class="formLogin" id="cadastroUsuario">
 	      			<p:messages autoUpdate="true" />	      		
 		      		
 		      		<p> Nome completo* : </p> 
@@ -109,26 +93,7 @@
 		      		
 		      	
 	      	</h:form>		
-		
-		<!-- 
-		    <script>
-		    
-		    	var urlAtual = window.location.pathname;
-		    	if (urlAtual.localeCompare("/cadastro_usuario.xhtml?cadastro=true") == 0){			    
-			    	setTimeout(function() {
-			    	  window.location.href = "index.xhtml";
-			    	}, 3000);		    	
-		    	}
 
-			</script>
-		 -->
-		
-		</div>
+	</ui:define>
 	
-	</div>
-	
-
-
-
-</h:body>
-</html>
+</ui:composition>

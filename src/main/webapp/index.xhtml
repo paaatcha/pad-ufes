@@ -1,34 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:p="http://primefaces.org/ui">
-
-<h:head>
-	<title>PAD - Projeto de Assistência Dermatológica</title>
-	<link href="css/pad_style.css" rel="stylesheet" type="text/css" />
-	<link href="img/icon.png" rel='shortcut icon'/>
-	
-</h:head>
-
-<h:body>
-	<div class="boxLoginPrincipal"> 
-	
-		<div class="boxMenuLogin">
-			<ul>
-				<li> <a href="index.xhtml"> Home </a> </li>
-				<li> <a href="cadastro_usuario.xhtml"> Cadastrar </a> </li>
-				<li> <a href="ajuda.xhtml"> Ajuda </a> </li>
-			
-			
-			</ul>
-		</div>
-		
-		<h2> Faça login para acessar o sistema</h2>
-		
-		<div class="boxLogin">		
-		
-	      	<h:form class="formLogin" prependId="false">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      template="/decoratorInicio/decorator_inicio.xhtml">
+      
+      
+      <ui:define name="titulo"> Faça login para acessar o sistema </ui:define>
+      
+      <ui:define name="boxCentral">
+      
+			<h:form class="formLogin" prependId="false">
 	      			<p:messages autoUpdate="true" />
 	      		
 	      			<p:outputLabel value="Nome de usuário ou senha incorreta!" id="naoEncontrado" rendered="${!empty param['error']}" />
@@ -52,14 +35,8 @@
 		
 			<p id="esqueci">
 				<a href="esqueci_senha.xhtml"> Esqueci minha senha</a>
-			</p>
-		
-		</div>
-
-	</div>
-	
-
-
-
-</h:body>
-</html>
+			</p>      
+      
+      </ui:define>     
+      
+</ui:composition>

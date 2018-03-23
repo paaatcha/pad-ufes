@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>PAD - Programa de Assistência Dermatológica</title>
+	<link href="#{facesContext.externalContext.requestContextPath}/../css/pad_style.css" rel="stylesheet" type="text/css" />
+	<link href="#{facesContext.externalContext.requestContextPath}/../img/icon.png" rel='shortcut icon'/>
+</h:head>
+
+<h:body>
+
+
+	<div class="painelPrincipal">
+		<div class="parteSuperior">	
+		
+			<p> Programa de Assistência Dermatológica - PAD</p>
+			
+			<a href="/logout"> Sair </a>
+		
+		</div>
+		
+		<div class="menu">
+		
+				<ul>
+					<li>											
+						<a href="#{facesContext.externalContext.requestContextPath}/dashboard/home.xhtml">
+							<img src="#{facesContext.externalContext.requestContextPath}/../img/homepage.png" alt="Página inicial"/>
+							<span> Home </span> 
+						</a>
+					
+					
+					</li>
+					
+					<li>					
+						
+						<a href="#{facesContext.externalContext.requestContextPath}/dashboard/cadastrar_pacientes.xhtml">	
+							<img src="#{facesContext.externalContext.requestContextPath}/../img/note.png" alt="Cadastrar paciente"/>					
+							<span> Cadastrar pacientes </span>
+						</a>
+						
+					</li>
+					
+					
+					<li>					
+						<a href="#{facesContext.externalContext.requestContextPath}/dashboard/visualizar_paciente.xhtml">							
+							<img src="#{facesContext.externalContext.requestContextPath}/../img/onePerson.png" alt="Visualizar paciente"/>
+							<span> Visualizar paciente </span>
+						</a>
+						
+					</li>
+					
+					<li>					
+						<a href="#{facesContext.externalContext.requestContextPath}/dashboard/visualizar_todos_pacientes.xhtml">							
+							<img src="#{facesContext.externalContext.requestContextPath}/../img/manyPersons.png" alt="Visualizar paciente"/>
+							<span> Visualizar todos os pacientes </span>
+						</a>
+						
+					</li>					
+					
+					<li>						
+						<a href="#{facesContext.externalContext.requestContextPath}/dashboard/analise_de_dados.xhtml">							
+							<img src="#{facesContext.externalContext.requestContextPath}/../img/graph.png" alt="Analise de dados"/>
+							<span> Análise dos dados </span>
+						</a>
+					</li>
+					
+					<li>											
+						<a href="#{facesContext.externalContext.requestContextPath}/dashboard/configuracoes.xhtml">							
+							<img src="#{facesContext.externalContext.requestContextPath}/../img/settings.png" alt="Configurações"/> 
+							<span> Configurações </span> 
+						</a>
+					
+					
+					</li>
+				
+				</ul>	
+		
+		</div>		
+			
+		<div class="conteudoInferior">
+		
+			<h2> <ui:insert name="titulo" /> </h2>
+		
+		
+			<ui:insert name="conteudoInferiorPagina" />			
+			
+			
+		
+		</div>
+	
+	
+	
+	</div>	
+	
+	
+
+
+</h:body>
+</html>

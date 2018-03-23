@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>PAD - Programa de Assistência Dermatológica</title>
+	<link href="#{facesContext.externalContext.requestContextPath}/css/pad_style.css" rel="stylesheet" type="text/css" />
+	<link href="#{facesContext.externalContext.requestContextPath}/img/icon.png" rel='shortcut icon'/>
+	
+</h:head>
+
+<h:body>
+	<div class="boxLoginPrincipal"> 
+	
+		<div class="boxMenuLogin">
+			<ul>
+				<li> <a href="#{facesContext.externalContext.requestContextPath}/index.xhtml"> Home </a> </li>
+				<li> <a href="#{facesContext.externalContext.requestContextPath}/cadastro_usuario.xhtml"> Cadastrar </a> </li>
+				<li> <a href="#{facesContext.externalContext.requestContextPath}/ajuda.xhtml"> Ajuda </a> </li>
+			
+			
+			</ul>
+		</div>
+		
+		<h2> <ui:insert name="titulo" /> </h2>
+		
+		<div class="boxLogin">		
+			
+			<ui:insert name="boxCentral" />
+			
+		</div>
+
+	</div>
+	
+
+
+
+</h:body>
+</html>

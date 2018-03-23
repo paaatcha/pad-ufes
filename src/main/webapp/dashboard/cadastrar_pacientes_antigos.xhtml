@@ -420,7 +420,160 @@
             				
             				
         					</h:panelGrid>
-    				</p:fieldset>				
+    				</p:fieldset>	      		 
+								
+
+					<p:fieldset legend="Dados da lesão" style="margin-bottom:20px; margin-top:20px;" toggleable="true">
+        				<h:panelGrid columns="1" cellpadding="5">
+							<p> Região da lesão: </p>					
+							<p:inputText size="30" id="regiao" value="#{pacienteController.lesao.regiao}">
+							
+								<p:ajax event="change" />
+											
+							</p:inputText>
+									
+							
+							
+							<p> Diametro maior (mm): </p>
+							<p:spinner size="15" id="dia_maior" value="#{pacienteController.lesao.diametro_maior}" min="0" stepFactor="0.25">
+							
+								<p:ajax event="change" />
+								
+							</p:spinner>
+							
+							<p> Diametro menor (mm): </p>
+							<p:spinner size="15" id="dia_menor" value="#{pacienteController.lesao.diametro_menor}" min="0" stepFactor="0.25">
+							
+								<p:ajax event="change" />
+								
+							</p:spinner>
+							
+							<p> Diagnóstico clínico: </p>							
+							<p:autoComplete size="30" id="diag_clin" value="#{pacienteController.lesao.diagnostico_clinico}"
+							completeMethod="#{pacienteController.completarDiagnosticoLesao}">
+							
+								<p:ajax event="change" />
+								
+							</p:autoComplete>
+							
+							
+							<p> Procedimento: </p>
+							<p:inputText size="30" id="procedimento" value="#{pacienteController.lesao.procedimento}">
+							
+								<p:ajax event="change" />
+												
+							</p:inputText>
+							
+							
+							<br/>
+								
+							<p> Observações: </p>
+							<p:inputTextarea id="obs_les" rows="3" cols="30" value="#{pacienteController.lesao.obs}">
+							
+								<p:ajax event="change" />
+								
+							</p:inputTextarea>
+							
+							<br/>				
+							
+							<p> Inserir imagem(s) da lesão: </p>		
+							<p:fileUpload label="Procurar Imagem" uploadLabel="Enviar" 
+								cancelLabel="Cancelar" id="imgLesao" 
+					 			fileUploadListener="#{pacienteController.inserirImagemLista}"
+	        					multiple="true"	        					
+	        					sizeLimit="10000000"
+	        					update="growlLesao"
+	        				/>
+							
+							<br/> <br/>
+							<p:growl id="growlLesao" showDetail="true" closable="true" />
+							 
+							
+							<p:commandButton value="Inserir lesão" icon="ui-icon-plus">						
+								<p:ajax event="click" update="tabelaLesoes growlLesao regiao dia_maior dia_menor diag_clin procedimento obs_les"								
+								 listener="#{pacienteController.inserirLesao}" />								
+							</p:commandButton>										
+							
+							
+							<p:commandButton class="botao" id="verLesoes" value="Ver lesões adicionadas" type="button" icon="ui-icon-folder-open"/>
+							
+							<p:overlayPanel id="painelLesoes" for="verLesoes" hideEffect="fade" dynamic="true" style="width:800px; text-align: center;">
+				       			<p:dataTable id="tabelaLesoes"				       			
+								value="#{pacienteController.pacLesoes}" var="les">
+									<p:column headerText="Região">
+										<h:outputText value="#{les.regiao}" />
+									</p:column>								
+										
+									<p:column headerText="Diametro maior">
+										<h:outputText value="#{les.diametro_maior}" />
+									</p:column>
+									
+									<p:column headerText="Diametro menor">
+										<h:outputText value="#{les.diametro_menor}" />
+									</p:column>
+									
+									<p:column headerText="Diagnóstico clínico">
+										<h:outputText value="#{les.diagnostico_clinico}" />
+									</p:column>							
+									
+									<p:column headerText="Procedimento">
+										<h:outputText value="#{les.procedimento}" />
+									</p:column>
+												
+												
+									<p:column headerText="Imagem">										        	
+									        	<p:commandButton update="@form:dialogImagem" 
+									        	value="Ver" icon="ui-icon-image" process="@this" oncomplete="PF('imagemDialog').loadContents()">
+									        		<f:setPropertyActionListener value="#{les}" target="#{pacienteController.lesaoSelecionada}" />									        		
+									        	</p:commandButton>    			            		            
+									</p:column>														
+									 
+									<p:column headerText="Excluir">																		
+										<p:commandButton action="#{pacienteController.excluirLesao}" icon="ui-icon-trash" title="Excluir" update="tabelaLesoes" process="@this">
+	      									<f:setPropertyActionListener value="#{les}" target="#{pacienteController.lesaoSelecionada}" />          						
+										</p:commandButton>								
+										
+									</p:column>														
+									 				
+								</p:dataTable>
+    						</p:overlayPanel>							
+							
+						</h:panelGrid>
+						
+		           		<p:dialog header="Imagem da lesão" 
+			           widgetVar="imagemDialog" modal="true"
+			           showEffect="fade" hideEffect="fade" resizable="false"
+			           style="width:400px; text-align:center;"
+			           id="dialogImagem">				
+							
+							<p:commandButton value="Anterior" type="button" onclick="PF('switcher').previous();"
+										icon="ui-icon-circle-triangle-w" id="prev"/>
+							
+							<p:commandButton value="Próxima" type="button" onclick="PF('switcher').next();"
+										icon="ui-icon-circle-triangle-e" id="next"/>								
+								
+							<p:imageSwitch effect="fade" widgetVar="switcher" id="manuelSwitcher"
+							    slideshowAuto="false">
+							    
+							<ui:repeat value="#{pacienteController.lesaoSelecionada.imagens}" var="img"
+								id="manuelSwitcherImages">
+							     
+							        <p:graphicImage url="imgLesoes/#{img.path}" id="image"
+												    class="imgDialog"/>
+							        
+							    </ui:repeat>
+							    
+							</p:imageSwitch>							
+							
+						
+									
+						</p:dialog>		
+						
+					</p:fieldset>								
+					
+					
+					
+					
       		
 		      		<br></br>
 		      		<br></br>
@@ -428,7 +581,7 @@
 		      		
 		      		<p:growl id="growlCheck" showDetail="true" closable="true" />		      		 
 		      		
-		      		<p:commandButton  value="Cadastrar" class="botaoPac" action="#{pacienteController.salvarPaciente}" type="submit" 
+		      		<p:commandButton  value="Cadastrar" class="botaoPac" action="#{pacienteController.salvarPacienteAntigo}" type="submit" 
 		      		icon="ui-icon-check" update="growlCheck" ajax="false"/>	      		
 		      		
 		      		

@@ -1,91 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:p="http://primefaces.org/ui"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="decoratorDashboard/decorator_dashboard.xhtml">
+      
+      <ui:define name="titulo"> Visualizar paciente </ui:define>
+      
+      <ui:define name="conteudoInferiorPagina">
 
-<h:head>
-	<title>PAD - Programa de Assistência Dermatológica</title>
-	<link href="../css/pad_style.css" rel="stylesheet" type="text/css" />
-	<link href="../img/icon.png" rel='shortcut icon'/>
-</h:head>
-
-<h:body>
-
-
-	<div class="painelPrincipal">
-		<div class="parteSuperior">	
-		
-			<p> Programa de Assistência Dermatológica - PAD</p>
-			
-			<a href="/logout"> Sair </a>
-		
-		</div>
-		
-		<div class="menu">
-		
-				<ul>
-					<li>											
-						<a href="home.xhtml">
-							<img src="../img/homepage.png" alt="Página inicial"/>
-							<span> Home </span> 
-						</a>
-					
-					
-					</li>
-					
-					<li>					
-						
-						<a href="cadastrar_pacientes.xhtml">	
-							<img src="../img/note.png" alt="Cadastrar paciente"/>					
-							<span> Cadastrar pacientes </span>
-						</a>
-						
-					</li>
-					
-					
-					<li>					
-						<a href="visualizar_paciente.xhtml">							
-							<img src="../img/onePerson.png" alt="Visualizar paciente"/>
-							<span> Visualizar paciente </span>
-						</a>
-						
-					</li>
-					
-					<li>					
-						<a href="visualizar_todos_pacientes.xhtml">							
-							<img src="../img/manyPersons.png" alt="Visualizar paciente"/>
-							<span> Visualizar todos os pacientes </span>
-						</a>
-						
-					</li>					
-					
-					<li>						
-						<a href="analise_de_dados.xhtml">							
-							<img src="../img/graph.png" alt="Analise de dados"/>
-							<span> Análise dos dados </span>
-						</a>
-					</li>
-					
-					<li>											
-						<a href="configuracoes.xhtml">							
-							<img src="../img/settings.png" alt="Configurações"/> 
-							<span> Configurações </span> 
-						</a>
-					
-					
-					</li>
-				
-				</ul>	
-		
-		</div>		
-			
-		<div class="conteudoInferior">
-		
-			<h2> Visualizar paciente</h2>
-			
 			<p>
 				Para visualizar todos os dados do paciente busque o mesmo inserindo o cartão do SUS no campo abaixo.				
 			
@@ -390,28 +315,37 @@
 							
 									
 						</p:dataTable>
+						
+						<br/><br/> 
 				
 					</p:fieldset>	      		
 	      		
-	      		
+	      		<br/><br/>      		   
+		  
+			  	<p:commandButton icon="ui-icon-pencil" value="Editar paciente" 
+			  	action="#{visualizacaoController.redirecionaParaEdicao}"	  	
+			  	/>		  	
+			  			  	
+			  	<h:outputText value="editar_paciente.xhtml?#{visualizacaoController.pacBuscado.cartao_sus}" />
+			  	
+			  	
+				<h:outputLink value="editar_paciente.xhtml">
+					<f:param name="param1" value="#{visualizacaoController.pacBuscado.cartao_sus}" />					
+				</h:outputLink>
+				
+				<h:link value="TESTAR" outcome="editar_paciente.xhtml" >
+    				<f:param name="cartaosus" value="#{visualizacaoController.pacBuscado.cartao_sus}" />
+				</h:link>
+			  	
+			  	
+			  	
+			  	 		
+	      		 
 	      	</h:panelGroup>
-	      	</p:fieldset>
-	      	
-	      </h:form> 	 
+	      	</p:fieldset>	  	
 
-
-		<br/><br/>
-  
-
-		
-		</div>
-	
-	
-	
-	</div>	
-	
-	
-
-
-</h:body>
-</html>
+	      </h:form>      
+      
+      </ui:define>
+      
+</ui:composition>	
