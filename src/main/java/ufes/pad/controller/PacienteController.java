@@ -159,16 +159,39 @@ public class PacienteController {
 	
 	
 	// VERIFICAR SE A IMAGEM ESTA NA LISTA, SE NAO INSERIR. DEPOIS TRATAR A EXCLUSÃO
-	public void copiaLesaoSelecionada () {		
-		imgsPath = new ArrayList<String>();		
-		System.out.println("Funcao de copia: " + lesaoSelecionada.getRegiao());		
-		for (Imagem img : lesaoSelecionada.getImagens()) {
-			System.out.println("Adicionando o path: " + img.getPath());
-			imgsPath.add(img.getPath());
-		}		
-	}	
+//	public void copiaLesaoSelecionada () {		
+//		imgsPath = new ArrayList<String>();		
+//		System.out.println("Funcao de copia: " + lesaoSelecionada.getRegiao());	
+//		printImgs(lesaoSelecionada.getImagens());
+//		for (Imagem img : lesaoSelecionada.getImagens()) {
+//			System.out.println("Adicionando o path: " + img.getPath());
+//			imgsPath.add(img.getPath());
+//		}		
+//	}	
+	
+	public void excluirImagensServer (List<Imagem> imgs) {
+		
+		for (Imagem img : imgs) {		
+			try{
+	    		
+	    		File file = new File("src/main/webapp/dashboard/imgLesoes/"+img.getPath());
+	        	
+	    		if(file.delete()){
+	    			System.out.println(file.getName() + " foi deletado");
+	    		}else{
+	    			System.out.println("Problema para deletar o arquivo");
+	    		}
+	    	   
+	    	}catch(Exception e){ 
+	    		
+	    		e.printStackTrace();
+	    		
+	    	}		
+		}
+	}
 	
 	public void excluirLesao () {
+		excluirImagensServer (lesaoSelecionada.getImagens());
 		System.out.println("Excluindo lesão "+lesaoSelecionada.getRegiao());
 		this.pacLesoes.remove(this.lesaoSelecionada);
 	}

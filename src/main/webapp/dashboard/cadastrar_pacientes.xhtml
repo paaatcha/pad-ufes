@@ -596,7 +596,7 @@
 												
 									<p:column headerText="Imagem">										        	
 									        	<p:commandButton update="@form:dialogImagem" 
-									        	value="Ver" action="#{pacienteController.copiaLesaoSelecionada}" icon="ui-icon-image" process="@this" oncomplete="PF('imagemDialog').loadContents()">
+									        	value="Ver" icon="ui-icon-image" process="@this" oncomplete="PF('imagemDialog').loadContents()">
 									        		<f:setPropertyActionListener value="#{les}" target="#{pacienteController.lesaoSelecionada}" />									        		
 									        	</p:commandButton>    			            		            
 									</p:column>														
@@ -617,11 +617,26 @@
 			           widgetVar="imagemDialog" modal="true"
 			           showEffect="fade" hideEffect="fade" resizable="false"
 			           style="width:400px; text-align:center;"
-			           id="dialogImagem">						
+			           id="dialogImagem">				
 							
-						
+							<p:commandButton value="Anterior" type="button" onclick="PF('switcher').previous();"
+										icon="ui-icon-circle-triangle-w" id="prev"/>
 							
-							<h:outputText value="Regiao: #{pacienteController.lesaoSelecionada.regiao}"/>
+							<p:commandButton value="Próxima" type="button" onclick="PF('switcher').next();"
+										icon="ui-icon-circle-triangle-e" id="next"/>								
+								
+							<p:imageSwitch effect="fade" widgetVar="switcher" id="manuelSwitcher"
+							    slideshowAuto="false">
+							    
+							<ui:repeat value="#{pacienteController.lesaoSelecionada.imagens}" var="img"
+								id="manuelSwitcherImages">
+							     
+							        <p:graphicImage url="imgLesoes/#{img.path}" id="image"
+												    class="imgDialog"/>
+							        
+							    </ui:repeat>
+							    
+							</p:imageSwitch>							
 							
 						
 									
