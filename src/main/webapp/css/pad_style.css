@@ -183,10 +183,12 @@ a img{
 .menu li a:hover{	
 	background: #b3b3cb;
 	text-decoration: none;	
+	border-bottom: 2px solid #ffbf00
 }
 
 .menu li{	
-	float:left;				
+	float:left;		
+	height: auto;		
 }
 
 .menu li:first-child{
@@ -202,7 +204,7 @@ a img{
 .menu li a span{	
 	margin-left: 5px;	
 	font-weight: bold;
-	font-size: 16px;
+	font-size: 14px;
 	color: #FFF;
 	text-shadow: 0px 1px 0px #000;	
 }
@@ -297,3 +299,19 @@ a img{
 	font-size: 20px;
 	color: #0066ff;
 }
+
+#linkEditarPaciente{
+	float: none;
+	text-shadow: none;
+	display: inline;
+	font-size: 30px;
+	color: #0066ff;	
+}
+
+
+
+
+
+
+
+

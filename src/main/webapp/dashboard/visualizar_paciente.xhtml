@@ -322,23 +322,27 @@
 	      		
 	      		<br/><br/>      		   
 		  
-			  	<p:commandButton icon="ui-icon-pencil" value="Editar paciente" 
-			  	action="#{visualizacaoController.redirecionaParaEdicao}"	  	
-			  	/>		  	
-			  			  	
-			  	<h:outputText value="editar_paciente.xhtml?#{visualizacaoController.pacBuscado.cartao_sus}" />
-			  	
-			  	
-				<h:outputLink value="editar_paciente.xhtml">
-					<f:param name="param1" value="#{visualizacaoController.pacBuscado.cartao_sus}" />					
-				</h:outputLink>
-				
-				<h:link value="TESTAR" outcome="editar_paciente.xhtml" >
+		  			  	
+				<h:link value="Editar paciente" outcome="editar_paciente.xhtml" 
+				style="
+					float: none;
+					text-shadow: none;
+					display: inline;
+					font-size: 14px;
+					font-weight: bold;
+					background: #c4c4c4 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.8)),to(rgba(255,255,255,0))); 
+					padding: 10px;
+					text-decoration: none;
+					margin-bottom: 5px;
+					border-radius: 5px;
+					color: #1c4257;
+    				text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+				" >
     				<f:param name="cartaosus" value="#{visualizacaoController.pacBuscado.cartao_sus}" />
 				</h:link>
 			  	
 			  	
-			  	
+			  	<br/><br/> 
 			  	 		
 	      		 
 	      	</h:panelGroup>

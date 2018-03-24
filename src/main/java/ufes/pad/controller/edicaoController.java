@@ -16,6 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -64,8 +65,8 @@ public class edicaoController {
 				
 				
 				if (pacBuscado.getLesoes().isEmpty()) {
-					this.lesaoVazia = true;
-					this.lesaoCompleta = false;
+					this.lesaoVazia = false;//true;
+					this.lesaoCompleta = true;//false; 
 				} else {
 					this.lesaoVazia = false;
 					this.lesaoCompleta = true;
@@ -83,12 +84,16 @@ public class edicaoController {
 		String ret = "/dashboard/visualizar_paciente.xhtml";
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {	
-			PacienteController.printLesoes(pacLesoes);
-			this.pacBuscado.setLesoes(pacLesoes);
-			pac_rep.save(this.pacBuscado);
-			pacLesoes.clear();
-//			pac = new Paciente();
-//			lesao = new Lesao();
+			PacienteController.printLesoes(pacBuscado.getLesoes());			
+			if (pacLesoes.isEmpty()) {
+				pac_rep.save(pacBuscado);
+			} else {
+				pacBuscado.setLesoes(pacLesoes);				
+				System.out.println("\nImprimindo do paciente buscado\n");
+				PacienteController.printLesoes(pacBuscado.getLesoes());
+				pac_rep.save(pacBuscado);				
+			}	
+			
 			context.addMessage(null, new FacesMessage("Paciente editado com sucesso."));
 									
 		} catch (Exception e) {
@@ -97,7 +102,9 @@ public class edicaoController {
 			ret = null;
 		}		
 		return ret;
-	} 	
+	} 
+	
+	
 	
 	public void inserirImagemLista (FileUploadEvent event) {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -168,6 +175,16 @@ public class edicaoController {
 		System.out.println("Excluindo lesão "+getLesaoSelecionada().getRegiao());
 		this.pacLesoes.remove(this.getLesaoSelecionada());
 	}	
+	
+    public void onRowEdit(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edição realizada com sucesso", null);
+        FacesContext.getCurrentInstance().addMessage(null, msg);        
+    }
+     
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edição cancelada", null);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
 // #############################################################################################################################################
 	

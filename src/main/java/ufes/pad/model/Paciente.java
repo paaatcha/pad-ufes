@@ -497,6 +497,11 @@ public class Paciente implements Serializable {
 	}
 
 	public void setLesoes(List<Lesao> lesoes) {
+		
+		for (Lesao les: lesoes) {
+			System.out.println("\nIMPRIMINDO DENTRO DO SETTER\nRegiao: "+les.getRegiao()+"\n\n");
+		}
+		
 		this.lesoes = lesoes;
 	}
 

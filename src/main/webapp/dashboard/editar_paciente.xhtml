@@ -490,6 +490,7 @@
 		        					multiple="true"	        					
 		        					sizeLimit="10000000"
 		        					update="growlLesao"
+		        					style="width:570px"
 		        				/>
 								
 								<br/> <br/>
@@ -501,6 +502,8 @@
 									 listener="#{edicaoController.inserirLesao}" />								
 								</p:commandButton>										
 								
+								<br/>
+								<br/>
 								
 								<p:commandButton class="botao" id="verLesoes" value="Ver lesões adicionadas" type="button" icon="ui-icon-folder-open"/>
 								
@@ -587,7 +590,60 @@
 					<h:panelGroup rendered="#{edicaoController.lesaoCompleta}">
 						<p:fieldset legend="Dados da lesão" style="margin-bottom:20px; margin-top:20px;" toggleable="true">        				
         	
-        				
+        					<p:growl id="msgsEdicao" showDetail="true"/>
+        	
+							<p:dataTable id="tabEdit" var="les" value="#{edicaoController.pacBuscado.lesoes}"
+							 editable="true" style="margin-bottom:20px">
+							       <f:facet name="header">
+							           Lesões do paciente
+							       </f:facet>
+							 
+							       <p:ajax event="rowEdit" listener="#{edicaoController.onRowEdit}" update="@form:msgsEdicao" />
+							       <p:ajax event="rowEditCancel" listener="#{edicaoController.onRowCancel}" update="@form:msgsEdicao" />
+							 
+							       <p:column headerText="Regiao">
+							           <p:cellEditor>
+							               <f:facet name="output"><h:outputText value="#{les.regiao}" /></f:facet>
+							               <f:facet name="input"><p:inputText id="regiaolInput" value="#{les.regiao}" style="width:100%"/></f:facet>
+							           </p:cellEditor>
+							       </p:column>
+							       
+							       <p:column headerText="Diametro maior (mm)">
+							           <p:cellEditor>
+							               <f:facet name="output"><h:outputText value="#{les.diametro_maior}" /></f:facet>
+							               <f:facet name="input"><p:spinner id="dia_maiorInput" 
+							               value="#{les.diametro_maior}" min="0" stepFactor="0.25"
+							               style="width:100%" /> </f:facet>
+							           </p:cellEditor>
+							       </p:column>	
+							       
+							       <p:column headerText="Diametro menor (mm)">
+							           <p:cellEditor>
+							               <f:facet name="output"><h:outputText value="#{les.diametro_menor}" /></f:facet>
+							               <f:facet name="input"><p:spinner id="dia_menorInput" 
+							               value="#{les.diametro_menor}" min="0" stepFactor="0.25"
+							               style="width:100%" /> </f:facet>
+							           </p:cellEditor>
+							       </p:column>
+							       							       
+							       <p:column headerText="Diagnóstico clínico">
+							           <p:cellEditor>
+							               <f:facet name="output"><h:outputText value="#{les.diagnostico_clinico}" /></f:facet>
+							               <f:facet name="input"><p:inputText id="diagClinInput" value="#{les.diagnostico_clinico}" style="width:100%"/></f:facet>
+							           </p:cellEditor>
+							       </p:column>
+							       
+							       <p:column headerText="Procedimento">
+							           <p:cellEditor>
+							               <f:facet name="output"><h:outputText value="#{les.procedimento}" /></f:facet>
+							               <f:facet name="input"><p:inputText id="procInput" value="#{les.procedimento}" style="width:100%"/></f:facet>
+							           </p:cellEditor>
+							       </p:column>							       
+							       							 
+							       <p:column style="width:32px">
+							           <p:rowEditor />
+							       </p:column>
+							   </p:dataTable>        				
 													
 						</p:fieldset>
 					
@@ -598,7 +654,7 @@
 					
       		
 		      		<br></br>
-		      		<br></br>
+		      		
 		      		
 		      		
 		      		<p:growl id="growlCheck" showDetail="true" closable="true" />		      		 
