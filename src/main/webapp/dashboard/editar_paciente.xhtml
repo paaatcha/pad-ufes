@@ -534,7 +534,7 @@
 											<h:outputText value="#{les.diagnostico_clinico}" />
 										</p:column>	
 										
-										<p:column headerText="Diagnóstico clínico">
+										<p:column headerText="Diagnóstico Histopatológico">
 											<h:outputText value="#{les.diagnostico_histo}" />
 										</p:column>																	
 										
@@ -602,110 +602,101 @@
 					<h:panelGroup rendered="#{edicaoController.lesaoCompleta}">
 						<p:fieldset legend="Dados da lesão" style="margin-bottom:20px; margin-top:20px;" toggleable="true">        				
         	
-        					<p:growl id="msgsEdicao" showDetail="true"/>
-        	
-							<p:dataTable id="tabEdit" var="les" value="#{edicaoController.pacBuscado.lesoes}"
-							 editable="true" style="margin-bottom:20px">
-							       <f:facet name="header">
-							           Editando lesões do paciente
-							       </f:facet>
-							 
-							       <p:ajax event="rowEdit" listener="#{edicaoController.onRowEdit}" update="@form:msgsEdicao" />
-							       <p:ajax event="rowEditCancel" listener="#{edicaoController.onRowCancel}" update="@form:msgsEdicao" />
-							 
-							       <p:column headerText="Regiao">
-							           <p:cellEditor>
-							               <f:facet name="output"><h:outputText value="#{les.regiao}" /></f:facet>
-							               <f:facet name="input"><p:inputText id="regiaolInput" value="#{les.regiao}" style="width:100%"/></f:facet>
-							           </p:cellEditor>
-							       </p:column>
-							       
-							       <p:column headerText="Diametro maior (mm)">
-							           <p:cellEditor>
-							               <f:facet name="output"><h:outputText value="#{les.diametro_maior}" /></f:facet>
-							               <f:facet name="input"><p:spinner id="dia_maiorInput" 
-							               value="#{les.diametro_maior}" min="0" stepFactor="0.25"
-							               style="width:100%" /> </f:facet>
-							           </p:cellEditor>
-							       </p:column>	
-							       
-							       <p:column headerText="Diametro menor (mm)">
-							           <p:cellEditor>
-							               <f:facet name="output"><h:outputText value="#{les.diametro_menor}" /></f:facet>
-							               <f:facet name="input"><p:spinner id="dia_menorInput" 
-							               value="#{les.diametro_menor}" min="0" stepFactor="0.25"
-							               style="width:100%" /> </f:facet>
-							           </p:cellEditor>
-							       </p:column>
-							       							       
-							       <p:column headerText="Diagnóstico clínico">
-							           <p:cellEditor>
-							               <f:facet name="output"><h:outputText value="#{les.diagnostico_clinico}" /></f:facet>
-							               <f:facet name="input"><p:inputText id="diagClinInput" value="#{les.diagnostico_clinico}" style="width:100%"/></f:facet>
-							           </p:cellEditor>
-							       </p:column>
-							       
-							       <p:column headerText="Diagnóstico Histopatológico">
-							           <p:cellEditor>
-							               <f:facet name="output"><h:outputText value="#{les.diagnostico_histo}" /></f:facet>
-							               <f:facet name="input"><p:inputText id="diagHistoInput" value="#{les.diagnostico_histo}" style="width:100%"/></f:facet>
-							           </p:cellEditor>
-							       </p:column>							       
-							       
-							       <p:column headerText="Procedimento">
-							           <p:cellEditor>
-							               <f:facet name="output"><h:outputText value="#{les.procedimento}" /></f:facet>
-							               <f:facet name="input"><p:inputText id="procInput" value="#{les.procedimento}" style="width:100%"/></f:facet>
-							           </p:cellEditor>
-							       </p:column>							       
-							       							 
-							       <p:column style="width:32px">
-							           <p:rowEditor />
-							       </p:column>
-							       
-									<p:column headerText="Imagem">										        	
-									        	<p:commandButton update="@form:dialogImagemEdit" 
-									        	value="Imagem" icon="ui-icon-image" process="@this" oncomplete="PF('imagemDialogEdit').loadContents()">
-									        		<f:setPropertyActionListener value="#{les}" target="#{edicaoController.lesaoSelecionada}" />									        		
-									        	</p:commandButton>    			            		            
-									</p:column>							       
-							       
-							   </p:dataTable>  
-							   
-							   
-							   
-			           		<p:dialog header="Editar imagem da lesão" 
-				           widgetVar="imagemDialogEdit" modal="true"
-				           showEffect="fade" hideEffect="fade" resizable="false"
-				           style="width:400px; text-align:center;"
-				           id="dialogImagemEdit">				
+        					<p:growl id="msgsEdicao" showDetail="true"/>							
+							    
+							    
+							    <p:tabView value="#{edicaoController.pacBuscado.lesoes}" var="les" id="lesoesTabView">
+							        <p:tab title="Lesao - #{les.regiao}">
+							            <h:panelGrid columns="2" cellpadding="5">
+
+							                
+							                <h:outputText value="Região da lesão:" style="font-weight: bold"/>					
+											<p:inputText size="30" id="regiaoEdit" value="#{les.regiao}">								
+												<p:ajax event="change" />												
+											</p:inputText>
+											
+											<h:outputText value="Diametro maior (mm):" style="font-weight: bold"/>					
+											<p:spinner size="15" id="dia_maiorEdit" value="#{les.diametro_maior}" min="0" stepFactor="0.25">								
+												<p:ajax event="change" />									
+											</p:spinner>								
 								
-								<p:commandButton value="Anterior" type="button" onclick="PF('switcherEdit').previous();"
-											icon="ui-icon-circle-triangle-w" id="prevEdit"/>
 								
-								<p:commandButton value="Próxima" type="button" onclick="PF('switcherEdit').next();"
-											icon="ui-icon-circle-triangle-e" id="nextEdit"/>								
+											<h:outputText value="Diametro menor (mm):" style="font-weight: bold"/>								
+											<p:spinner size="15" id="dia_menorEdit" value="#{les.diametro_menor}" min="0" stepFactor="0.25">								
+												<p:ajax event="change" />									
+											</p:spinner>
+											
+											<h:outputText value="Diagnóstico clínico:" style="font-weight: bold"/>
+											<p:autoComplete size="30" id="diag_clinEdit" value="#{les.diagnostico_clinico}"
+											completeMethod="#{pacienteController.completarDiagnosticoLesao}">								
+												<p:ajax event="change" />									
+											</p:autoComplete>							
+								
+											<h:outputText value="Diagnóstico Histopatologico:" style="font-weight: bold"/>							
+											<p:autoComplete size="30" id="diag_hitoEdit" value="#{les.diagnostico_histo}"
+											completeMethod="#{pacienteController.completarDiagnosticoLesao}">											
+												<p:ajax event="change" />												
+											</p:autoComplete>								
+								
+											<h:outputText value="Procedimento:" style="font-weight: bold"/>								
+											<p:inputText size="30" id="procedimentoEdit" value="#{les.procedimento}">								
+												<p:ajax event="change" />													
+											</p:inputText>
 									
-								<p:imageSwitch effect="fade" widgetVar="switcherEdit" id="manuelSwitcherEdit"
-								    slideshowAuto="false">
-								    
-								<ui:repeat value="#{edicaoController.lesaoSelecionada.imagens}" var="img"
-									id="manuelSwitcherImagesEdit">
-								     
-								        <p:graphicImage url="imgLesoes/#{img.path}" id="image"
-													    class="imgDialog"/>
-													    									
-										<p:commandButton action="#{edicaoController.excluirImg}" icon="ui-icon-trash" title="Excluir" update="@form:dialogImagemEdit" process="@this">
-		      									<f:setPropertyActionListener value="#{img}" target="#{edicaoController.imgSelecionada}" />          						
-										</p:commandButton>														    									
-								        
-								 </ui:repeat>
-								    
-								</p:imageSwitch>							
+											<h:outputText value="Observações:" style="font-weight: bold"/>
+											<p:inputTextarea id="obs_lesEdit" rows="3" cols="30" value="#{les.obs}">								
+												<p:ajax event="change" />									
+											</p:inputTextarea>
 								
+											<br/>											
+
+							            </h:panelGrid>
+							            
+							            <h:panelGrid >							            
+
+							            	
+											<ui:repeat value="#{les.imagens}" var="img">
+									     		
+									     			<p:row>
+										     			
+										     				<p:column>
+												        		<p:graphicImage url="imgLesoes/#{img.path}" id="imageEdit" 
+												        		style= "
+												        			height: 150px;
+												        			width: 150px;
+												        			margin-right: 10px;
+												        		" />	
+											        		</p:column>
+											        		
+											        		<p:column>											        		
+																<p:commandButton action="#{edicaoController.excluirImg}" icon="ui-icon-trash" title="Excluir" update="@form:lesoesTabView" process="@this">
+							      									<f:setPropertyActionListener value="#{img}" target="#{edicaoController.imgSelecionada}" />          						
+																</p:commandButton>												        														        		
+											        		</p:column>
+											        		
+									        		</p:row>
+									        	
+									    	</ui:repeat>
+								    	</h:panelGrid>
+								    		
+								    	<p> Inserir imagem para esta lesão: </p>		
+										<p:fileUpload label="Procurar Imagem" uploadLabel="Enviar" 
+											cancelLabel="Cancelar" id="imgLesaoEdit" 
+								 			fileUploadListener="#{edicaoController.inserirImagemLista}"
+				        					multiple="true"	        					
+				        					sizeLimit="10000000"
+				        					update="@form:growlLesao @form:lesoesTabView"
+				        					style="width:570px"
+				        				/>
+							            
+							            
+							        </p:tab>
+							    </p:tabView>
 							
-										
-							</p:dialog>								         				
+							
+							
+							
+															         				
 													
 						</p:fieldset>
 					
