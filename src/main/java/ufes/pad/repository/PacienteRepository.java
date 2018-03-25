@@ -26,10 +26,22 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 	@Query(nativeQuery=true, value="select * from paciente order by paciente.nome_completo")
 	List<Paciente> listarPacientes ();	
 	
-	/*
-	@Query("selec * from Usuario")
-	public List<Usuario> buscarTodosUsuarios();
+	/*String atualizarQuery = "UPDATE paciente SET agrotoxico=:agrotoxico,"
+			+ "agua_encanada=:agua_encanada, alergia=:alergia, anticoagulante=:anticoagulante,"
+			+ "atv_principal=:atv_principal, bebida=:bebida, calca_cumprida=:calca_cumprida,"
+			+ "cartao_sus=[value-9], chapeu=:chapeu, data_atendimento=:data_atendimento,"
+			+ "`data_nascimento`=[value-12],`destrofia_solar`=[value-13],`diabetes`=[value-14],"
+			+ "`endereco`=[value-15],`escolaridade`=[value-16],`estado_civil`=[value-17],"
+			+ "`estado_nascimento`=[value-18],`exp_sol`=[value-19],`filtro_solar`=[value-20],"
+			+ "`fumo`=[value-21],`hist_cancer`=[value-22],`hist_cancer_pele`=[value-23],"
+			+ "`hora_exp_sol`=[value-24],`idade_inicio_atv`=[value-25],`local_atendimento`=[value-26],"
+			+ "`local_nascimento`=[value-27],`manga_cumprida`=[value-28],`nome_completo`=[value-29],"
+			+ "`nome_mae`=[value-30],`num_comodos`=[value-31],`num_pessoas_casa`=[value-32],"
+			+ "`num_vezes_atendido`=[value-33],`obs`=[value-34],`origem_familiar_mae`=[value-35],"
+			+ "`origem_familiar_pai`=[value-36],`pres_art_diastolica`=[value-37],"
+			+ "`pres_art_sistolica`=[value-38],`prontuario`=[value-39],`rede_esgoto`=[value-40],"
+			+ "`renda`=[value-41],`sexo`=[value-42],`tempo_endereco`=[value-43],`tipo_pele`=[value-44],"
+			+ "`HAS`=[value-45] WHERE id=:id_pac";
 	*/
-	
 }
 

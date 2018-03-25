@@ -270,7 +270,11 @@
 							
 							<p:column headerText="Diagnóstico clínico">
 								<h:outputText value="#{les.diagnostico_clinico}" />
-							</p:column>							
+							</p:column>
+							
+							<p:column headerText="Histopatológico">
+								<h:outputText value="#{les.diagnostico_histo}" />
+							</p:column>
 							
 							<p:column headerText="Procedimento">
 								<h:outputText value="#{les.procedimento}" />
@@ -340,6 +344,25 @@
 				" >
     				<f:param name="cartaosus" value="#{visualizacaoController.pacBuscado.cartao_sus}" />
 				</h:link>
+				
+				<h:link value="Apagar paciente" outcome="editar_paciente.xhtml" 
+				style="
+					float: none;
+					text-shadow: none;
+					display: inline;
+					font-size: 14px;
+					font-weight: bold;
+					background: #F00 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.8)),to(rgba(255,255,255,0))); 
+					padding: 10px;
+					text-decoration: none;
+					margin-bottom: 5px;
+					border-radius: 5px;
+					color: #FFF;
+    				text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+    				float: right;
+				" >
+    				<f:param name="cartaosus" value="#{visualizacaoController.pacBuscado.cartao_sus}" />
+				</h:link>				
 			  	
 			  	
 			  	<br/><br/> 

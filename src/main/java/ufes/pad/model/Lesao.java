@@ -26,10 +26,10 @@ public class Lesao implements Serializable {
 	private String diagnostico_clinico;
 	
 	@Column(length=100)
-	private String diagnostico_histo;
+	private String diagnostico_histo = "SEM RESULTADO";
 	
 	@Column(length=100, nullable = false)
-	private String regiao;
+	private String regiao = "AAA";
 	
 	@Column(length=150, nullable = false)
 	private String procedimento;
@@ -42,7 +42,7 @@ public class Lesao implements Serializable {
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@JoinColumn (name="lesaoId")
-	private List<Imagem> imagens;		
+	private List<Imagem> imagens;	
 
 	public Long getId() {
 		return id;

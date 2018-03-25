@@ -23,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ufes.pad.model.Imagem;
 import ufes.pad.model.Lesao;
 import ufes.pad.model.Paciente;
+import ufes.pad.repository.ImagemRepository;
+import ufes.pad.repository.LesaoRepository;
 import ufes.pad.repository.PacienteRepository;
 
 @ManagedBean
@@ -32,7 +34,13 @@ public class edicaoController {
 	private Paciente pacBuscado = new Paciente();
 	
 	@Autowired 
-	private PacienteRepository pac_rep;	
+	private PacienteRepository pac_rep;
+	
+	@Autowired
+	private LesaoRepository les_rep;
+	
+	@Autowired
+	private ImagemRepository img_rep;
 	
 	private boolean lesaoVazia;
 	
@@ -65,8 +73,8 @@ public class edicaoController {
 				
 				
 				if (pacBuscado.getLesoes().isEmpty()) {
-					this.lesaoVazia = false;//true;
-					this.lesaoCompleta = true;//false; 
+					this.lesaoVazia = true;
+					this.lesaoCompleta = false; 
 				} else {
 					this.lesaoVazia = false;
 					this.lesaoCompleta = true;
@@ -80,6 +88,44 @@ public class edicaoController {
 		}			
 	}	
 	
+    private void attPacComInserindoLesao () {
+		pac_rep.save(pacBuscado);		
+		if (!pacLesoes.isEmpty()) {
+			for (Lesao les : pacLesoes) {
+				les_rep.inserir(pacBuscado.getId(), les.getDiagnostico_clinico(),
+						les.getDiagnostico_histo(), les.getDiametro_maior(), 
+						les.getDiametro_menor(), les.getObs(),
+						les.getRegiao(), les.getRegiao());						
+				
+				les_rep.flush();
+				
+				for (Imagem imgLes : les.getImagens()) {
+					img_rep.inserir(les.getId(), imgLes.getPath());
+				}
+				
+			}
+		}    	
+    }
+    
+	public String editarPaciente2 () {		
+		String ret = "/dashboard/visualizar_paciente.xhtml";
+		FacesContext context = FacesContext.getCurrentInstance();
+		try {
+
+			attPacComInserindoLesao();
+			//les_rep.inserirLesao("aaa", "aaa", (float)10.1, (float)9, "aaa", "aaa", 57L, "aaaa");
+			
+			context.addMessage(null, new FacesMessage("Paciente editado com sucesso."));
+									
+		} catch (Exception e) {
+			e.printStackTrace();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO! Problema na comunicação com banco de dados. Tente novamente. Se o problema persistir, entre em contato com o administrador do sistema.", "  "));
+			ret = null;
+		}		
+		return ret;
+	}    
+    
+    
 	public String editarPaciente () {		
 		String ret = "/dashboard/visualizar_paciente.xhtml";
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -88,10 +134,13 @@ public class edicaoController {
 			if (pacLesoes.isEmpty()) {
 				pac_rep.save(pacBuscado);
 			} else {
+				System.out.println(pacBuscado.getLesoes().isEmpty());				
 				pacBuscado.setLesoes(pacLesoes);				
-				System.out.println("\nImprimindo do paciente buscado\n");
+				System.out.println("\nImprimindo as lesões do paciente buscado:\n");
 				PacienteController.printLesoes(pacBuscado.getLesoes());
-				pac_rep.save(pacBuscado);				
+				pac_rep.save(pacBuscado);	
+				System.out.println(pacBuscado.getLesoes().get(0).getRegiao());
+				
 			}	
 			
 			context.addMessage(null, new FacesMessage("Paciente editado com sucesso."));

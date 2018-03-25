@@ -463,6 +463,14 @@
 									
 								</p:autoComplete>
 								
+								<p> Diagnóstico clínico: </p>							
+								<p:autoComplete size="30" id="diag_hito" value="#{edicaoController.lesao.diagnostico_histo}"
+								completeMethod="#{pacienteController.completarDiagnosticoLesao}">
+								
+									<p:ajax event="change" />
+									
+								</p:autoComplete>								
+								
 								
 								<p> Procedimento: </p>
 								<p:inputText size="30" id="procedimento" value="#{edicaoController.lesao.procedimento}">
@@ -524,7 +532,11 @@
 										
 										<p:column headerText="Diagnóstico clínico">
 											<h:outputText value="#{les.diagnostico_clinico}" />
-										</p:column>							
+										</p:column>	
+										
+										<p:column headerText="Diagnóstico clínico">
+											<h:outputText value="#{les.diagnostico_histo}" />
+										</p:column>																	
 										
 										<p:column headerText="Procedimento">
 											<h:outputText value="#{les.procedimento}" />
@@ -632,6 +644,13 @@
 							               <f:facet name="input"><p:inputText id="diagClinInput" value="#{les.diagnostico_clinico}" style="width:100%"/></f:facet>
 							           </p:cellEditor>
 							       </p:column>
+							       
+							       <p:column headerText="Diagnóstico Histopatológico">
+							           <p:cellEditor>
+							               <f:facet name="output"><h:outputText value="#{les.diagnostico_histo}" /></f:facet>
+							               <f:facet name="input"><p:inputText id="diagHistoInput" value="#{les.diagnostico_histo}" style="width:100%"/></f:facet>
+							           </p:cellEditor>
+							       </p:column>							       
 							       
 							       <p:column headerText="Procedimento">
 							           <p:cellEditor>
