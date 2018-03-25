@@ -339,13 +339,17 @@
 					text-decoration: none;
 					margin-bottom: 5px;
 					border-radius: 5px;
+					border: 1px solid #999;
 					color: #1c4257;
     				text-shadow: 0 1px 0 rgba(255,255,255,0.7);
 				" >
     				<f:param name="cartaosus" value="#{visualizacaoController.pacBuscado.cartao_sus}" />
 				</h:link>
 				
-				<h:link value="Apagar paciente" outcome="editar_paciente.xhtml" 
+				
+				<!-- BOTAO PARA EXCLUSÃO DO PACIENTE 
+				<h:link update="dialogConfirmar" oncomplete="PF('confirmarDialog').show()"
+						value="Ver imagem" 
 				style="
 					float: none;
 					text-shadow: none;
@@ -361,9 +365,32 @@
     				text-shadow: 0 1px 0 rgba(255,255,255,0.7);
     				float: right;
 				" >
-    				<f:param name="cartaosus" value="#{visualizacaoController.pacBuscado.cartao_sus}" />
-				</h:link>				
+    				
+    				
+				</h:link>	-->
+							
 			  	
+			  	<p:commandButton update="growlCheck"  
+					value="Excluir Paciente" icon=" ui-icon-trash" 
+					style="
+						background: #F00 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.8)),to(rgba(255,255,255,0))); 
+						padding: 7px;
+						text-decoration: none;
+						margin-bottom: 25px;
+						color: #FFF;
+	    				text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+	    				float: right;
+				">
+					<p:confirm header="ATENÇÃO" message="Você tem certeza que deseja excluir este paciente?"
+					 icon="ui-icon-alert" />				
+				</p:commandButton>
+			  	
+			    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			    </p:confirmDialog>
+    			
+    			
 			  	
 			  	<br/><br/> 
 			  	 		

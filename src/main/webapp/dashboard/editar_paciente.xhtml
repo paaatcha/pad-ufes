@@ -607,7 +607,7 @@
 							<p:dataTable id="tabEdit" var="les" value="#{edicaoController.pacBuscado.lesoes}"
 							 editable="true" style="margin-bottom:20px">
 							       <f:facet name="header">
-							           Lesões do paciente
+							           Editando lesões do paciente
 							       </f:facet>
 							 
 							       <p:ajax event="rowEdit" listener="#{edicaoController.onRowEdit}" update="@form:msgsEdicao" />
@@ -662,7 +662,50 @@
 							       <p:column style="width:32px">
 							           <p:rowEditor />
 							       </p:column>
-							   </p:dataTable>        				
+							       
+									<p:column headerText="Imagem">										        	
+									        	<p:commandButton update="@form:dialogImagemEdit" 
+									        	value="Imagem" icon="ui-icon-image" process="@this" oncomplete="PF('imagemDialogEdit').loadContents()">
+									        		<f:setPropertyActionListener value="#{les}" target="#{edicaoController.lesaoSelecionada}" />									        		
+									        	</p:commandButton>    			            		            
+									</p:column>							       
+							       
+							   </p:dataTable>  
+							   
+							   
+							   
+			           		<p:dialog header="Editar imagem da lesão" 
+				           widgetVar="imagemDialogEdit" modal="true"
+				           showEffect="fade" hideEffect="fade" resizable="false"
+				           style="width:400px; text-align:center;"
+				           id="dialogImagemEdit">				
+								
+								<p:commandButton value="Anterior" type="button" onclick="PF('switcherEdit').previous();"
+											icon="ui-icon-circle-triangle-w" id="prevEdit"/>
+								
+								<p:commandButton value="Próxima" type="button" onclick="PF('switcherEdit').next();"
+											icon="ui-icon-circle-triangle-e" id="nextEdit"/>								
+									
+								<p:imageSwitch effect="fade" widgetVar="switcherEdit" id="manuelSwitcherEdit"
+								    slideshowAuto="false">
+								    
+								<ui:repeat value="#{edicaoController.lesaoSelecionada.imagens}" var="img"
+									id="manuelSwitcherImagesEdit">
+								     
+								        <p:graphicImage url="imgLesoes/#{img.path}" id="image"
+													    class="imgDialog"/>
+													    									
+										<p:commandButton action="#{edicaoController.excluirImg}" icon="ui-icon-trash" title="Excluir" update="@form:dialogImagemEdit" process="@this">
+		      									<f:setPropertyActionListener value="#{img}" target="#{edicaoController.imgSelecionada}" />          						
+										</p:commandButton>														    									
+								        
+								 </ui:repeat>
+								    
+								</p:imageSwitch>							
+								
+							
+										
+							</p:dialog>								         				
 													
 						</p:fieldset>
 					

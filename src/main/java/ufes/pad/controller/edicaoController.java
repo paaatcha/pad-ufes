@@ -55,6 +55,8 @@ public class edicaoController {
 	private Imagem img = new Imagem ();	
 	
 	private Lesao lesaoSelecionada;	
+	
+	private Imagem imgSelecionada; 
     
     @PostConstruct
 	public void pegaPacienteCartaoSus () {
@@ -219,6 +221,10 @@ public class edicaoController {
 		}
 	}
 	
+	public void excluirImg () {
+		System.out.print("\n\nEntrando no excluir lesao: " + imgSelecionada.getPath());
+	}
+	
 	public void excluirLesao () {
 		excluirImagensServer (getLesaoSelecionada().getImagens());
 		System.out.println("Excluindo lesão "+getLesaoSelecionada().getRegiao());
@@ -299,6 +305,14 @@ public class edicaoController {
 
 	public void setLesaoSelecionada(Lesao lesaoSelecionada) {
 		this.lesaoSelecionada = lesaoSelecionada;
+	}
+
+	public Imagem getImgSelecionada() {
+		return imgSelecionada;
+	}
+
+	public void setImgSelecionada(Imagem imgSelecionada) {
+		this.imgSelecionada = imgSelecionada;
 	}
 
 }
