@@ -80,7 +80,7 @@ public class Paciente implements Serializable {
 	@Column(length=20, nullable = false)
 	private String cartao_sus;	
 	
-	@OneToMany	(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OneToMany	(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn (name="pacienteId")
 	private List<Lesao> lesoes;	
 	
@@ -142,6 +142,16 @@ public class Paciente implements Serializable {
 	@Transient
 	private int idade;
 	
+	static public void printPaciente (Paciente pac) {
+		System.out.println("--- PACIENTE ---\n");
+		System.out.println("Nome: " + pac.nome_completo);
+		System.out.println("Cartao SUS: " + pac.cartao_sus + "\n");
+		
+		System.out.println("--- LESOES ---\n");
+		for (Lesao les : pac.lesoes) {
+			Lesao.printLesao(les);
+		}
+	}
 /* ###########################################  Getters and Setters ###################################################*/	
 	
 	public Long getId() {
@@ -497,11 +507,6 @@ public class Paciente implements Serializable {
 	}
 
 	public void setLesoes(List<Lesao> lesoes) {
-		
-		for (Lesao les: lesoes) {
-			System.out.println("\nIMPRIMINDO DENTRO DO SETTER\nRegiao: "+les.getRegiao()+"\n\n");
-		}
-		
 		this.lesoes = lesoes;
 	}
 

@@ -463,7 +463,7 @@
 									
 								</p:autoComplete>
 								
-								<p> Diagnóstico clínico: </p>							
+								<p> Diagnóstico Histopatológico: </p>							
 								<p:autoComplete size="30" id="diag_hito" value="#{edicaoController.lesao.diagnostico_histo}"
 								completeMethod="#{pacienteController.completarDiagnosticoLesao}">
 								
@@ -565,7 +565,7 @@
 			           		<p:dialog header="Imagem da lesão" 
 				           widgetVar="imagemDialog" modal="true"
 				           showEffect="fade" hideEffect="fade" resizable="false"
-				           style="width:400px; text-align:center;"
+				           style="width:600px; text-align:center;"
 				           id="dialogImagem">				
 								
 								<p:commandButton value="Anterior" type="button" onclick="PF('switcher').previous();"
@@ -602,11 +602,36 @@
 					<h:panelGroup rendered="#{edicaoController.lesaoCompleta}">
 						<p:fieldset legend="Dados da lesão" style="margin-bottom:20px; margin-top:20px;" toggleable="true">        				
         	
-        					<p:growl id="msgsEdicao" showDetail="true"/>							
+        					<p:growl id="msgsEdicao" showDetail="true"/>					     
 							    
-							    
-							    <p:tabView value="#{edicaoController.pacBuscado.lesoes}" var="les" id="lesoesTabView">
+							    <p:tabView value="#{edicaoController.pacLesoes}" var="les" id="lesoesTabView" style="margin-bottom: 25px;">						    	
+							    	
 							        <p:tab title="Lesao - #{les.regiao}">
+							        
+							        	<p:commandButton action="#{edicaoController.excluirLesao}" icon="ui-icon-trash"
+							        	 value="Excluir lesão" update="@form:lesoesTabView" process="@this"
+							        	 style="
+							        	 background: #F00 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.8)),to(rgba(255,255,255,0)));
+							        	 float: right;
+							        	 color: #FFF;
+							        	 padding: 5px;
+							        	 "							        	 
+							        	 >
+							      			<f:setPropertyActionListener value="#{les}" target="#{edicaoController.lesaoSelecionada}" />
+							      			
+							      			<p:confirm header="ATENÇÃO" message="Você tem certeza que deseja excluir esta lesão?"
+					 						icon="ui-icon-alert" />
+							      			          						
+										</p:commandButton>	
+										
+										
+										<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			        						<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			        						<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			    						</p:confirmDialog>		
+			    						
+			    																								        														
+							        
 							            <h:panelGrid columns="2" cellpadding="5">
 
 							                
@@ -652,50 +677,70 @@
 
 							            </h:panelGrid>
 							            
-							            <h:panelGrid >							            
+							            <p:dataGrid value="#{les.imagens}" var="img" columns="4" layout="grid"
+							            style="width:750px" id="dataGridImagens">		
+							            
+						            		<f:facet name="header">
+						            			Edição das imagens
+						            		</f:facet>					            
 
-							            	
-											<ui:repeat value="#{les.imagens}" var="img">
-									     		
-									     			<p:row>
-										     			
-										     				<p:column>
-												        		<p:graphicImage url="imgLesoes/#{img.path}" id="imageEdit" 
-												        		style= "
-												        			height: 150px;
-												        			width: 150px;
-												        			margin-right: 10px;
-												        		" />	
-											        		</p:column>
-											        		
-											        		<p:column>											        		
-																<p:commandButton action="#{edicaoController.excluirImg}" icon="ui-icon-trash" title="Excluir" update="@form:lesoesTabView" process="@this">
-							      									<f:setPropertyActionListener value="#{img}" target="#{edicaoController.imgSelecionada}" />          						
-																</p:commandButton>												        														        		
-											        		</p:column>
-											        		
-									        		</p:row>
-									        	
-									    	</ui:repeat>
-								    	</h:panelGrid>
+							            								            	
+					            			<p:panelGrid columns="1" >																							     			
+											
+									     			<p:graphicImage url="imgLesoes/#{img.path}" id="imageEdit" 
+										        		style= "
+									        			height: 150px;
+									        			width: 150px;
+									        			margin-right: 10px;
+									        		 "/>												        
+									        										        		
+													<p:commandButton action="#{edicaoController.excluirImgEdicao(les)}" icon="ui-icon-trash" value="Excluir Imagem" update="@form:lesoesTabView @form:msgsEdicao" process="@this">
+						      							<f:setPropertyActionListener value="#{img}" target="#{edicaoController.imgSelecionada}" />          						
+													</p:commandButton>
+										    	
+									    	</p:panelGrid>			    	
+									    	
+								    	</p:dataGrid>
+								    	
+								    	<br/>
 								    		
-								    	<p> Inserir imagem para esta lesão: </p>		
+								    	<p> Adicionar imagem para esta lesão: </p>		
 										<p:fileUpload label="Procurar Imagem" uploadLabel="Enviar" 
 											cancelLabel="Cancelar" id="imgLesaoEdit" 
-								 			fileUploadListener="#{edicaoController.inserirImagemLista}"
+								 			fileUploadListener="#{edicaoController.inserirImagemListaCompleta}"								 			 
 				        					multiple="true"	        					
 				        					sizeLimit="10000000"
-				        					update="@form:growlLesao @form:lesoesTabView"
-				        					style="width:570px"
-				        				/>
+				        					update="@form:msgsEdicao @form:lesoesTabView dataGridImagens"
+				        					style="width:750px"
+				        					
+				        				>
+				        				
+				        					<f:attribute name="lesEdicaoImg" value="#{les}" />
+				        				
+				        				</p:fileUpload>
 							            
 							            
+							        
+							        
+							        
 							        </p:tab>
+							        
+							        
+							        
+							        
 							    </p:tabView>
 							
 							
 							
-							
+								<p:commandButton value="Adicionar uma nova lesão lesão"
+							    		style="
+							        	background: #046d04 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.8)),to(rgba(255,255,255,0)));							        	 
+							        	color: #FFF;
+							        	padding: 5px;
+							     		"
+							     		action="#{edicaoController.adicionarNovaLesao}"
+							     		update="@form:msgsEdicao @form:lesoesTabView"
+							     	/>
 															         				
 													
 						</p:fieldset>
@@ -712,7 +757,7 @@
 		      		
 		      		<p:growl id="growlCheck" showDetail="true" closable="true" />		      		 
 		      		
-		      		<p:commandButton  value="Editar" class="botaoPac" action="#{edicaoController.editarPaciente}" type="submit"
+		      		<p:commandButton  value="Finalizar Edição" class="botaoPac" action="#{edicaoController.editarPaciente}" type="submit"
 		      		icon="ui-icon-pencil" update="growlCheck"  />
 		      		
 		      	

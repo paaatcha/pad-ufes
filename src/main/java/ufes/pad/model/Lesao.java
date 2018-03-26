@@ -29,7 +29,7 @@ public class Lesao implements Serializable {
 	private String diagnostico_histo = "SEM RESULTADO";
 	
 	@Column(length=100, nullable = false)
-	private String regiao = "AAA";
+	private String regiao;
 	
 	@Column(length=150, nullable = false)
 	private String procedimento;
@@ -40,9 +40,27 @@ public class Lesao implements Serializable {
 	private float diametro_maior;
 	private float diametro_menor;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn (name="lesaoId")
 	private List<Imagem> imagens;	
+	
+	
+	static public void printLesao (Lesao les) {
+		System.out.println("---- LESAO ----\n");
+		System.out.println("Regiao: " + les.regiao);
+		System.out.println("Diagnostico Clinico: " + les.diagnostico_clinico);
+		System.out.println("Diagnostico Histopatologico: " + les.diagnostico_histo);
+		System.out.println("Diametro maior: " + les.diametro_maior);
+		System.out.println("Diametro menor: " + les.diametro_menor);
+		System.out.println("Procedimento: " + les.procedimento + "\n");
+		
+		
+		System.out.println("--- IMAGENS ---\n");
+		for (Imagem img : les.getImagens()) {
+			Imagem.printImagem(img);
+		}
+		
+	}	
 
 	public Long getId() {
 		return id;
@@ -122,3 +140,5 @@ public class Lesao implements Serializable {
 	}	
 	
 }
+
+

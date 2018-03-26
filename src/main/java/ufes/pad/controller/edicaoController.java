@@ -48,13 +48,17 @@ public class edicaoController {
 	
 	private List<Lesao> pacLesoes = new ArrayList<Lesao>();
 	
-	private List<Imagem> pacImagens = new ArrayList<Imagem>();	
+	private List<Imagem> pacImagens = new ArrayList<Imagem>();
+	
+	private List<Lesao> pacLesoesDeletar = new ArrayList<Lesao>();
+	
+	private List<Imagem> pacImagensDeletar = new ArrayList<Imagem>();	
 	
 	private Lesao lesao = new Lesao ();	
 	
 	private Imagem img = new Imagem ();	
 	
-	private Lesao lesaoSelecionada;	
+	private Lesao lesaoSelecionada;	 
 	
 	private Imagem imgSelecionada; 
     
@@ -80,6 +84,7 @@ public class edicaoController {
 				} else {
 					this.lesaoVazia = false;
 					this.lesaoCompleta = true;
+					pacLesoes = pacBuscado.getLesoes();					
 				}
 			} else {
 				System.out.println("\n\n\nNÃO ACHEI\n\n\n");
@@ -90,16 +95,25 @@ public class edicaoController {
 		}			
 	}	
 	
-    private void attPacComInserindoLesao () {
+    /*
+    private void attPacInserindoLesao () {
 		pac_rep.save(pacBuscado);		
 		if (!pacLesoes.isEmpty()) {
 			for (Lesao les : pacLesoes) {
 				les_rep.inserir(pacBuscado.getId(), les.getDiagnostico_clinico(),
 						les.getDiagnostico_histo(), les.getDiametro_maior(), 
 						les.getDiametro_menor(), les.getObs(),
-						les.getRegiao(), les.getRegiao());						
+						les.getRegiao(), les.getProcedimento());						
 				
-				les_rep.flush();
+				
+				
+				
+				Paciente teste = pac_rep.findOne(62L);
+				
+				
+				System.out.println("\nIMPRIMINDO LESOES PACIENTE TESTE. Id: " + pacBuscado.getId() + "\n");
+				PacienteController.printLesoes(teste.getLesoes());
+				System.out.println("\n\n");
 				
 				for (Imagem imgLes : les.getImagens()) {
 					img_rep.inserir(les.getId(), imgLes.getPath());
@@ -114,7 +128,7 @@ public class edicaoController {
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
 
-			attPacComInserindoLesao();
+			attPacInserindoLesao();
 			//les_rep.inserirLesao("aaa", "aaa", (float)10.1, (float)9, "aaa", "aaa", 57L, "aaaa");
 			
 			context.addMessage(null, new FacesMessage("Paciente editado com sucesso."));
@@ -125,25 +139,22 @@ public class edicaoController {
 			ret = null;
 		}		
 		return ret;
-	}    
+	} */ 
     
     
 	public String editarPaciente () {		
 		String ret = "/dashboard/visualizar_paciente.xhtml";
 		FacesContext context = FacesContext.getCurrentInstance();
-		try {	
-			PacienteController.printLesoes(pacBuscado.getLesoes());			
+		try {
+						
 			if (pacLesoes.isEmpty()) {
 				pac_rep.save(pacBuscado);
-			} else {
-				System.out.println(pacBuscado.getLesoes().isEmpty());				
-				pacBuscado.setLesoes(pacLesoes);				
-				System.out.println("\nImprimindo as lesões do paciente buscado:\n");
-				PacienteController.printLesoes(pacBuscado.getLesoes());
-				pac_rep.save(pacBuscado);	
-				System.out.println(pacBuscado.getLesoes().get(0).getRegiao());
-				
-			}	
+			} else {								
+				pacBuscado.setLesoes(pacLesoes);			
+				pac_rep.save(pacBuscado);				
+			}
+			
+			aplicarRemocoes();
 			
 			context.addMessage(null, new FacesMessage("Paciente editado com sucesso."));
 									
@@ -181,6 +192,37 @@ public class edicaoController {
 			ex.printStackTrace();
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problema no envio da imagem. Tente novamente. Caso não consiga, entre em contato com o administrador do sistema.", "  "));
 		}		
+	}
+	
+	public void inserirImagemListaCompleta (FileUploadEvent event) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		try {
+			UploadedFile arq = event.getFile();		
+			InputStream in = new BufferedInputStream(arq.getInputstream());
+			String pathImg = (new Date().getTime())+ "_" + arq.getFileName();
+			File file = new File("src/main/webapp/dashboard/imgLesoes/" + pathImg);
+    		FileOutputStream fout = new FileOutputStream(file);
+
+		while (in.available() != 0) {
+			fout.write(in.read());
+		}
+			fout.close();			
+			context.addMessage(null, new FacesMessage("Imagem adicionada com sucesso."));
+			
+			Lesao les = (Lesao) event.getComponent().getAttributes().get("lesEdicaoImg"); // bar
+			img.setPath(pathImg);
+			
+			for (Lesao lesLista : pacLesoes) {
+				if (lesLista.getId() == les.getId()) {
+					lesLista.getImagens().add(img);
+				}
+			}			
+			img = new Imagem ();						
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problema no envio da imagem. Tente novamente. Caso não consiga, entre em contato com o administrador do sistema.", "  "));
+		}	
 	}	
 	
 	public void inserirLesao () {		
@@ -200,36 +242,72 @@ public class edicaoController {
 		lesao = new Lesao();
 	}
 	
+	public void excluirImgServer (Imagem img) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		try{   		
+    		
+			File file = new File("src/main/webapp/dashboard/imgLesoes/"+img.getPath());        	
+    		file.delete();    	   
+    	}catch(Exception e){    
+    		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir a imagem do servidor. Tente novamente. Caso não consiga, entre em contato com o administrador do sistema.", "  "));
+    		e.printStackTrace();    		
+    	}		
+	}
+	
 	public void excluirImagensServer (List<Imagem> imgs) {
 		
 		for (Imagem img : imgs) {		
-			try{
-	    		
-	    		File file = new File("src/main/webapp/dashboard/imgLesoes/"+img.getPath());
-	        	
-	    		if(file.delete()){
-	    			System.out.println(file.getName() + " foi deletado");
-	    		}else{
-	    			System.out.println("Problema para deletar o arquivo");
-	    		}
-	    	   
-	    	}catch(Exception e){ 
-	    		
-	    		e.printStackTrace();
-	    		
-	    	}		
+			excluirImgServer(img);
 		}
 	}
 	
-	public void excluirImg () {
-		System.out.print("\n\nEntrando no excluir lesao: " + imgSelecionada.getPath());
+	public void excluirImgEdicao (Lesao les) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		try {					
+			pacImagensDeletar.add(imgSelecionada);
+			les.getImagens().remove(imgSelecionada);
+//			excluirImgServer(imgSelecionada);			
+//			img_rep.delete(imgSelecionada);			
+			context.addMessage(null, new FacesMessage("Imagem excluida com sucesso."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir a imagem do servidor. Tente novamente. Caso não consiga, entre em contato com o administrador do sistema.", "  "));
+		}
 	}
 	
 	public void excluirLesao () {
-		excluirImagensServer (getLesaoSelecionada().getImagens());
-		System.out.println("Excluindo lesão "+getLesaoSelecionada().getRegiao());
-		this.pacLesoes.remove(this.getLesaoSelecionada());
-	}	
+		FacesContext context = FacesContext.getCurrentInstance();
+		try {
+			excluirImagensServer (lesaoSelecionada.getImagens());
+			pacLesoesDeletar.add(lesaoSelecionada);
+			pacLesoes.remove(lesaoSelecionada);
+//			les_rep.delete(lesaoSelecionada);			
+			context.addMessage(null, new FacesMessage("Lesão excluida com sucesso."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir a lesão. Tente novamente. Caso não consiga, entre em contato com o administrador do sistema.", "  "));			
+		}
+	}
+	
+	private void aplicarRemocoes() {
+		try {
+			if (!pacLesoesDeletar.isEmpty()) {
+				les_rep.delete(pacLesoesDeletar);
+			}
+			
+			if (!pacImagensDeletar.isEmpty()) {
+				img_rep.delete(pacImagensDeletar);
+				excluirImagensServer(pacImagensDeletar);				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void adicionarNovaLesao () {
+		pacLesoes.add(new Lesao ());
+	}
 	
     public void onRowEdit(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edição realizada com sucesso", null);
@@ -240,6 +318,8 @@ public class edicaoController {
         FacesMessage msg = new FacesMessage("Edição cancelada", null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
+    
+    
 
 // #############################################################################################################################################
 	
@@ -303,7 +383,7 @@ public class edicaoController {
 		return lesaoSelecionada;
 	}
 
-	public void setLesaoSelecionada(Lesao lesaoSelecionada) {
+	public void setLesaoSelecionada(Lesao lesaoSelecionada) {		
 		this.lesaoSelecionada = lesaoSelecionada;
 	}
 
