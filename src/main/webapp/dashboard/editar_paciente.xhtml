@@ -611,7 +611,7 @@
 							        	<p:commandButton action="#{edicaoController.excluirLesao}" icon="ui-icon-trash"
 							        	 value="Excluir lesão" update="@form:lesoesTabView" process="@this"
 							        	 style="
-							        	 background: #F00 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.8)),to(rgba(255,255,255,0)));
+							        	 background: #F00 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));
 							        	 float: right;
 							        	 color: #FFF;
 							        	 padding: 5px;
@@ -710,7 +710,7 @@
 								 			fileUploadListener="#{edicaoController.inserirImagemListaCompleta}"								 			 
 				        					multiple="true"	        					
 				        					sizeLimit="10000000"
-				        					update="@form:msgsEdicao @form:lesoesTabView dataGridImagens"
+				        					update="@form:msgsEdicao dataGridImagens"
 				        					style="width:750px"
 				        					
 				        				>
@@ -734,20 +734,23 @@
 							
 								<p:commandButton value="Adicionar uma nova lesão lesão"
 							    		style="
-							        	background: #046d04 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.8)),to(rgba(255,255,255,0)));							        	 
+							        	background: #555582 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0))); 							        	 
 							        	color: #FFF;
-							        	padding: 5px;
+							        	padding: 3px;
+							        	float: right;
+							        	height: 35px;
 							     		"
 							     		action="#{edicaoController.adicionarNovaLesao}"
 							     		update="@form:msgsEdicao @form:lesoesTabView"
 							     	/>
+							     	
+							     <br/>
+							     <br/>
 															         				
 													
 						</p:fieldset>
 					
-					</h:panelGroup>								
-					
-					
+					</h:panelGroup>				
 					
 					
       		
@@ -758,7 +761,17 @@
 		      		<p:growl id="growlCheck" showDetail="true" closable="true" />		      		 
 		      		
 		      		<p:commandButton  value="Finalizar Edição" class="botaoPac" action="#{edicaoController.editarPaciente}" type="submit"
-		      		icon="ui-icon-pencil" update="growlCheck"  />
+		      		icon="ui-icon-pencil" update="growlCheck" ajax="false"
+		      		style="
+		      				background: #046d04 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));							        	 
+							color: #FFF;
+							height: 50px;
+						"							
+		      		 />
+		      		
+		      	
+		      		<br></br>
+		      		<br></br>	      		
 		      		
 		      	
 	      	</h:form>     

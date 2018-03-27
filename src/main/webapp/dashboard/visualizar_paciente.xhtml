@@ -294,7 +294,8 @@
 									           widgetVar="imagemDialog" modal="true" 
 									           showEffect="fade" hideEffect="fade" resizable="false"
 									           style="width:400px; text-align:center;"
-									           id="dialogImagem">
+									           id="dialogImagem"
+									           >
 												
 												<p:commandButton value="Anterior" type="button" onclick="PF('switcher').previous();"
     											icon="ui-icon-circle-triangle-w" id="prev"/>
@@ -334,22 +335,23 @@
 					display: inline;
 					font-size: 14px;
 					font-weight: bold;
-					background: #c4c4c4 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.8)),to(rgba(255,255,255,0))); 
-					padding: 10px;
+					background: #046d04 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0))); 
+					padding: 15px;
 					text-decoration: none;
 					margin-bottom: 5px;
 					border-radius: 5px;
 					border: 1px solid #999;
-					color: #1c4257;
+					color: #FFF;
     				text-shadow: 0 1px 0 rgba(255,255,255,0.7);
 				" >
     				<f:param name="cartaosus" value="#{visualizacaoController.pacBuscado.cartao_sus}" />
 				</h:link>			
 			  	
-			  	<p:commandButton update="growlCheck"  
+			  	<p:commandButton update="growlCheck @form"  
 					value="Excluir Paciente" icon=" ui-icon-trash" 
+					action="#{visualizacaoController.excluirPaciente}"								
 					style="
-						background: #F00 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.8)),to(rgba(255,255,255,0))); 
+						background: #F00 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0))); 
 						padding: 7px;
 						text-decoration: none;
 						margin-bottom: 25px;
@@ -375,7 +377,8 @@
 	      	</p:fieldset>	  	
 
 	      </h:form>      
-      
+      	  <br/><br/>
+      	  <br/><br/>
       </ui:define>
       
 </ui:composition>	

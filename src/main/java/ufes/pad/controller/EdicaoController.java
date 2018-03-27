@@ -29,7 +29,7 @@ import ufes.pad.repository.PacienteRepository;
 
 @ManagedBean
 @ViewScoped
-public class edicaoController {
+public class EdicaoController {
 	
 	private Paciente pacBuscado = new Paciente();
 	
@@ -164,9 +164,7 @@ public class edicaoController {
 			ret = null;
 		}		
 		return ret;
-	} 
-	
-	
+	}
 	
 	public void inserirImagemLista (FileUploadEvent event) {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -206,15 +204,20 @@ public class edicaoController {
 		while (in.available() != 0) {
 			fout.write(in.read());
 		}
-			fout.close();			
-			context.addMessage(null, new FacesMessage("Imagem adicionada com sucesso."));
+			fout.close();
 			
-			Lesao les = (Lesao) event.getComponent().getAttributes().get("lesEdicaoImg"); // bar
+			Lesao les = (Lesao) event.getComponent().getAttributes().get("lesEdicaoImg"); 
 			img.setPath(pathImg);
 			
+					
+			
+			
 			for (Lesao lesLista : pacLesoes) {
+				Lesao.printLesao(lesLista);
 				if (lesLista.getId() == les.getId()) {
 					lesLista.getImagens().add(img);
+					
+					
 				}
 			}			
 			img = new Imagem ();						
@@ -223,6 +226,8 @@ public class edicaoController {
 			ex.printStackTrace();
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problema no envio da imagem. Tente novamente. Caso não consiga, entre em contato com o administrador do sistema.", "  "));
 		}	
+		// Se der tudo certo...
+		context.addMessage(null, new FacesMessage("Imagem adicionada com sucesso."));
 	}	
 	
 	public void inserirLesao () {		
@@ -242,7 +247,7 @@ public class edicaoController {
 		lesao = new Lesao();
 	}
 	
-	public void excluirImgServer (Imagem img) {
+	static public void excluirImgServer (Imagem img) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		try{   		
     		
@@ -254,7 +259,7 @@ public class edicaoController {
     	}		
 	}
 	
-	public void excluirImagensServer (List<Imagem> imgs) {
+	static public void excluirImagensServer (List<Imagem> imgs) {
 		
 		for (Imagem img : imgs) {		
 			excluirImgServer(img);
@@ -306,7 +311,9 @@ public class edicaoController {
 	}
 	
 	public void adicionarNovaLesao () {
-		pacLesoes.add(new Lesao ());
+		lesao = new Lesao();
+		lesao.setImagens(new ArrayList<Imagem>());
+		pacLesoes.add(lesao);		
 	}
 	
     public void onRowEdit(RowEditEvent event) {

@@ -47,6 +47,7 @@ public class Lesao implements Serializable {
 	
 	static public void printLesao (Lesao les) {
 		System.out.println("---- LESAO ----\n");
+		System.out.println("ID: " + les.id);
 		System.out.println("Regiao: " + les.regiao);
 		System.out.println("Diagnostico Clinico: " + les.diagnostico_clinico);
 		System.out.println("Diagnostico Histopatologico: " + les.diagnostico_histo);

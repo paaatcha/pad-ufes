@@ -144,6 +144,7 @@ public class Paciente implements Serializable {
 	
 	static public void printPaciente (Paciente pac) {
 		System.out.println("--- PACIENTE ---\n");
+		System.out.println("ID: " + pac.id);
 		System.out.println("Nome: " + pac.nome_completo);
 		System.out.println("Cartao SUS: " + pac.cartao_sus + "\n");
 		

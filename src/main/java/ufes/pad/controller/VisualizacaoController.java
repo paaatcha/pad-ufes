@@ -199,7 +199,27 @@ public class VisualizacaoController {
 	}
 	
 	
-	
+	public String excluirPaciente () {
+		Paciente.printPaciente(pacBuscado);
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		try {
+			pac_rep.delete(pacBuscado);
+			
+			for (Lesao les : pacBuscado.getLesoes()) {
+				EdicaoController.excluirImagensServer (les.getImagens());
+			}			
+			context.addMessage(null, new FacesMessage("Paciente excluido com sucesso."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir paciente. Tente novamente. Se o problema persistir, entre em contato com o administrador do sistema.", "  "));
+			return null;
+		}
+		
+		liberarVisualizacao = false;
+		
+		return "visualizar_paciente.xhtml";
+	}	
 	
 	
 	
