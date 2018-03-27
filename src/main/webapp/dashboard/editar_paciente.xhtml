@@ -505,7 +505,7 @@
 								<p:growl id="growlLesao" showDetail="true" closable="true" />
 								 
 								
-								<p:commandButton value="Inserir lesão" icon="ui-icon-plus">						
+								<p:commandButton value="Inserir lesão" icon="ui-icon-plusthick">						
 									<p:ajax event="click" update="tabelaLesoes growlLesao regiao dia_maior dia_menor diag_clin procedimento obs_les"								
 									 listener="#{edicaoController.inserirLesao}" />								
 								</p:commandButton>										
@@ -551,7 +551,11 @@
 										</p:column>														
 										 
 										<p:column headerText="Excluir">																		
-											<p:commandButton action="#{edicaoController.excluirLesao}" icon="ui-icon-trash" title="Excluir" update="tabelaLesoes" process="@this">
+											<p:commandButton action="#{edicaoController.excluirLesao}" icon="ui-icon-trash" 
+											title="Excluir lesãp" update="tabelaLesoes" process="@this"
+											style="
+												background: #ffb3b3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0)));
+											">
 		      									<f:setPropertyActionListener value="#{les}" target="#{edicaoController.lesaoSelecionada}" />          						
 											</p:commandButton>								
 											
@@ -611,9 +615,9 @@
 							        	<p:commandButton action="#{edicaoController.excluirLesao}" icon="ui-icon-trash"
 							        	 value="Excluir lesão" update="@form:lesoesTabView" process="@this"
 							        	 style="
-							        	 background: #F00 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));
+							        	 background: #ffb3b3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));
 							        	 float: right;
-							        	 color: #FFF;
+							        	 color: #333;
 							        	 padding: 5px;
 							        	 "							        	 
 							        	 >
@@ -694,7 +698,12 @@
 									        			margin-right: 10px;
 									        		 "/>												        
 									        										        		
-													<p:commandButton action="#{edicaoController.excluirImgEdicao(les)}" icon="ui-icon-trash" value="Excluir Imagem" update="@form:lesoesTabView @form:msgsEdicao" process="@this">
+													<p:commandButton action="#{edicaoController.excluirImgEdicao(les)}" icon="ui-icon-trash" 
+													value="Excluir Imagem" update="@form:lesoesTabView @form:msgsEdicao" process="@this"
+													style="
+														background: #ffb3b3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0)));
+													"
+													>
 						      							<f:setPropertyActionListener value="#{img}" target="#{edicaoController.imgSelecionada}" />          						
 													</p:commandButton>
 										    	
@@ -732,10 +741,10 @@
 							
 							
 							
-								<p:commandButton value="Adicionar uma nova lesão lesão"
+								<p:commandButton value="Adicionar uma nova lesão" icon="ui-icon-plusthick"
 							    		style="
-							        	background: #555582 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0))); 							        	 
-							        	color: #FFF;
+							        	background: #d1d1e1 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0))); 							        	 
+							        	color: #333;
 							        	padding: 3px;
 							        	float: right;
 							        	height: 35px;
@@ -763,8 +772,8 @@
 		      		<p:commandButton  value="Finalizar Edição" class="botaoPac" action="#{edicaoController.editarPaciente}" type="submit"
 		      		icon="ui-icon-pencil" update="growlCheck" ajax="false"
 		      		style="
-		      				background: #046d04 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));							        	 
-							color: #FFF;
+		      				background: #ccffcc -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));							        	 
+							color: #333;
 							height: 50px;
 						"							
 		      		 />

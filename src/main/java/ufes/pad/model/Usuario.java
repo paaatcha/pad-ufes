@@ -88,13 +88,13 @@ public class Usuario implements Serializable, UserDetails{
 	
 	
 	// ################################# Methods #######################################	
-	public void printUsuario (){
-		System.out.println("Imprimindo Usuario:");
-		System.out.println(this.nome);
-		System.out.println(this.nome_usuario);
-		System.out.println(this.senha);
-		System.out.println(this.email);				
-		
+	static public void printUsuario (Usuario user){
+		System.out.println("---- Usuario ----");
+		System.out.println("ID: " + user.id);
+		System.out.println("Nome: " + user.nome);
+		System.out.println("Nome Usuario: " + user.nome_usuario);
+		System.out.println("Email: " + user.email);
+		System.out.println("Apto: " + user.apto);		
 	}
 
 	@Override

@@ -489,7 +489,7 @@
 							<p:growl id="growlLesao" showDetail="true" closable="true" />
 							 
 							
-							<p:commandButton value="Inserir lesão" icon="ui-icon-plus">						
+							<p:commandButton value="Adicionar lesão" icon="ui-icon-plusthick">						
 								<p:ajax event="click" update="tabelaLesoes growlLesao regiao dia_maior dia_menor diag_clin procedimento obs_les"								
 								 listener="#{pacienteController.inserirLesao}" />								
 							</p:commandButton>										
@@ -529,7 +529,12 @@
 									</p:column>														
 									 
 									<p:column headerText="Excluir">																		
-										<p:commandButton action="#{pacienteController.excluirLesao}" icon="ui-icon-trash" title="Excluir" update="tabelaLesoes" process="@this">
+										<p:commandButton action="#{pacienteController.excluirLesao}" icon="ui-icon-trash" title="Excluir lesão"
+										 update="tabelaLesoes" process="@this"
+										 style="
+											background: #ffb3b3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0)));
+										 "
+										 >
 	      									<f:setPropertyActionListener value="#{les}" target="#{pacienteController.lesaoSelecionada}" />          						
 										</p:commandButton>								
 										
@@ -570,19 +575,19 @@
 						</p:dialog>		
 						
 					</p:fieldset>								
-					
-					
-					
-					
-      		
-		      		<br></br>
+							      		
 		      		<br></br>
 		      		
 		      		
 		      		<p:growl id="growlCheck" showDetail="true" closable="true" />		      		 
 		      		
 		      		<p:commandButton  value="Cadastrar" class="botaoPac" action="#{pacienteController.salvarPacienteAntigo}" type="submit" 
-		      		icon="ui-icon-check" update="growlCheck" ajax="false"/>	      		
+		      		icon="ui-icon-check" update="growlCheck" ajax="false"
+		      		style="
+		      				height:40px;		      				 
+							background: #ccffcc -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0)));								
+		      			"
+		      		/>	      		
 		      		
 		      		
 		      	

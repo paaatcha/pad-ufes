@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="../decoratorDashboard/decorator_dashboard.xhtml">
+      
+      
+      <ui:define name="titulo"> Análise de dados  </ui:define>
+      
+      <ui:define name="conteudoInferiorPagina">
+
+			<h:form>
+
+				<p:fieldset legend="Análise de dados" 
+			      	style="margin-bottom:20px; margin-top:20px;"	      	
+			      	id="GerenciarUsuarios">	      	
+			      	
+					<p:growl id="msgs" showDetail="true"/>
+					 
+					   <p:dataTable id="usuariosTab" var="user" value="#{usuarioController.todosUsuarios}" editable="true" style="margin-bottom:20px">
+					       <f:facet name="header">
+					           Gerenciar Usuários
+					       </f:facet>
+					 
+					       <p:ajax event="rowEdit" listener="#{usuarioController.onRowEdit}" update="@form:msgs" />
+					       <p:ajax event="rowEditCancel" listener="#{usuarioController.onRowCancel}" update="@form:msgs" />
+					 
+					       <p:column headerText="Nome">
+					           <p:cellEditor>
+					               <f:facet name="output"><h:outputText value="#{user.nome}" /></f:facet>
+					               <f:facet name="input"><p:inputText id="nomeInput" value="#{user.nome}" style="width:100%"/></f:facet>
+					           </p:cellEditor>
+					       </p:column>
+					 
+					       <p:column headerText="Nome de usuário">
+					           <p:cellEditor>
+					               <f:facet name="output"><h:outputText value="#{user.nome_usuario}" /></f:facet>
+					               <f:facet name="input"><p:inputText value="#{user.nome_usuario}" style="width:100%" label="nomeUsuario"/></f:facet>
+					           </p:cellEditor>
+					       </p:column>
+					       
+							<p:column headerText="Email">
+					           <p:cellEditor>
+					               <f:facet name="output"><h:outputText value="#{user.email}" /></f:facet>
+					               <f:facet name="input"><p:inputText value="#{user.email}" style="width:100%" label="email"/></f:facet>
+					           </p:cellEditor>
+					       </p:column>
+					       
+					   		<p:column headerText="Apto">
+					           <p:cellEditor>
+					               <f:facet name="output"><h:outputText value="#{user.apto}" /></f:facet>
+					               <f:facet name="input"><p:selectBooleanCheckbox value="#{user.apto}" style="width:100%" /></f:facet>
+					           </p:cellEditor>
+					       </p:column>
+					 
+					       <p:column style="width:32px">
+					           <p:rowEditor />
+					       </p:column>
+					       
+							<p:column style="width:32px">
+					           <p:commandButton action="#{usuarioController.excluirUsuario}" icon="ui-icon-trash"
+					           update="@form:usuariosTab @form:msgs" process="@this" title="Excluir usuário"
+					           style="
+									background: #ffb3b3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0)));
+								"
+							>
+							   	
+							   		<f:setPropertyActionListener value="#{user}" target="#{usuarioController.usuarioSelecionado}" />							      		
+							      	
+							      	<p:confirm header="ATENÇÃO" message="Você tem certeza que deseja excluir este usuário?"
+					 						icon="ui-icon-alert" />
+							      			          						
+							   </p:commandButton>					           
+					       </p:column>					       
+					   </p:dataTable>		     
+					   
+			   			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+	      						<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+	      						<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	  					</p:confirmDialog>	 	   
+	      	
+			      	
+			    </p:fieldset> 
+		    
+		    </h:form>
+      
+      </ui:define>
+      
+      
+</ui:composition>  

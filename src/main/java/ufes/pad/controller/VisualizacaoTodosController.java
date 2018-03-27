@@ -23,6 +23,8 @@ public class VisualizacaoTodosController {
 	@Autowired 
 	private PacienteRepository pac_rep;	
 	
+	private int numPac;
+	
 	@PostConstruct
 	public void listarPacientes () {		
 		FacesContext context = FacesContext.getCurrentInstance();		
@@ -35,7 +37,9 @@ public class VisualizacaoTodosController {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));			
 		}
 		
-		preencheIdadePacs (this.getTodosPacs());		
+		preencheIdadePacs (this.getTodosPacs());
+		
+		numPac = todosPacs.size();
 		
 	}		
 	
@@ -54,6 +58,14 @@ public class VisualizacaoTodosController {
 
 	public void setTodosPacs(List<Paciente> todosPacs) {
 		this.todosPacs = todosPacs;
+	}
+
+	public int getNumPac() {
+		return numPac;
+	}
+
+	public void setNumPac(int numPac) {
+		this.numPac = numPac;
 	}		
 	
 

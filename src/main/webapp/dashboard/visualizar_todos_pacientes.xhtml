@@ -20,6 +20,8 @@
 				
 				<p:growl id="growlCheck" showDetail="true" closable="true" />     		
 				      		
+				      		<h:outputText class="campoPac" value="Número de pacientes registrados no banco: " />
+	      					<h:outputText class="valorPac" value="#{visualizacaoTodosController.numPac}"/>
 				      		
 				      		<br/><br/>
 				      		
@@ -27,7 +29,7 @@
 					      		<p:dataTable  var="pac" value="#{visualizacaoTodosController.todosPacs}"
 					      		rows="10" paginator="true"
 					      		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					            rowsPerPageTemplate="5,10,15,20,25,30"	
+					            rowsPerPageTemplate="5,10,25,50,100"	
 					            style="text-align:center;"			                        		            
 					      		>		
 	            									      		
@@ -107,7 +109,12 @@
 				      		</h:panelGroup>		
 							 				      		
 	      
-	    		<p:commandButton value="Imprimir página" type="button" icon="ui-icon-print" style="display:block; margin-top: 20px">
+	    		<p:commandButton value="Imprimir página" type="button" icon="ui-icon-print" 
+	    		style="display:block; 
+	    		margin-top: 20px;
+	    		height: 45px;
+	    		"
+	    		>
     				<p:printer target="tabelaTodos" />
 				</p:commandButton>
            

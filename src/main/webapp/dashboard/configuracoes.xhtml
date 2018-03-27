@@ -8,14 +8,88 @@
       template="decoratorDashboard/decorator_dashboard.xhtml">
       
       
-      <ui:define name="titulo"> Em construção  </ui:define>
+      <ui:define name="titulo"> Configurações de Usuário  </ui:define>
       
 	  <ui:define name="conteudoInferiorPagina">
       
-      	<p>
-      		Em construção...
-      	
-      	</p>     
+      	<p:growl id="growlMsgs" showDetail="true" closable="true" />
+      
+        <h:form>
+      	<p:fieldset legend="Dados do usuário" 
+		      	style="margin-bottom:0px; margin-top:20px;"	      	
+		      	id="dadosPaciente">
+	      	<h:panelGroup>
+	      	
+	      		<br/>
+	      		
+	      		<h:outputText class="campoPac" value="Nome: " />
+	      		<h:outputText class="valorPac" value="#{usuarioController.usuarioLogado.nome}"/>
+	      		
+	      		<br/><br/>
+	      		
+	      		<h:outputText class="campoPac" value="Nome de usuário: " />
+	      		<h:outputText class="valorPac" value="#{usuarioController.usuarioLogado.nome_usuario}"/>
+	      		
+				<br/><br/>
+	      		
+	      		<h:outputText class="campoPac" value="Email: " />
+	      		<h:outputText class="valorPac" value="#{usuarioController.usuarioLogado.email}"/>      		     	
+	      	
+	      	</h:panelGroup> 
+	      	
+	      	<br/><br/>	      	
+	      	<h5> Alterar a senha </h5>
+	      	
+					<p:messages autoUpdate="true" />
+
+					<h:outputText class="campoPac" value="Senha atual: " />
+					<br/>
+        			<p:password id="senhaAtual" value="#{usuarioController.senhaAtual}" 
+                    required="true"
+                    requiredMessage="A senha atual não foi informada."                    
+                    />
+                    <p:message for="senhaAtual" />					
+					<br/>			
+					
+					
+					
+					<h:outputText class="campoPac" value="Senha nova: " />
+					<br/>
+            		<p:password id="senha1" value="#{usuarioController.senhaNova}" feedback="true"
+                    promptLabel="Força da senha" weakLabel="Fraca"
+                    goodLabel="Média" strongLabel="Forte" 
+                    match="senha2"
+                    required="true"
+                    requiredMessage="A nova senha não foi informada."
+                    validatorMessage="Você repetiu a senha errada."
+                    />           		
+            		<p:message for="senha1" />
+            		<br/>           	
+            	 
+        			<h:outputText class="campoPac" value="Repita a senha nova: " />
+        			<br/>
+        			<p:password id="senha2" value="#{usuarioController.senhaNovaRepetida}" 
+                    required="true"
+                    requiredMessage="Sua senha 1 não foi informada."                    
+                    />
+					<p:message for="senha2" />
+					
+	      	
+	      	
+	      		<br/> <br/> <br/>      
+				<p:commandButton  value="Alterar senha" class="botaoPac" 
+		      	action="#{usuarioController.alterarSenha}"		      	 		
+		      	type="submit"	
+		      	icon="ui-icon-gear"			
+		      	ajax="false"
+				/>	            	 
+
+
+	      	
+	      	
+	      </p:fieldset> 
+      	 
+      	</h:form>
       
       </ui:define>      
       

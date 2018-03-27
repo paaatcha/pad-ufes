@@ -16,7 +16,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -316,16 +315,7 @@ public class EdicaoController {
 		pacLesoes.add(lesao);		
 	}
 	
-    public void onRowEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edição realizada com sucesso", null);
-        FacesContext.getCurrentInstance().addMessage(null, msg);        
-    }
-     
-    public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edição cancelada", null);
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-    
+
     
 
 // #############################################################################################################################################

@@ -241,6 +241,16 @@ a img{
 	
 }
 
+.conteudoInferior h5{
+	color: #2a2a8c;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	text-decoration: underline;
+	margin-top: 20px;
+	
+}
+
 .conteudoInferior p{
 	color: #333;
 	font-size: 20px;
@@ -281,10 +291,12 @@ a img{
 .campoPac{
 	font-weight: bold;
 	font-size: 16px;	
+	color: #333;
 }
 
 .valorPac{
 	font-size: 14px;
+	color: #333;
 }
 
 .imgDialog {
