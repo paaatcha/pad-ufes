@@ -12,64 +12,101 @@
 	<ui:define name="titulo"> Bem vindo <h:outputText value="#{usuarioController.getNomeUsuarioLogado()}" /> </ui:define>		
 		
 		
-	<ui:define name="conteudoInferiorPagina">			
-		
-			<p>
-				No menu acima você encontra as opções disponíveis e implementadas no sistema. Abaixo você encontra uma breve descrição
-				de cada uma das opções:							
-			</p>
-			
-			<ul id="listaHome">
-			
-				<li>
-					<span> Home: </span> é está página que está no momento. Ela aparece sempre que você efeturar login no sistema.
-				</li>
-				
-				<li>
-					<span> Cadastrar pacientes: </span> para cadastrar um novo paciente acesse essa funcionalidade. Nela será necessário preencher o formulário <br/>
-					com todos os dados  dos pacientes. As informações em relação a lesão e inserção de imagens, devem ser realizados pelo aplicativo.
-				</li>
-				
-				<li>
-					<span> Visualizar paciente: </span> esta funcionalidade deve ser usada para visualizar todos os dados de um único paciente. <br/>
-					Para isso é necessário inserir o cartão do sus do paciente para uma busca no banco de dados					
-					
-				</li>
-				
-				<li>
-					<span> Visualizar todos pacientes: </span> Todos os pacientes são exibidos em uma tabela. Todavia, nem todos os dados são apresentados. <br/>
-					Para uma visualização completa é necessário buscar o paciente na seção anterior. Tenha em mente que o processo pode levar alguns segundos <br/>
-					dependendo da quantidade de pacientes a serem recuperados no banco de dados.
-					
-				</li>				
-				
-				<li>
-					<span> Análise de dados: </span> esta funcionalidade realiza uma análise de dados em relação aos pacientes cadastrados no banco de dados. <br/>
-					Exemplo de informações que podem ser obtidas pela funcionalidade: quantidade de pessoas atendidas por região, porcentagem de mulheres e homens <br/>
-					afetados por cada tipo de câncer, tamanho médio das lesões, etc.
-				</li>
-				
-				<li>
-					<span> Configurações: </span> esta função é destinada para alteração de senha, nome de usuário e/ou e-mail.
-				</li>		
-			
-			</ul>	
+	<ui:define name="conteudoInferiorPagina">	
 	
-			<h4> Inserindo um paciente antigo </h4>
-			<p>
-				Para inserir um paciente antigo, ou seja, uma ficha que é anterior a este sistema, acesse ao <a id="linkPacAntigo" href="cadastrar_pacientes_antigos.xhtml"> cadastro de pacientes antigos </a> <br/>
-				A diferença entre o cadastro do menu e este cadastro é que as informações de lesões e imagens são inseridas todas em um <br/>
-				mesmo formulário sem a necessidade do uso do aplicativo no smartphone.
-			</p>
+	
+	
+			<p:panel id="basic" header="Funcinalidades do sistema" style="margin-bottom:20px;">
 			
+				<p id="funcionalidadesP">
+					No menu da barra superior você encontra as opções disponíveis e implementadas neste sistema. Na sequência são descritas
+					cada uma das funcionalidades individualmente.
+				</p>
+				
+				
+				
+		        <h:panelGrid columns="2" cellpadding="20" class="panelGridHome">
+		            
+		            <p:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/homepage_big.png" />		             
+		            <p>
+		            	<span> Home: </span> é está página que está no momento. Ela aparece sempre que você efeturar login no sistema.
+		            </p>
+		            
+		            
+		            
+		            <p:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/note_big.png" />		             
+		            <p>
+		            	<span> Cadastrar pacientes: </span> para cadastrar um novo paciente acesse essa funcionalidade. Nela será necessário preencher o formulário
+						com todos os dados  dos pacientes. As informações em relação a lesão e inserção de imagens, devem ser realizados pelo aplicativo.
+		            </p>
+		            
+		            
+		            <p:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/onePerson_big.png" />		             
+		            <p>
+		            	<span> Visualizar paciente: </span> esta funcionalidade deve ser usada para visualizar todos os dados de um único paciente.
+					Para isso é necessário inserir o cartão do sus do paciente para uma busca no banco de dados
+		            </p>
+		            
+		            
+		            <p:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/manyPersons_big.png" />		             
+		            <p>
+		            	<span> Visualizar todos pacientes: </span> Todos os pacientes são exibidos em uma tabela. Todavia, nem todos os dados são apresentados.
+					Para uma visualização completa é necessário buscar o paciente na seção anterior. Tenha em mente que o processo pode levar alguns segundos 
+					dependendo da quantidade de pacientes a serem recuperados no banco de dados.
+		            </p>
+		            
+					
+					<p:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/graph_big.png" />		             
+		            <p>
+		            	<span> Análise de dados: </span> esta funcionalidade realiza uma análise de dados em relação aos pacientes cadastrados no banco de dados.
+					Exemplo de informações que podem ser obtidas pela funcionalidade: quantidade de pessoas atendidas por região, porcentagem de mulheres e homens
+					afetados por cada tipo de câncer, tamanho médio das lesões, etc.
+		            </p>	
+		            
+					
+					<p:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/settings_big.png" />		             
+		            <p>
+		            	<span> Configurações: </span> esta função é destinada para alteração de senha, nome de usuário e/ou e-mail
+		            </p>			            	            
+		            
+		        
+		            
+		            
+		        </h:panelGrid>				
+				
+			</p:panel>
+	
+			<p:panel header="Inserindo fichas pacientes antigos" style="margin-bottom:20px;">
 			
+				<h:panelGrid columns="2" cellpadding="20" class="panelGridHome">
+					
+					<p:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/old_paper_big.png" />		             
+		            <p>
+		            	<span> Fichas antigas: </span> para inserir um paciente antigo, ou seja, uma ficha que é anterior a este sistema, acesse ao <a id="linkPacAntigo" href="cadastrar_pacientes_antigos.xhtml"> cadastro de pacientes antigos </a> 
+						A diferença entre o cadastro do menu e este cadastro é que as informações de lesões e imagens são inseridas todas em um 
+						mesmo formulário sem a necessidade do uso do aplicativo no smartphone.
+				
+		            </p>
+				
+				</h:panelGrid>			
 			
-			<h4> Resolução de problemas </h4>
+			</p:panel>
 			
-			<p>
-				Qualquer problema encontrado, bug ou dúvida em relação ao sistema envie um e-mail para <span id="spanEmail"> pacheco.comp@gmail.com</span>. <br/>
-				O seu contato é importanto para encontrarmos possíveis bugs e corrigi-los para que o sistema fique cada vez mais estável e confiável.			
-			</p>			
+			<p:panel header="Resolução de problemas" style="margin-bottom:20px;">
+			
+				<h:panelGrid columns="2" cellpadding="20" class="panelGridHome">
+					
+					<p:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/trouble.png" />		             
+		            <p>
+		            	<span> Resolução de problemas: </span> Qualquer problema encontrado, bug ou dúvida em relação ao sistema envie um e-mail para <span id="spanEmail"> pacheco.comp@gmail.com</span>.
+						O seu contato é importanto para encontrarmos possíveis bugs e corrigi-los para que o sistema fique cada vez mais estável e confiável.			
+				
+		            </p>
+				
+				</h:panelGrid>			
+			
+			</p:panel>			
+			
 				
 	
 

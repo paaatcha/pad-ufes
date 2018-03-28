@@ -196,9 +196,10 @@ a img{
 }
 
 .menu li img{
-	height: 18px;
-	width: 18px;
-	margin-top:5px;
+	height: 14px;
+	width: 14px;
+	margin-top:8px;
+	margin-left: 10px;
 }
 
 .menu li a span{	
@@ -217,9 +218,10 @@ a img{
 
 .conteudoInferior h2{
 	color: #2a2a8c;
-	font-size: 25px;
+	font-size: 20px;	
+	margin-bottom: 20px;
+	font-weight: bold;
 	text-decoration: underline;
-	margin-bottom: 25px;
 	
 }
 
@@ -253,7 +255,13 @@ a img{
 
 .conteudoInferior p{
 	color: #333;
-	font-size: 20px;
+	font-size: 16px;
+}
+
+.conteudoInferior p span{	
+	font-size: 17px;
+	font-weight: bold;
+	color: #2a2a8c;
 }
 
 #cadastroPaciente p{
@@ -263,9 +271,10 @@ a img{
 	margin-right: 10px;
 }
 
-#spanEmail{
-	color: #0066ff;
+#spanEmail{	
 	font-size: 18px;
+	color: #28a5d8;
+	font-weight: bold;	
 }
 
 #listaHome li{
@@ -308,8 +317,14 @@ a img{
 	float: none;
 	text-shadow: none;
 	display: inline;
-	font-size: 20px;
-	color: #0066ff;
+	font-size: 18px;
+	color: #28a5d8;
+	font-weight: bold;
+}
+
+#funcionalidadesP{
+	color: #2a2a8c;
+	font-size: 17px;
 }
 
 #linkEditarPaciente{
@@ -318,4 +333,20 @@ a img{
 	display: inline;
 	font-size: 30px;
 	color: #0066ff;	
+}
+
+.ui-panel .ui-panel-title{
+    font-size: 16px;
+    font-weight: bold	
+}
+
+.panelGridHome {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.panelGridHome img{
+	height: 50px;
+	width: 50px;
+	margin-right: 20px;
 }
