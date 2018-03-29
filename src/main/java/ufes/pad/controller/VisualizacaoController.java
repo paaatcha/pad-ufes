@@ -29,7 +29,7 @@ public class VisualizacaoController {
 	
 	private Paciente pacSelecionadoLesao;
 	
-	private String cartao_sus_busca = "111-1111-1111-1111";
+	private String cartao_sus_busca;
 
 	private Paciente pacBuscado;
 	
