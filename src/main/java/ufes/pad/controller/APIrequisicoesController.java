@@ -15,10 +15,8 @@ import ufes.pad.repository.PacienteRepository;
 public class APIrequisicoesController {
 
 	@Autowired
-	private PacienteRepository pac_rep;
-	
-	private Paciente pacBuscado; 
-	
+	private PacienteRepository pac_rep;	
+		
 	ObjectMapper mapper = new ObjectMapper();
 	private String nomePacienteJson;
 	
@@ -30,26 +28,19 @@ public class APIrequisicoesController {
 		String cartaoSus = request.getParameter("cartaosus");
 		
 		try {
-			setPacBuscado(pac_rep.buscaPorCartaoSus(cartaoSus));			
+			Paciente pac = (pac_rep.buscaPorCartaoSus(cartaoSus));			 
 			
-			if (getPacBuscado()!=null) {				
+			if (pac!=null) {				
 				System.out.println("Paciente encontrado com sucesso");
-				MiniPaciente pacJson = new MiniPaciente(pacBuscado);
+				MiniPaciente pacJson = new MiniPaciente(pac);
 				nomePacienteJson = mapper.writeValueAsString(pacJson);
 			} else {
-				System.out.println("\n\n\nNÃO ACHEI\n\n\n");
+				// Retornando um NULL
+				nomePacienteJson = mapper.writeValueAsString(new MiniPaciente( new Paciente ()));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();			
-		}			
-	}
-
-	public Paciente getPacBuscado() {
-		return pacBuscado;
-	}
-
-	public void setPacBuscado(Paciente pacBuscado) {
-		this.pacBuscado = pacBuscado;
+				
+		}
 	}
 
 	public String getNomePacienteJson() {
