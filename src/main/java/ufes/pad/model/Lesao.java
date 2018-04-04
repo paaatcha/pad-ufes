@@ -57,8 +57,10 @@ public class Lesao implements Serializable {
 		
 		
 		System.out.println("--- IMAGENS ---\n");
-		for (Imagem img : les.getImagens()) {
-			Imagem.printImagem(img);
+		if (!les.getImagens().isEmpty()) {
+			for (Imagem img : les.getImagens()) {
+				Imagem.printImagem(img);
+			}
 		}
 		
 	}	

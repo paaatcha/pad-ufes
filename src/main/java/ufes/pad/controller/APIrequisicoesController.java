@@ -1,55 +1,167 @@
 package ufes.pad.controller;
 
-import javax.annotation.ManagedBean;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import ufes.pad.model.Imagem;
+import ufes.pad.model.ImagemGeral;
+import ufes.pad.model.Lesao;
+import ufes.pad.model.LesaoGeral;
 import ufes.pad.model.Paciente;
+import ufes.pad.model.PacienteGeral;
+import ufes.pad.repository.PacienteGeralRepository;
 import ufes.pad.repository.PacienteRepository;
 
-@ManagedBean
+@RestController
 public class APIrequisicoesController {
 
 	@Autowired
-	private PacienteRepository pac_rep;	
-		
-	ObjectMapper mapper = new ObjectMapper();
-	private String nomePacienteJson;
+	private PacienteRepository pac_rep;
 	
-//    @PostConstruct
-	public void pegaPacienteCartaoSus () {
-		HttpServletRequest request = (HttpServletRequest) FacesContext
-				.getCurrentInstance().getExternalContext().getRequest();
-				
-		String cartaoSus = request.getParameter("cartaosus");
-		
+	@Autowired
+	private PacienteGeralRepository pac_rep_geral;
+	
+	
+	@GetMapping ("/APIrequisicoes/paciente/{cartao_sus}")
+	public @ResponseBody MiniPaciente pegarMiniPaciente (@PathVariable String cartao_sus){
 		try {
-			Paciente pac = (pac_rep.buscaPorCartaoSus(cartaoSus));			 
-			
-			if (pac!=null) {				
-				System.out.println("Paciente encontrado com sucesso");
-				MiniPaciente pacJson = new MiniPaciente(pac);
-				nomePacienteJson = mapper.writeValueAsString(pacJson);
+			Paciente pac = (pac_rep.buscaPorCartaoSus(cartao_sus));
+			if (pac != null) {
+				System.out.println("Paciente da requisicao foi encontrado com sucesso");
+				MiniPaciente miniPac = new MiniPaciente(pac);
+				return miniPac;
 			} else {
-				// Retornando um NULL
-				nomePacienteJson = mapper.writeValueAsString(new MiniPaciente( new Paciente ()));
+				System.out.println("Este paciente não esta cadastrado");				
+				return new MiniPaciente(new Paciente());
 			}
 		} catch (Exception e) {
+			System.out.println("Falha na requisição para o banco de dados");
+			e.printStackTrace();			
+		}		
+		return null;
+	}
+	
+	@PostMapping("/APIrequisicoes/paciente/cadastrarLesoes/{cartao_sus}")
+	public void cadastrarLesao (@PathVariable String cartao_sus, @RequestParam("regiao") String regiao,
+			@RequestParam("diaMaior") String diaMaior, @RequestParam("diaMenor") String diaMenor, 
+			@RequestParam("diagnostico") String diagnostico, @RequestParam("procedimento") String procedimento,
+			@RequestParam("obs") String obs,
+			@RequestParam("imagem") MultipartFile[] imagem){
+		
+		try {
+			Paciente pac = (pac_rep.buscaPorCartaoSus(cartao_sus));
+			
+			if (pac != null) {			
+				Lesao les = new Lesao ();
+				List<Imagem> auxListImg = new ArrayList<Imagem>();
 				
+				// Setando os dados vindo da requisição
+				les.setRegiao(regiao);
+				les.setDiametro_maior(Float.parseFloat(diaMaior));
+				les.setDiametro_menor(Float.parseFloat(diaMenor));
+				les.setDiagnostico_clinico(diagnostico);
+				les.setProcedimento(procedimento);
+				les.setObs(obs);			
+				
+				// Incluindo as imagens
+				for (MultipartFile img : imagem) {
+					String path = cartao_sus + "_" + new Date().getTime() + ".jpg";
+					File FilePath = new File("src/main/webapp/dashboard/imgLesoes/" + path);			
+					byte imgBytes [] = img.getBytes();			
+					FileUtils.writeByteArrayToFile(FilePath, imgBytes);
+					
+					// Inserindo a imagem
+					Imagem imgLesao = new Imagem();
+					imgLesao.setPath(path);
+					auxListImg.add(imgLesao);				
+				}
+				
+				les.setImagens(auxListImg);			
+				Lesao.printLesao(les);
+				
+				
+				if (pac.getLesoes().isEmpty()) {
+					List<Lesao> lesPaclist = new ArrayList<Lesao>();
+					lesPaclist.add(les);
+					pac.setLesoes(lesPaclist);
+					pac_rep.save(pac);
+				} else {
+					pac.getLesoes().add(les);
+					pac_rep.save(pac);
+				}				
+			}			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Problemas na inserção de dados na requisição http");
+		}	
+		
+	}
+	
+	@PostMapping("/APIrequisicoes/paciente/cadastrarLesoesGerais/{cartao_sus}")
+	public void cadastrarLesaoGeral (@PathVariable String cartao_sus, @RequestParam("regiao") String regiao,			 
+			@RequestParam("diagnostico") String diagnostico, @RequestParam("imagem") MultipartFile[] imagem){
+		
+		try {
+			PacienteGeral pac = pac_rep_geral.buscaPorCartaoSus(cartao_sus);			
+			if (pac == null) {
+				pac = new PacienteGeral();
+			}	
+			
+			LesaoGeral les = new LesaoGeral();
+			List<ImagemGeral> imgList = new ArrayList<ImagemGeral>();
+			
+			
+			les.setRegiao(regiao);
+			les.setDiagnostico(diagnostico);
+			
+			for (MultipartFile img : imagem) {
+				String path = cartao_sus + "_" + new Date().getTime() + ".jpg";
+				File FilePath = new File("src/main/webapp/dashboard/imgLesoesGeral/" + path);			
+				byte imgBytes [] = img.getBytes();			
+				FileUtils.writeByteArrayToFile(FilePath, imgBytes);
+				
+				// Inserindo a imagem
+				ImagemGeral imgLesao = new ImagemGeral();				
+				imgLesao.setPath(path);
+				imgList.add(imgLesao);				
+			}
+			
+			les.setImagens(imgList);
+			
+			if (pac.getLesoes().isEmpty()) {
+				List<LesaoGeral> lesPaclist = new ArrayList<LesaoGeral>();
+				lesPaclist.add(les);
+				pac.setLesoes(lesPaclist);
+				pac_rep_geral.save(pac);
+			} else {
+				pac.getLesoes().add(les);
+				pac_rep_geral.save(pac);
+			}			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
 	}
+	
+	
 
-	public String getNomePacienteJson() {
-		return nomePacienteJson;
-	}
-
-	public void setNomePacienteJson(String nomePacienteJson) {
-		this.nomePacienteJson = nomePacienteJson;
-	}
 }
 
 class MiniPaciente {
