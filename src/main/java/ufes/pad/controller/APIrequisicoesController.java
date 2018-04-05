@@ -38,7 +38,8 @@ public class APIrequisicoesController {
 	
 	@GetMapping ("/APIrequisicoes/paciente/{cartao_sus}")
 	public @ResponseBody MiniPaciente pegarMiniPaciente (@PathVariable String cartao_sus){
-		try {
+		
+		try {			
 			Paciente pac = (pac_rep.buscaPorCartaoSus(cartao_sus));
 			if (pac != null) {
 				System.out.println("Paciente da requisicao foi encontrado com sucesso");
@@ -62,7 +63,8 @@ public class APIrequisicoesController {
 			@RequestParam("obs") String obs,
 			@RequestParam("imagem") MultipartFile[] imagem){
 		
-		try {
+		try {			
+
 			Paciente pac = (pac_rep.buscaPorCartaoSus(cartao_sus));
 			
 			if (pac != null) {			
@@ -94,15 +96,15 @@ public class APIrequisicoesController {
 				Lesao.printLesao(les);
 				
 				
-				if (pac.getLesoes().isEmpty()) {
-					List<Lesao> lesPaclist = new ArrayList<Lesao>();
-					lesPaclist.add(les);
-					pac.setLesoes(lesPaclist);
-					pac_rep.save(pac);
-				} else {
-					pac.getLesoes().add(les);
-					pac_rep.save(pac);
-				}				
+//				if (pac.getLesoes().isEmpty()) {
+//					List<Lesao> lesPaclist = new ArrayList<Lesao>();
+//					lesPaclist.add(les);
+//					pac.setLesoes(lesPaclist);
+//					pac_rep.save(pac);
+//				} else {
+//					pac.getLesoes().add(les);
+//					pac_rep.save(pac);
+//				}				
 			}			
 			
 		}catch (Exception e) {
@@ -143,15 +145,18 @@ public class APIrequisicoesController {
 			
 			les.setImagens(imgList);
 			
-			if (pac.getLesoes().isEmpty()) {
-				List<LesaoGeral> lesPaclist = new ArrayList<LesaoGeral>();
-				lesPaclist.add(les);
-				pac.setLesoes(lesPaclist);
-				pac_rep_geral.save(pac);
-			} else {
-				pac.getLesoes().add(les);
-				pac_rep_geral.save(pac);
-			}			
+//			if (pac.getLesoes().isEmpty()) {
+//				List<LesaoGeral> lesPaclist = new ArrayList<LesaoGeral>();
+//				lesPaclist.add(les);
+//				pac.setLesoes(lesPaclist);
+//				pac_rep_geral.save(pac);
+//			} else {
+//				pac.getLesoes().add(les);
+//				pac_rep_geral.save(pac);
+//			}	
+			
+			System.out.println("Regiao: " + les.getRegiao());
+			System.out.println("Diag: " + les.getDiagnostico());
 			
 			
 		} catch (Exception e) {
