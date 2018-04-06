@@ -41,6 +41,7 @@ public class APIrequisicoesController {
 		
 		try {			
 			Paciente pac = (pac_rep.buscaPorCartaoSus(cartao_sus));
+			System.out.println(pac);
 			if (pac != null) {
 				System.out.println("Paciente da requisicao foi encontrado com sucesso");
 				MiniPaciente miniPac = new MiniPaciente(pac);
@@ -172,6 +173,7 @@ public class APIrequisicoesController {
 class MiniPaciente {
 	private String nome, pront, alergia, diabetes, anticoagulante, has;
 	private float pressao_dia, pressao_sis;
+	private int nLesoes;
 	
 	public MiniPaciente(Paciente pac) {
 		nome = pac.getNome_completo();
@@ -198,6 +200,12 @@ class MiniPaciente {
 		
 		pressao_dia = pac.getPres_art_diastolica();
 		pressao_sis = pac.getPres_art_sistolica();
+		
+		if (pac.getLesoes() != null) {
+			nLesoes = pac.getLesoes().size();
+		} else {
+			nLesoes = 0;
+		}
 		
 	}	
 	
@@ -248,6 +256,14 @@ class MiniPaciente {
 	}
 	public void setHas(String has) {
 		this.has = has;
+	}
+
+	public int getnLesoes() {
+		return nLesoes;
+	}
+
+	public void setnLesoes(int nLesoes) {
+		this.nLesoes = nLesoes;
 	}
 	
 	
