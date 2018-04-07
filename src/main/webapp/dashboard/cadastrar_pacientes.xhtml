@@ -244,10 +244,52 @@
    							</h:panelGrid>
 							<p:message for="bebida" />	
 							
+														
 							<p> Faz uso ou mantém contato com agrotóxico? Se sim, qual?</p>		      				
 		      				<p:inputText size="20" id="agrotoxico" value="#{pacienteController.pac.agrotoxico}" />
 		      				
-							<p> Tipo de pele: </p>						            
+		      				<br/>
+		      				<p:outputPanel>
+								<h:panelGrid columns="2" >
+							<p> Tipo de pele: </p>
+							
+							<p:commandButton view="O que é isso?" oncomplete="PF('ajudaTipoPele').show()" icon="ui-icon-help"
+								style="		      							      				 
+									background: #ffff4d -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.7)),to(rgba(255,255,255,0)));								
+		      					"							
+							/>
+							
+								</h:panelGrid>
+							</p:outputPanel>
+							
+							 <p:overlayPanel widgetVar="ajudaTipoPele" showEffect="fade" hideEffect="fade" showCloseIcon="true">
+							        <p:outputPanel id="ajudaTipoPeleId" >
+							            <p:panelGrid  columns="2" >
+							                <f:facet name="header">							                	
+							                	<h:outputText value="Orientações sobre os tipos de pele"  style="font-weight: bold"/>
+							                </f:facet>
+							                
+							                <h:outputText value="Tipo 1"  style="font-weight: bold"/>
+							                <h:outputText value="Pele muito branca, sardas, cabelo loiro ou ruivo, olhos claros" />
+							 
+							                <h:outputText value="Tipo 2" style="font-weight: bold" />
+							                <h:outputText value="Pele branca, cabelo loiro, olhos claros" />
+							 
+							                <h:outputText value="Tipo 3" style="font-weight: bold" />
+							                <h:outputText value="Pele branca, cabelos e olhos de outras cores que não claros" />
+							                
+							                <h:outputText value="Tipo 4" style="font-weight: bold" />
+							                <h:outputText value="Pele moderadamente pigmentada ou pele morena clara" />
+							                
+							                <h:outputText value="Tipo 5" style="font-weight: bold" />
+							                <h:outputText value="Pele escura" />
+							                
+							                <h:outputText value="Tipo 6" style="font-weight: bold" />
+							                <h:outputText value="Pele muito escura" />
+							            </p:panelGrid>
+							        </p:outputPanel>
+							    </p:overlayPanel>							
+													            
 					        <p:selectOneRadio id="tipo_pele" value="#{pacienteController.pac.tipo_pele}"  layout="grid" columns="3"
 					        required="true" requiredMessage="Tipo de pele não informado.">
 					            <f:selectItem itemLabel="1" itemValue="1"/>
@@ -256,9 +298,47 @@
 								<f:selectItem itemLabel="4" itemValue="4"/>
 								<f:selectItem itemLabel="5" itemValue="5"/>
 					        </p:selectOneRadio>   							
-							<p:message for="tipo_pele" />		      				
-		      				
-		      				<p> Grau de destrofia solar: </p>			
+							<p:message for="tipo_pele" />	
+							
+							
+							<br/>
+		      				<p:outputPanel>
+								<h:panelGrid columns="2" >
+							<p> Grau de distrofia solar: </p>
+							
+							<p:commandButton view="O que é isso?" oncomplete="PF('ajudaGrauDistrofia').show()" icon="ui-icon-help"
+								style="		      							      				 
+									background: #ffff4d -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.7)),to(rgba(255,255,255,0)));								
+		      					"							
+							/>
+							
+								</h:panelGrid>
+							</p:outputPanel>
+							
+							 <p:overlayPanel widgetVar="ajudaGrauDistrofia" showEffect="fade" hideEffect="fade" showCloseIcon="true">
+							        <p:outputPanel id="ajudaGrauDistrofiaId" >
+							            <p:panelGrid  columns="2" >
+							                <f:facet name="header">							                	
+							                	<h:outputText value="Orientações sobre o grau de distrofia solar"  style="font-weight: bold"/>
+							                </f:facet>
+							                
+							                <h:outputText value="Leve"  style="font-weight: bold"/>
+							                <h:outputText value="Poucas alterações" />
+							 
+							                <h:outputText value="Moderada" style="font-weight: bold" />
+							                <h:outputText value="Pele com irregularidades " />
+							 
+							                <h:outputText value="Forte" style="font-weight: bold" />
+							                <h:outputText value=" Pele áspera e descamativa, com nódulos (casca de laranja)" />						                
+							                
+							                <h:outputText value="Pré-distrófica" style="font-weight: bold" />
+							                <h:outputText value="Pele ondulada, múltiplas manchas e sinais, com nódulos sangrantes" />
+							                
+							            </p:panelGrid>
+							        </p:outputPanel>
+							    </p:overlayPanel>
+								      				
+		      							
 						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        
 						        <p:selectOneRadio id="destrofia_solar" value="#{pacienteController.pac.destrofia_solar}"  layout="grid" columns="3"
 						        required="true" requiredMessage="Grau de destrofia solar não informado.">
