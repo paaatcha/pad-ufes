@@ -1,7 +1,9 @@
 package ufes.pad.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +18,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Entity
 public class Usuario implements Serializable, UserDetails{
 	/** Serialization id. */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
+
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)	
 	private Long id;
 	
@@ -34,6 +36,8 @@ public class Usuario implements Serializable, UserDetails{
 	
 	private boolean apto = false;
 	
+	private String papel = "ROLE_USER";
+
 	public boolean isApto() {
 		return apto;
 	}
@@ -98,9 +102,16 @@ public class Usuario implements Serializable, UserDetails{
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<? extends GrantedAuthority> getAuthorities() {		
+		List<Roles> papeis = new ArrayList<Roles>();
+		papeis.add(new Roles(this.papel));
+		
+		for (Roles p: papeis) {
+			System.out.println(p.getAuthority());
+		}
+		
+		
+		return papeis;
 	}
 
 	@Override
@@ -139,6 +150,40 @@ public class Usuario implements Serializable, UserDetails{
 		return true;
 	}
 
+	public String getPapel() {
+		return papel;
+	}
 
+	public void setPapel(String papel) {
+		this.papel = papel;
+	}	
+}
+
+class Roles implements GrantedAuthority{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String papel = "ROLE_USER";
+	
+	Roles (String p){
+		this.setPapel(p);
+	}
+	
+	@Override
+	public String getAuthority() {
+		// TODO Auto-generated method stub
+		return this.getPapel();
+	}
+
+	public String getPapel() {
+		return papel;
+	}
+
+	public void setPapel(String papel) {
+		this.papel = papel;
+	}
 	
 }

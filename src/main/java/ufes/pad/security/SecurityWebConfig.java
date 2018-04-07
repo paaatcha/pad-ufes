@@ -27,6 +27,11 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter{
 		.defaultSuccessUrl("/dashboard/home.xhtml")
 		.failureUrl("/index.xhtml?error=true");
 		
+		http.csrf().disable().authorizeRequests().antMatchers("/dashboard/editar_paciente.xhtml")
+		.hasRole("ADMIN").anyRequest().authenticated();
+		
+		http.rememberMe();
+		
 		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 	

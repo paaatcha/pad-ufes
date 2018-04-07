@@ -24,12 +24,28 @@
 		      		<br/> <br/>
 		      		
 		      		<p> Senha :</p>
-		      		<p:password size="20" id="password" />   			
+		      		<p:password size="20" id="password" />   
 		      		
-		      		<br></br>
-		      		<br></br>
+		      		<br/> <br/>
 		      		
-		      		<p:commandButton  value="Entrar" class="botao" ajax="false" icon="ui-icon-check"/>
+		      		
+		      		<p:outputPanel>
+						<h:panelGrid columns="2" cellspacing="3">
+		      				<p> Lembrar-me: </p> 
+		      				
+		      				<p:selectBooleanCheckbox id="remember-me" value="remember-me"  />
+		      			</h:panelGrid>
+		      		</p:outputPanel>		      		
+		      		
+		      		
+		      		
+		      		<p:commandButton value="Entrar" class="botao" ajax="false" icon="ui-icon-check"
+		      			style="
+		      				width: 100%;
+		      				background: #555582 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.9)),to(rgba(255,255,255,0.5))); 
+							height: 30px;							
+		      			" 
+		      		/>
 		      	
 	      	</h:form>		
 		

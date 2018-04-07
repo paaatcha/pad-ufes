@@ -90,12 +90,17 @@ a img{
 }
 
 #esqueci{
-	padding-top: 10px
+	padding-top: 15px;
+	display: block;
+	align-self: center;
+	float: none;
 }
 
-#esqueci a{
-	color: #666;
-	font-size: 14px;
+#esqueci a{	
+    color: #666;
+    font-size: 14px;
+    text-shadow: none;
+    font-weight: bold	
 }
 
 #naoEncontrado{

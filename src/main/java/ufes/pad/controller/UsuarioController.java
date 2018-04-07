@@ -91,6 +91,8 @@ public class UsuarioController {
 	public void settUsuarioLogado() {
 	    Authentication auth =
 	        SecurityContextHolder.getContext().getAuthentication();
+	    
+	    System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 
 	    FacesContext context = FacesContext.getCurrentInstance();
 	    
