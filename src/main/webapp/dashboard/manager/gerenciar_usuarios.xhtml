@@ -55,6 +55,18 @@
 					               <f:facet name="input"><p:selectBooleanCheckbox value="#{user.apto}" style="width:100%" /></f:facet>
 					           </p:cellEditor>
 					       </p:column>
+					       
+							<p:column headerText="Função">
+					           <p:cellEditor>
+					               <f:facet name="output"><h:outputText value="#{user.papel}" /></f:facet>
+					               <f:facet name="input">					                	
+					               		<p:selectOneRadio id="role" value="#{user.papel}">
+            								<f:selectItem itemLabel="USUARIO" itemValue="ROLE_USER" />
+            								<f:selectItem itemLabel="ADMIN" itemValue="ROLE_ADMIN" />            
+        								</p:selectOneRadio>
+					               	</f:facet>
+					           </p:cellEditor>
+					        </p:column>
 					 
 					       <p:column style="width:32px">
 					           <p:rowEditor />
@@ -62,7 +74,7 @@
 					       
 							<p:column style="width:32px">
 					           <p:commandButton action="#{usuarioController.excluirUsuario}" icon="ui-icon-trash"
-					           update="@form:usuariosTab @form:msgs" process="@this" title="Excluir usuário"
+					            process="@this" title="Excluir usuário" update="usuariosTab"
 					           style="
 									background: #ffb3b3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0)));
 								"
@@ -78,7 +90,7 @@
 					   </p:dataTable>		     
 					   
 			   			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-	      						<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+	      						<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="usuariosTab"/>
 	      						<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 	  					</p:confirmDialog>	 	   
 	      	

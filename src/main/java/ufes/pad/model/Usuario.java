@@ -36,7 +36,7 @@ public class Usuario implements Serializable, UserDetails{
 	
 	private boolean apto = false;
 	
-	private String papel = "ROLE_USER";
+	private String papel = "ROLE_USER"; 
 
 	public boolean isApto() {
 		return apto;
@@ -59,7 +59,7 @@ public class Usuario implements Serializable, UserDetails{
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = nome.toUpperCase();
 	}
 
 	public String getEmail() {
@@ -106,9 +106,9 @@ public class Usuario implements Serializable, UserDetails{
 		List<Roles> papeis = new ArrayList<Roles>();
 		papeis.add(new Roles(this.papel));
 		
-		for (Roles p: papeis) {
-			System.out.println(p.getAuthority());
-		}
+//		for (Roles p: papeis) {
+//			System.out.println(p.getAuthority());
+//		}
 		
 		
 		return papeis;

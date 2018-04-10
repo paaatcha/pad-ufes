@@ -10,7 +10,7 @@ public class DefaultPage extends WebMvcConfigurerAdapter{
 
     @Override
     public void addViewControllers( ViewControllerRegistry registry ) {
-        registry.addViewController( "/" ).setViewName( "index.xhtml" );
+        registry.addViewController( "/" ).setViewName( "/dashboard/home.xhtml" );
         registry.setOrder( Ordered.HIGHEST_PRECEDENCE );
         super.addViewControllers( registry );
     }

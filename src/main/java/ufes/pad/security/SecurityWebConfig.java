@@ -20,17 +20,17 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception{
 		http.csrf().disable().authorizeRequests()		
 		.antMatchers("/css/**", "/img/**", "/javax.faces.resource/**", "/index.xhtml",
-		"/cadastro_usuario.xhtml", "/ajuda.xhtml", "/esqueci_senha.xhtml", "/APIrequisicoes/**").permitAll()		
-		.anyRequest().authenticated();
+		"/cadastro_usuario.xhtml", "/ajuda.xhtml", "/esqueci_senha.xhtml", "/APIrequisicoes/**").permitAll()
+		.antMatchers("/dashboard/editar_paciente.xhtml", "/dashboard/manager/gerenciar_usuarios.xhtml", "/dashboard/analise_de_dados.xhtml").hasRole("ADMIN")
+		.anyRequest().authenticated()
+		
+		.and().exceptionHandling().accessDeniedPage("/dashboard/acesso_negado.xhtml");
 		
 		http.formLogin().loginPage("/index.xhtml").permitAll()
 		.defaultSuccessUrl("/dashboard/home.xhtml")
-		.failureUrl("/index.xhtml?error=true");
+		.failureUrl("/index.xhtml?error=true")		
 		
-		http.csrf().disable().authorizeRequests().antMatchers("/dashboard/editar_paciente.xhtml")
-		.hasRole("ADMIN").anyRequest().authenticated();
-		
-		http.rememberMe();
+		.and().rememberMe();
 		
 		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}

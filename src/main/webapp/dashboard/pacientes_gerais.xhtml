@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="decoratorDashboard/decorator_dashboard.xhtml">
+      
+      <ui:define name="titulo"> Visualizar todos os pacientes gerais cadastrados </ui:define>
+      
+      <ui:define name="conteudoInferiorPagina">
+
+			<p>				
+				Todos os pacientes cadastrados no banco estão listados na tabela abaixo. 
+			<br/>				
+			</p>		
+    			 
+				
+				
+				<p:growl id="growlCheck" showDetail="true" closable="true" />     		
+				      		
+				      		<h:outputText class="campoPac" value="Número de pacientes registrados no banco: " />
+	      					<h:outputText class="valorPac" value="#{visualizacaoGeralController.numPacs}"/>
+				      		
+				      		<br/><br/>
+				      		
+				      		<h:panelGroup id="tabelaTodos">
+					      		<p:dataTable  var="pac" value="#{visualizacaoGeralController.todosPacs}"
+					      		rows="10" paginator="true"
+					      		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					            rowsPerPageTemplate="5,10,25,50,100"	
+					            style="text-align:center;"			                        		            
+					      		>		
+	            									      		
+	  								<f:facet name="header">
+	            						Pacientes
+	        						</f:facet>        						
+	        						   
+								 
+								    <p:column headerText="Cartão do SUS">
+								        <h:outputText value="#{pac.cartao_sus}" />
+								    </p:column>									 
+									
+							        <p:column headerText="Ver lesões">
+							        	<h:form>
+							        	
+							        	<p:commandLink update="dialogLesoes" oncomplete="PF('lesaoDialog').show()" 
+							        		style="
+												float: none;												
+												display: inline; 												
+											"
+							        	>
+							        	
+							        			<h:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/see.png" style="width: 25px; 
+   												height: 25px;" />
+							        	
+							        	</p:commandLink>
+							        							            
+							           		<p:dialog header="Informações das lesões do paciente" 
+									           widgetVar="lesaoDialog" modal="true" 
+									           showEffect="fade" hideEffect="fade" resizable="false"
+									           style="width:700px; text-align:center;"
+									           id="dialogLesoes">
+				           						           
+							       					<p:dataTable id="tabelaLesoes"				       			
+													value="#{pac.lesoes}" var="les"
+													style="width:700px">
+													
+														<p:column headerText="Região">
+															<h:outputText value="#{les.regiao}" />
+														</p:column>
+																												
+														<p:column headerText="Diagnóstico clínico">
+															<h:outputText value="#{les.diagnostico_clinico}" />
+														</p:column>
+														
+														
+														<p:column headerText="Ver lesão">
+															<h:form>								        	
+													        	<p:commandButton update="dialogImagem" oncomplete="PF('imagemDialog').show()" 
+													        	icon="ui-icon-image" />
+													        							            
+													           		<p:dialog header="Imagem da lesão" 
+															           widgetVar="imagemDialog"  
+															           showEffect="fade" hideEffect="fade" resizable="false"
+															           style="width:400px; text-align:center;"
+															           id="dialogImagem"
+															           >
+																		
+																		<p:commandButton value="Anterior" type="button" onclick="PF('switcher').previous();"
+						    											icon="ui-icon-circle-triangle-w" id="prev"/>
+																		<p:commandButton value="Próxima" type="button" onclick="PF('switcher').next();"
+						    											icon="ui-icon-circle-triangle-e" id="next"/>
+						    											
+						    											
+						    											
+						 
+																		<p:imageSwitch effect="fade" widgetVar="switcher" id="manuelSwitcher"
+																		    slideshowAuto="false">
+																		    
+																		    <ui:repeat value="#{visualizacaoGeralController.pegaImagensLesao(les)}" var="img"
+																		     id="manuelSwitcherImages">												    	
+																		    	 
+																		        	<p:graphicImage url="imgLesoesGeral/#{img}" id="image"
+																		        	class="imgDialog"/>
+																		        
+																		    </ui:repeat>
+																		</p:imageSwitch>
+																					
+						  											</p:dialog>
+								            	
+								            				</h:form>
+															
+														</p:column>															
+																						 				
+													</p:dataTable>
+													
+  											</p:dialog>
+							            </h:form>						            		            
+							        </p:column>
+		        				        
+							        						 
+								</p:dataTable>				      		
+				      		</h:panelGroup>
+      
+	</ui:define>
+	
+</ui:composition>

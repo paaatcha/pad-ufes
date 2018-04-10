@@ -13,6 +13,7 @@
       
 			<h:form class="formLogin" prependId="false">
 	      			<p:messages autoUpdate="true" />
+	      			<p:growl id="growlCheck" showDetail="true" closable="true" />
 	      		
 	      			<p:outputLabel value="Nome de usuário ou senha incorreta!" id="naoEncontrado" rendered="${!empty param['error']}" />
 	      				      			
@@ -30,12 +31,14 @@
 		      		
 		      		
 		      		<p:outputPanel>
-						<h:panelGrid columns="2" cellspacing="3">
+						<h:panelGrid columns="2">
 		      				<p> Lembrar-me: </p> 
-		      				
-		      				<p:selectBooleanCheckbox id="remember-me" value="remember-me"  />
+		      				<p:outputPanel> 
+		      					<input id="rememberme" type="checkbox" name="remember-me" value="true"/>
+		      				</p:outputPanel>
+		      				<!-- <p:selectBooleanCheckbox id="remember-me" value="remember-me"  /> -->
 		      			</h:panelGrid>
-		      		</p:outputPanel>		      		
+		      		</p:outputPanel>   		     		
 		      		
 		      		
 		      		

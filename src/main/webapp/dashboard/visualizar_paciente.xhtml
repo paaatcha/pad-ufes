@@ -333,27 +333,19 @@
 						</p:fieldset>	      		
 		      		
 		      		<br/><br/>      		   
-			  
-			  			  	
-					<h:link value="Editar paciente" outcome="editar_paciente.xhtml" styleClass="linkEditarPaciente"
-					style="
-						float: none;
-						text-shadow: none;
-						display: inline;
-						font-size: 14px;						
-						background: #ccffcc -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0))); 
-						padding: 15px;
-						text-decoration: none;
-						margin-bottom: 5px;
-						border-radius: 5px;
-						border: 1px solid #999;
+					
+					<p:button value="Editar paciente" outcome="editar_paciente.xhtml" styleClass="linkEditarPaciente" 
+					rendered="#{usuarioController.usuarioAdmin}" icon="ui-icon-pencil"
+					style="												
+						background: #ccffcc -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0)));						
 						color: #333;
+						height: 47px;
 	    				text-shadow: 0 1px 0 rgba(255,255,255,0.7);
 					" >
 	    				<f:param name="cartaosus" value="#{visualizacaoController.pacBuscado.cartao_sus}" />
-					</h:link>							
+					</p:button>
 				  	
-				  	<p:commandButton update="growlCheck @form"  
+				  	<p:commandButton update="growlCheck @form" rendered="#{usuarioController.usuarioAdmin}"
 						value="Excluir Paciente" icon=" ui-icon-trash" 
 						action="#{visualizacaoController.excluirPaciente}"								
 						style="

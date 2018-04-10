@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="decoratorDashboard/decorator_dashboard.xhtml">
+      
+      
+      <ui:define name="titulo"> Acesso negado  </ui:define>
+      
+      <ui:define name="conteudoInferiorPagina">
+
+			<p:panel id="basic" header="Acesso negado" style="margin-bottom:20px;">				
+				
+		        <h:panelGrid columns="2" cellpadding="20" class="panelGridHome">
+		            
+		            <p:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/block.png" />		             
+		            <p>
+		            	Você não possui permissão para acessar essa área do sistema. Caso queira obter acesso, entre em contato com o administrador do sistema
+		            	ou algum monitor do PAD que tenha permissão de administrador.
+		            </p>
+		            
+		        </h:panelGrid>
+		        
+		    </p:panel>
+      
+      </ui:define>
+      
+      
+</ui:composition>  

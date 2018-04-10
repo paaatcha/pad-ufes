@@ -17,11 +17,10 @@ public class ImplementsUserDetailsService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String nome_usuario) throws UsernameNotFoundException {
-		Usuario user = ur.buscaPorNomeUsuario(nome_usuario);
-		
-		if (user == null) {
+		Usuario user = ur.buscaPorNomeUsuario(nome_usuario);	
+		if (user == null) {			
 			throw new UsernameNotFoundException("Usuário não encontrado!");
-		}else if (user.isApto() == false) {
+		}else if (user.isApto() == false) {			
 			throw new UsernameNotFoundException("Este usuário não possui permissão para acessar o sistema!");
 		}
 		

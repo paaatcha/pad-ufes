@@ -40,6 +40,8 @@ public class UsuarioController {
 	
 	private List<Usuario> todosUsuarios = new ArrayList<Usuario>();
 	
+	private boolean usuarioAdmin = false;
+	
 	
 	
 	
@@ -51,8 +53,7 @@ public class UsuarioController {
 			Usuario u1 = userRep.buscaPorNomeUsuario(user.getNome_usuario());
 			Usuario u2 = userRep.buscaPorEmail(user.getEmail());
 			
-			if (u1 == null && u2 == null) {
-				user.setNome(user.getNome().toUpperCase());
+			if (u1 == null && u2 == null) {				
 				userRep.save(this.user);
 				context.addMessage(null, new FacesMessage("Usuário cadastrado com sucesso. Aguarde liberação do administrador para acessar o sistema."));
 				user = new Usuario ();
@@ -81,7 +82,7 @@ public class UsuarioController {
 		        SecurityContextHolder.getContext().getAuthentication();
 
 		    String nome_usuario = authentication.getName();
-		    Usuario u1 = userRep.buscaPorNomeUsuario(nome_usuario);		    
+		    Usuario u1 = userRep.buscaPorNomeUsuario(nome_usuario);		     
 		    		    		    
 		    
 		    return WordUtils.capitalize(u1.getNome().toLowerCase());
@@ -92,13 +93,21 @@ public class UsuarioController {
 	    Authentication auth =
 	        SecurityContextHolder.getContext().getAuthentication();
 	    
-	    System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+//	    System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 
 	    FacesContext context = FacesContext.getCurrentInstance();
 	    
 	    try {
 	    	String nome_usuario = auth.getName();	    
 	    	UsuarioLogado = userRep.buscaPorNomeUsuario(nome_usuario);
+	    	
+	    	if (UsuarioLogado != null) {
+	    		if (UsuarioLogado.getPapel().equals("ROLE_ADMIN")) {
+	    			usuarioAdmin = true;
+	    		} else {
+	    			usuarioAdmin = false;
+	    		}
+	    	}
 	    } catch (Exception e) {
 	    	e.printStackTrace();
 	    	context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não foi possível recuperar o usuário logado. Tente novamente. Se o problema persistir, entre em contato com o administrador do sistema.", "  "));
@@ -109,20 +118,19 @@ public class UsuarioController {
 		FacesContext context = FacesContext.getCurrentInstance();
 		BCryptPasswordEncoder crip = new BCryptPasswordEncoder(); 
 		boolean match = crip.matches(senhaAtual, UsuarioLogado.getSenha());
-		System.out.println(match);
+//		System.out.println("Senha atual: " + UsuarioLogado.getSenha() + "\n");
+//		System.out.println("Match da senha atual: " + match + "\n");
 		
 		if (!match) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Sua senha atual está incorreta.", "  "));
 			return null;
-		} else {
-			System.out.println(UsuarioLogado.getSenha());
-			UsuarioLogado.setSenha(crip.encode(senhaNova));
-			System.out.println(UsuarioLogado.getSenha());
+		} else {			
+			// Ja criptografa dentro do usario.setSenha()
+			UsuarioLogado.setSenha(senhaNova);			
 			try {
-				//userRep.save(UsuarioLogado);
-				System.out.println(senhaNova);
-				boolean match2 = crip.matches(senhaNova, UsuarioLogado.getSenha());
-				System.out.println(match2);
+				userRep.save(UsuarioLogado);				
+//				boolean match2 = crip.matches(senhaNova, UsuarioLogado.getSenha());
+//				System.out.println(match2);
 				context.addMessage(null, new FacesMessage("Sua senha foi alterada com sucesso."));
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -132,7 +140,7 @@ public class UsuarioController {
 		
 		
 		return "configuracoes.xhtml";
-	}
+	} 
 	
 	@PostConstruct
 	public void buscaTodosUsuarios () {
@@ -145,7 +153,7 @@ public class UsuarioController {
 		}		
 	}
 	
-	public void excluirUsuario () {
+	public String excluirUsuario () {
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
 			userRep.delete(UsuarioSelecionado);
@@ -154,6 +162,8 @@ public class UsuarioController {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não foi possível excluir o usuário. Tente novamente. Caso não consiga, entre em contato com o administrador do sistema.", "  "));
 		}
 		context.addMessage(null, new FacesMessage("Usuário excluido com sucesso."));
+		
+		return "/dashboard/manager/gerenciar_usuarios.xhtml";
 		
 	}
 	
@@ -173,6 +183,13 @@ public class UsuarioController {
     public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edição cancelada", null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public String printPapel () {
+    	if(UsuarioLogado.getPapel().equals("USER_ADMIN")) {
+    		return "ADMINISTRADOR";
+    	}    	
+    	return "USUÁRIO";
     }
     	
 //################################# GETTERS AND SETTERS ############################################	
@@ -233,6 +250,14 @@ public class UsuarioController {
 
 	public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
 		UsuarioSelecionado = usuarioSelecionado;
+	}
+
+	public boolean isUsuarioAdmin() {
+		return usuarioAdmin;
+	}
+
+	public void setUsuarioAdmin(boolean usuarioAdmin) {
+		this.usuarioAdmin = usuarioAdmin;
 	}
 
 
