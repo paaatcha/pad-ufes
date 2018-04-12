@@ -16,7 +16,7 @@
 	
 	
 	
-			<p:panel id="basic" header="Funcinalidades do sistema" style="margin-bottom:20px;">
+			<p:panel id="basic" header="Funcionalidades do sistema" style="margin-bottom:20px;">
 			
 				<p id="funcionalidadesP">
 					No menu da barra superior você encontra as opções disponíveis e implementadas neste sistema. Existem dois tipos de usuários do sistema. Um usuário comum, que
@@ -47,7 +47,7 @@
 		            <p:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/onePerson_big.png" />		             
 		            <p>
 		            	<span> Visualizar paciente: </span> esta funcionalidade deve ser usada para visualizar todos os dados de um único paciente.
-					Para isso é necessário inserir o cartão do sus do paciente para uma busca no banco de dados
+					Para isso é necessário inserir o cartão do sus do paciente para uma busca no banco de dados. Usuários ADMIN poderão editar pacientes já cadastrados.
 		            </p>
 		            
 		            
@@ -63,13 +63,19 @@
 		            <p>
 		            	<span> Análise de dados: </span> esta funcionalidade realiza uma análise de dados em relação aos pacientes cadastrados no banco de dados.
 					Exemplo de informações que podem ser obtidas pela funcionalidade: quantidade de pessoas atendidas por região, porcentagem de mulheres e homens
-					afetados por cada tipo de câncer, tamanho médio das lesões, etc.
+					afetados por cada tipo de câncer, tamanho médio das lesões, etc. Só está disponível para usuários ADMIN.
 		            </p>	
 		            
 					
 					<p:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/settings_big.png" />		             
 		            <p>
 		            	<span> Configurações: </span> esta função é destinada para alteração de senha, nome de usuário e/ou e-mail
+		            </p>
+		            
+		            <p:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/edit_user_Big.png" />		             
+		            <p>
+		            	<span> Gerenciar usuários: </span> área de gerenciamento dos usuários do sistema. Aqui você pode habilitar um usuário para utilizar o site
+		            	bem como conceder ou remover poderes de ADMIN dos demais usuários. Obviamente, só está disponível para usuários ADMINs.
 		            </p>			            	            
 		            
 		        
@@ -94,6 +100,21 @@
 				</h:panelGrid>			
 			
 			</p:panel>
+			
+			<p:panel header="Visualizar paciente geral" style="margin-bottom:20px;" rendered="#{usuarioController.usuarioAdmin}">
+			
+				<h:panelGrid columns="2" cellpadding="20" class="panelGridHome">
+					
+					<p:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/user_geral.png" />		             
+		            <p>
+		            	<span> Pacientes gerais: </span>  todos os pacientes cadastrados via aplicativo dos monitores e que não foram para sala de cirurgia são chamados de pacientes
+		            	gerais. Eles podem ser visualizados em <a id="linkPacAntigo" href="pacientes_gerais.xhtml"> visualizar pacientes gerais </a>
+				
+		            </p>
+				
+				</h:panelGrid>			
+			
+			</p:panel>			
 			
 			<p:panel header="Resolução de problemas" style="margin-bottom:20px;">
 			

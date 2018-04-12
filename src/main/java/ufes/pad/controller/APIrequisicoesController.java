@@ -97,15 +97,15 @@ public class APIrequisicoesController {
 				Lesao.printLesao(les);
 				
 				
-//				if (pac.getLesoes().isEmpty()) {
-//					List<Lesao> lesPaclist = new ArrayList<Lesao>();
-//					lesPaclist.add(les);
-//					pac.setLesoes(lesPaclist);
-//					pac_rep.save(pac);
-//				} else {
-//					pac.getLesoes().add(les);
-//					pac_rep.save(pac);
-//				}				
+				if (pac.getLesoes() == null) {
+					List<Lesao> lesPaclist = new ArrayList<Lesao>();
+					lesPaclist.add(les);
+					pac.setLesoes(lesPaclist);
+					pac_rep.save(pac);
+				} else {
+					pac.getLesoes().add(les);
+					pac_rep.save(pac);
+				}				
 			}			
 			
 		}catch (Exception e) {
@@ -122,12 +122,12 @@ public class APIrequisicoesController {
 		try {
 			PacienteGeral pac = pac_rep_geral.buscaPorCartaoSus(cartao_sus);			
 			if (pac == null) {
-				pac = new PacienteGeral();
+				pac = new PacienteGeral();	
+				pac.setCartao_sus(cartao_sus);
 			}	
 			
 			LesaoGeral les = new LesaoGeral();
-			List<ImagemGeral> imgList = new ArrayList<ImagemGeral>();
-			
+			List<ImagemGeral> imgList = new ArrayList<ImagemGeral>();			
 			
 			les.setRegiao(regiao);
 			les.setDiagnostico(diagnostico);
@@ -146,16 +146,17 @@ public class APIrequisicoesController {
 			
 			les.setImagens(imgList);
 			
-//			if (pac.getLesoes().isEmpty()) {
-//				List<LesaoGeral> lesPaclist = new ArrayList<LesaoGeral>();
-//				lesPaclist.add(les);
-//				pac.setLesoes(lesPaclist);
-//				pac_rep_geral.save(pac);
-//			} else {
-//				pac.getLesoes().add(les);
-//				pac_rep_geral.save(pac);
-//			}	
+			if (pac.getLesoes() == null) {
+				List<LesaoGeral> lesPaclist = new ArrayList<LesaoGeral>();
+				lesPaclist.add(les);
+				pac.setLesoes(lesPaclist);
+				pac_rep_geral.save(pac);
+			} else {
+				pac.getLesoes().add(les);
+				pac_rep_geral.save(pac);
+			}	
 			
+			System.out.println("Cartao sus: " + cartao_sus);
 			System.out.println("Regiao: " + les.getRegiao());
 			System.out.println("Diag: " + les.getDiagnostico());
 			

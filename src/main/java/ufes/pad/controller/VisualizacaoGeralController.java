@@ -11,8 +11,8 @@ import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ufes.pad.model.Imagem;
-import ufes.pad.model.Lesao;
+import ufes.pad.model.ImagemGeral;
+import ufes.pad.model.LesaoGeral;
 import ufes.pad.model.PacienteGeral;
 import ufes.pad.repository.PacienteGeralRepository;
 
@@ -21,6 +21,8 @@ import ufes.pad.repository.PacienteGeralRepository;
 public class VisualizacaoGeralController {
 	
 	private PacienteGeral pac;
+	 
+	private LesaoGeral lesaoSelecionada;
 	
 	private List<PacienteGeral> todosPacs;
 	
@@ -29,7 +31,7 @@ public class VisualizacaoGeralController {
 	@Autowired
 	private PacienteGeralRepository pac_rep;
 	
-	
+	 
 	public void pegaTodosPacGerais () {
 		try {
 			todosPacs = pac_rep.findAll();			
@@ -43,7 +45,8 @@ public class VisualizacaoGeralController {
 	public void listarPacientesGerais () {		
 		FacesContext context = FacesContext.getCurrentInstance();		
 		try {
-			todosPacs = pac_rep.findAll();			
+			todosPacs = pac_rep.findAll();
+						
 			if (todosPacs.isEmpty()) {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Não existe nenhum paciente neste banco de dados.", "  "));				
 			} 
@@ -53,11 +56,12 @@ public class VisualizacaoGeralController {
 		setNumPacs(todosPacs.size());		
 	}
 	
-	public List<String> pegaImagensLesao (Lesao les){
+	
+	public List<String> pegaImagensLesao (LesaoGeral les){
 		List<String> imgsPath = new ArrayList<String>();
-		List<Imagem> imgs = les.getImagens();
+		List<ImagemGeral> imgs = les.getImagens();
 		
-		for (Imagem img : imgs) {
+		for (ImagemGeral img : imgs) {
 			imgsPath.add(img.getPath());
 		}	
 		
@@ -78,7 +82,7 @@ public class VisualizacaoGeralController {
 	}
 
 	public void setTodosPacs(List<PacienteGeral> todosPac) {
-		this.todosPacs = todosPac;
+		this.todosPacs = todosPac; 
 	}
 
 
@@ -89,6 +93,16 @@ public class VisualizacaoGeralController {
 
 	public void setNumPacs(int numPacs) {
 		this.numPacs = numPacs;
+	}
+
+
+	public LesaoGeral getLesaoSelecionada() {
+		return lesaoSelecionada;
+	}
+
+
+	public void setLesaoSelecionada(LesaoGeral lesaoSelecionada) {
+		this.lesaoSelecionada = lesaoSelecionada;
 	}
 
 }
