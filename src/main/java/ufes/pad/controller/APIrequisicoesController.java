@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -165,6 +166,34 @@ public class APIrequisicoesController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+	}
+	
+	@PostMapping("/APIrequisicoes/novo_paciente")
+	public void novoPaciente (@RequestBody Paciente pac) {
+		
+		// Setando os ids para NULL para não haver sobreposição
+		pac.setId(null);
+		for (Lesao les : pac.getLesoes()) {
+			les.setId(null);
+			for (Imagem img : les.getImagens()) {
+				img.setId(null);
+			}
+		}
+		
+		try {
+			
+			if (pac_rep.buscaPorCartaoSus(pac.getCartao_sus()) == null) {
+				pac_rep.save(pac);		
+				System.out.println("Paciente: " + pac.getNome_completo() + " salvo no banco UFES com sucesso");
+			} else {
+				System.out.println("Paciente: " + pac.getNome_completo() + " cartão sus: " + pac.getCartao_sus() + " já está cadastrado no banco UFES");
+			}		
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Erro ao salvar paciente " + pac.getNome_completo() + " banco da UFES");
+		}	
 		
 	}
 	

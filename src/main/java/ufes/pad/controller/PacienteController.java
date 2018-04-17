@@ -3,6 +3,7 @@ package ufes.pad.controller;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +17,12 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.ObjectMapper;
+import com.mashape.unirest.http.Unirest;
 
 import ufes.pad.model.Imagem;
 import ufes.pad.model.Lesao;
@@ -38,7 +45,7 @@ public class PacienteController {
 	private List<Lesao> pacLesoes = new ArrayList<Lesao>();
 	private List<Imagem> pacImagens = new ArrayList<Imagem>();	
 	private Lesao lesao = new Lesao ();	
-	private Imagem img = new Imagem ();
+	private Imagem img = new Imagem (); 
 	private List<String> imgsPath; 
 	
 	
@@ -224,7 +231,69 @@ public class PacienteController {
 			ret = null;
 		}		
 		return ret;
-	} 	
+	}
+	
+	public void configuraUnirest () { 
+		Unirest.setObjectMapper(new ObjectMapper() {
+		    private com.fasterxml.jackson.databind.ObjectMapper jacksonObjectMapper
+		                = new com.fasterxml.jackson.databind.ObjectMapper();
+	
+		    public <T> T readValue(String value, Class<T> valueType) {
+		        try {
+		            return jacksonObjectMapper.readValue(value, valueType);
+		        } catch (IOException e) {
+		            throw new RuntimeException(e);
+		        }
+		    }
+	
+		    public String writeValue(Object value) {
+		        try {
+		            return jacksonObjectMapper.writeValueAsString(value);
+		        } catch (JsonProcessingException e) {
+		            throw new RuntimeException(e);
+		        }
+		    }
+		});	
+	}
+	
+	
+	public String enviarPacientesBancoUfes () {		 
+		configuraUnirest ();
+		int i = 0;
+		FacesContext context = FacesContext.getCurrentInstance();
+		try {
+			List <Paciente> pacs = pac_rep.findAll();			
+			
+			if (pacs == null) {
+				return null;
+			}
+			
+			for (Paciente pac : pacs) {	
+				i++;
+				HttpResponse<JsonNode> postResponse = Unirest.post("http://labcin1.ufes.br/APIrequisicoes/novo_paciente")
+				//HttpResponse<JsonNode> postResponse = Unirest.post("http://localhost:8080/APIrequisicoes/novo_paciente")
+				.header("accept", "application/json")
+				.header("Content-Type", "application/json")
+				.body(pac)
+				.asJson();
+				
+				if (postResponse.getStatus() == 200) {
+					System.out.println(i + " Paciente " + pac.getNome_completo() + " enviado com sucesso...");					
+				} else {
+					System.out.println(" Paciente " + pac.getNome_completo() + " problema na requisicao...");
+				}
+				
+			}
+			
+			context.addMessage(null, new FacesMessage(i + " pacientes foram enviados com sucesso para o servidor da UFES.", ""));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao enviar pacientes para o banco da UFES.", "  "));
+		}
+		
+		return "Sucesso";
+	}
 	
 	
 /* ###########################################  Getters and Setters ###################################################*/
