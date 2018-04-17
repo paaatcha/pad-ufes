@@ -1,5 +1,6 @@
 package ufes.pad.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,8 @@ import ufes.pad.repository.PacienteGeralRepository;
 public class VisualizacaoGeralController {
 	
 	private PacienteGeral pac;
+	
+	private PacienteGeral pacSelecionado;
 	 
 	private LesaoGeral lesaoSelecionada;
 	
@@ -68,6 +71,45 @@ public class VisualizacaoGeralController {
 		return imgsPath;
 	}	
 	
+	public void excluirPacienteGeral () {
+		FacesContext context = FacesContext.getCurrentInstance();
+		System.out.println ("ENTROU PARA EXCLUIR"); 
+		try {
+			
+			//for (LesaoGeral les : pacSelecionado.getLesoes()) {
+			//	excluirImagensServer(les.getImagens());
+			//}
+			
+			System.out.println("Excluindo paciente: " + pacSelecionado.getCartao_sus()); 
+			
+			//pac_rep.delete(pacSelecionado);
+			
+			context.addMessage(null, new FacesMessage("Paciente excluido com sucesso"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir paciente. Tente novamente. Caso não consiga, entre em contato com o administrador do sistema.", "  "));
+		}
+	}
+	
+	static public void excluirImgServer (ImagemGeral img) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		try{   		
+    		
+			File file = new File("src/main/webapp/dashboard/imgLesoesGeral/"+img.getPath());        	
+    		file.delete();    	   
+    	}catch(Exception e){    
+    		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir a imagem do servidor. Tente novamente. Caso não consiga, entre em contato com o administrador do sistema.", "  "));
+    		e.printStackTrace();    		
+    	}		
+	}	
+	
+	static public void excluirImagensServer (List<ImagemGeral> imgs) {
+		
+		for (ImagemGeral img : imgs) {		
+			excluirImgServer(img);
+		}
+	}	
+	
 
 	public PacienteGeral getPac() {
 		return pac;
@@ -103,6 +145,16 @@ public class VisualizacaoGeralController {
 
 	public void setLesaoSelecionada(LesaoGeral lesaoSelecionada) {
 		this.lesaoSelecionada = lesaoSelecionada;
+	}
+
+
+	public PacienteGeral getPacSelecionado() {
+		return pacSelecionado;
+	}
+
+
+	public void setPacSelecionado(PacienteGeral pacSelecionado) {
+		this.pacSelecionado = pacSelecionado;
 	}
 
 }

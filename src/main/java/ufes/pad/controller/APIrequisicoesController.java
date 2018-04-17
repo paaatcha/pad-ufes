@@ -156,9 +156,10 @@ public class APIrequisicoesController {
 				pac_rep_geral.save(pac);
 			}	
 			
-			System.out.println("Cartao sus: " + cartao_sus);
+			System.out.println("\nRecebendo novo paciente...\nCartao sus: " + cartao_sus);
+			System.out.println("Numero de imgs: " + les.getImagens().size());
 			System.out.println("Regiao: " + les.getRegiao());
-			System.out.println("Diag: " + les.getDiagnostico());
+			System.out.println("Diag: " + les.getDiagnostico() + "\n----------------\n");
 			
 			
 		} catch (Exception e) {
