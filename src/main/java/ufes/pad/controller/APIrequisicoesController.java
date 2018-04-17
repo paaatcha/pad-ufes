@@ -197,6 +197,34 @@ public class APIrequisicoesController {
 		
 	}
 	
+	@PostMapping("/APIrequisicoes/novo_paciente_geral")
+	public void novoPacienteGeral (@RequestBody PacienteGeral pac) {		
+			
+		// Setando os ids para NULL para não haver sobreposição
+		pac.setId(null);
+		for (LesaoGeral les : pac.getLesoes()) {
+			les.setId(null);
+			for (ImagemGeral img : les.getImagens()) {
+				img.setId(null);
+			}
+		}
+		
+		try {
+			
+			if (pac_rep_geral.buscaPorCartaoSus(pac.getCartao_sus()) == null) {
+				pac_rep_geral.save(pac);		
+				System.out.println("Paciente Geral: " + pac.getCartao_sus() + " salvo no banco UFES com sucesso");
+			} else {
+				System.out.println("Paciente Geral: " + pac.getCartao_sus() + " já está cadastrado no banco UFES");
+			}		
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Erro ao salvar paciente geral" + pac.getCartao_sus() + " banco da UFES");
+		}	
+		
+	}	
+	
 	
 
 }

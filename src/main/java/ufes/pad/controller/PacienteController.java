@@ -261,6 +261,7 @@ public class PacienteController {
 		configuraUnirest ();
 		int i = 0;
 		FacesContext context = FacesContext.getCurrentInstance();
+		System.out.println("\n---- Iniciando envio pacientes ----\n");
 		try {
 			List <Paciente> pacs = pac_rep.findAll();			
 			
@@ -271,7 +272,7 @@ public class PacienteController {
 			for (Paciente pac : pacs) {	
 				i++;
 				HttpResponse<JsonNode> postResponse = Unirest.post("http://labcin1.ufes.br/APIrequisicoes/novo_paciente")
-				//HttpResponse<JsonNode> postResponse = Unirest.post("http://localhost:8080/APIrequisicoes/novo_paciente")
+//				HttpResponse<JsonNode> postResponse = Unirest.post("http://localhost:8080/APIrequisicoes/novo_paciente")
 				.header("accept", "application/json")
 				.header("Content-Type", "application/json")
 				.body(pac)

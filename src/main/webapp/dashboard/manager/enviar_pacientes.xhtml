@@ -20,6 +20,8 @@
 			      	
 					<p:growl id="msgs" showDetail="true"/>
 					 
+					   <br/>
+					   
 					   <p:commandButton action="#{pacienteController.enviarPacientesBancoUfes}" icon="ui-icon-arrowreturnthick-1-e" value="Enviar pacientes para o banco da UFES"
 					            update="msgs"
 					           style="
@@ -28,7 +30,19 @@
 								"
 							>      	
 							      			          						
-						</p:commandButton>			
+						</p:commandButton>
+						
+						<br/><br/><br/><br/><br/>
+						
+						<p:commandButton action="#{pacienteGeralController.enviarPacientesGeralBancoUfes}" icon="ui-icon-arrowreturnthick-1-e" value="Enviar pacientes gerais para o banco da UFES"
+					            update="msgs"
+					           style="
+					           		height: 50px;
+									background: #0FF -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.2)),to(rgba(255,255,255,0)));
+								"
+							>      	
+							      			          						
+						</p:commandButton>										
 			      	
 			    </p:fieldset> 
 		    
