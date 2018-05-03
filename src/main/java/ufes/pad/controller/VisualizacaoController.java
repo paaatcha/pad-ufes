@@ -31,7 +31,7 @@ public class VisualizacaoController {
 	
 	private String cartao_sus_busca;
 
-	private Paciente pacBuscado;
+	private Paciente pacBuscado;	
 	
 	private boolean liberarVisualizacao = false;
 	
@@ -259,6 +259,6 @@ public class VisualizacaoController {
 
 	public void setLiberarVisualizacao(boolean liberarVisualizacao) {
 		this.liberarVisualizacao = liberarVisualizacao;
-	}	
+	}
 	
 }

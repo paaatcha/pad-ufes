@@ -83,7 +83,9 @@ public class PacienteController {
 	public List<String> completarDiagnosticoLesao (String query){
 		List<String> result = new ArrayList<String>();
 		query = query.toUpperCase();
-		String[] diag = new String[] {"CARCINOMA BASOCELULAR", "CARCINOMA ESPINOCELULAR", "DOENÇA DE BOWN", "CEROTOSE ACTÍNICA"};
+		String[] diag = new String[] {"CARCINOMA BASOCELULAR", "CARCINOMA ESPINOCELULAR", "DOENÇA DE BOWN", "CERATOSE ACTÍNICA", "LENTIGO", "MICOSE CUTANEA",
+				"CERATOSE ACTÍNICA", "NEVO", "NEVO MELANOCÍTICO DISPLÁSICO", "HANSENIASE", "CERATOACANTOMA", "DERMATOFIBROMA", "CROMOBLASTOMICOSE",
+				"MELANOMA", "DERMATO FIBROSSARCOMA", "CORNO CUTÂNEO", "PSORIASE", "CROMOMICOSE", "TRICOEPITELIOMA"};
 		
 		for (String s : diag){
 			 if (s.startsWith(query)){
@@ -92,6 +94,20 @@ public class PacienteController {
 		}		
 		return result;
 	}
+	
+	public List<String> completarProfissao (String query){
+		List<String> result = new ArrayList<String>();
+		query = query.toUpperCase();
+		String[] diag = new String[] {"APOSENTADO", "LAVRADOR", "ESTUDANTE", "PROFESSOR", "DONA DE CASA", "COSTUREIRA", "COMERCIANTE", "DOMESTICA",
+				"CAMINHONEIRO"};
+		
+		for (String s : diag){
+			 if (s.startsWith(query)){
+				 result.add(s);
+			 }
+		}		
+		return result;
+	}	
 	
 	public void inserirLesao () {		
 		System.out.println(lesao.getDiagnostico_clinico() +" "+lesao.getRegiao()+" "+lesao.getDiametro_maior()+" "+lesao.getDiametro_menor());

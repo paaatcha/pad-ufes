@@ -17,14 +17,17 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 	
 	
 	@Query("select p from Paciente p where p.nome_completo=:nome_completo")
-	public Paciente buscaPorNomeUsuario(@Param("nome_completo") String nome_completo);
-	
+	public Paciente buscaPorNomeUsuario(@Param("nome_completo") String nome_completo);	
 	
 	@Query("select p from Paciente p where p.id=:id")
 	public Paciente buscaPorId(@Param("id") Long id);
 	
 	@Query(nativeQuery=true, value="select * from paciente order by paciente.nome_completo")
 	List<Paciente> listarPacientes ();	
+	
+	//select * from lesao where diagnostico_histo LIKE "%%" and diagnostico_clinico LIKE "%%"
+	@Query("select p from Paciente p where p.local_atendimento like %:local% and p.nome_completo like %:nome% order by p.nome_completo")	
+	List<Paciente> filtrarPacientes (@Param("local") String local, @Param("nome") String nome);
 	
 	/*String atualizarQuery = "UPDATE paciente SET agrotoxico=:agrotoxico,"
 			+ "agua_encanada=:agua_encanada, alergia=:alergia, anticoagulante=:anticoagulante,"
