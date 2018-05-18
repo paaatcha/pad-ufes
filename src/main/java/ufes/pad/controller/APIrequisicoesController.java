@@ -58,6 +58,11 @@ public class APIrequisicoesController {
 		return null;
 	}
 	
+	@GetMapping ("/APIrequisicoes/ack")
+	public @ResponseBody String ack (){		
+		return "ACK";
+	}	
+	
 	@PostMapping("/APIrequisicoes/paciente/cadastrarLesoes/{cartao_sus}")
 	public void cadastrarLesao (@PathVariable String cartao_sus, @RequestParam("regiao") String regiao,
 			@RequestParam("diaMaior") String diaMaior, @RequestParam("diaMenor") String diaMenor, 
@@ -118,13 +123,16 @@ public class APIrequisicoesController {
 	
 	@PostMapping("/APIrequisicoes/paciente/cadastrarLesoesGerais/{cartao_sus}")
 	public void cadastrarLesaoGeral (@PathVariable String cartao_sus, @RequestParam("regiao") String regiao,			 
-			@RequestParam("diagnostico") String diagnostico, @RequestParam("imagem") MultipartFile[] imagem){
+			@RequestParam("diagnostico") String diagnostico, @RequestParam("cresceu") String cresceu,
+			@RequestParam("cocou") String cocou, @RequestParam("sangrou") String sangrou, 
+			@RequestParam("doeu") String doeu, @RequestParam("mudou") String mudou,			
+			@RequestParam("imagem") MultipartFile[] imagem){
 		
 		try {
 			PacienteGeral pac = pac_rep_geral.buscaPorCartaoSus(cartao_sus);			
 			if (pac == null) {
 				pac = new PacienteGeral();	
-				pac.setCartao_sus(cartao_sus);
+				pac.setCartao_sus(cartao_sus);				
 			}	
 			
 			LesaoGeral les = new LesaoGeral();
@@ -132,6 +140,11 @@ public class APIrequisicoesController {
 			
 			les.setRegiao(regiao);
 			les.setDiagnostico(diagnostico);
+			les.setCocou(cocou);
+			les.setCresceu(cresceu);
+			les.setDoeu(doeu);
+			les.setMudou(mudou);
+			les.setSangrou(sangrou);
 			
 			for (MultipartFile img : imagem) {
 				String path = cartao_sus + "_" + new Date().getTime() + ".jpg";
@@ -159,7 +172,7 @@ public class APIrequisicoesController {
 			
 			System.out.println("\nRecebendo novo paciente...\nCartao sus: " + cartao_sus);
 			System.out.println("Numero de imgs: " + les.getImagens().size());
-			System.out.println("Regiao: " + les.getRegiao());
+			System.out.println("Regiao: " + les.getRegiao());			
 			System.out.println("Diag: " + les.getDiagnostico() + "\n----------------\n");
 			
 			

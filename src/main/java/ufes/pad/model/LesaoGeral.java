@@ -23,6 +23,56 @@ public class LesaoGeral implements Serializable{
 	private String regiao;
 	
 	private String diagnostico;
+	
+	private String cresceu;
+	
+	private String cocou;
+	
+	private String sangrou;
+	
+	private String doeu;
+	
+	private String mudou;	
+
+	public String getCresceu() {
+		return cresceu;
+	}
+
+	public void setCresceu(String cresceu) {
+		this.cresceu = cresceu;
+	}
+
+	public String getCocou() {
+		return cocou;
+	}
+
+	public void setCocou(String cocou) {
+		this.cocou = cocou.toUpperCase();
+	}
+
+	public String getSangrou() {
+		return sangrou;
+	}
+
+	public void setSangrou(String sangrou) {
+		this.sangrou = sangrou.toUpperCase();
+	}
+
+	public String getDoeu() {
+		return doeu;
+	}
+
+	public void setDoeu(String doeu) {
+		this.doeu = doeu.toUpperCase();
+	}
+
+	public String getMudou() {
+		return mudou;
+	}
+
+	public void setMudou(String mudou) {
+		this.mudou = mudou.toUpperCase();
+	}
 
 	public String getDiagnostico() {
 		return diagnostico;
@@ -33,7 +83,7 @@ public class LesaoGeral implements Serializable{
 	private List<ImagemGeral> imagens;	
 
 	public void setDiagnostico(String diagnostico) {
-		this.diagnostico = diagnostico;
+		this.diagnostico = diagnostico.toUpperCase();
 	}
 
 	public String getRegiao() {
@@ -41,7 +91,7 @@ public class LesaoGeral implements Serializable{
 	}
 
 	public void setRegiao(String regiao) {
-		this.regiao = regiao;
+		this.regiao = regiao.toUpperCase();
 	}
 
 	public Long getId() {
