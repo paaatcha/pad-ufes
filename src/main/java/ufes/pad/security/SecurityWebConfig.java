@@ -19,7 +19,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.csrf().disable().authorizeRequests()		
-		.antMatchers("/css/**", "/img/**", "/javax.faces.resource/**", "/index.xhtml",
+		.antMatchers("/css/**", "/img/**", "/javax.faces.resource/**", "/index.xhtml", "/politica_privacidade.xhtml",
 		"/cadastro_usuario.xhtml", "/ajuda.xhtml", "/esqueci_senha.xhtml", "/APIrequisicoes/**").permitAll()
 		.antMatchers("/dashboard/editar_paciente.xhtml", "/dashboard/manager/gerenciar_usuarios.xhtml", "/dashboard/analise_de_dados.xhtml", "/dashboard/pacientes_gerais.xhtml").hasRole("ADMIN")
 		.anyRequest().authenticated()
