@@ -39,7 +39,7 @@ public class LesaoGeral implements Serializable{
 	}
 
 	public void setCresceu(String cresceu) {
-		this.cresceu = cresceu;
+		this.cresceu = cresceu.toUpperCase();
 	}
 
 	public String getCocou() {
