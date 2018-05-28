@@ -71,7 +71,7 @@ public class VisualizacaoGeralController {
 		return imgsPath;
 	}	
 	
-	public void excluirPacienteGeral () {
+	public void excluirPacienteGeral () { 
 		FacesContext context = FacesContext.getCurrentInstance();
 		System.out.println ("ENTROU PARA EXCLUIR"); 
 		try {

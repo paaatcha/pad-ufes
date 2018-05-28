@@ -101,7 +101,7 @@ public class LesaoController {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));			
 		}			
 	}
-
+		
 /* ###########################################  Getters and Setters ###################################################*/	
 	
 	public Paciente getPacLesao() {

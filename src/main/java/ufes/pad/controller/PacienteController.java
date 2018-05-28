@@ -310,8 +310,8 @@ public class PacienteController {
 		}
 		
 		return "Sucesso";
-	}
-	
+	}	
+		
 	
 /* ###########################################  Getters and Setters ###################################################*/
 	public Paciente getPac() {

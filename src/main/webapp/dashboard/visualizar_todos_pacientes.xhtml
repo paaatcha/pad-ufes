@@ -48,6 +48,47 @@
 		                	<p:inputText id="nome" value="#{visualizacaoTodosController.filtroNome}" >
 		                		<p:ajax event="change"/>
 		                	</p:inputText>
+		                	
+		                	<h:outputText value="Data Inicial" style="font-weight: bold" />		            
+		                	<p:inputMask id="dataInicio" mask="99/99/9999" >		        					
+		        				<f:convertDateTime pattern="dd/MM/yyyy" />
+		        				<p:ajax event="change"/>
+		        			</p:inputMask>
+		        			
+		        			<h:outputText value="Data Final" style="font-weight: bold" />		            
+		                	<p:inputMask id="dataFim" mask="99/99/9999" >		        					
+		        				<f:convertDateTime pattern="dd/MM/yyyy" />
+		        				<p:ajax event="change"/>
+		        			</p:inputMask>
+		        			
+		                	<h:outputText value="Pacientes com lesão?" style="font-weight: bold" />
+		                	<h:panelGroup>
+		                		<h:outputText value="Sim  " />
+			                	<p:selectBooleanCheckbox value="#{visualizacaoTodosController.filtroPacComLesao}" >		                	
+			                		<p:ajax event="change"/>
+			                	</p:selectBooleanCheckbox>
+			                	
+			                	<h:outputText value="  Não " />
+			                	<p:selectBooleanCheckbox value="#{visualizacaoTodosController.filtroPacSemLesao}">		                	
+			                		<p:ajax event="change"/>
+			                	</p:selectBooleanCheckbox>		                	
+		                	</h:panelGroup>
+		                	
+		                	<h:outputText value="Pacientes com imagens?" style="font-weight: bold" />
+		                	<h:panelGroup>
+		                		<h:outputText value="Sim  " />
+			                	<p:selectBooleanCheckbox value="#{visualizacaoTodosController.filtroPacComImg}" >		                	
+			                		<p:ajax event="change"/>
+			                	</p:selectBooleanCheckbox>
+			                	
+			                	<h:outputText value="  Não " />
+			                	<p:selectBooleanCheckbox  >		                	
+			                		<p:ajax event="change"/>
+			                	</p:selectBooleanCheckbox>
+		                	</h:panelGroup>		        			
+		        				
+		                	
+		                	
 					    	
 				   	</p:panelGrid>			   	
 				   	

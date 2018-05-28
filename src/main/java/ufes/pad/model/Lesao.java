@@ -62,8 +62,12 @@ public class Lesao implements Serializable {
 				Imagem.printImagem(img);
 			}
 		}
-		
+		 
 	}	
+	
+	public boolean possuiImagem() {
+		return !this.imagens.isEmpty();
+	}
 
 	public Long getId() {
 		return id;

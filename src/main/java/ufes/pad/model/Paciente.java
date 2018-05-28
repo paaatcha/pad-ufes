@@ -27,7 +27,7 @@ public class Paciente implements Serializable {
 	private Long id;
 	
 	@Column(length=100, nullable = false)
-	private String local_atendimento;	
+	private String local_atendimento = "SANTA MARIA DE JETIBA";	
 	
 	@Temporal(TemporalType.DATE)
 	private Date data_atendimento = new Date();
@@ -152,6 +152,23 @@ public class Paciente implements Serializable {
 		for (Lesao les : pac.lesoes) {
 			Lesao.printLesao(les);
 		}
+	}
+	
+	public boolean possuiLesao () {
+		return !this.lesoes.isEmpty();
+	}
+	
+	public boolean possuiImagem () {
+		
+		if (this.possuiImagem()) {
+			for (Lesao les : this.lesoes) {
+				if (les.possuiImagem()) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 /* ###########################################  Getters and Setters ###################################################*/	
 	
