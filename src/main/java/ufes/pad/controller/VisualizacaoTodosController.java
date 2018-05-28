@@ -1,7 +1,7 @@
 package ufes.pad.controller;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.ManagedBean;
@@ -25,6 +25,8 @@ public class VisualizacaoTodosController {
 	
 	private int numPac;
 	
+	private int numCirurgias;
+	
 	private boolean exibirTabelaPacientes = false;
 	
 	// Filtros
@@ -39,6 +41,13 @@ public class VisualizacaoTodosController {
 	
 	private boolean filtroPacComImg = false;
 	
+	private boolean filtroPacSemImg = false;
+	
+	private Date dataInicio;
+	
+	private Date dataFim;
+	
+	// *****************************
 	
 	public List<String> completarCidades (String query){
 		List<String> result = new ArrayList<String>();
@@ -55,19 +64,41 @@ public class VisualizacaoTodosController {
 	
 	public void listarFiltragem() {
 		FacesContext context = FacesContext.getCurrentInstance();	
+		boolean comDatas = dataInicio != null && dataFim != null;				
 		
-		if (filtroCidade.equals("") && filtroNome.equals("") && !filtroPacComLesao && !filtroPacComImg && !filtroPacSemLesao) {
+		
+		if (filtroCidade.equals("") && filtroNome.equals("") && !filtroPacComLesao && !filtroPacComImg && !filtroPacSemLesao && !filtroPacSemImg && !comDatas) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Todos os filtros estão vazios. Adicione pelo menos um filtro para utilizar essa funcionalidade.", "  "));
 		} else {		
 			try {
-				setTodosPacs(pac_rep.filtrarPacientes(filtroCidade, filtroNome));
+				
+				if (comDatas) {
+					System.out.println("Filtrando por intervalo de data");
+					
+//					Calendar calInicio = Calendar.getInstance();
+//					calInicio.setTime(dataInicio);
+//					
+//					Calendar calFim = Calendar.getInstance();
+//					calFim.setTime(dataFim);					
+//					String dataInicioStr, dataFimStr;
+//					
+//					dataInicioStr = String.valueOf(calInicio.get(Calendar.YEAR)) + "-" + String.valueOf(calInicio.get(Calendar.MONTH)+1) + "-" + String.valueOf(calInicio.get(Calendar.DAY_OF_MONTH));
+//					dataFimStr = String.valueOf(calFim.get(Calendar.YEAR)) + "-" + String.valueOf(calFim.get(Calendar.MONTH)+1) + "-" + String.valueOf(calFim.get(Calendar.DAY_OF_MONTH));
+					
+					setTodosPacs(pac_rep.filtrarPacientesComData(filtroCidade, filtroNome, dataInicio, dataFim));
+				} else {
+					setTodosPacs(pac_rep.filtrarPacientes(filtroCidade, filtroNome));					
+				}
+				
 				if (this.getTodosPacs().isEmpty()) {
 					numPac = 0;
 					exibirTabelaPacientes = false;
 					context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Não existe nenhum paciente para essa filtragem. Verifique se não existe algum erro de digitação.", "  "));				
 				} else {
+
 					
-					if (filtroPacComLesao) {
+					// REALIZANDO FILTROS DE LESÃO PARA O PACIENTE					
+					if (filtroPacComLesao && !filtroPacSemLesao) {
 						List<Paciente> newTodosPacs = new ArrayList<Paciente>();
 						System.out.println("Filtrando pacientes com lesao: ");
 						
@@ -82,9 +113,7 @@ public class VisualizacaoTodosController {
 						todosPacs = newTodosPacs;						
 					}
 					
-					// CHECAR COM FILTRO DE CIMA
-					
-					if (filtroPacSemLesao) {
+					if (filtroPacSemLesao && !filtroPacComLesao) {
 						List<Paciente> newTodosPacs = new ArrayList<Paciente>();
 						System.out.println("Filtrando pacientes sem lesao: ");
 						
@@ -99,7 +128,11 @@ public class VisualizacaoTodosController {
 						todosPacs = newTodosPacs;						
 					}
 					
-					/*if (filtroPacComImg) {
+					// *********** FIM **************
+					
+					
+					// REALIZANDO FILTROS DE IMAGEM PARA O PACIENTE	
+					if (filtroPacComImg && !filtroPacSemImg) {
 						List<Paciente> newTodosPacs = new ArrayList<Paciente>();
 						System.out.println("Filtrando pacientes com Imagem: ");
 						
@@ -112,13 +145,36 @@ public class VisualizacaoTodosController {
 							}
 						}						
 						todosPacs = newTodosPacs;						
-					}*/
+					}
+					
+					if (filtroPacSemImg && !filtroPacComImg) {
+						List<Paciente> newTodosPacs = new ArrayList<Paciente>();
+						System.out.println("Filtrando pacientes sem Imagem: ");
+						
+						for (Paciente pac : todosPacs) {
+							//System.out.println(pac.pacientePossuiLesao());							
+							if (!pac.possuiImagem()) {
+								//todosPacs.remove(pac);
+								//Paciente.printPaciente(pac);
+								newTodosPacs.add(pac);
+							}
+						}						
+						todosPacs = newTodosPacs;						
+					}
+					
+					// *********** FIM **************					
 					
 					
-					preencheIdadePacs (this.getTodosPacs());
-					exibirTabelaPacientes = true;
-					numPac = todosPacs.size();
-					context.addMessage(null, new FacesMessage(numPac + " pacientes foram encontrados!"));				
+					if (!todosPacs.isEmpty()) {					
+						preencheIdadePacs (this.getTodosPacs());
+						exibirTabelaPacientes = true;
+						numPac = todosPacs.size();	
+						numCirurgias = PacienteController.totalLesoes(todosPacs);
+					} else {
+						exibirTabelaPacientes = false;
+						numPac = 0;
+					}
+					context.addMessage(null, new FacesMessage(numPac + " pacientes foram encontrados!"));
 				}
 			} catch (Exception e) {			
 				e.printStackTrace();
@@ -138,6 +194,7 @@ public class VisualizacaoTodosController {
 				preencheIdadePacs (this.getTodosPacs());
 				exibirTabelaPacientes = true;
 				numPac = todosPacs.size();	
+				numCirurgias = PacienteController.totalLesoes(todosPacs);
 				context.addMessage(null, new FacesMessage(numPac + " pacientes foram encontrados!"));
 			}
 		} catch (Exception e) {			
@@ -148,7 +205,7 @@ public class VisualizacaoTodosController {
 	
 	public void preencheIdadePacs (List<Paciente> pacientes) {
 		for (int i=0; i < pacientes.size(); i++) {
-			Date dNasc = (Date) pacientes.get(i).getData_nascimento();
+			java.sql.Date dNasc = (java.sql.Date) pacientes.get(i).getData_nascimento();
 			pacientes.get(i).setIdade(VisualizacaoController.calcIdadePac(dNasc));
 //			System.out.println(pacientes.get(i).getIdade());
 //			System.out.println(pacientes.get(i).getData_nascimento().getClass());			
@@ -217,6 +274,38 @@ public class VisualizacaoTodosController {
 
 	public void setFiltroPacSemLesao(boolean filtroPacSemLesao) {
 		this.filtroPacSemLesao = filtroPacSemLesao;
+	}
+
+	public boolean isFiltroPacSemImg() {
+		return filtroPacSemImg;
+	}
+
+	public void setFiltroPacSemImg(boolean filtroPacSemImg) {
+		this.filtroPacSemImg = filtroPacSemImg;
+	}
+
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
+
+	public int getNumCirurgias() {
+		return numCirurgias;
+	}
+
+	public void setNumCirurgias(int numCirurgias) {
+		this.numCirurgias = numCirurgias;
 	}
 
 	

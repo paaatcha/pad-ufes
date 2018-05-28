@@ -35,7 +35,67 @@
 			      	
 			      	<br/> <br/> <br/>
 			      	
-			      	<h:outputText class="campoPac" value="Para aplicar um filtro de seleção dos pacientes, basta preencher os campos abaixo:" />	      		    	
+			      	<h:outputText class="campoPac" value="Para aplicar um filtro de seleção dos pacientes, basta preencher os campos abaixo: " />	
+			      	
+			      	<p:commandButton view="Ajuda" oncomplete="PF('ajudaFiltros').show()" icon="ui-icon-help"
+								style="		      							      				 
+									background: #ffff4d -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.7)),to(rgba(255,255,255,0)));								
+		      					"							
+							/>
+							
+					<p:overlayPanel widgetVar="ajudaFiltros" showEffect="fade" hideEffect="fade" showCloseIcon="true">
+						<h:outputText value="- Você pode aplicar um ou mais filtros da maneira que desejar." />
+						<br/>
+						<h:outputText value="- Para aplicar um filtro, basta preencher a informação em relação a ele." />
+						<br/>
+						<h:outputText value="- Os filtros não preenchidos não serão aplicados." />
+						<br/> <br/>
+						
+						<p:outputPanel >
+				            <p:panelGrid  columns="2" >
+				                <f:facet name="header">							                	
+				                	<h:outputText value="Instruções para cada filtro"  style="font-weight: bold"/>
+				                </f:facet>
+				                
+				                <h:outputText value="Local de atendimento"  style="font-weight: bold"/>
+				                <h:outputText value="Retorna os pacientes apenas para os locais informado." />
+				 
+				                <h:outputText value="Nome" style="font-weight: bold" />
+				                <h:outputText value="Retorna os pacientes com o nome informado." />
+				 
+				                <h:outputText value="Intervalo de datas" style="font-weight: bold" />
+				                <h:panelGroup>
+				                	<h:outputText value="Retorna os pacientes no intervalo de datas informadas." />
+				                	<br/>						                
+				                	<h:outputText value="É obrigatório preencher ambas as datas. Caso ambas esteja em branco," />
+				                	<br/>
+				                	<h:outputText value="a busca é realizada para todas as datas." />
+				                </h:panelGroup>
+				                
+				                <h:outputText value="Pacientes com lesão?" style="font-weight: bold" />
+				                <h:panelGroup>
+				                	<h:outputText value="Sim: retorna apenas pacientes com pelo menos uma lesão cadastrada." />
+				                	<br/>						                
+				                	<h:outputText value="Não: retorna apenas pacientes sem lesões cadastradas." />
+				                	<br/>
+				                	<h:outputText value="Caso não preenchido ou preenchido os dois, retorna todos os pacientes, com e sem lesão cadastrada." />
+				                </h:panelGroup>
+				                
+				                <h:outputText value="Pacientes com imagem?" style="font-weight: bold" />
+				                <h:panelGroup>
+				                	<h:outputText value="Sim: retorna apenas pacientes com pelo menos uma imagem cadastrada." />
+				                	<br/>						                
+				                	<h:outputText value="Não: retorna apenas pacientes sem imagens cadastradas." />
+				                	<br/>
+				                	<h:outputText value="Caso não preenchido ou preenchido os dois, retorna todos os pacientes, com e sem imagem cadastrada." />
+				                </h:panelGroup>
+				                
+				            </p:panelGrid>
+						</p:outputPanel>						
+						 
+											
+					</p:overlayPanel>
+			      	      		    	
 				    	
 			    	<p:panelGrid columns="2" style="margin-top: 10px; margin-bottom: 25px;" >																					     			
 						
@@ -49,17 +109,20 @@
 		                		<p:ajax event="change"/>
 		                	</p:inputText>
 		                	
-		                	<h:outputText value="Data Inicial" style="font-weight: bold" />		            
-		                	<p:inputMask id="dataInicio" mask="99/99/9999" >		        					
-		        				<f:convertDateTime pattern="dd/MM/yyyy" />
-		        				<p:ajax event="change"/>
-		        			</p:inputMask>
-		        			
-		        			<h:outputText value="Data Final" style="font-weight: bold" />		            
-		                	<p:inputMask id="dataFim" mask="99/99/9999" >		        					
-		        				<f:convertDateTime pattern="dd/MM/yyyy" />
-		        				<p:ajax event="change"/>
-		        			</p:inputMask>
+		                	<h:outputText value="Intervalo de datas" style="font-weight: bold" />
+		                	<h:panelGroup>
+		                		<h:outputText value="Data Inicial:  " />
+			                	<p:inputMask id="dataInicio" mask="99/99/9999" value="#{visualizacaoTodosController.dataInicio}">		        					
+		        					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
+		        					<p:ajax event="change"/>
+		        				</p:inputMask>
+			                	
+			                	<h:outputText value="  Data Final:  " />
+			                	<p:inputMask id="dataFim" mask="99/99/9999" value="#{visualizacaoTodosController.dataFim}" >		        					
+		        					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
+		        					<p:ajax event="change"/>
+		        				</p:inputMask>
+		                	</h:panelGroup>
 		        			
 		                	<h:outputText value="Pacientes com lesão?" style="font-weight: bold" />
 		                	<h:panelGroup>
@@ -82,7 +145,7 @@
 			                	</p:selectBooleanCheckbox>
 			                	
 			                	<h:outputText value="  Não " />
-			                	<p:selectBooleanCheckbox  >		                	
+			                	<p:selectBooleanCheckbox  value="#{visualizacaoTodosController.filtroPacSemImg}" >		                	
 			                		<p:ajax event="change"/>
 			                	</p:selectBooleanCheckbox>
 		                	</h:panelGroup>		        			
@@ -110,6 +173,10 @@
 		      			<br/>
 		      			<h:outputText class="campoPac" value="Número de pacientes encontrados: " />
 		    			<h:outputText class="valorPac" value="#{visualizacaoTodosController.numPac}"/>
+		    			
+		    			<br/>
+		    			<h:outputText class="campoPac" value="Número de cirurgias para esse conjunto de pacientes: " />
+		    			<h:outputText class="valorPac" value="#{visualizacaoTodosController.numCirurgias}"/>
 		    			
 		    			<br/> <br/>
 		    			

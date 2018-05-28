@@ -141,6 +141,14 @@ public class PacienteController {
 		}
 	}
 	
+	static public int totalLesoes (List<Paciente> pacs) {
+		int numLesoes = 0;
+		for (Paciente pac : pacs) {
+			numLesoes += pac.numeroLesoes();
+		}
+		return numLesoes;
+	}
+	
 	public void inserirImagemLista (FileUploadEvent event) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {

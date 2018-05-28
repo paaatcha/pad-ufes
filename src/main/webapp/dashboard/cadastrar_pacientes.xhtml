@@ -26,7 +26,7 @@
 				    		<p> Data do atendimento: </p>		      		
 		        			<p:inputMask id="data_atendimento" value="#{pacienteController.pac.data_atendimento}" mask="99/99/9999" 
 		        			required="true"	requiredMessage="A data de atendimento não foi informada.">
-		        				<f:convertDateTime pattern="dd/MM/yyyy" />
+		        				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
 		        			</p:inputMask>
 							<p:message for="data_atendimento" />					 
 					
@@ -87,7 +87,7 @@
 				      		<p> Data de nascimento: </p>		      		
 		        			<p:inputMask id="data_nascimento" value="#{pacienteController.pac.data_nascimento}" mask="99/99/9999" 
 		        			required="true"	requiredMessage="A data de nascimento não foi informada.">
-		        				<f:convertDateTime pattern="dd/MM/yyyy" />
+		        				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
 		        			</p:inputMask>
 							<p:message for="data_nascimento" />					 
 							
@@ -142,12 +142,13 @@
 		      		<p:fieldset legend="Informações socioeconômicas" toggleable="true" style="margin-bottom:20px">
         				<h:panelGrid columns="1" cellpadding="5">
 							<p> Atividade principal: </p>
-							<p:inputText size="25" id="atv_principal" value="#{pacienteController.pac.atv_principal}" 
+							<p:autoComplete size="25" id="atv_principal" value="#{pacienteController.pac.atv_principal}"
+							completeMethod="#{pacienteController.completarProfissao}" 
 							required="true"
 							requiredMessage="A atividade principal não foi informada">				
-							</p:inputText>
-							<p:message for="atv_principal" />	
-							
+							</p:autoComplete>
+							<p:message for="atv_principal" />
+														
 							
 							<p> Idade em que começou a trabalhar: </p>
 							<p:spinner size="15" id="idade_inicio_atv" value="#{pacienteController.pac.idade_inicio_atv}" min="0"
@@ -336,7 +337,7 @@
 							                
 							            </p:panelGrid>
 							        </p:outputPanel>
-							    </p:overlayPanel>
+							 </p:overlayPanel>
 								      				
 		      							
 						    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">        

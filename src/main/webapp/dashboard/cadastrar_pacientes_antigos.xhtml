@@ -26,7 +26,7 @@
 				    		<p> Data do atendimento: </p>		      		
 		        			<p:inputMask id="data_atendimento" value="#{pacienteController.pac.data_atendimento}" mask="99/99/9999" 
 		        			required="true"	requiredMessage="A data de atendimento não foi informada.">
-		        				<f:convertDateTime pattern="dd/MM/yyyy" />
+		        				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
 		        			</p:inputMask>
 							<p:message for="data_atendimento" />					 
 					
@@ -87,7 +87,7 @@
 				      		<p> Data de nascimento: </p>		      		
 		        			<p:inputMask id="data_nascimento" value="#{pacienteController.pac.data_nascimento}" mask="99/99/9999" 
 		        			required="true"	requiredMessage="A data de nascimento não foi informada.">
-		        				<f:convertDateTime pattern="dd/MM/yyyy" />
+		        				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
 		        			</p:inputMask>
 							<p:message for="data_nascimento" />					 
 							

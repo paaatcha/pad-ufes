@@ -65,6 +65,8 @@ public class Lesao implements Serializable {
 		 
 	}	
 	
+	/* ###########################################  Getters and Setters ###################################################*/		
+	
 	public boolean possuiImagem() {
 		return !this.imagens.isEmpty();
 	}

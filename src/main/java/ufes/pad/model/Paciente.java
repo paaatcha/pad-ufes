@@ -160,7 +160,7 @@ public class Paciente implements Serializable {
 	
 	public boolean possuiImagem () {
 		
-		if (this.possuiImagem()) {
+		if (this.possuiLesao()) {
 			for (Lesao les : this.lesoes) {
 				if (les.possuiImagem()) {
 					return true;
@@ -170,6 +170,14 @@ public class Paciente implements Serializable {
 		
 		return false;
 	}
+	
+	public int numeroLesoes () {
+		if (this.possuiLesao()) {
+			return this.lesoes.size();
+		}
+		return 0;
+	}
+	
 /* ###########################################  Getters and Setters ###################################################*/	
 	
 	public Long getId() {
