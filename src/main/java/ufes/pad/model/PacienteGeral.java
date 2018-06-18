@@ -26,7 +26,21 @@ public class PacienteGeral implements Serializable{
 	@OneToMany	(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn (name="pacienteId")
 	private List<LesaoGeral> lesoes;
-
+	
+	
+	public boolean possuiLesao () {
+		return !this.lesoes.isEmpty();
+	}
+	
+	public int numeroLesoes () {
+		if (this.possuiLesao()) {
+			return this.lesoes.size();
+		}
+		return 0;
+	}
+	
+	/* ###########################################  Getters and Setters ###################################################*/	
+	
 	public String getCartao_sus() {
 		return cartao_sus;
 	}

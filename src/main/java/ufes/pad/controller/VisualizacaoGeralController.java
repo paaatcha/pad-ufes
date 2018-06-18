@@ -31,6 +31,8 @@ public class VisualizacaoGeralController {
 	
 	private int numPacs;
 	
+	private int numLesoes;
+	
 	@Autowired
 	private PacienteGeralRepository pac_rep;
 	
@@ -56,7 +58,8 @@ public class VisualizacaoGeralController {
 		} catch (Exception e) {			
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));			
 		}	
-		setNumPacs(todosPacs.size());		
+		setNumPacs(todosPacs.size());	
+		this.numLesoes = PacienteGeralController.totalLesoes(todosPacs); 
 	}
 	
 	
@@ -155,6 +158,16 @@ public class VisualizacaoGeralController {
 
 	public void setPacSelecionado(PacienteGeral pacSelecionado) {
 		this.pacSelecionado = pacSelecionado;
+	}
+
+
+	public int getNumLesoes() {
+		return numLesoes;
+	}
+
+
+	public void setNumLesoes(int numLesoes) {
+		this.numLesoes = numLesoes;
 	}
 
 }

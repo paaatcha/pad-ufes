@@ -49,6 +49,14 @@ public class PacienteGeralController {
 		});	
 	}
 	
+	static public int totalLesoes (List<PacienteGeral> pacs) {
+		int numLesoes = 0;
+		for (PacienteGeral pac : pacs) {
+			numLesoes += pac.numeroLesoes();
+		}
+		return numLesoes;
+	}	
+	
 	
 	public String enviarPacientesGeralBancoUfes () {		 
 		configuraUnirest ();
