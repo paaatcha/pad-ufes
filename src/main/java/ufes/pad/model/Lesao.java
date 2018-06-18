@@ -65,6 +65,10 @@ public class Lesao implements Serializable {
 		 
 	}	
 	
+	public boolean isDiagnostico (String diag) {
+		return this.diagnostico_clinico.matches(".*" + diag + ".*");
+	}
+	
 	/* ###########################################  Getters and Setters ###################################################*/		
 	
 	public boolean possuiImagem() {

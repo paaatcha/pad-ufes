@@ -171,6 +171,17 @@ public class Paciente implements Serializable {
 		return false;
 	}
 	
+	public boolean possuiEsteDiag (String diag) {
+		
+		for (Lesao les : this.lesoes) {
+			if (les.isDiagnostico(diag)) {
+				return true;
+			}
+		}		
+		
+		return false;
+	}
+	
 	public int numeroLesoes () {
 		if (this.possuiLesao()) {
 			return this.lesoes.size();

@@ -81,6 +81,13 @@
 				                	<h:outputText value="Caso não preenchido ou preenchido os dois, retorna todos os pacientes, com e sem lesão cadastrada." />
 				                </h:panelGroup>
 				                
+				                <h:outputText value="Diagnóstico"  style="font-weight: bold"/>
+				                <h:panelGroup>
+				                	<h:outputText value="Retorna os pacientes apenas para o diagnostico indicado. Se o paciente possuir mais de uma lesão," />
+				                	<br/>
+				                	<h:outputText value="e pelo menos uma delas é a indicada, ele é retornado." />
+				                </h:panelGroup>
+				                
 				                <h:outputText value="Pacientes com imagem?" style="font-weight: bold" />
 				                <h:panelGroup>
 				                	<h:outputText value="Sim: retorna apenas pacientes com pelo menos uma imagem cadastrada." />
@@ -136,6 +143,11 @@
 			                		<p:ajax event="change"/>
 			                	</p:selectBooleanCheckbox>		                	
 		                	</h:panelGroup>
+		                	
+		                	<h:outputText value="Diagnóstico" style="font-weight: bold" />
+		                	<p:inputText id="diag" value="#{visualizacaoTodosController.filtroDiag}" >
+		                		<p:ajax event="change"/>
+		                	</p:inputText>
 		                	
 		                	<h:outputText value="Pacientes com imagens?" style="font-weight: bold" />
 		                	<h:panelGroup>

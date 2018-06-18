@@ -425,12 +425,13 @@
 
 					<p:fieldset legend="Dados da lesão" style="margin-bottom:20px; margin-top:20px;" toggleable="true">
         				<h:panelGrid columns="1" cellpadding="5">
-							<p> Região da lesão: </p>					
-							<p:inputText size="30" id="regiao" value="#{pacienteController.lesao.regiao}">
+							<p> Região da lesão: </p>		
+							<p:autoComplete size="30" id="regiao" value="#{pacienteController.lesao.regiao}"
+							completeMethod="#{pacienteController.completarRegiaoLesao}">
 							
 								<p:ajax event="change" />
 											
-							</p:inputText>
+							</p:autoComplete>
 									
 							
 							

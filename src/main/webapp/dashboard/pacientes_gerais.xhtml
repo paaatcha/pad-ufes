@@ -28,24 +28,7 @@
     			<p:accordionPanel value="#{visualizacaoGeralController.todosPacs}" var="pac">
         			<p:tab title="Cartão SUS: #{pac.cartao_sus}" id="tabLesoes">
         			
-        				<!--  
-        				<p:commandButton action="#{visualizacaoGeralController.excluirPacienteGeral}" icon="ui-icon-trash" 
-								value="Excluir paciente" update="tabLesoes growlCheck" process="@this"
-								style="
-									margin-bottom: 10px;
-									height: 40px;
-									float: right;
-									z-index: 2;
-									top: 50px;	
-									right: 15px;							 
-									background: #ffb3b3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0)));
-								">
-								
-		      									<f:setPropertyActionListener value="#{pac}" target="#{visualizacaoGeralController.pacSelecionado}" />
-		      									          						
-						</p:commandButton>
-						
-						-->
+
 			                
 		              	<p:tabView value="#{pac.lesoes}" var="les">
 					        <p:tab title="Regiao: #{les.regiao}">
@@ -53,6 +36,21 @@
 					                                
 					                <h:outputText value="Diagnóstico:" style="font-weight: bold; font-size: 16px;"/>
 					                <h:outputText value="#{les.diagnostico}" style="margin-left: 10px; font-size: 16px;"/>
+					                
+					                <h:outputText value="Coçou?" style="font-weight: bold; font-size: 16px;"/>
+					                <h:outputText value="#{les.cocou}" style="margin-left: 10px; font-size: 16px;"/>
+					                
+					                <h:outputText value="Creçeu?" style="font-weight: bold; font-size: 16px;"/>
+					                <h:outputText value="#{les.cresceu}" style="margin-left: 10px; font-size: 16px;"/>
+					                
+					                <h:outputText value="Doeu?" style="font-weight: bold; font-size: 16px;"/>
+					                <h:outputText value="#{les.doeu}" style="margin-left: 10px; font-size: 16px;"/>
+					                
+					                <h:outputText value="Mudou?" style="font-weight: bold; font-size: 16px;"/>
+					                <h:outputText value="#{les.mudou}" style="margin-left: 10px; font-size: 16px;"/>
+					                
+					                <h:outputText value="Sangrou?" style="font-weight: bold; font-size: 16px;"/>
+					                <h:outputText value="#{les.sangrou}" style="margin-left: 10px; font-size: 16px;"/>
 					 
 					            </h:panelGrid>
 					            

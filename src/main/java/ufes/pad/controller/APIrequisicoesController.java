@@ -196,7 +196,9 @@ public class APIrequisicoesController {
 		
 		try {
 			
-			if (pac_rep.buscaPorCartaoSus(pac.getCartao_sus()) == null) {
+			Paciente pacBanco = pac_rep.buscaPorCartaoSus(pac.getCartao_sus());
+			
+			if (pacBanco == null) {
 				pac_rep.save(pac);		
 				System.out.println("Paciente: " + pac.getNome_completo() + " salvo no banco UFES com sucesso");
 			} else {
@@ -224,7 +226,9 @@ public class APIrequisicoesController {
 		
 		try {
 			
-			if (pac_rep_geral.buscaPorCartaoSus(pac.getCartao_sus()) == null) {
+			PacienteGeral pacBanco = pac_rep_geral.buscaPorCartaoSus(pac.getCartao_sus());
+			
+			if (pacBanco == null) {
 				pac_rep_geral.save(pac);		
 				System.out.println("Paciente Geral: " + pac.getCartao_sus() + " salvo no banco UFES com sucesso");
 			} else {

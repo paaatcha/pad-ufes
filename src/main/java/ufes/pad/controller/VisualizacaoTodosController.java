@@ -35,6 +35,8 @@ public class VisualizacaoTodosController {
 	
 	private String filtroNome = "";
 	
+	private String filtroDiag = "";
+	
 	private boolean filtroPacComLesao = false;
 	
 	private boolean filtroPacSemLesao = false;
@@ -52,7 +54,7 @@ public class VisualizacaoTodosController {
 	public List<String> completarCidades (String query){
 		List<String> result = new ArrayList<String>();
 		query = query.toUpperCase();
-		String[] cidades = new String[] {"ITAGUAÇU", "AFONSO CLÁUDIO", "SANTA MARIA DE JETIBA"};
+		String[] cidades = new String[] {"ITAGUAÇU", "AFONSO CLÁUDIO", "SANTA MARIA DE JETIBA", "VILA VALERIO", "BAIXO GUANDU", "SÃO GABRIEL DA PALHA", "DOMINGOS MARTINS"};
 		
 		for (String s : cidades){
 			 if (s.startsWith(query)){
@@ -67,7 +69,7 @@ public class VisualizacaoTodosController {
 		boolean comDatas = dataInicio != null && dataFim != null;				
 		
 		
-		if (filtroCidade.equals("") && filtroNome.equals("") && !filtroPacComLesao && !filtroPacComImg && !filtroPacSemLesao && !filtroPacSemImg && !comDatas) {
+		if (filtroCidade.equals("") && filtroNome.equals("") && filtroDiag.equals("") && !filtroPacComLesao && !filtroPacComImg && !filtroPacSemLesao && !filtroPacSemImg && !comDatas) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Todos os filtros estão vazios. Adicione pelo menos um filtro para utilizar essa funcionalidade.", "  "));
 		} else {		
 			try {
@@ -162,7 +164,20 @@ public class VisualizacaoTodosController {
 						todosPacs = newTodosPacs;						
 					}
 					
-					// *********** FIM **************					
+					// *********** FIM **************		
+					
+					// REALIZANDO FILTRO PARA DIAGNOSTICO DA LESAO
+					if (!filtroDiag.equals("")) {
+						List<Paciente> newTodosPacs = new ArrayList<Paciente>();
+						System.out.println("Filtrando pacientes por diagnóstico: ");
+						
+						for (Paciente pac : todosPacs) {
+							if (pac.possuiEsteDiag(filtroDiag.toUpperCase())) {
+								newTodosPacs.add(pac);
+							}
+						}						
+						todosPacs = newTodosPacs;
+					}
 					
 					
 					if (!todosPacs.isEmpty()) {					
@@ -306,6 +321,14 @@ public class VisualizacaoTodosController {
 
 	public void setNumCirurgias(int numCirurgias) {
 		this.numCirurgias = numCirurgias;
+	}
+
+	public String getFiltroDiag() {
+		return filtroDiag;
+	}
+
+	public void setFiltroDiag(String filtroDiag) {
+		this.filtroDiag = filtroDiag;
 	}
 
 	
