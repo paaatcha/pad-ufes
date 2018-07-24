@@ -105,11 +105,11 @@
 					    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.idade_inicio_atv} anos" />
 					    <br/><br/>				    
 					    
-					    <h:outputText class="campoPac" value="Local de atendimento: " />
+					    <h:outputText class="campoPac" value="Local do último atendimento: " />
 					    <h:outputText class="valorPac" value="#{visualizacaoController.pacBuscado.local_atendimento}" />
 					    <br/><br/>
 					    
-					    <h:outputText class="campoPac" value="Data do Atendimento: " />
+					    <h:outputText class="campoPac" value="Data do último atendimento: " />
 					    <h:outputText class="valorPac" value="#{visualizacaoController.printData(visualizacaoController.pacBuscado.data_atendimento)}" />
 					    <br/><br/>
 					    
@@ -283,6 +283,14 @@
 									<h:outputText value="#{les.procedimento}" />
 								</p:column>
 								
+								<p:column headerText="Local do procedimento">
+									<h:outputText value="#{les.local_atendimento}" />
+								</p:column>
+								
+								<p:column headerText="Data do procedimento">
+									<h:outputText value="#{visualizacaoController.printDataProcedimento(les.data_atendimento)}" />
+								</p:column>
+								
 								<p:column headerText="Observação">
 									<h:outputText value="#{les.obs}" />
 								</p:column>														
@@ -343,6 +351,7 @@
 	    				text-shadow: 0 1px 0 rgba(255,255,255,0.7);
 					" >
 	    				<f:param name="cartaosus" value="#{visualizacaoController.pacBuscado.cartao_sus}" />
+	    				<f:param name="recadastro" value="nao" />
 					</p:button>
 				  	
 				  	<p:commandButton update="growlCheck @form" rendered="#{usuarioController.usuarioAdmin}"

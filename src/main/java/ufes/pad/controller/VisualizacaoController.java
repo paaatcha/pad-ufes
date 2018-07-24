@@ -221,6 +221,9 @@ public class VisualizacaoController {
 		return "visualizar_paciente.xhtml";
 	}	
 	
+	public String printDataProcedimento (Date d) {		
+		return (d.toString().substring(8, 10) + "/" + d.toString().substring(5, 7) + "/" + d.toString().substring(0, 4));		
+	}
 	
 	
 	

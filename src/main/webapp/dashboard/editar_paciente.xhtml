@@ -671,6 +671,18 @@
 											<p:inputText size="30" id="procedimentoEdit" value="#{les.procedimento}">								
 												<p:ajax event="change" />													
 											</p:inputText>
+											
+											<h:outputText value="Local do procedimento:" style="font-weight: bold"/>													 
+											<p:inputText size="30" id="local_procedimento" value="#{les.local_atendimento}">
+												 <p:ajax event="change" />																
+											</p:inputText>
+											
+											<h:outputText value="Data do procedimento:" style="font-weight: bold"/>		      		
+		        							<p:inputMask id="data_procedimento" value="#{les.data_atendimento}" mask="99/99/9999">
+		        								<f:convertDateTime pattern="dd/MM/yyyy" />
+		        								<p:ajax event="change" />	
+		        							</p:inputMask>
+							
 									
 											<h:outputText value="Observações:" style="font-weight: bold"/>
 											<p:inputTextarea id="obs_lesEdit" rows="3" cols="30" value="#{les.obs}">								

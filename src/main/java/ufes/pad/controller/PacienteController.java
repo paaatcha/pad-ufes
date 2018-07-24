@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.FileUploadEvent;
@@ -46,8 +47,9 @@ public class PacienteController {
 	private List<Imagem> pacImagens = new ArrayList<Imagem>();	
 	private Lesao lesao = new Lesao ();	
 	private Imagem img = new Imagem (); 
-	private List<String> imgsPath; 
+	private List<String> imgsPath;	
 	
+	private boolean pacCadastrado = false;
 	
 	
 	public List<String> completarEstados (String query){
@@ -114,7 +116,7 @@ public class PacienteController {
 				 result.add(s);
 			 }
 		}		
-		return result;
+		return result; 
 	}	
 	
 	public List<String> completarProfissao (String query){
@@ -131,12 +133,40 @@ public class PacienteController {
 		return result;
 	}	
 	
+	public void checarPacCadastrado() {
+		Paciente p1 = pac_rep.buscaPorCartaoSus(this.pac.getCartao_sus());
+		
+		if (p1 != null) {
+			try {
+				//FacesContext fContext = FacesContext.getCurrentInstance();				
+				//ExternalContext extContext = fContext.getExternalContext();
+				//extContext.redirect(extContext.getRequestContextPath() + "/dashboard/editar_paciente.xhtml?cartaosus=" + pac.getCartao_sus());
+				
+				//FacesContext context = FacesContext.getCurrentInstance();
+				//context.addMessage(null, new FacesMessage("Este paciente já está cadastrado no banco. Por favor, cheque se o nome do mesmo é " + p1.getNome_completo() + "\nSe sim, atualize apenas os campos necessários."));
+				
+				this.pacCadastrado = true;
+				
+				System.out.println(pacCadastrado);
+				
+			} catch (Exception ex) {
+				System.out.println("Ocorreu algum erro na verificação se o paciente ja esta cadastrado no banco. Erro no ajax do checarPacCadastrado");
+			}
+			
+			
+		}
+	}
+	
+
+	
 	public void inserirLesao () {		
 		System.out.println(lesao.getDiagnostico_clinico() +" "+lesao.getRegiao()+" "+lesao.getDiametro_maior()+" "+lesao.getDiametro_menor());
 		FacesContext context = FacesContext.getCurrentInstance();		
 		
 		if (lesao.getRegiao() != null && lesao.getDiagnostico_clinico() != null && lesao.getProcedimento() != null) {
-			lesao.setImagens(pacImagens);						
+			lesao.setImagens(pacImagens);		
+			lesao.setData_atendimento(this.pac.getData_atendimento());
+			lesao.setLocal_atendimento(this.pac.getLocal_atendimento());
 			pacLesoes.add(lesao);			
 			lesao = new Lesao ();		
 			pacImagens = new ArrayList<Imagem>();			
@@ -246,7 +276,6 @@ public class PacienteController {
 		}		
 		return ret;
 	}
-	
 	
 	public String salvarPacienteAntigo () {		
 		String ret = "/dashboard/cadastar_pacientes_antigos.xhtml";
@@ -400,5 +429,12 @@ public class PacienteController {
 		this.imgsPath = imgsPath;
 	}
 
+	public boolean isPacCadastrado() {
+		return pacCadastrado;
+	}
+
+	public void setPacCadastrado(boolean pacCadastrado) {
+		this.pacCadastrado = pacCadastrado;
+	}
 
 }

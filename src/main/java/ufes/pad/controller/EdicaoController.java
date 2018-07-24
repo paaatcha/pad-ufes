@@ -60,13 +60,16 @@ public class EdicaoController {
 	private Lesao lesaoSelecionada;	 
 	
 	private Imagem imgSelecionada; 
+	
+	private boolean pacRecadastro = false;
     
     @PostConstruct
 	public void pegaPacienteCartaoSus () {
 		HttpServletRequest request = (HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest();
 				
-		String cartaoSus = request.getParameter("cartaosus");
+		String cartaoSus = request.getParameter("cartaosus");		
+		String recadastro = request.getParameter("recadastro");
 		
 		try {
 			setPacBuscado(pac_rep.buscaPorCartaoSus(cartaoSus));			
@@ -74,7 +77,7 @@ public class EdicaoController {
 			if (getPacBuscado()!=null) {							
 				FacesContext context = FacesContext.getCurrentInstance();
 				context.addMessage(null, new FacesMessage("Paciente pronto para edição"));
-				System.out.println("Paciente encontrado com sucesso");
+				System.out.println("Paciente encontrado com sucesso para edição");
 				
 				
 				if (pacBuscado.getLesoes().isEmpty()) {
@@ -85,8 +88,16 @@ public class EdicaoController {
 					this.lesaoCompleta = true;
 					pacLesoes = pacBuscado.getLesoes();					
 				}
+				
+				if (recadastro.equals("sim")) {
+					this.setPacRecadastro(true);
+					
+					pacBuscado.setData_atendimento(new Date());
+										
+				}
+				
 			} else {
-				System.out.println("\n\n\nNÃO ACHEI\n\n\n");
+				System.out.println("\n Paciente nao encontrado para edição\n");
 			}
 		} catch (Exception e) {
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -390,6 +401,14 @@ public class EdicaoController {
 
 	public void setImgSelecionada(Imagem imgSelecionada) {
 		this.imgSelecionada = imgSelecionada;
+	}
+
+	public boolean isPacRecadastro() {
+		return pacRecadastro;
+	}
+
+	public void setPacRecadastro(boolean pacRecadastro) {
+		this.pacRecadastro = pacRecadastro;
 	}
 
 }

@@ -84,6 +84,8 @@ public class APIrequisicoesController {
 				les.setDiametro_menor(Float.parseFloat(diaMenor));
 				les.setDiagnostico_clinico(diagnostico);
 				les.setProcedimento(procedimento);
+				les.setData_atendimento(pac.getData_atendimento());
+				les.setLocal_atendimento(pac.getLocal_atendimento());
 				les.setObs(obs);			
 				
 				// Incluindo as imagens
@@ -124,8 +126,8 @@ public class APIrequisicoesController {
 	@PostMapping("/APIrequisicoes/paciente/cadastrarLesoesGerais/{cartao_sus}")
 	public void cadastrarLesaoGeral (@PathVariable String cartao_sus, @RequestParam("regiao") String regiao,			 
 			@RequestParam("diagnostico") String diagnostico, @RequestParam("cresceu") String cresceu,
-			@RequestParam("cocou") String cocou, @RequestParam("sangrou") String sangrou, 
-			@RequestParam("doeu") String doeu, @RequestParam("mudou") String mudou,			
+			@RequestParam("cocou") String cocou, @RequestParam("sangrou") String sangrou, @RequestParam("relevo") String relevo,
+			@RequestParam("doeu") String doeu, @RequestParam("mudou") String mudou, @RequestParam("idade") int idade,			
 			@RequestParam("imagem") MultipartFile[] imagem){
 		
 		try {
@@ -145,6 +147,8 @@ public class APIrequisicoesController {
 			les.setDoeu(doeu);
 			les.setMudou(mudou);
 			les.setSangrou(sangrou);
+			les.setIdade(idade);
+			les.setRelevo(relevo);
 			
 			for (MultipartFile img : imagem) {
 				String path = cartao_sus + "_" + new Date().getTime() + ".jpg";
@@ -202,7 +206,16 @@ public class APIrequisicoesController {
 				pac_rep.save(pac);		
 				System.out.println("Paciente: " + pac.getNome_completo() + " salvo no banco UFES com sucesso");
 			} else {
-				System.out.println("Paciente: " + pac.getNome_completo() + " cartão sus: " + pac.getCartao_sus() + " já está cadastrado no banco UFES");
+				// Parte sensivel e importante. Não pode sobrepor pacientes				
+				System.out.println("\nPaciente: " + pac.getNome_completo() + " cartão sus: " + pac.getCartao_sus() + " já está cadastrado no banco UFES");
+				System.out.println("Iniciando processo de incremento do paciente cadastrado!\n");
+				
+				// Incrementando 
+				
+				// Vamos atualizar a lista de lesões.
+				//List<Lesao> pacLesoes = pacBanco.getLesoes();
+				
+				
 			}		
 			
 		} catch (Exception e) {

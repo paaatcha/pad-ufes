@@ -33,6 +33,10 @@ public class LesaoGeral implements Serializable{
 	private String doeu;
 	
 	private String mudou;	
+	
+	private String relevo;
+	
+	private int idade;
 
 	public String getCresceu() {
 		return cresceu;
@@ -108,5 +112,21 @@ public class LesaoGeral implements Serializable{
 
 	public void setImagens(List<ImagemGeral> imagens) {
 		this.imagens = imagens;
+	}
+
+	public String getRelevo() {
+		return relevo;
+	}
+
+	public void setRelevo(String relevo) {
+		this.relevo = relevo;
+	}
+
+	public int getIdade() {
+		return idade;
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
 	}	
 }

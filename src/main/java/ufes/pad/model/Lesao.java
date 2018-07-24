@@ -1,6 +1,7 @@
 package ufes.pad.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Lesao implements Serializable {
@@ -43,6 +46,12 @@ public class Lesao implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn (name="lesaoId")
 	private List<Imagem> imagens;	
+	
+	@Temporal(TemporalType.DATE)
+	private Date data_atendimento = new Date();
+	
+	@Column(length=100, nullable = false)
+	private String local_atendimento = "COLOCAR LOCAL DE ATENDIMENTO";	
 	
 	
 	static public void printLesao (Lesao les) {
@@ -150,6 +159,22 @@ public class Lesao implements Serializable {
 
 	public void setProcedimento(String procedimento) {
 		this.procedimento = procedimento.toUpperCase();
+	}
+
+	public Date getData_atendimento() {
+		return data_atendimento;
+	}
+
+	public void setData_atendimento(Date data_atendimento) {
+		this.data_atendimento = data_atendimento;
+	}
+
+	public String getLocal_atendimento() {
+		return local_atendimento;
+	}
+
+	public void setLocal_atendimento(String local_atendimento) {
+		this.local_atendimento = local_atendimento;
 	}	
 	
 }
