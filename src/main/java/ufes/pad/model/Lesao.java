@@ -51,7 +51,7 @@ public class Lesao implements Serializable {
 	private Date data_atendimento = new Date();
 	
 	@Column(length=100, nullable = false)
-	private String local_atendimento = "COLOCAR LOCAL DE ATENDIMENTO";	
+	private String local_atendimento;	
 	
 	
 	static public void printLesao (Lesao les) {

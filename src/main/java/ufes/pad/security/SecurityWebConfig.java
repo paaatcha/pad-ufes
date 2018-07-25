@@ -21,7 +21,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter{
 		http.csrf().disable().authorizeRequests()		
 		.antMatchers("/css/**", "/img/**", "/javax.faces.resource/**", "/index.xhtml", "/politica_privacidade.xhtml",
 		"/cadastro_usuario.xhtml", "/ajuda.xhtml", "/esqueci_senha.xhtml", "/APIrequisicoes/**").permitAll()
-		.antMatchers("/dashboard/editar_paciente.xhtml", "/dashboard/manager/gerenciar_usuarios.xhtml", "/dashboard/analise_de_dados.xhtml", "/dashboard/pacientes_gerais.xhtml").hasRole("ADMIN")
+		.antMatchers("/dashboard/manager/gerenciar_usuarios.xhtml", "/dashboard/analise_de_dados.xhtml", "/dashboard/pacientes_gerais.xhtml").hasRole("ADMIN")
 		.anyRequest().authenticated()
 		
 		.and().exceptionHandling().accessDeniedPage("/dashboard/acesso_negado.xhtml");

@@ -64,24 +64,16 @@
 							
 							<br/>
 							
-							<p:dialog id="msgDialog" header="Modal Dialog" widgetVar="dlg" modal="true" height="100">
-    							<h:outputText value="This is a Modal Dialog." />
-							</p:dialog> 
-							
 							<p> Número do cartão do SUS: </p>
 							<p:inputMask size="30" id="cartao_sus" value="#{pacienteController.pac.cartao_sus}"
 							mask="999-9999-9999-9999" 
 							required="true"	requiredMessage="O cartão do sus não foi informado">	
 								
-								<p:ajax event="blur" listener="#{pacienteController.checarPacCadastrado}" 
-								oncomplete="if (#{pacienteController.pacCadastrado}) { PF('dlg').show() }" update="@form"/> 
+								<p:ajax event="blur" listener="#{pacienteController.checarPacCadastrado}" /> 
 										
 							</p:inputMask>
 							<p:message for="cartao_sus" />
-							
-							
-							<h:outputText value="#{pacienteController.pacCadastrado}"  style="font-weight: bold"/>
-							
+														
 							
 							<br/>
 							

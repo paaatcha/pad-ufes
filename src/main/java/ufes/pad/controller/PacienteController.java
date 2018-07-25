@@ -26,8 +26,11 @@ import com.mashape.unirest.http.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 
 import ufes.pad.model.Imagem;
+import ufes.pad.model.ImagemGeral;
 import ufes.pad.model.Lesao;
+import ufes.pad.model.LesaoGeral;
 import ufes.pad.model.Paciente;
+import ufes.pad.model.PacienteGeral;
 import ufes.pad.repository.PacienteRepository;
 
 @ManagedBean
@@ -48,8 +51,6 @@ public class PacienteController {
 	private Lesao lesao = new Lesao ();	
 	private Imagem img = new Imagem (); 
 	private List<String> imgsPath;	
-	
-	private boolean pacCadastrado = false;
 	
 	
 	public List<String> completarEstados (String query){
@@ -138,16 +139,12 @@ public class PacienteController {
 		
 		if (p1 != null) {
 			try {
-				//FacesContext fContext = FacesContext.getCurrentInstance();				
-				//ExternalContext extContext = fContext.getExternalContext();
-				//extContext.redirect(extContext.getRequestContextPath() + "/dashboard/editar_paciente.xhtml?cartaosus=" + pac.getCartao_sus());
+				FacesContext fContext = FacesContext.getCurrentInstance();				
+				ExternalContext extContext = fContext.getExternalContext();
+				extContext.redirect(extContext.getRequestContextPath() + "/dashboard/editar_paciente.xhtml?cartaosus=" + pac.getCartao_sus() + "&recadastro=sim");
 				
 				//FacesContext context = FacesContext.getCurrentInstance();
 				//context.addMessage(null, new FacesMessage("Este paciente já está cadastrado no banco. Por favor, cheque se o nome do mesmo é " + p1.getNome_completo() + "\nSe sim, atualize apenas os campos necessários."));
-				
-				this.pacCadastrado = true;
-				
-				System.out.println(pacCadastrado);
 				
 			} catch (Exception ex) {
 				System.out.println("Ocorreu algum erro na verificação se o paciente ja esta cadastrado no banco. Erro no ajax do checarPacCadastrado");
@@ -335,6 +332,7 @@ public class PacienteController {
 	public String enviarPacientesBancoUfes () {		 
 		configuraUnirest ();
 		int i = 0;
+		boolean isOk = true;
 		FacesContext context = FacesContext.getCurrentInstance();
 		System.out.println("\n---- Iniciando envio pacientes ----\n");
 		try {
@@ -346,17 +344,19 @@ public class PacienteController {
 			
 			for (Paciente pac : pacs) {	
 				i++;
-				HttpResponse<JsonNode> postResponse = Unirest.post("http://labcin1.ufes.br/APIrequisicoes/novo_paciente")
-//				HttpResponse<JsonNode> postResponse = Unirest.post("http://localhost:8080/APIrequisicoes/novo_paciente")
+//				HttpResponse<JsonNode> postResponse = Unirest.post("http://labcin1.ufes.br/APIrequisicoes/novo_paciente")
+				HttpResponse<JsonNode> postResponse = Unirest.post("http://localhost:8080/APIrequisicoes/novo_paciente")
 				.header("accept", "application/json")
 				.header("Content-Type", "application/json")
 				.body(pac)
 				.asJson();
 				
-				if (postResponse.getStatus() == 200) {
-					System.out.println(i + " Paciente " + pac.getNome_completo() + " enviado com sucesso...");					
+				isOk = enviaImagensLesoes (pac);
+				
+				if (postResponse.getStatus() == 200 && isOk) {
+					System.out.println(i + " Paciente " + pac.getNome_completo() + " enviado com sucesso...\n");					
 				} else {
-					System.out.println(" Paciente " + pac.getNome_completo() + " problema na requisicao...");
+					System.out.println(" Paciente " + pac.getNome_completo() + " problema na requisicao...\n");
 				}
 				
 			}
@@ -370,6 +370,44 @@ public class PacienteController {
 		
 		return "Sucesso";
 	}	
+	
+	private boolean enviaImagensLesoes (Paciente pac) {
+		
+		
+		try {
+			for (Lesao L : pac.getLesoes()) {
+			
+				for (Imagem img : L.getImagens()) {
+					
+					String imgPath = "src/main/webapp/dashboard/imgLesoes/" + img.getPath();
+					
+//					HttpResponse<JsonNode> jsonResponse = Unirest.post("http://labcin1.ufes.br/APIrequisicoes/novo_imagem_lesao")
+					HttpResponse<JsonNode> postImgResponse = Unirest.post("http://localhost:8080/APIrequisicoes/novo_imagem_lesao")							
+					.header("accept", "application/json")
+					.field("path", imgPath)
+					.field("imagem", new File(imgPath))
+					.asJson();
+					
+					if (postImgResponse.getStatus() != 200) {
+						System.out.println("Problema no envio das imagens do paciente: " + pac.getNome_completo());
+						return false;					
+					} else {
+						System.out.println("Imagem adicionada...");
+					}
+					
+				}			
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao enviar imagens dos pacientes para o banco da UFES.", "  "));
+			System.out.println("Problema estrutural no envio das imagens do paciente: " + pac.getNome_completo());
+			return false;
+		}
+		
+		return true;
+	}
 		
 	
 /* ###########################################  Getters and Setters ###################################################*/
@@ -427,14 +465,6 @@ public class PacienteController {
 
 	public void setImgsPath(List<String> imgsPath) {
 		this.imgsPath = imgsPath;
-	}
-
-	public boolean isPacCadastrado() {
-		return pacCadastrado;
-	}
-
-	public void setPacCadastrado(boolean pacCadastrado) {
-		this.pacCadastrado = pacCadastrado;
 	}
 
 }

@@ -209,12 +209,16 @@ public class APIrequisicoesController {
 				// Parte sensivel e importante. Não pode sobrepor pacientes				
 				System.out.println("\nPaciente: " + pac.getNome_completo() + " cartão sus: " + pac.getCartao_sus() + " já está cadastrado no banco UFES");
 				System.out.println("Iniciando processo de incremento do paciente cadastrado!\n");
-				
-				// Incrementando 
-				
+								
 				// Vamos atualizar a lista de lesões.
-				//List<Lesao> pacLesoes = pacBanco.getLesoes();
+				List<Lesao> pacLesoes = pacBanco.getLesoes();
+				for (Lesao L : pacLesoes) {
+					pac.getLesoes().add(L);
+				}
 				
+				pac.setId(pacBanco.getId());
+				
+				pac_rep.save(pac);
 				
 			}		
 			
@@ -223,8 +227,8 @@ public class APIrequisicoesController {
 			System.out.println("Erro ao salvar paciente " + pac.getNome_completo() + " banco da UFES");
 		}	
 		
-	}
-	
+	}	
+
 	@PostMapping("/APIrequisicoes/novo_paciente_geral")
 	public void novoPacienteGeral (@RequestBody PacienteGeral pac) {		
 			
@@ -245,7 +249,8 @@ public class APIrequisicoesController {
 				pac_rep_geral.save(pac);		
 				System.out.println("Paciente Geral: " + pac.getCartao_sus() + " salvo no banco UFES com sucesso");
 			} else {
-				System.out.println("Paciente Geral: " + pac.getCartao_sus() + " já está cadastrado no banco UFES");
+				System.out.println("Paciente Geral: " + pac.getCartao_sus() + " já está cadastrado no banco UFES. Incluindo mesmo assim.");
+				pac_rep_geral.save(pac);
 			}		
 			
 		} catch (Exception e) {
@@ -253,9 +258,24 @@ public class APIrequisicoesController {
 			System.out.println("Erro ao salvar paciente geral" + pac.getCartao_sus() + " banco da UFES");
 		}	
 		
+	}
+	
+	@PostMapping("/APIrequisicoes/novo_imagem_lesao")
+	public void novaImagemLesao (@RequestParam("path") String imgPath, @RequestParam("imagem") MultipartFile[] imagem) {
+		
+		try {
+			for (MultipartFile img : imagem) {			
+				File FilePath = new File(imgPath);			
+				byte imgBytes [] = img.getBytes();			
+				FileUtils.writeByteArrayToFile(FilePath, imgBytes);				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Problema no recebimento da imagem. Abortando...");
+		}
+		
 	}	
-	
-	
 
 }
 

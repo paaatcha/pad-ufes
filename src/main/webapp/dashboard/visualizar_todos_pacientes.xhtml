@@ -242,13 +242,13 @@
 					        							            
 					           		<p:dialog header="Informações das lesões do paciente" 
 							           widgetVar="lesaoDialog" modal="true" 
-							           showEffect="fade" hideEffect="fade" resizable="false"
-							           style="width:700px; text-align:center;"
+							           showEffect="fade" hideEffect="fade" resizable="true"
+							           style="text-align:center;"
 							           id="dialogLesoes">
 		           						           
 					       					<p:dataTable id="tabelaLesoes"				       			
 											value="#{pac.lesoes}" var="les"
-											style="width:700px">
+											style="width:auto">
 											
 												<p:column headerText="Região">
 													<h:outputText value="#{les.regiao}" />
@@ -272,7 +272,15 @@
 												
 												<p:column headerText="Procedimento">
 													<h:outputText value="#{les.procedimento}" />
+												</p:column>
+												
+												<p:column headerText="Local do procedimento">
+													<h:outputText value="#{les.local_atendimento}" />
 												</p:column>	
+												
+												<p:column headerText="Data do procedimento">
+													<h:outputText value="#{visualizacaoController.printDataProcedimento(les.data_atendimento)}" />
+												</p:column>		
 																				 				
 											</p:dataTable>
 											

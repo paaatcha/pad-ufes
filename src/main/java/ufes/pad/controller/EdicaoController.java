@@ -90,8 +90,7 @@ public class EdicaoController {
 				}
 				
 				if (recadastro.equals("sim")) {
-					this.setPacRecadastro(true);
-					
+					this.setPacRecadastro(true);					
 					pacBuscado.setData_atendimento(new Date());
 										
 				}

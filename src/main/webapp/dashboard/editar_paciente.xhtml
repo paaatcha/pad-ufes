@@ -15,6 +15,38 @@
       
       
 			<h:form class="formLogin" id="cadastroPaciente">
+			
+			
+					<p:dialog visible="#{edicaoController.pacRecadastro}" header="Paciente já cadastrado" modal="true" width="400px">
+						<h:outputText class="valorPac" value="Este paciente já foi cadastrado no banco em alguma das viagens passadas do PAD." />
+						<h:outputText class="valorPac" value="Portanto, não existe necessidade de realizar todo o cadastro novamente." />
+						
+						<br/> <br/>
+						
+						<h:outputText class="campoPac" value="Atualize apenas o necessário." /> 
+						<h:outputText class="valorPac" value="A data deste atendimento e a quantidade de vezes que ele foi atendido pelo PAD serão atualizados automaticamente." />
+						
+						<br/> <br/>
+						
+						<h:outputText class="campoPac" value="Ações que você deve tomar:" />
+						
+						<br/>
+						<h:outputText class="valorPac" value="- Verificar a cidade de atendimento: pode ser que o paciente está sendo atendido em uma cidade diferente do antendimento anterior, por favor coloque a cidade atual." />
+						
+						<br/>
+						<h:outputText class="valorPac" value="- Verificar se o endereço do paciente é o mesmo" />
+						
+						<br/>
+						<h:outputText class="valorPac" value="- Atualize TODOS os dados técnicos, como pressão, alergia a medicamento etc." />
+						
+						<br/>
+						<h:outputText class="valorPac" value="- Em hipótese alguma mexa nos dados das lesões já cadastradas." />
+						
+						<br/> <br/>
+						<h:outputText class="valorPac" value="Qualquer dúvida procure ajuda com o TI." />
+						
+						
+					</p:dialog>
 	      				      		
 		      		
 		      		<p:fieldset legend="Dados protocolares" toggleable="true" style="margin-bottom:20px">
@@ -427,7 +459,7 @@
 					
 					
 					<!-- Completar lesao do zero pois não existe lesão cadastrada para o paciente -->
-					<h:panelGroup rendered="#{edicaoController.lesaoVazia}">
+					<h:panelGroup rendered="#{edicaoController.lesaoVazia and usuarioController.usuarioAdmin}">
 						<p:fieldset legend="Inserir Lesão" style="margin-bottom:20px; margin-top:20px;" toggleable="true">        				
         						<p> Este paciente não possui lesão cadastrada. Insira as lesões </p>
         						
@@ -478,6 +510,19 @@
 									<p:ajax event="change" />
 													
 								</p:inputText>
+								
+								<p> Local do procedimento: </p>
+								<p:inputText size="30" id="local_procedimento" value="#{edicaoController.lesao.local_atendimento}">
+								
+									<p:ajax event="change" />
+													
+								</p:inputText>
+								
+								<p> Data do procedimento: </p>
+								<p:inputMask id="data_procedimento" value="#{edicaoController.lesao.data_atendimento}" mask="99/99/9999" >
+		        					<f:convertDateTime pattern="dd/MM/yyyy" />
+		        					<p:ajax event="change" />
+		        				</p:inputMask>
 								
 								
 								<br/>
@@ -603,7 +648,7 @@
 					
 								
 					<!-- Editar lesão já existente -->
-					<h:panelGroup rendered="#{edicaoController.lesaoCompleta}">
+					<h:panelGroup rendered="#{edicaoController.lesaoCompleta and usuarioController.usuarioAdmin}">
 						<p:fieldset legend="Dados da lesão" style="margin-bottom:20px; margin-top:20px;" toggleable="true">        				
         	
         					<p:growl id="msgsEdicao" showDetail="true"/>					     
@@ -739,15 +784,8 @@
 				        					<f:attribute name="lesEdicaoImg" value="#{les}" />
 				        				
 				        				</p:fileUpload>
-							            
-							            
-							        
-							        
 							        
 							        </p:tab>
-							        
-							        
-							        
 							        
 							    </p:tabView>
 							
