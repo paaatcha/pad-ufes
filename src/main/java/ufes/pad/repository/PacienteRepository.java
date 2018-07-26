@@ -27,31 +27,22 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 	List<Paciente> listarPacientes ();	
 	
 	//select * from lesao where diagnostico_histo LIKE "%%" and diagnostico_clinico LIKE "%%"
-	@Query("select p from Paciente p where p.local_atendimento like %:local% and p.nome_completo like %:nome% order by p.nome_completo")	
-	List<Paciente> filtrarPacientes (@Param("local") String local, @Param("nome") String nome);
+	//@Query("select p from Paciente p where p.local_atendimento like %:local% and p.nome_completo like %:nome% order by p.nome_completo")	
+	//List<Paciente> filtrarPacientes (@Param("local") String local, @Param("nome") String nome);
 	
-	@Query("select p from Paciente p where p.local_atendimento like %:local% and p.nome_completo like %:nome% and p.data_atendimento between :dataInicio and :dataFim order by p.nome_completo")	
-	List<Paciente> filtrarPacientesComData (@Param("local") String local, @Param("nome") String nome, @Param("dataInicio") Date dataInicio, @Param("dataFim") Date dataFim);	
+	//@Query (value="SELECT p FROM Paciente p WHERE p.nome_completo like %:nome% AND p.id IN (SELECT les.id FROM Lesao les WHERE les.local_atendimento like %:local%) ORDER BY p.nome_completo", nativeQuery = true)
+	//@Query (value="SELECT * FROM paciente WHERE paciente.nome_completo like %?1% AND paciente.id IN (SELECT lesao.id FROM lesao WHERE lesao.local_atendimento like %?2%) ORDER BY paciente.nome_completo", nativeQuery = true)
+	//@Query (value="SELECT * FROM paciente WHERE paciente.id IN (SELECT lesao.paciente_id FROM lesao WHERE lesao.local_atendimento like %?1%)", nativeQuery=true)
+	@Query(value="SELECT * FROM paciente WHERE (paciente.id IN (SELECT lesao.paciente_id FROM lesao WHERE lesao.local_atendimento like %?1%)) AND paciente.nome_completo LIKE %?2% ORDER BY paciente.nome_completo", nativeQuery=true)
+	List<Paciente> filtrarPacientes (String local, String Nome);	
 	
 	
+	//@Query("select p from Paciente p where p.local_atendimento like %:local% and p.nome_completo like %:nome% and p.data_atendimento between :dataInicio and :dataFim order by p.nome_completo")	
+	//List<Paciente> filtrarPacientesComData (@Param("local") String local, @Param("nome") String nome, @Param("dataInicio") Date dataInicio, @Param("dataFim") Date dataFim);	
 	
 	
-	/*String atualizarQuery = "UPDATE paciente SET agrotoxico=:agrotoxico,"
-			+ "agua_encanada=:agua_encanada, alergia=:alergia, anticoagulante=:anticoagulante,"
-			+ "atv_principal=:atv_principal, bebida=:bebida, calca_cumprida=:calca_cumprida,"
-			+ "cartao_sus=[value-9], chapeu=:chapeu, data_atendimento=:data_atendimento,"
-			+ "`data_nascimento`=[value-12],`destrofia_solar`=[value-13],`diabetes`=[value-14],"
-			+ "`endereco`=[value-15],`escolaridade`=[value-16],`estado_civil`=[value-17],"
-			+ "`estado_nascimento`=[value-18],`exp_sol`=[value-19],`filtro_solar`=[value-20],"
-			+ "`fumo`=[value-21],`hist_cancer`=[value-22],`hist_cancer_pele`=[value-23],"
-			+ "`hora_exp_sol`=[value-24],`idade_inicio_atv`=[value-25],`local_atendimento`=[value-26],"
-			+ "`local_nascimento`=[value-27],`manga_cumprida`=[value-28],`nome_completo`=[value-29],"
-			+ "`nome_mae`=[value-30],`num_comodos`=[value-31],`num_pessoas_casa`=[value-32],"
-			+ "`num_vezes_atendido`=[value-33],`obs`=[value-34],`origem_familiar_mae`=[value-35],"
-			+ "`origem_familiar_pai`=[value-36],`pres_art_diastolica`=[value-37],"
-			+ "`pres_art_sistolica`=[value-38],`prontuario`=[value-39],`rede_esgoto`=[value-40],"
-			+ "`renda`=[value-41],`sexo`=[value-42],`tempo_endereco`=[value-43],`tipo_pele`=[value-44],"
-			+ "`HAS`=[value-45] WHERE id=:id_pac";
-	*/
-}
+	@Query (value="SELECT * FROM paciente WHERE (paciente.id IN (SELECT lesao.paciente_id FROM lesao WHERE lesao.local_atendimento like %?1% AND (lesao.data_atendimento BETWEEN ?3 AND ?4))) AND paciente.nome_completo LIKE %?2% ORDER BY paciente.nome_completo", nativeQuery=true)
+	List<Paciente> filtrarPacientesComData (String local, String nome, Date dataInicio, Date dataFim);
 
+}
+  

@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ufes.pad.model.Paciente;
+import ufes.pad.repository.LesaoRepository;
 import ufes.pad.repository.PacienteRepository;
 
 @ManagedBean
@@ -22,6 +23,9 @@ public class VisualizacaoTodosController {
 	
 	@Autowired 
 	private PacienteRepository pac_rep;	
+	
+	@Autowired 
+	private LesaoRepository les_rep;
 	
 	private int numPac;
 	
@@ -66,7 +70,8 @@ public class VisualizacaoTodosController {
 	
 	public void listarFiltragem() {
 		FacesContext context = FacesContext.getCurrentInstance();	
-		boolean comDatas = dataInicio != null && dataFim != null;				
+		boolean comDatas = dataInicio != null && dataFim != null;	
+		List <Long> lesoesId;
 		
 		
 		if (filtroCidade.equals("") && filtroNome.equals("") && filtroDiag.equals("") && !filtroPacComLesao && !filtroPacComImg && !filtroPacSemLesao && !filtroPacSemImg && !comDatas) {
@@ -86,9 +91,19 @@ public class VisualizacaoTodosController {
 //					
 //					dataInicioStr = String.valueOf(calInicio.get(Calendar.YEAR)) + "-" + String.valueOf(calInicio.get(Calendar.MONTH)+1) + "-" + String.valueOf(calInicio.get(Calendar.DAY_OF_MONTH));
 //					dataFimStr = String.valueOf(calFim.get(Calendar.YEAR)) + "-" + String.valueOf(calFim.get(Calendar.MONTH)+1) + "-" + String.valueOf(calFim.get(Calendar.DAY_OF_MONTH));
+			
+					
+					
 					
 					setTodosPacs(pac_rep.filtrarPacientesComData(filtroCidade, filtroNome, dataInicio, dataFim));
 				} else {
+					
+					lesoesId = les_rep.filtraLesoesPorLocal(filtroCidade);
+					
+					//setTodosPacs(pac_rep.findAll(lesoesId));
+					
+					//System.out.println(lesoesId.size());
+					
 					setTodosPacs(pac_rep.filtrarPacientes(filtroCidade, filtroNome));					
 				}
 				
