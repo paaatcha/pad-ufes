@@ -2,6 +2,7 @@ package ufes.pad.controller;
 
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,11 +27,8 @@ import com.mashape.unirest.http.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 
 import ufes.pad.model.Imagem;
-import ufes.pad.model.ImagemGeral;
 import ufes.pad.model.Lesao;
-import ufes.pad.model.LesaoGeral;
 import ufes.pad.model.Paciente;
-import ufes.pad.model.PacienteGeral;
 import ufes.pad.repository.PacienteRepository;
 
 @ManagedBean
@@ -399,10 +397,19 @@ public class PacienteController {
 				
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao enviar imagens dos pacientes para o banco da UFES.", "  "));
-			System.out.println("Problema estrutural no envio das imagens do paciente: " + pac.getNome_completo());
+			
+			if (e instanceof FileNotFoundException) {
+				System.out.println("Imagem não foi encontrada no path informada");context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "A imagem do paciente nao foi encontrada.", "  "));
+			} else {
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao enviar imagens dos pacientes para o banco da UFES.", "  "));
+				System.out.println("Problema estrutural no envio das imagens do paciente: " + pac.getNome_completo());
+			}
+			
+			e.printStackTrace();	
+			
+			
 			return false;
 		}
 		

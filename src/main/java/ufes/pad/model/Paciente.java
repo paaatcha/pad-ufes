@@ -17,6 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Paciente implements Serializable {
 
@@ -30,6 +32,7 @@ public class Paciente implements Serializable {
 	private String local_atendimento = "SANTA MARIA DE JETIBA";	
 	
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
 	private Date data_atendimento = new Date();
 	
 	@Column(length=15, nullable = false)
@@ -45,6 +48,7 @@ public class Paciente implements Serializable {
 	private String estado_nascimento = "ESPÍRITO SANTO";
 	
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
 	private Date data_nascimento;
 
 	@Column(length=150, nullable = false)

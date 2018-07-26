@@ -61,7 +61,7 @@
 				    		<p> Data do atendimento: </p>		      		
 		        			<p:inputMask id="data_atendimento" value="#{edicaoController.pacBuscado.data_atendimento}" mask="99/99/9999" 
 		        			required="true"	requiredMessage="A data de atendimento não foi informada.">
-		        				<f:convertDateTime pattern="dd/MM/yyyy" />
+		        				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
 		        			</p:inputMask>
 							<p:message for="data_atendimento" />					 
 					
@@ -122,7 +122,7 @@
 				      		<p> Data de nascimento: </p>		      		
 		        			<p:inputMask id="data_nascimento" value="#{edicaoController.pacBuscado.data_nascimento}" mask="99/99/9999" 
 		        			required="true"	requiredMessage="A data de nascimento não foi informada.">
-		        				<f:convertDateTime pattern="dd/MM/yyyy" />
+		        				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
 		        			</p:inputMask>
 							<p:message for="data_nascimento" />					 
 							
@@ -520,7 +520,7 @@
 								
 								<p> Data do procedimento: </p>
 								<p:inputMask id="data_procedimento" value="#{edicaoController.lesao.data_atendimento}" mask="99/99/9999" >
-		        					<f:convertDateTime pattern="dd/MM/yyyy" />
+		        					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
 		        					<p:ajax event="change" />
 		        				</p:inputMask>
 								
@@ -586,11 +586,19 @@
 										<p:column headerText="Procedimento">
 											<h:outputText value="#{les.procedimento}" />
 										</p:column>
+										
+										<p:column headerText="Local do procedimento">
+											<h:outputText value="#{les.local_atendimento}" />
+										</p:column>
+										
+										<p:column headerText="Data do procedimento">
+											<h:outputText value="#{les.data_atendimento}" />
+										</p:column>
 													
 													
 										<p:column headerText="Imagem">										        	
 										        	<p:commandButton update="@form:dialogImagem" 
-										        	value="Ver" icon="ui-icon-image" process="@this" oncomplete="PF('imagemDialog').loadContents()">
+										        	value="Imagem" icon="ui-icon-image" process="@this" oncomplete="PF('imagemDialog').loadContents()">
 										        		<f:setPropertyActionListener value="#{les}" target="#{edicaoController.lesaoSelecionada}" />									        		
 										        	</p:commandButton>    			            		            
 										</p:column>														
@@ -724,7 +732,7 @@
 											
 											<h:outputText value="Data do procedimento:" style="font-weight: bold"/>		      		
 		        							<p:inputMask id="data_procedimento" value="#{les.data_atendimento}" mask="99/99/9999">
-		        								<f:convertDateTime pattern="dd/MM/yyyy" />
+		        								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
 		        								<p:ajax event="change" />	
 		        							</p:inputMask>
 							

@@ -58,15 +58,21 @@
 				                </f:facet>
 				                
 				                <h:outputText value="Local de atendimento"  style="font-weight: bold"/>
-				                <h:outputText value="Retorna os pacientes apenas para os locais informado." />
-				 
+				                <h:panelGroup>
+				                	<h:outputText value="Retorna os pacientes apenas para os locais informado. Mas atenção, o paciente pode ter sido atendido em duas cidades diferentes." />
+				 					<br/>
+				 					<h:outputText value="O filtro retorna todos os pacientes que pelo menos uma vez foi atendido nessa cidade. Caso queira refinar mais, decida um intervalo de datas."/>
+				 				</h:panelGroup>
+				 				
 				                <h:outputText value="Nome" style="font-weight: bold" />
 				                <h:outputText value="Retorna os pacientes com o nome informado." />
 				 
 				                <h:outputText value="Intervalo de datas" style="font-weight: bold" />
 				                <h:panelGroup>
-				                	<h:outputText value="Retorna os pacientes no intervalo de datas informadas." />
-				                	<br/>						                
+				                	<h:outputText value="Retorna todos os pacientes nas quais uma cirurgia foi realizada intervalo de datas informadas." />
+				                	<br/>
+				                	<h:outputText value="Lembre-se, um paciente pode ter realizado cirurgias em datas diferentes e em locais diferentes." />
+				                	<br/>						                						                
 				                	<h:outputText value="É obrigatório preencher ambas as datas. Caso ambas esteja em branco," />
 				                	<br/>
 				                	<h:outputText value="a busca é realizada para todas as datas." />

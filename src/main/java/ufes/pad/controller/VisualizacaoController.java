@@ -123,11 +123,11 @@ public class VisualizacaoController {
 	public String printExposicaoSol() {
 		switch (pacBuscado.getHora_exp_sol()) {
 			case 'M':
-				return "PARTE DA MANHÃ";
+				return "ANTES DAS 9H E A PARTIR DAS 16H";
 			case 'T':
-				return "PARTE DA TARDE";
+				return "ENTRE 9H E 16H";
 			case 'A':
-				return "TANTO A TARDE QUANTO DE MANHÃ";			
+				return "O DIA INTEIRO";			
 			default:
 				return "DESCONHECIDO";
 		}

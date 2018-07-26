@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Lesao implements Serializable {
 
@@ -48,7 +50,8 @@ public class Lesao implements Serializable {
 	private List<Imagem> imagens;	
 	
 	@Temporal(TemporalType.DATE)
-	private Date data_atendimento = new Date();
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
+	private Date data_atendimento;
 	
 	@Column(length=100, nullable = false)
 	private String local_atendimento;	

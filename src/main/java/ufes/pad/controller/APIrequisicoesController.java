@@ -258,23 +258,6 @@ public class APIrequisicoesController {
 			System.out.println("Erro ao salvar paciente geral" + pac.getCartao_sus() + " banco da UFES");
 		}	
 		
-	}
-	
-	@PostMapping("/APIrequisicoes/novo_imagem_lesao")
-	public void novaImagemLesao (@RequestParam("path") String imgPath, @RequestParam("imagem") MultipartFile[] imagem) {
-		
-		try {
-			for (MultipartFile img : imagem) {			
-				File FilePath = new File(imgPath);			
-				byte imgBytes [] = img.getBytes();			
-				FileUtils.writeByteArrayToFile(FilePath, imgBytes);				
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Problema no recebimento da imagem. Abortando...");
-		}
-		
 	}	
 
 }

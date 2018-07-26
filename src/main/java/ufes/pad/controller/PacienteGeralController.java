@@ -1,6 +1,5 @@
 package ufes.pad.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,8 +16,6 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 
-import ufes.pad.model.ImagemGeral;
-import ufes.pad.model.LesaoGeral;
 import ufes.pad.model.PacienteGeral;
 import ufes.pad.repository.PacienteGeralRepository;
 
@@ -64,7 +61,6 @@ public class PacienteGeralController {
 	public String enviarPacientesGeralBancoUfes () {		 
 		configuraUnirest ();
 		int i = 0;
-		boolean isOk = true;
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		System.out.println("\n---- Iniciando envio pacientes gerais ----\n");
@@ -85,9 +81,7 @@ public class PacienteGeralController {
 				.body(pac)
 				.asJson();
 				
-				isOk = enviaImagensLesoesGeral (pac);
-				
-				if (postResponse.getStatus() == 200 && isOk) {
+				if (postResponse.getStatus() == 200) {
 					System.out.println(i + " Paciente geral: " + pac.getCartao_sus() + " enviado com sucesso...");					
 				} else {
 					System.out.println(" Paciente geral: " + pac.getCartao_sus() + " problema na requisicao...");
@@ -104,42 +98,6 @@ public class PacienteGeralController {
 		
 		return "Sucesso";
 	}
-	
-	private boolean enviaImagensLesoesGeral (PacienteGeral pac) {		
-		try {
-			for (LesaoGeral L : pac.getLesoes()) {
-			
-				for (ImagemGeral img : L.getImagens()) {
-					
-					String imgPath = "src/main/webapp/dashboard/imgLesoesGeral/" + img.getPath();
-					
-//					HttpResponse<JsonNode> jsonResponse = Unirest.post("http://labcin1.ufes.br/APIrequisicoes/novo_imagem_lesao")
-					HttpResponse<JsonNode> postImgResponse = Unirest.post("http://localhost:8080/APIrequisicoes/novo_imagem_lesao")							
-					.header("accept", "application/json")
-					.field("path", imgPath)
-					.field("imagem", new File(imgPath))
-					.asJson();
-					
-					if (postImgResponse.getStatus() != 200) {
-						System.out.println("Problema no envio das imagens do paciente: " + pac.getCartao_sus());
-						return false;					
-					} else {
-						System.out.println("Imagem adicionada...");
-					}
-					
-				}			
-				
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao enviar imagens dos pacientes para o banco da UFES.", "  "));
-			System.out.println("Problema estrutural no envio das imagens do paciente: " + pac.getCartao_sus());
-			return false;
-		}
-		
-		return true;
-	}	
 	
 	
 /* ###########################################  Getters and Setters ###################################################*/
