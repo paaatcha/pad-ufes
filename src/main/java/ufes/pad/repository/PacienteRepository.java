@@ -33,16 +33,16 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 	//@Query (value="SELECT p FROM Paciente p WHERE p.nome_completo like %:nome% AND p.id IN (SELECT les.id FROM Lesao les WHERE les.local_atendimento like %:local%) ORDER BY p.nome_completo", nativeQuery = true)
 	//@Query (value="SELECT * FROM paciente WHERE paciente.nome_completo like %?1% AND paciente.id IN (SELECT lesao.id FROM lesao WHERE lesao.local_atendimento like %?2%) ORDER BY paciente.nome_completo", nativeQuery = true)
 	//@Query (value="SELECT * FROM paciente WHERE paciente.id IN (SELECT lesao.paciente_id FROM lesao WHERE lesao.local_atendimento like %?1%)", nativeQuery=true)
-	@Query(value="SELECT * FROM paciente WHERE (paciente.id IN (SELECT lesao.paciente_id FROM lesao WHERE lesao.local_atendimento like %?1%)) AND paciente.nome_completo LIKE %?2% ORDER BY paciente.nome_completo", nativeQuery=true)
-	List<Paciente> filtrarPacientes (String local, String Nome);	
+	@Query(value="SELECT * FROM paciente WHERE (paciente.id IN (SELECT lesao.paciente_id FROM lesao WHERE (lesao.local_atendimento LIKE %?1% AND lesao.diagnostico_clinico LIKE %?3% ))) AND paciente.nome_completo LIKE %?2% ORDER BY paciente.nome_completo", nativeQuery=true)
+	List<Paciente> filtrarPacientes (String local, String Nome, String diag);	
 	
 	
 	//@Query("select p from Paciente p where p.local_atendimento like %:local% and p.nome_completo like %:nome% and p.data_atendimento between :dataInicio and :dataFim order by p.nome_completo")	
 	//List<Paciente> filtrarPacientesComData (@Param("local") String local, @Param("nome") String nome, @Param("dataInicio") Date dataInicio, @Param("dataFim") Date dataFim);	
 	
 	
-	@Query (value="SELECT * FROM paciente WHERE (paciente.id IN (SELECT lesao.paciente_id FROM lesao WHERE lesao.local_atendimento like %?1% AND (lesao.data_atendimento BETWEEN ?3 AND ?4))) AND paciente.nome_completo LIKE %?2% ORDER BY paciente.nome_completo", nativeQuery=true)
-	List<Paciente> filtrarPacientesComData (String local, String nome, Date dataInicio, Date dataFim);
+	@Query (value="SELECT * FROM paciente WHERE (paciente.id IN (SELECT lesao.paciente_id FROM lesao WHERE lesao.local_atendimento like %?1% AND (lesao.data_atendimento BETWEEN ?3 AND ?4) AND (lesao.diagnostico_clinico LIKE %?5% ))) AND paciente.nome_completo LIKE %?2% ORDER BY paciente.nome_completo", nativeQuery=true)
+	List<Paciente> filtrarPacientesComData (String local, String nome, Date dataInicio, Date dataFim, String diag);
 
 }
   

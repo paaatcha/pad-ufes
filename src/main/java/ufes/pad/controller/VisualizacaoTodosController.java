@@ -29,7 +29,7 @@ public class VisualizacaoTodosController {
 	
 	private int numPac;
 	
-	private int numCirurgias;
+	private Long numCirurgias;
 	
 	private boolean exibirTabelaPacientes = false;
 	
@@ -39,15 +39,13 @@ public class VisualizacaoTodosController {
 	
 	private String filtroNome = "";
 	
-	private String filtroDiag = "";
-	
-	private boolean filtroPacComLesao = false;
-	
-	private boolean filtroPacSemLesao = false;
-	
-	private boolean filtroPacComImg = false;
-	
+	private String filtroDiag = "";	
+		
+	private boolean filtroPacSemLesao = false;	
+		
 	private boolean filtroPacSemImg = false;
+	
+	private boolean filtroCirurgias = false;
 	
 	private Date dataInicio;
 	
@@ -68,150 +66,92 @@ public class VisualizacaoTodosController {
 		return result;		
 	}	
 	
+	
+	
 	public void listarFiltragem() {
 		FacesContext context = FacesContext.getCurrentInstance();	
 		boolean comDatas = dataInicio != null && dataFim != null;	
-		List <Long> lesoesId;
 		
-		
-		if (filtroCidade.equals("") && filtroNome.equals("") && filtroDiag.equals("") && !filtroPacComLesao && !filtroPacComImg && !filtroPacSemLesao && !filtroPacSemImg && !comDatas) {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Todos os filtros estão vazios. Adicione pelo menos um filtro para utilizar essa funcionalidade.", "  "));
-		} else {		
-			try {
+		try {
+			// Pegando os dados de onde é necessário para realizar os filtros
+			if (comDatas) {
+				System.out.println("Filtrando pacientes por intervalo de datas");
+				setTodosPacs(pac_rep.filtrarPacientesComData(filtroCidade, filtroNome, dataInicio, dataFim, filtroDiag));
 				
-				if (comDatas) {
-					System.out.println("Filtrando por intervalo de data");
-					
-//					Calendar calInicio = Calendar.getInstance();
-//					calInicio.setTime(dataInicio);
-//					
-//					Calendar calFim = Calendar.getInstance();
-//					calFim.setTime(dataFim);					
-//					String dataInicioStr, dataFimStr;
-//					
-//					dataInicioStr = String.valueOf(calInicio.get(Calendar.YEAR)) + "-" + String.valueOf(calInicio.get(Calendar.MONTH)+1) + "-" + String.valueOf(calInicio.get(Calendar.DAY_OF_MONTH));
-//					dataFimStr = String.valueOf(calFim.get(Calendar.YEAR)) + "-" + String.valueOf(calFim.get(Calendar.MONTH)+1) + "-" + String.valueOf(calFim.get(Calendar.DAY_OF_MONTH));
+				// Se quiser o numero de cirurgias também, tem que rodar outra query:
+				if (filtroCirurgias && filtroNome.equals("")) {					
+					numCirurgias = les_rep.filtraLesoesPorLocalData(filtroCidade, dataInicio, dataFim, filtroDiag);
+					System.out.println("Numero de cirurgias: " + numCirurgias);
+				} else if (filtroCirurgias && !filtroNome.equals("")) {
+					// Neste caso, as cirurgias para o paciente com nome, não tem como pegar
+					context.addMessage(null, new FacesMessage("Atenção, o número de cirurgias só é exibido para uma cidade e/ou um intervalo de datas. Caso procure um nome, essa funcionalidade não estará ativa."));
+					this.filtroCirurgias = false;					
+				}
+				
+			} else if (!filtroCidade.equals("") || !filtroNome.equals("") || !filtroDiag.equals("")) {
+				System.out.println("Filtrando pacientes por cidade ou nome");
+				setTodosPacs(pac_rep.filtrarPacientes(filtroCidade, filtroNome, filtroDiag));
+				
+				// Se quiser o numero de cirurgias também, tem que rodar outra query:
+				if (filtroCirurgias && filtroNome.equals("")) {
+					numCirurgias = les_rep.filtraLesoesPorLocal(filtroCidade, filtroDiag);
+					System.out.println("Numero de cirurgias: " + numCirurgias);
+				} else if (filtroCirurgias && filtroNome.equals("")){
+					// Neste caso, as cirurgias para o paciente com nome, não tem como pegar
+					context.addMessage(null, new FacesMessage("Atenção, o número de cirurgias só é exibido para uma cidade e/ou um intervalo de datas. Caso procure um nome, essa funcionalidade não estará ativa."));
+					this.filtroCirurgias = false;					
+				}
 			
-					
-					
-					
-					setTodosPacs(pac_rep.filtrarPacientesComData(filtroCidade, filtroNome, dataInicio, dataFim));
-				} else {
-					
-					lesoesId = les_rep.filtraLesoesPorLocal(filtroCidade);
-					
-					//setTodosPacs(pac_rep.findAll(lesoesId));
-					
-					//System.out.println(lesoesId.size());
-					
-					setTodosPacs(pac_rep.filtrarPacientes(filtroCidade, filtroNome));					
+			// Filtrar sem lesao e sem imagem, tem que ser na lista toda (infelizmente).
+			} else if (filtroPacSemLesao || filtroPacSemImg) {
+				System.out.println("Filtrando pacientes sem lesão ou imagem");
+				setTodosPacs(pac_rep.listarPacientes());
+				
+				if (filtroCirurgias) {
+					context.addMessage(null, new FacesMessage("Atenção, o número de cirurgias só é exibido para uma cidade e/ou um intervalo de datas. Caso procure um nome, essa funcionalidade não estará ativa."));
+					this.filtroCirurgias = false;					
 				}
 				
-				if (this.getTodosPacs().isEmpty()) {
-					numPac = 0;
-					exibirTabelaPacientes = false;
-					context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Não existe nenhum paciente para essa filtragem. Verifique se não existe algum erro de digitação.", "  "));				
-				} else {
-
-					
-					// REALIZANDO FILTROS DE LESÃO PARA O PACIENTE					
-					if (filtroPacComLesao && !filtroPacSemLesao) {
-						List<Paciente> newTodosPacs = new ArrayList<Paciente>();
-						System.out.println("Filtrando pacientes com lesao: ");
-						
-						for (Paciente pac : todosPacs) {
-							//System.out.println(pac.pacientePossuiLesao());							
-							if (pac.possuiLesao()) {
-								//todosPacs.remove(pac);
-								//Paciente.printPaciente(pac);
-								newTodosPacs.add(pac);
-							}
-						}						
-						todosPacs = newTodosPacs;						
-					}
-					
-					if (filtroPacSemLesao && !filtroPacComLesao) {
-						List<Paciente> newTodosPacs = new ArrayList<Paciente>();
-						System.out.println("Filtrando pacientes sem lesao: ");
-						
-						for (Paciente pac : todosPacs) {
-							//System.out.println(pac.pacientePossuiLesao());							
-							if (!pac.possuiLesao()) {
-								//todosPacs.remove(pac);
-								//Paciente.printPaciente(pac);
-								newTodosPacs.add(pac);
-							}
-						}						
-						todosPacs = newTodosPacs;						
-					}
-					
-					// *********** FIM **************
-					
-					
-					// REALIZANDO FILTROS DE IMAGEM PARA O PACIENTE	
-					if (filtroPacComImg && !filtroPacSemImg) {
-						List<Paciente> newTodosPacs = new ArrayList<Paciente>();
-						System.out.println("Filtrando pacientes com Imagem: ");
-						
-						for (Paciente pac : todosPacs) {
-							//System.out.println(pac.pacientePossuiLesao());							
-							if (pac.possuiImagem()) {
-								//todosPacs.remove(pac);
-								//Paciente.printPaciente(pac);
-								newTodosPacs.add(pac);
-							}
-						}						
-						todosPacs = newTodosPacs;						
-					}
-					
-					if (filtroPacSemImg && !filtroPacComImg) {
-						List<Paciente> newTodosPacs = new ArrayList<Paciente>();
-						System.out.println("Filtrando pacientes sem Imagem: ");
-						
-						for (Paciente pac : todosPacs) {
-							//System.out.println(pac.pacientePossuiLesao());							
-							if (!pac.possuiImagem()) {
-								//todosPacs.remove(pac);
-								//Paciente.printPaciente(pac);
-								newTodosPacs.add(pac);
-							}
-						}						
-						todosPacs = newTodosPacs;						
-					}
-					
-					// *********** FIM **************		
-					
-					// REALIZANDO FILTRO PARA DIAGNOSTICO DA LESAO
-					if (!filtroDiag.equals("")) {
-						List<Paciente> newTodosPacs = new ArrayList<Paciente>();
-						System.out.println("Filtrando pacientes por diagnóstico: ");
-						
-						for (Paciente pac : todosPacs) {
-							if (pac.possuiEsteDiag(filtroDiag.toUpperCase())) {
-								newTodosPacs.add(pac);
-							}
-						}						
-						todosPacs = newTodosPacs;
-					}
-					
-					
-					if (!todosPacs.isEmpty()) {					
-						preencheIdadePacs (this.getTodosPacs());
-						exibirTabelaPacientes = true;
-						numPac = todosPacs.size();	
-						numCirurgias = PacienteController.totalLesoes(todosPacs);
-					} else {
-						exibirTabelaPacientes = false;
-						numPac = 0;
-					}
-					context.addMessage(null, new FacesMessage(numPac + " pacientes foram encontrados!"));
-				}
-			} catch (Exception e) {			
-				e.printStackTrace();
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));			
-			}
-		}
+				if (filtroPacSemLesao || (filtroPacSemImg && filtroPacSemLesao)) {
+					List<Paciente> newTodosPacs = new ArrayList<Paciente>();
+					for (Paciente pac : todosPacs) {
+						if (!pac.possuiLesao()) {
+							newTodosPacs.add(pac);
+						}
+					}						
+					todosPacs = newTodosPacs;
+				} else if (filtroPacSemImg) {
+					List<Paciente> newTodosPacs = new ArrayList<Paciente>();
+					for (Paciente pac : todosPacs) {
+						if (!pac.possuiImagem()) {
+							newTodosPacs.add(pac);
+						}
+					}						
+					todosPacs = newTodosPacs;
+				}				
+				
+			} else {
+				numPac = 0;
+				exibirTabelaPacientes = false;
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Não existe nenhum paciente para essa filtragem. Verifique se não existe algum erro de digitação.", "  "));
+			}			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));
+		}		
 		
+		// Verificando se pode exibir os pacientes
+		if (!todosPacs.isEmpty()) {					
+			preencheIdadePacs (this.getTodosPacs());
+			exibirTabelaPacientes = true;
+			numPac = todosPacs.size();			
+		} else {
+			exibirTabelaPacientes = false; 
+			numPac = 0;
+		}
+		context.addMessage(null, new FacesMessage(numPac + " pacientes foram encontrados!"));
+				
 	}
 	
 	public void listarPacientes () {		
@@ -224,8 +164,9 @@ public class VisualizacaoTodosController {
 				preencheIdadePacs (this.getTodosPacs());
 				exibirTabelaPacientes = true;
 				numPac = todosPacs.size();	
-				numCirurgias = PacienteController.totalLesoes(todosPacs);
+				numCirurgias = new Long(PacienteController.totalLesoes(todosPacs));
 				context.addMessage(null, new FacesMessage(numPac + " pacientes foram encontrados!"));
+				this.filtroCirurgias = true;
 			}
 		} catch (Exception e) {			
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));			
@@ -282,22 +223,6 @@ public class VisualizacaoTodosController {
 		this.filtroNome = filtroNome;
 	}
 
-	public boolean isFiltroPacComLesao() {
-		return filtroPacComLesao;
-	}
-
-	public void setFiltroPacComLesao(boolean filtroPacComLesao) {
-		this.filtroPacComLesao = filtroPacComLesao;
-	}
-
-	public boolean isFiltroPacComImg() {
-		return filtroPacComImg;
-	}
-
-	public void setFiltroPacComImg(boolean filtroPacComImg) {
-		this.filtroPacComImg = filtroPacComImg;
-	}
-
 	public boolean isFiltroPacSemLesao() {
 		return filtroPacSemLesao;
 	}
@@ -330,11 +255,11 @@ public class VisualizacaoTodosController {
 		this.dataFim = dataFim;
 	}
 
-	public int getNumCirurgias() {
+	public Long getNumCirurgias() {
 		return numCirurgias;
 	}
 
-	public void setNumCirurgias(int numCirurgias) {
+	public void setNumCirurgias(Long numCirurgias) {
 		this.numCirurgias = numCirurgias;
 	}
 
@@ -344,6 +269,14 @@ public class VisualizacaoTodosController {
 
 	public void setFiltroDiag(String filtroDiag) {
 		this.filtroDiag = filtroDiag;
+	}
+
+	public boolean isFiltroCirurgias() {
+		return filtroCirurgias;
+	}
+
+	public void setFiltroCirurgias(boolean filtroCirurgias) {
+		this.filtroCirurgias = filtroCirurgias;
 	}
 
 	

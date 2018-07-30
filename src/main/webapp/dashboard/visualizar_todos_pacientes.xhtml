@@ -51,6 +51,9 @@
 						<h:outputText value="- Os filtros não preenchidos não serão aplicados." />
 						<br/> <br/>
 						
+						<h:outputText value="Leia a descrição para entender corretamente o que cada filtro faz" style="font-weight:bold"/>
+						<br/>
+						
 						<p:outputPanel >
 				            <p:panelGrid  columns="2" >
 				                <f:facet name="header">							                	
@@ -66,7 +69,7 @@
 				 				
 				                <h:outputText value="Nome" style="font-weight: bold" />
 				                <h:outputText value="Retorna os pacientes com o nome informado." />
-				 
+				                
 				                <h:outputText value="Intervalo de datas" style="font-weight: bold" />
 				                <h:panelGroup>
 				                	<h:outputText value="Retorna todos os pacientes nas quais uma cirurgia foi realizada intervalo de datas informadas." />
@@ -76,32 +79,35 @@
 				                	<h:outputText value="É obrigatório preencher ambas as datas. Caso ambas esteja em branco," />
 				                	<br/>
 				                	<h:outputText value="a busca é realizada para todas as datas." />
-				                </h:panelGroup>
+				                </h:panelGroup>				                
 				                
-				                <h:outputText value="Pacientes com lesão?" style="font-weight: bold" />
-				                <h:panelGroup>
-				                	<h:outputText value="Sim: retorna apenas pacientes com pelo menos uma lesão cadastrada." />
-				                	<br/>						                
-				                	<h:outputText value="Não: retorna apenas pacientes sem lesões cadastradas." />
-				                	<br/>
-				                	<h:outputText value="Caso não preenchido ou preenchido os dois, retorna todos os pacientes, com e sem lesão cadastrada." />
-				                </h:panelGroup>
+				                <h:outputText value="Exibir nº de cirurgias?" style="font-weight: bold" />
+				                <h:outputText value="Retorna o número de cirurgias realizadas para o conjunto de pacientes filtrados." />
 				                
 				                <h:outputText value="Diagnóstico"  style="font-weight: bold"/>
 				                <h:panelGroup>
 				                	<h:outputText value="Retorna os pacientes apenas para o diagnostico indicado. Se o paciente possuir mais de uma lesão," />
 				                	<br/>
 				                	<h:outputText value="e pelo menos uma delas é a indicada, ele é retornado." />
+				                </h:panelGroup>               
+				                
+				                <h:outputText value="Pacientes sem lesão cadastrada" style="font-weight: bold" />
+				                <h:panelGroup>
+				                	<h:outputText value="Retorna todos os pacientes sem lesão cadastrada. Não é possível aplicar outros filtros a" />
+				                	<br/>						                
+				                	<h:outputText value="a essa busca. Ela deve ser realizada sozinha." />
+				                	<br/>				                	
 				                </h:panelGroup>
 				                
-				                <h:outputText value="Pacientes com imagem?" style="font-weight: bold" />
+				                <h:outputText value="Pacientes sem imagem cadastrada" style="font-weight: bold" />
 				                <h:panelGroup>
-				                	<h:outputText value="Sim: retorna apenas pacientes com pelo menos uma imagem cadastrada." />
+				                <h:outputText value="Retorna todos os pacientes com lesão, mas sem imagem cadastrada. Não é possível aplicar outros filtros a" />
 				                	<br/>						                
-				                	<h:outputText value="Não: retorna apenas pacientes sem imagens cadastradas." />
-				                	<br/>
-				                	<h:outputText value="Caso não preenchido ou preenchido os dois, retorna todos os pacientes, com e sem imagem cadastrada." />
+				                	<h:outputText value="a essa busca. Ela deve ser realizada sozinha." />
+				                	<br/>				                	
 				                </h:panelGroup>
+				                
+				                
 				                
 				            </p:panelGrid>
 						</p:outputPanel>						
@@ -114,12 +120,12 @@
 						
 							<h:outputText value="Local de atendimento" style="font-weight: bold" />
 		                	<p:autoComplete id="local_atendimento" value="#{visualizacaoTodosController.filtroCidade}" completeMethod="#{visualizacaoTodosController.completarCidades}">
-		                		<p:ajax event="change"/>
+		                		<p:ajax event="change" update="@form"/>
 		                	</p:autoComplete>
 		                	
 		                	<h:outputText value="Nome" style="font-weight: bold" />
 		                	<p:inputText id="nome" value="#{visualizacaoTodosController.filtroNome}" >
-		                		<p:ajax event="change"/>
+		                		<p:ajax event="change" update="@form"/>
 		                	</p:inputText>
 		                	
 		                	<h:outputText value="Intervalo de datas" style="font-weight: bold" />
@@ -136,37 +142,28 @@
 		        					<p:ajax event="change"/>
 		        				</p:inputMask>
 		                	</h:panelGroup>
-		        			
-		                	<h:outputText value="Pacientes com lesão?" style="font-weight: bold" />
-		                	<h:panelGroup>
-		                		<h:outputText value="Sim  " />
-			                	<p:selectBooleanCheckbox value="#{visualizacaoTodosController.filtroPacComLesao}" >		                	
-			                		<p:ajax event="change"/>
-			                	</p:selectBooleanCheckbox>
-			                	
-			                	<h:outputText value="  Não " />
-			                	<p:selectBooleanCheckbox value="#{visualizacaoTodosController.filtroPacSemLesao}">		                	
-			                		<p:ajax event="change"/>
-			                	</p:selectBooleanCheckbox>		                	
-		                	</h:panelGroup>
 		                	
 		                	<h:outputText value="Diagnóstico" style="font-weight: bold" />
-		                	<p:inputText id="diag" value="#{visualizacaoTodosController.filtroDiag}" >
+		                	<p:autoComplete id="diagnostico" value="#{visualizacaoTodosController.filtroDiag}" completeMethod="#{pacienteController.completarDiagnosticoLesao}">
 		                		<p:ajax event="change"/>
-		                	</p:inputText>
+		                	</p:autoComplete>
 		                	
-		                	<h:outputText value="Pacientes com imagens?" style="font-weight: bold" />
-		                	<h:panelGroup>
-		                		<h:outputText value="Sim  " />
-			                	<p:selectBooleanCheckbox value="#{visualizacaoTodosController.filtroPacComImg}" >		                	
-			                		<p:ajax event="change"/>
-			                	</p:selectBooleanCheckbox>
-			                	
-			                	<h:outputText value="  Não " />
-			                	<p:selectBooleanCheckbox  value="#{visualizacaoTodosController.filtroPacSemImg}" >		                	
-			                		<p:ajax event="change"/>
-			                	</p:selectBooleanCheckbox>
-		                	</h:panelGroup>		        			
+		                	<h:outputText value="Exibir nº de cirurgias?" style="font-weight: bold"/>
+		                	<p:selectBooleanCheckbox  value="#{visualizacaoTodosController.filtroCirurgias}" disabled="#{visualizacaoTodosController.filtroPacSemLesao or visualizacaoTodosController.filtroPacSemImg or !visualizacaoTodosController.filtroNome.equals('')}">		                	
+			                	<p:ajax event="change" update="@form"/>
+			                </p:selectBooleanCheckbox>	
+		        			
+		                	<h:outputText value="Pacientes sem lesão cadastrada:" style="font-weight: bold" />
+		                	<p:selectBooleanCheckbox value="#{visualizacaoTodosController.filtroPacSemLesao}" disabled="#{visualizacaoTodosController.filtroCirurgias or !visualizacaoTodosController.filtroNome.equals('') or !visualizacaoTodosController.filtroCidade.equals('')}">		                	
+			                	<p:ajax event="change" update="@form"/>
+			                </p:selectBooleanCheckbox>
+		                	
+		                	<h:outputText value="Pacientes sem imagens cadastrada:" style="font-weight: bold" />
+		                	<p:selectBooleanCheckbox  value="#{visualizacaoTodosController.filtroPacSemImg}" disabled="#{!visualizacaoTodosController.filtroNome.equals('') or !visualizacaoTodosController.filtroCidade.equals('') or visualizacaoTodosController.filtroCirurgias}" >		                	
+			                	<p:ajax event="change" update="@form"/>
+			                </p:selectBooleanCheckbox>		                		
+		                	
+		                	        			
 		        				
 		                	
 		                	
@@ -193,8 +190,8 @@
 		    			<h:outputText class="valorPac" value="#{visualizacaoTodosController.numPac}"/>
 		    			
 		    			<br/>
-		    			<h:outputText class="campoPac" value="Número de cirurgias para esse conjunto de pacientes: " />
-		    			<h:outputText class="valorPac" value="#{visualizacaoTodosController.numCirurgias}"/>
+		    			<h:outputText class="campoPac" value="Número de cirurgias para esse conjunto de pacientes: " rendered="#{visualizacaoTodosController.filtroCirurgias}"/>
+		    			<h:outputText class="valorPac" value="#{visualizacaoTodosController.numCirurgias}" rendered="#{visualizacaoTodosController.filtroCirurgias}"/>
 		    			
 		    			<br/> <br/>
 		    			

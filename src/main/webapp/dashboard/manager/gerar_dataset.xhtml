@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="../decoratorDashboard/decorator_dashboard.xhtml">
+      
+      <ui:define name="titulo">  </ui:define>
+      
+      <ui:define name="conteudoInferiorPagina">	      
+      		
+      
+      		<h:form>		
+			
+				<p:panel id="panelAll" header="Ambiente para gerar os datasets" style="margin-bottom:20px;">
+					
+					<p:growl id="avisos" showDetail="true" closable="true" />
+					
+										
+					
+			      	
+			      	<br/> 
+			      	
+			      	<h:outputText class="campoPac" value="Escolha as opções abaixo para gerar o dataset: " />	
+			      	
+			      	<p:commandButton view="Ajuda" oncomplete="PF('ajudaFiltros').show()" icon="ui-icon-help"
+								style="		      							      				 
+									background: #ffff4d -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.7)),to(rgba(255,255,255,0)));								
+		      					"							
+							/>
+							
+					<p:overlayPanel widgetVar="ajudaFiltros" showEffect="fade" hideEffect="fade" showCloseIcon="true">
+						<h:outputText value="O dataset pode ser gerado de diferentes maneiras. Quando você clicar em exportar, será gerado um" />
+						<br/>
+						<h:outputText value="arquivo .csv com os atributos escolhidos e caminho de cada imagem na pasta de imagens" />
+						<br/><br/>
+						
+						
+						<p:outputPanel >
+				            <p:panelGrid  columns="2" >
+				                <f:facet name="header">							                	
+				                	<h:outputText value="Instruções para cada opção"  style="font-weight: bold"/>
+				                </f:facet>
+				                
+				                <h:outputText value="Dataset completo"  style="font-weight: bold"/>
+				                <h:panelGroup>
+				                	<h:outputText value="Retorna TODAS as amostras do banco, idependente se foi para cirurgia ou não." />
+				 					<br/>
+				 					<h:outputText value="Por consequência, o .csv será gerado com diagnóstico clínico e o path da imagem"/>
+				 				</h:panelGroup>
+				 				
+				 				<h:outputText value="Dataset cirurgia"  style="font-weight: bold"/>
+				                <h:panelGroup>
+				                	<h:outputText value="Retorna apenas os pacientes que foram para cirurgia. Por consequência, haverá" />
+				 					<br/>
+				 					<h:outputText value="diversos atributos coletados no cadastro e o path da imagem"/>
+				 				</h:panelGroup>
+				 				
+				 				<h:outputText value="Dataset app"  style="font-weight: bold"/>
+				                <h:panelGroup>
+				                	<h:outputText value="Retorna todos pacientes atendidos pelo PAD que passaram pelo cadastro do" />
+				 					<br/>
+				 					<h:outputText value="aplicativo. Com isso, retorna alguns atributos, como: se coçou, sangrou etc. e o path"/>
+				 				</h:panelGroup>
+				 				
+				                				                
+				                
+				                
+				            </p:panelGrid>
+						</p:outputPanel>						
+						 
+											
+					</p:overlayPanel>
+			      	      		    	
+				    	
+			    	<p:panelGrid columns="2" style="margin-top: 10px; margin-bottom: 25px;" >																					     			
+															                	
+		                	<h:outputText value="Dataset completo" style="font-weight: bold" />
+		                	<p:selectBooleanCheckbox value="#{gerarDatasetController.dsCompleto}" disabled="#{gerarDatasetController.dsCirurgia or gerarDatasetController.dsApp}">		                	
+			                	<p:ajax event="change" update="@form"/>
+			                </p:selectBooleanCheckbox> 
+		                	
+		                	<h:outputText value="Apenas cirurgia" style="font-weight: bold"/>
+		                	<p:selectBooleanCheckbox  value="#{gerarDatasetController.dsCirurgia}" disabled="#{gerarDatasetController.dsCompleto or gerarDatasetController.dsApp}">		                	
+			                	<p:ajax event="change" update="@form"/>
+			                </p:selectBooleanCheckbox>	
+		        			
+		                	<h:outputText value="Dataset app" style="font-weight: bold" />
+		                	<p:selectBooleanCheckbox value="#{gerarDatasetController.dsApp}" disabled="#{gerarDatasetController.dsCirurgia or gerarDatasetController.dsCompleto}">		                	
+			                	<p:ajax event="change" update="@form"/>
+			                </p:selectBooleanCheckbox>
+					    	
+				   	</p:panelGrid>			   	
+				   	
+				   	<p:commandButton icon="ui-icon-check" value="Gerar dataset" action="#{visualizacaoTodosController.listarFiltragem}"
+				   		update="panelAll avisos"
+						style="
+							background: #ccffcc -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));
+							height: 35px;
+							margin-bottom: 15px;	
+						" 
+					/>		      		
+		    	
+      	
+      		</p:panel>
+      	</h:form>   	
+      
+	</ui:define>
+	
+</ui:composition>
