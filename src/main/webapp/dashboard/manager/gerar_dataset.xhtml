@@ -48,7 +48,7 @@
 				                <h:panelGroup>
 				                	<h:outputText value="Retorna TODAS as amostras do banco, idependente se foi para cirurgia ou não." />
 				 					<br/>
-				 					<h:outputText value="Por consequência, o .csv será gerado com diagnóstico clínico e o path da imagem"/>
+				 					<h:outputText value="Por consequência, o .csv será gerado com diagnóstico clínico, região e o path da imagem"/>
 				 				</h:panelGroup>
 				 				
 				 				<h:outputText value="Dataset cirurgia"  style="font-weight: bold"/>
@@ -94,14 +94,25 @@
 					    	
 				   	</p:panelGrid>			   	
 				   	
-				   	<p:commandButton icon="ui-icon-check" value="Gerar dataset" action="#{visualizacaoTodosController.listarFiltragem}"
-				   		update="panelAll avisos"
+				   	<p:commandButton icon="ui-icon-check" value="Gerar dataset" action="#{gerarDatasetController.gerar}"
+				   		update="@form"
 						style="
 							background: #ccffcc -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));
 							height: 35px;
 							margin-bottom: 15px;	
 						" 
-					/>		      		
+					/>		 
+					
+					<br/>
+					
+					<p:button value="Baixar dataset" icon="ui-icon-arrowthick-1-s" href="#{facesContext.externalContext.requestContextPath}/dashboard/dataset/dataset.csv" 
+									 rendered="#{gerarDatasetController.dsGerado}" 
+									 style="
+										background: #a8c6f7 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));
+										height: 35px;
+										margin-bottom: 15px;	
+									 "
+					/>
 		    	
       	
       		</p:panel>
