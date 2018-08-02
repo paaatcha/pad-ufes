@@ -342,8 +342,8 @@ public class PacienteController {
 			
 			for (Paciente pac : pacs) {	
 				i++;
-//				HttpResponse<JsonNode> postResponse = Unirest.post("http://labcin1.ufes.br/APIrequisicoes/novo_paciente")
-				HttpResponse<JsonNode> postResponse = Unirest.post("http://localhost:8080/APIrequisicoes/novo_paciente")
+				HttpResponse<JsonNode> postResponse = Unirest.post("http://labcin1.ufes.br/APIrequisicoes/novo_paciente")
+//				HttpResponse<JsonNode> postResponse = Unirest.post("http://localhost:8080/APIrequisicoes/novo_paciente")
 				.header("accept", "application/json")
 				.header("Content-Type", "application/json")
 				.body(pac)
@@ -379,8 +379,8 @@ public class PacienteController {
 					
 					String imgPath = "src/main/webapp/dashboard/imgLesoes/" + img.getPath();
 					
-//					HttpResponse<JsonNode> jsonResponse = Unirest.post("http://labcin1.ufes.br/APIrequisicoes/novo_imagem_lesao")
-					HttpResponse<JsonNode> postImgResponse = Unirest.post("http://localhost:8080/APIrequisicoes/novo_imagem_lesao")							
+					HttpResponse<JsonNode> postImgResponse = Unirest.post("http://labcin1.ufes.br/APIrequisicoes/novo_imagem_lesao")
+//					HttpResponse<JsonNode> postImgResponse = Unirest.post("http://localhost:8080/APIrequisicoes/novo_imagem_lesao")							
 					.header("accept", "application/json")
 					.field("path", imgPath)
 					.field("imagem", new File(imgPath))
