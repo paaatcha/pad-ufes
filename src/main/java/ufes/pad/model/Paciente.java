@@ -29,7 +29,7 @@ public class Paciente implements Serializable {
 	private Long id;
 	
 	@Column(length=100, nullable = false)
-	private String local_atendimento = "SANTA MARIA DE JETIBA";	
+	private String local_atendimento = "PANCAS";	
 	
 	@Temporal(TemporalType.DATE)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")

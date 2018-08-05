@@ -22,7 +22,7 @@ public class LesaoGeral implements Serializable{
 	
 	private String regiao;
 	
-	private String diagnostico;
+	private String diagnostico; 
 	
 	private String cresceu;
 	
@@ -119,7 +119,7 @@ public class LesaoGeral implements Serializable{
 	}
 
 	public void setRelevo(String relevo) {
-		this.relevo = relevo;
+		this.relevo = relevo.toUpperCase();
 	}
 
 	public int getIdade() {
