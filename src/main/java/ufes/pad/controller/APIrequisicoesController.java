@@ -63,11 +63,21 @@ public class APIrequisicoesController {
 		return "ACK";
 	}	
 	
+	@GetMapping ("/APIrequisicoes/cirurgioes")
+	public @ResponseBody String[] cirurgioes (){		
+		
+		String[] nomes = new String[] {"FÁBIO CHRISTIANO", "MARCOS BARBOSA", "ERNESTO MONTES", "HEIDI CORDEIRO", "IGOR BIRAL",
+		                                "JOSIENE GOMES", "MICHELL RONCETE", "PATRÍCIA ARAÚJO", "RAQUEL KUSTER", "THAYS MOREIRA",
+		                                "BERNART FERREIRA", "LIGIANY BASTOS", "LUANA SEGANTINE", "DANIEL FERREIRA", "RHAYANNA KRUGER",
+		                                "PRISCILLA ROCHA"};
+		return nomes;
+	}
+	
 	@PostMapping("/APIrequisicoes/paciente/cadastrarLesoes/{cartao_sus}")
 	public void cadastrarLesao (@PathVariable String cartao_sus, @RequestParam("regiao") String regiao,
 			@RequestParam("diaMaior") String diaMaior, @RequestParam("diaMenor") String diaMenor, 
 			@RequestParam("diagnostico") String diagnostico, @RequestParam("procedimento") String procedimento,
-			@RequestParam("obs") String obs,
+			@RequestParam("obs") String obs, @RequestParam("cirurgiao") String cirurgiao,
 			@RequestParam("imagem") MultipartFile[] imagem){
 		
 		try {			
@@ -84,6 +94,7 @@ public class APIrequisicoesController {
 				les.setDiametro_menor(Float.parseFloat(diaMenor));
 				les.setDiagnostico_clinico(diagnostico);
 				les.setProcedimento(procedimento);
+				les.setCirurgiao(cirurgiao);
 				les.setData_atendimento(pac.getData_atendimento());
 				les.setLocal_atendimento(pac.getLocal_atendimento());
 				les.setObs(obs);			

@@ -687,11 +687,13 @@
 			        						<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			    						</p:confirmDialog>		
 			    						
-			    																								        														
+							        	
+        								<h:outputText value="Dados clínicos da lesão" 
+        								style="font-weight: bold; font-size: 20px; text-decoration: underline;"/>
+        								
+    										
 							        
-							            <h:panelGrid columns="2" cellpadding="5">
-
-							                
+							            <h:panelGrid columns="2" cellpadding="5" style="margin-top: 20px; margin-bottom: 10px;">
 							                <h:outputText value="Região da lesão:" style="font-weight: bold"/>					
 											<p:inputText size="30" id="regiaoEdit" value="#{les.regiao}">								
 												<p:ajax event="change" />												
@@ -714,12 +716,6 @@
 												<p:ajax event="change" />									
 											</p:autoComplete>							
 								
-											<h:outputText value="Diagnóstico Histopatologico:" style="font-weight: bold"/>							
-											<p:autoComplete size="30" id="diag_hitoEdit" value="#{les.diagnostico_histo}"
-											completeMethod="#{pacienteController.completarDiagnosticoLesao}">											
-												<p:ajax event="change" />												
-											</p:autoComplete>								
-								
 											<h:outputText value="Procedimento:" style="font-weight: bold"/>								
 											<p:inputText size="30" id="procedimentoEdit" value="#{les.procedimento}">								
 												<p:ajax event="change" />													
@@ -735,16 +731,75 @@
 		        								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
 		        								<p:ajax event="change" />	
 		        							</p:inputMask>
+		        							
+		        							<h:outputText value="Cirurgiao responsável:" style="font-weight: bold"/>													 
+											<p:inputText size="30" id="cirurgiao" value="#{les.cirurgiao}">
+												 <p:ajax event="change" />																
+											</p:inputText>
 							
 									
 											<h:outputText value="Observações:" style="font-weight: bold"/>
 											<p:inputTextarea id="obs_lesEdit" rows="3" cols="30" value="#{les.obs}">								
 												<p:ajax event="change" />									
 											</p:inputTextarea>
-								
-											<br/>											
-
+											
 							            </h:panelGrid>
+							            
+							            <p:separator/>
+							            <br/>
+							            
+							            <h:outputText value="Dados clínicos da lesão" 
+        								style="font-weight: bold; font-size: 20px; text-decoration: underline;"/>        								
+							            
+							            <h:panelGrid columns="2" cellpadding="5" style="margin-top: 20px; margin-bottom: 10px;">
+								            <h:outputText value="Diagnóstico Histopatológico:" style="font-weight: bold"/>							
+											<p:autoComplete size="30" id="diag_hitoEdit" value="#{les.diagnostico_histo}"
+												completeMethod="#{pacienteController.completarDiagnosticoLesao}">											
+													<p:ajax event="change" update="@form"/>												
+											</p:autoComplete>	
+												
+											<h:outputText value="Subtipo Histopatológico:" style="font-weight: bold"/>							
+											<p:autoComplete size="30" id="subtipo" value="#{les.subtipo_histo}"
+												completeMethod="#{pacienteController.completarSubtipoHisto}">											
+													<p:ajax event="change" />												
+											</p:autoComplete>	
+										</h:panelGrid>
+										
+										<h:panelGrid columns="2" cellpadding="5" rendered="#{les.diagnostico_histo == 'MELANOMA C43.9'}" 
+										style="margin-top: 20px; margin-bottom: 10px;">
+										
+												<h:outputText value="Clark:" style="font-weight: bold"/>
+												<p:selectOneRadio id="clark" value="#{les.clark}">
+			      									<f:selectItem itemLabel="I ou in situ" itemValue="I"/>
+			      									<f:selectItem itemLabel="II" itemValue="II"/>
+			      									<f:selectItem itemLabel="III" itemValue="III"/>
+			      									<f:selectItem itemLabel="IV" itemValue="IV"/>
+			      									<f:selectItem itemLabel="V" itemValue="V"/>
+			      									<f:selectItem itemLabel="Não informado" itemValue="NÃO INFORMADO"/>	      		
+			      								</p:selectOneRadio>
+			      								
+												<h:outputText value="Breslow (mm):" style="font-weight: bold"/>								
+												<p:spinner size="15" id="breslow" value="#{les.breslow}" min="0" stepFactor="0.25">								
+													<p:ajax event="change" />									
+												</p:spinner>
+												
+												<h:outputText value="Índice Miotico (mm):" style="font-weight: bold"/>								
+												<p:spinner size="15" id="indiceMiotico" value="#{les.indice_miotico}" min="0" stepFactor="0.25">								
+													<p:ajax event="change" />									
+												</p:spinner>
+												
+												<h:outputText value="Estadiamento:" style="font-weight: bold"/>					
+												<p:inputText size="25" id="Estadiamento" value="#{les.estadiamento}">								
+													<p:ajax event="change" />												
+												</p:inputText>
+										</h:panelGrid>
+											
+											
+											
+										
+							            
+							            <p:separator/>
+							            <br/>
 							            
 							            <p:dataGrid value="#{les.imagens}" var="img" columns="4" layout="grid"
 							            style="width:750px" id="dataGridImagens">		

@@ -33,16 +33,33 @@ public class Lesao implements Serializable {
 	@Column(length=100)
 	private String diagnostico_histo = "SEM RESULTADO";
 	
+	@Column(length=100)
+	private String subtipo_histo = "NÃO INFORMADO";
+	
+	@Column(length=100)
+	private String clark = "NÃO INFORMADO";
+	
+	private float breslow;
+	
+	private float indice_miotico; 
+	
+	private String estadiamento; 
+	
+	private String margens; 
+
 	@Column(length=100, nullable = false)
 	private String regiao;
 	
 	@Column(length=150, nullable = false)
 	private String procedimento;
 	
+	private String cirurgiao;
+	
 	@Column(length=500)
 	private String obs = "NENHUMA";
 	
 	private float diametro_maior;
+	
 	private float diametro_menor;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
@@ -177,8 +194,64 @@ public class Lesao implements Serializable {
 	}
 
 	public void setLocal_atendimento(String local_atendimento) {
-		this.local_atendimento = local_atendimento;
+		this.local_atendimento = local_atendimento.toUpperCase();
+	}
+
+	public String getCirurgiao() {
+		return cirurgiao;
+	}
+
+	public void setCirurgiao(String cirurgiao) {
+		this.cirurgiao = cirurgiao.toUpperCase();
 	}	
+	
+	public String getSubtipo_histo() {
+		return subtipo_histo;
+	}
+
+	public void setSubtipo_histo(String subtipo_histo) {
+		this.subtipo_histo = subtipo_histo.toUpperCase();
+	}
+
+	public String getClark() {
+		return clark;
+	}
+
+	public void setClark(String clark) {
+		this.clark = clark.toUpperCase();
+	}
+
+	public float getBreslow() {
+		return breslow;
+	}
+
+	public void setBreslow(float breslow) {
+		this.breslow = breslow;
+	}
+
+	public String getMargens() {
+		return margens.toUpperCase();
+	}
+
+	public void setMargens(String margens) {
+		this.margens = margens;
+	}
+
+	public float getIndice_miotico() {
+		return indice_miotico;
+	}
+
+	public void setIndice_miotico(float indice_miotico) {
+		this.indice_miotico = indice_miotico;
+	}
+
+	public String getEstadiamento() {
+		return estadiamento;
+	}
+
+	public void setEstadiamento(String estadiamento) {
+		this.estadiamento = estadiamento.toUpperCase();
+	}
 	
 }
 
