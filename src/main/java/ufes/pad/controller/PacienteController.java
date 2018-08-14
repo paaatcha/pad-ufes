@@ -114,7 +114,7 @@ public class PacienteController {
 			 }
 		}		
 		return result;
-	}	
+	}	 
 	
 	public List<String> completarRegiaoLesao (String query){
 		List<String> result = new ArrayList<String>();

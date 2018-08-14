@@ -74,23 +74,25 @@ public class Lesao implements Serializable {
 	private String local_atendimento;	
 	
 	
-	static public void printLesao (Lesao les) {
-		System.out.println("---- LESAO ----\n");
-		System.out.println("ID: " + les.id);
-		System.out.println("Regiao: " + les.regiao);
-		System.out.println("Diagnostico Clinico: " + les.diagnostico_clinico);
-		System.out.println("Diagnostico Histopatologico: " + les.diagnostico_histo);
-		System.out.println("Diametro maior: " + les.diametro_maior);
-		System.out.println("Diametro menor: " + les.diametro_menor);
-		System.out.println("Procedimento: " + les.procedimento + "\n");
+	public void print() {
+		System.out.println("---- LESAO ----");
+		System.out.println("ID: " + id);
+		System.out.println("Regiao: " + regiao);
+		System.out.println("Diagnostico Clinico: " + diagnostico_clinico);
+		System.out.println("Diagnostico Histopatologico: " + diagnostico_histo);
+		System.out.println("Diametro maior: " + diametro_maior);
+		System.out.println("Diametro menor: " + diametro_menor);
+		System.out.println("Procedimento: " + procedimento);
+		System.out.println("Cirurgião: " + cirurgiao);
 		
 		
-		System.out.println("--- IMAGENS ---\n");
-		if (!les.getImagens().isEmpty()) {
-			for (Imagem img : les.getImagens()) {
-				Imagem.printImagem(img);
+		System.out.println("--- IMAGENS ---");
+		if (!imagens.isEmpty()) {
+			for (Imagem img : imagens) {
+				img.print();
 			}
 		}
+		System.out.println("-------------------------------------------\n");
 		 
 	}	
 	

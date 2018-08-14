@@ -16,6 +16,10 @@ public class ImagemGeral implements Serializable{
 	private Long id;		
 	
 	private String path;
+	
+	void print() {		
+		System.out.println("Imagem path: " + path);
+	}
 
 	public String getPath() {
 		return path;

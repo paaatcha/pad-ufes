@@ -18,8 +18,8 @@ public class Imagem implements Serializable {
 	
 	private String path;
 	
-	static void printImagem (Imagem img) {		
-		System.out.println("Imagem path: " + img.path);
+	void print() {		
+		System.out.println("Imagem path: " + path);
 	}
 
 	public String getPath() {

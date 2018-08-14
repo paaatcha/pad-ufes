@@ -113,7 +113,7 @@ public class APIrequisicoesController {
 				}
 				
 				les.setImagens(auxListImg);			
-				Lesao.printLesao(les);
+				les.print();
 				
 				
 				if (pac.getLesoes() == null) {

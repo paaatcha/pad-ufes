@@ -222,7 +222,7 @@ public class EdicaoController {
 			
 			
 			for (Lesao lesLista : pacLesoes) {
-				Lesao.printLesao(lesLista);
+				lesLista.print();
 				if (lesLista.getId() == les.getId()) {
 					lesLista.getImagens().add(img);
 					

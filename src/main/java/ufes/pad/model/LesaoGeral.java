@@ -37,6 +37,34 @@ public class LesaoGeral implements Serializable{
 	private String relevo;
 	
 	private int idade;
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn (name="lesaoId")
+	private List<ImagemGeral> imagens;
+	
+	
+	public void print() {
+		System.out.println("---- LESAO GERAL----");
+		System.out.println("ID: " + id);
+		System.out.println("Idade: " + idade);
+		System.out.println("Regiao: " + regiao);
+		System.out.println("Cresceu: " + cresceu);
+		System.out.println("Coçou: " + cocou);
+		System.out.println("Sangrou: " + sangrou);
+		System.out.println("Doeu: " + doeu);
+		System.out.println("Mudou: " + mudou);
+		System.out.println("relevo: " + relevo);
+		
+		
+		System.out.println("--- IMAGENS ---");
+		if (!imagens.isEmpty()) {
+			for (ImagemGeral img : imagens) {
+				img.print();
+			}
+		}
+		System.out.println("-------------------------------------------\n");
+		 
+	}
 
 	public String getCresceu() {
 		return cresceu;
@@ -82,9 +110,7 @@ public class LesaoGeral implements Serializable{
 		return diagnostico;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn (name="lesaoId")
-	private List<ImagemGeral> imagens;	
+		
 
 	public void setDiagnostico(String diagnostico) {
 		this.diagnostico = diagnostico.toUpperCase();
@@ -130,3 +156,4 @@ public class LesaoGeral implements Serializable{
 		this.idade = idade;
 	}	
 }
+

@@ -523,6 +523,12 @@
 		        					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
 		        					<p:ajax event="change" />
 		        				</p:inputMask>
+		        				
+		        				
+		        				<p> Cirurgião responsável: </p>													 
+								<p:inputText size="30" id="cirurgiao1" value="#{edicaoController.lesao.cirurgiao}">
+									 <p:ajax event="change" />																
+								</p:inputText>
 								
 								
 								<br/>
@@ -594,6 +600,10 @@
 										<p:column headerText="Data do procedimento">
 											<h:outputText value="#{les.data_atendimento}" />
 										</p:column>
+										
+										<p:column headerText="Cirurgião">
+											<h:outputText value="#{les.cirurgiao}" />
+										</p:column>
 													
 													
 										<p:column headerText="Imagem">										        	
@@ -629,7 +639,7 @@
 											icon="ui-icon-circle-triangle-w" id="prev"/>
 								
 								<p:commandButton value="Próxima" type="button" onclick="PF('switcher').next();"
-											icon="ui-icon-circle-triangle-e" id="next"/>								
+											icon="ui-icon-circle-triangle-e" id="next"/>								 
 									
 								<p:imageSwitch effect="fade" widgetVar="switcher" id="manuelSwitcher"
 								    slideshowAuto="false">

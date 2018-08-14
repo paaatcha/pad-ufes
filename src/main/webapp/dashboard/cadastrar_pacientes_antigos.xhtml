@@ -467,6 +467,24 @@
 							</p:inputText>
 							
 							
+							<p> Local do procedimento: </p>
+							<p:inputText size="30" id="local_procedimento" value="#{pacienteController.lesao.local_atendimento}">								
+									<p:ajax event="change" />													
+							</p:inputText>
+								
+							<p> Data do procedimento: </p>
+							<p:inputMask id="data_procedimento" value="#{pacienteController.lesao.data_atendimento}" mask="99/99/9999" >
+		        				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
+		        				<p:ajax event="change" />
+		        			</p:inputMask>
+		        				
+		        				
+		        			<p> Cirurgião responsável: </p>													 
+							<p:inputText size="30" id="cirurgiao1" value="#{pacienteController.lesao.cirurgiao}">
+									<p:ajax event="change" />																
+							</p:inputText>
+							
+							
 							<br/>
 								
 							<p> Observações: </p>
@@ -520,6 +538,18 @@
 									
 									<p:column headerText="Procedimento">
 										<h:outputText value="#{les.procedimento}" />
+									</p:column>
+									
+									<p:column headerText="Local do procedimento">
+										<h:outputText value="#{les.local_atendimento}" />
+									</p:column>
+									
+									<p:column headerText="Data do procedimento:">
+										<h:outputText value="#{les.data_atendimento}" />
+									</p:column>
+									
+									<p:column headerText="Cirurgião">
+										<h:outputText value="#{les.cirurgiao}" />
 									</p:column>
 												
 												

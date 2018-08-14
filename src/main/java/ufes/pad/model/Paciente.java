@@ -146,16 +146,16 @@ public class Paciente implements Serializable {
 	@Transient
 	private int idade;
 	
-	static public void printPaciente (Paciente pac) {
-		System.out.println("--- PACIENTE ---\n");
-		System.out.println("ID: " + pac.id);
-		System.out.println("Nome: " + pac.nome_completo);
-		System.out.println("Cartao SUS: " + pac.cartao_sus + "\n");
+	public void print () {
+		System.out.println("--- PACIENTE ---");
+		System.out.println("ID: " + id);
+		System.out.println("Nome: " + nome_completo);
+		System.out.println("Cartao SUS: " + cartao_sus + "\n");
 		
-		System.out.println("--- LESOES ---\n");
-		for (Lesao les : pac.lesoes) {
-			Lesao.printLesao(les);
-		}
+		System.out.println("--- LESOES ---");
+		for (Lesao les : lesoes) {
+			les.print();
+		} 
 	}
 	
 	public boolean possuiLesao () {

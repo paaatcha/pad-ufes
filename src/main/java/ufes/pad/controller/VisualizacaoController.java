@@ -199,8 +199,8 @@ public class VisualizacaoController {
 	}
 	
 	
-	public String excluirPaciente () {
-		Paciente.printPaciente(pacBuscado);
+	public String excluirPaciente () { 
+		pacBuscado.print();
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
