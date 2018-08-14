@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="decoratorDashboard/decorator_dashboard.xhtml">
+      
+      <ui:define name="titulo"> Visualizar todos os pacientes gerais cadastrados </ui:define>
+      
+      <ui:define name="conteudoInferiorPagina">
+
+			<p>				
+				Todos os pacientes cadastrados no banco estão listados na tabela abaixo. 
+			<br/>				
+			</p>		
+				
+			<p:growl id="growlCheck" showDetail="true" closable="true" />     		
+			      		
+			<h:outputText class="campoPac" value="Número total de pacientes registrados no banco: " />
+      		<h:outputText class="valorPac" value="#{visualizacaoGeralController.numPacs}"/>
+			<br/>
+			
+			<h:outputText class="campoPac" value="Número total de lesões registradas no banco: " />
+      		<h:outputText class="valorPac" value="#{visualizacaoGeralController.numLesoes}"/>				      		
+			      		
+			<br/><br/>
+			
+			<!--  INICIANDO A EXIBIÇÃO DOS PACIENTES GERAIS -->
+			
+						
+				<p:dataTable  value="#{visualizacaoGeralController.todosPacs}" var="pac"
+			      		rows="10" paginator="true"
+			      		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			            rowsPerPageTemplate="5,10,25,50,100"	
+			            style="text-align:center;"			                        		            
+			      		>		
+		         									      		
+							<f:facet name="header">
+		         				Pacientes Gerais
+		     				</f:facet>        						
+		     						   
+						    <p:column headerText="Cartão do SUS">
+						        <h:outputText value="#{pac.cartao_sus}" />
+						    </p:column>
+						    
+						    <p:column headerText="Auditado?">
+						        <h:outputText value="#{pac.auditado}" />
+						    </p:column>
+						    
+						    <p:column headerText="Nº lesões">						        
+						        <h:outputText value="#{pac.lesoes.size()}" />						        
+						    </p:column>
+    										        
+					        <p:column headerText="Editar">
+								<h:link outcome="editar_paciente_geral.xhtml" styleClass="linkEditarPaciente" target="_blank"
+									style="
+										float: none;												
+										display: inline; 												
+									" >
+										<h:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/edit.png" style="width: 25px; 
+													height: 25px;" />
+		 										<f:param name="cartaosus" value="#{pac.cartao_sus}" />		 										
+								</h:link>									        
+							</p:column>				        				        
+					        						 
+				</p:dataTable>    
+					
+				
+	
+												
+    							  
+	</ui:define>
+	
+</ui:composition>

@@ -231,14 +231,6 @@ public class Lesao implements Serializable {
 		this.breslow = breslow;
 	}
 
-	public String getMargens() {
-		return margens.toUpperCase();
-	}
-
-	public void setMargens(String margens) {
-		this.margens = margens;
-	}
-
 	public float getIndice_miotico() {
 		return indice_miotico;
 	}
@@ -253,6 +245,14 @@ public class Lesao implements Serializable {
 
 	public void setEstadiamento(String estadiamento) {
 		this.estadiamento = estadiamento.toUpperCase();
+	}
+
+	public String getMargens() {
+		return margens;
+	}
+
+	public void setMargens(String margens) {
+		this.margens = margens;
 	}
 	
 }

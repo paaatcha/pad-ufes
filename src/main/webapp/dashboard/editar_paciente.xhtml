@@ -773,6 +773,25 @@
 												completeMethod="#{pacienteController.completarSubtipoHisto}">											
 													<p:ajax event="change" />												
 											</p:autoComplete>	
+											
+											<h:outputText value="Margens do diagnóstico:" style="font-weight: bold"/>
+											<p:selectOneMenu value="#{les.margens}">
+												<f:selectItem itemLabel="Não informado" itemValue="NÃO INFORMADO"/>
+            									<f:selectItem itemLabel="Margens livres" itemValue="MARGENS LIVRES"/>
+		      									<f:selectItem itemLabel="Margens laterais e profundas comprometidas" itemValue="MARGENS LATERAIS E PROFUNDAS COMPROMETIDAS"/>
+		      									<f:selectItem itemLabel="Somente margens laterais comprometidas" itemValue="SOMENTE MARGENS LATERAIS COMPROMETIDAS"/>
+		      									<f:selectItem itemLabel="Somente margem profunda comprometida" itemValue="SOMENTE MARGEM PROFUNDA COMPROMETIDA"/>
+        									</p:selectOneMenu>
+											
+											<!-- 
+											<h:outputText value="Margens do diagnóstico:" style="font-weight: bold"/>
+											<p:selectOneRadio id="margens" value="#{les.margens}">
+		      									<f:selectItem itemLabel="Margens livres" itemValue="MARGENS LIVRES"/>
+		      									<f:selectItem itemLabel="Margens laterais e profundas comprometidas" itemValue="MARGENS LATERAIS E PROFUNDAS COMPROMETIDAS"/>
+		      									<f:selectItem itemLabel="Somente margens laterais comprometidas" itemValue="SOMENTE MARGENS LATERAIS COMPROMETIDAS"/>
+		      									<f:selectItem itemLabel="Somente margem profunda comprometida" itemValue="SOMENTE MARGEM PROFUNDA COMPROMETIDA"/>
+		      								</p:selectOneRadio>
+		      								 -->											
 										</h:panelGrid>
 										
 										<h:panelGrid columns="2" cellpadding="5" rendered="#{les.diagnostico_histo == 'MELANOMA C43.9'}" 

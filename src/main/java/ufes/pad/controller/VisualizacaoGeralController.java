@@ -32,7 +32,7 @@ public class VisualizacaoGeralController {
 	private int numPacs;
 	
 	private int numLesoes;
-	
+	 
 	@Autowired
 	private PacienteGeralRepository pac_rep;
 	
@@ -40,9 +40,9 @@ public class VisualizacaoGeralController {
 	public void pegaTodosPacGerais () {
 		try {
 			todosPacs = pac_rep.findAll();			
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			// TODO: handle exception
-		}
+		}		
 	}
 	
 	

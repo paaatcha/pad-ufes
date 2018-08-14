@@ -1,13 +1,5 @@
 package ufes.pad.controller;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -15,98 +7,64 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ufes.pad.model.Imagem;
-import ufes.pad.model.Lesao;
-import ufes.pad.model.Paciente;
+import ufes.pad.model.PacienteGeral;
 import ufes.pad.repository.ImagemRepository;
-import ufes.pad.repository.LesaoRepository;
-import ufes.pad.repository.PacienteRepository;
+import ufes.pad.repository.LesaoGeralRepository;
+import ufes.pad.repository.PacienteGeralRepository;
 
 @ManagedBean
 @ViewScoped
-public class EdicaoController {
+public class EdicaoGeralController {
 	
-	private Paciente pacBuscado = new Paciente();
+	private PacienteGeral pacBuscado = new PacienteGeral();
 	
 	@Autowired 
-	private PacienteRepository pac_rep;
+	private PacienteGeralRepository pac_rep;
 	
 	@Autowired
-	private LesaoRepository les_rep;
+	private LesaoGeralRepository les_rep;
 	
 	@Autowired
-	private ImagemRepository img_rep;
-	
-	private boolean lesaoVazia;
-	
-	private boolean lesaoCompleta;
-	
-	private List<Lesao> pacLesoes = new ArrayList<Lesao>();
-	
-	private List<Imagem> pacImagens = new ArrayList<Imagem>();
-	
-	private List<Lesao> pacLesoesDeletar = new ArrayList<Lesao>();
-	
-	private List<Imagem> pacImagensDeletar = new ArrayList<Imagem>();	
-	
-	private Lesao lesao = new Lesao ();	
-	
-	private Imagem img = new Imagem ();	
-	
-	private Lesao lesaoSelecionada;	 
-	
-	private Imagem imgSelecionada; 
-	
-	private boolean pacRecadastro = false; 
+	private ImagemRepository img_rep;	
     
     @PostConstruct
 	public void pegaPacienteCartaoSus () {
 		HttpServletRequest request = (HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest();
 				
-		String cartaoSus = request.getParameter("cartaosus");		
-		String recadastro = request.getParameter("recadastro");
-		
-		System.out.println("AUSHAUSHUAS");
-		
+		String cartaoSus = request.getParameter("cartaosus");
+		FacesContext context = FacesContext.getCurrentInstance();
+						
 		try {
 			setPacBuscado(pac_rep.buscaPorCartaoSus(cartaoSus));			
 			
-			if (getPacBuscado()!=null) {							
-				FacesContext context = FacesContext.getCurrentInstance();
+			if (getPacBuscado()!=null) {
 				context.addMessage(null, new FacesMessage("Paciente pronto para edição"));
 				System.out.println("Paciente encontrado com sucesso para edição");
 				
-				
-				if (pacBuscado.getLesoes().isEmpty()) {
-					this.lesaoVazia = true;
-					this.lesaoCompleta = false; 
-				} else {
-					this.lesaoVazia = false;
-					this.lesaoCompleta = true;
-					pacLesoes = pacBuscado.getLesoes();					
-				}
-				
-				if (recadastro.equals("sim")) {
-					this.setPacRecadastro(true);					
-					pacBuscado.setData_atendimento(new Date());
-										
-				}
-				
+								
 			} else {
 				System.out.println("\n Paciente nao encontrado para edição\n");
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Paciente não encontrado!", "  "));
 			}
-		} catch (Exception e) {
-			FacesContext context = FacesContext.getCurrentInstance();
+		} catch (Exception e) {			
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));			
 		}			
+	}
+
+ // #############################################################################################################################################    
+    
+	public PacienteGeral getPacBuscado() {
+		return pacBuscado;
+	}
+
+	public void setPacBuscado(PacienteGeral pacBuscado) {
+		this.pacBuscado = pacBuscado;
 	}	
     
-	public String editarPaciente () {		
+	/*public String editarPaciente () {		
 		String ret = "/dashboard/visualizar_paciente.xhtml";
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
@@ -283,87 +241,8 @@ public class EdicaoController {
 
     
 
-// #############################################################################################################################################
+
 	
-	public Paciente getPacBuscado() {
-		return pacBuscado;
-	}
-
-	public void setPacBuscado(Paciente pacBuscado) {
-		this.pacBuscado = pacBuscado;
-	}
-
-	public boolean isLesaoVazia() {
-		return lesaoVazia;
-	}
-
-	public void setLesaoVazia(boolean lesaoVazia) {
-		this.lesaoVazia = lesaoVazia;
-	}
-
-	public boolean isLesaoCompleta() {
-		return lesaoCompleta;
-	}
-
-	public void setLesaoCompleta(boolean lesaoCompleta) {
-		this.lesaoCompleta = lesaoCompleta;
-	}
-
-	public Lesao getLesao() {
-		return lesao;
-	}
-
-	public void setLesao(Lesao lesao) {
-		this.lesao = lesao;
-	}
-
-	public List<Lesao> getPacLesoes() {
-		return pacLesoes;
-	}
-
-	public void setPacLesoes(List<Lesao> pacLesoes) {
-		this.pacLesoes = pacLesoes;
-	}
-
-	public List<Imagem> getPacImagens() {
-		return pacImagens;
-	}
-
-	public void setPacImagens(List<Imagem> pacImagens) {
-		this.pacImagens = pacImagens;
-	}
-
-	public Imagem getImg() {
-		return img;
-	}
-
-	public void setImg(Imagem img) {
-		this.img = img;
-	}
-
-	public Lesao getLesaoSelecionada() {
-		return lesaoSelecionada;
-	}
-
-	public void setLesaoSelecionada(Lesao lesaoSelecionada) {		
-		this.lesaoSelecionada = lesaoSelecionada;
-	}
-
-	public Imagem getImgSelecionada() {
-		return imgSelecionada;
-	}
-
-	public void setImgSelecionada(Imagem imgSelecionada) {
-		this.imgSelecionada = imgSelecionada;
-	}
-
-	public boolean isPacRecadastro() {
-		return pacRecadastro;
-	}
-
-	public void setPacRecadastro(boolean pacRecadastro) {
-		this.pacRecadastro = pacRecadastro;
-	}
-
+	*/
 }
 

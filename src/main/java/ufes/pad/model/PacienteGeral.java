@@ -23,6 +23,8 @@ public class PacienteGeral implements Serializable{
 	
 	private String cartao_sus;
 	
+	private boolean auditado = false;
+	
 	@OneToMany	(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn (name="pacienteId")
 	private List<LesaoGeral> lesoes;
@@ -63,6 +65,14 @@ public class PacienteGeral implements Serializable{
 
 	public void setLesoes(List<LesaoGeral> lesoes) {
 		this.lesoes = lesoes;
+	}
+
+	public boolean isAuditado() {
+		return auditado;
+	}
+
+	public void setAuditado(boolean auditado) {
+		this.auditado = auditado;
 	}
 	
 }

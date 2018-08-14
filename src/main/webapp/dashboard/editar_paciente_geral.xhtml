@@ -18,18 +18,9 @@
     			 
 				
 				
-				<p:growl id="growlCheck" showDetail="true" closable="true" />     		
-				      		
-				<h:outputText class="campoPac" value="Número total de pacientes registrados no banco: " />
-	      		<h:outputText class="valorPac" value="#{visualizacaoGeralController.numPacs}"/>
-				<br/>
-				
-				<h:outputText class="campoPac" value="Número total de lesões registradas no banco: " />
-	      		<h:outputText class="valorPac" value="#{visualizacaoGeralController.numLesoes}"/>				      		
-				      		
-				<br/><br/>
-												
-    			<p:accordionPanel value="#{visualizacaoGeralController.todosPacs}" var="pac">
+				<p:growl id="growlCheck" showDetail="true" closable="true" />
+													
+    			<p:accordionPanel value="#{edicaoGeralController.pacBuscado}" var="pac">
         			<p:tab title="Cartão SUS: #{pac.cartao_sus}" id="tabLesoes">
         			
 
@@ -37,31 +28,52 @@
 		              	<p:tabView value="#{pac.lesoes}" var="les">
 					        <p:tab title="Regiao: #{les.regiao}">
 					            <h:panelGrid columns="2" >
+					                
+					                <h:outputText value="Região:" style="font-weight: bold; font-size: 16px;"/>					                
+					                <p:inputText value="#{les.regiao}">
+					                	<p:ajax event="change" />
+					                </p:inputText>
 					                                
-					                <h:outputText value="Diagnóstico:" style="font-weight: bold; font-size: 16px;"/>
-					                <h:outputText value="#{les.diagnostico}" style="margin-left: 10px; font-size: 16px;"/>
+					                <h:outputText value="Diagnóstico:" style="font-weight: bold; font-size: 16px;"/>					                
+					                <p:inputText value="#{les.diagnostico}">
+					                	<p:ajax event="change" />
+					                </p:inputText>
 					                
 					                <h:outputText value="Idade:" style="font-weight: bold; font-size: 16px;"/>
-					                <h:outputText value="#{les.idade}" style="margin-left: 10px; font-size: 16px;"/>
+					                <p:inputText value="#{les.idade}">
+					                	<p:ajax event="change" />
+					                </p:inputText>					                
 					                
 					                <h:outputText value="Coçou?" style="font-weight: bold; font-size: 16px;"/>
-					                <h:outputText value="#{les.cocou}" style="margin-left: 10px; font-size: 16px;"/>
-					                
+					                <p:inputText value="#{les.cocou}">
+					                	<p:ajax event="change" />
+					                </p:inputText>
+					                					                
 					                <h:outputText value="Creçeu?" style="font-weight: bold; font-size: 16px;"/>
-					                <h:outputText value="#{les.cresceu}" style="margin-left: 10px; font-size: 16px;"/>
+					                <p:inputText value="#{les.cresceu}">
+					                	<p:ajax event="change" />
+					                </p:inputText>                
 					                
 					                <h:outputText value="Doeu?" style="font-weight: bold; font-size: 16px;"/>
-					                <h:outputText value="#{les.doeu}" style="margin-left: 10px; font-size: 16px;"/>
-					                
+					                <p:inputText value="#{les.doeu}">
+					                	<p:ajax event="change" />
+					                </p:inputText>
+					                					                
 					                <h:outputText value="Mudou?" style="font-weight: bold; font-size: 16px;"/>
-					                <h:outputText value="#{les.mudou}" style="margin-left: 10px; font-size: 16px;"/>
-					                
+					                <p:inputText value="#{les.mudou}">
+					                	<p:ajax event="change" />
+					                </p:inputText>
+					                					                
 					                <h:outputText value="Sangrou?" style="font-weight: bold; font-size: 16px;"/>
-					                <h:outputText value="#{les.sangrou}" style="margin-left: 10px; font-size: 16px;"/>
-					                
+					                <p:inputText value="#{les.sangrou}">
+					                	<p:ajax event="change" />
+					                </p:inputText>
+					                					                
 					                <h:outputText value="Revelo?" style="font-weight: bold; font-size: 16px;"/>
-					                <h:outputText value="#{les.relevo}" style="margin-left: 10px; font-size: 16px;"/>
-					 
+					                <p:inputText value="#{les.relevo}">
+					                	<p:ajax event="change" />
+					                </p:inputText>
+					                					 
 					            </h:panelGrid>
 					            
 					         	<h:outputText value="Imagens da lesão:" style="font-weight: bold; font-size: 16px; "/>

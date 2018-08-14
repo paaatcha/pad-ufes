@@ -120,7 +120,7 @@ public class PacienteController {
 		List<String> result = new ArrayList<String>();
 		query = query.toUpperCase();
 		String[] diag = new String[] {"FILTRO NASAL", "TÓRAX", "MENTONIANA", "EPIGÁSTRICA", "HIPOGÁSTRICA", "MESOGÁSTRICA",
-				"DE DORSO", "FRONTAL", "REGIÃO ZIGOMÁTICA - E", "REGIÃO ZIGOMÁTICA - D", "FRONTAL - E", "FRONTAL - D",
+				"DORSO", "FRONTAL", "REGIÃO ZIGOMÁTICA - E", "REGIÃO ZIGOMÁTICA - D", "FRONTAL - E", "FRONTAL - D",
 				"MAXILAR - E", "MAXILAR - D", "MANDIBULAR - E", "MANDIBULAR - D", "PERI-ORBITÁRIA - E", "PERI-ORBITÁRIA - D",
 				"SUPRA-ORBITÁRIA - E", "SUPRA-ORBITÁRIA - D", "PRÉ-AURICULAR - E", "PRÉ-AURICULAR - D", "PÓS-AURICULAR - E",
 				"PÓS-AURICULAR - D", "HÉLICE DA ORELHA - E", "HÉLICE DA ORELHA - D", "ANTI-HÉLICE DA ORELHA - E", "ANTI-HÉLICE DA ORELHA - D",

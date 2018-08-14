@@ -11,7 +11,7 @@ import ufes.pad.model.PacienteGeral;
 public interface PacienteGeralRepository extends JpaRepository<PacienteGeral, Long> {	
 	
 	@Query("select p from PacienteGeral p where p.cartao_sus=:cartao_sus")
-	public PacienteGeral buscaPorCartaoSus(@Param("cartao_sus") String cartao_sus);	
-
+	public PacienteGeral buscaPorCartaoSus(@Param("cartao_sus") String cartao_sus);
+	
 }
 
