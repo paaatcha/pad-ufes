@@ -71,8 +71,6 @@ public class EdicaoController {
 		String cartaoSus = request.getParameter("cartaosus");		
 		String recadastro = request.getParameter("recadastro");
 		
-		System.out.println("AUSHAUSHUAS");
-		
 		try {
 			setPacBuscado(pac_rep.buscaPorCartaoSus(cartaoSus));			
 			

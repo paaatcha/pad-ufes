@@ -46,6 +46,10 @@ public class Lesao implements Serializable {
 	private String estadiamento; 
 	
 	private String margens; 
+	
+	private String grau_histo;
+	
+	private String invasao;
 
 	@Column(length=100, nullable = false)
 	private String regiao;
@@ -253,6 +257,22 @@ public class Lesao implements Serializable {
 
 	public void setMargens(String margens) {
 		this.margens = margens;
+	}
+
+	public String getGrau_histo() {
+		return grau_histo;
+	}
+
+	public void setGrau_histo(String grau_histo) {
+		this.grau_histo = grau_histo;
+	}
+
+	public String getInvasao() {
+		return invasao;
+	}
+
+	public void setInvasao(String invasao) {
+		this.invasao = invasao;
 	}
 	
 }
