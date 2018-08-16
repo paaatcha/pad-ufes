@@ -327,6 +327,15 @@ a img{
 	font-weight: bold;
 }
 
+.linksHome{
+	float: none;
+	text-shadow: none;
+	display: inline;
+	font-size: 18px !important; 
+	color: #28a5d8 !important; 
+	font-weight: bold !important;
+}
+
 #funcionalidadesP{
 	color: #2a2a8c;
 	font-size: 17px;

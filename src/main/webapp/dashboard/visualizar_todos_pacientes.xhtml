@@ -120,12 +120,12 @@
 						
 							<h:outputText value="Local de atendimento" style="font-weight: bold" />
 		                	<p:autoComplete id="local_atendimento" value="#{visualizacaoTodosController.filtroCidade}" completeMethod="#{visualizacaoTodosController.completarCidades}">
-		                		<p:ajax event="change" update="@form"/>
+		                		<p:ajax event="blur" update="@form"/>
 		                	</p:autoComplete>
 		                	
 		                	<h:outputText value="Nome" style="font-weight: bold" />
 		                	<p:inputText id="nome" value="#{visualizacaoTodosController.filtroNome}" >
-		                		<p:ajax event="change" update="@form"/>
+		                		<p:ajax event="blur" update="@form"/>
 		                	</p:inputText>
 		                	
 		                	<h:outputText value="Intervalo de datas" style="font-weight: bold" />
@@ -133,19 +133,19 @@
 		                		<h:outputText value="Data Inicial:  " />
 			                	<p:inputMask id="dataInicio" mask="99/99/9999" value="#{visualizacaoTodosController.dataInicio}">		        					
 		        					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
-		        					<p:ajax event="change"/>
+		        					<p:ajax event="blur"/>
 		        				</p:inputMask>
 			                	
 			                	<h:outputText value="  Data Final:  " />
 			                	<p:inputMask id="dataFim" mask="99/99/9999" value="#{visualizacaoTodosController.dataFim}" >		        					
 		        					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
-		        					<p:ajax event="change"/>
+		        					<p:ajax event="blur"/>
 		        				</p:inputMask>
 		                	</h:panelGroup>
 		                	
 		                	<h:outputText value="Diagnóstico" style="font-weight: bold" />
 		                	<p:autoComplete id="diagnostico" value="#{visualizacaoTodosController.filtroDiag}" completeMethod="#{pacienteController.completarDiagnosticoLesao}">
-		                		<p:ajax event="change"/>
+		                		<p:ajax event="blur"/>
 		                	</p:autoComplete>
 		                	
 		                	<h:outputText value="Exibir nº de cirurgias?" style="font-weight: bold"/>

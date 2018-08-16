@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -32,6 +31,12 @@ public class VisualizacaoGeralController {
 	private int numPacs;
 	
 	private int numLesoes;
+	
+	private boolean somenteAuditados = false;
+	
+	private boolean exibirTabela = false;
+	
+	private String cartao_sus = "";
 	 
 	@Autowired
 	private PacienteGeralRepository pac_rep;
@@ -46,20 +51,38 @@ public class VisualizacaoGeralController {
 	}
 	
 	
-	@PostConstruct
 	public void listarPacientesGerais () {		
-		FacesContext context = FacesContext.getCurrentInstance();		
-		try {
-			todosPacs = pac_rep.findAll();
-						
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		try {		
+			if (!cartao_sus.equals("")) {
+				PacienteGeral pacsus = new PacienteGeral(); 
+				pacsus = pac_rep.buscaPorCartaoSus(getCartao_sus());
+				todosPacs = new ArrayList<PacienteGeral>();
+				
+				if (pacsus != null) {				
+					todosPacs.add(pacsus);
+				}
+				
+			} else if (somenteAuditados) {
+				todosPacs = pac_rep.findByAuditadoTrue();
+			} else {
+				todosPacs = pac_rep.findAll();
+			}
+			
 			if (todosPacs.isEmpty()) {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Não existe nenhum paciente neste banco de dados.", "  "));				
-			} 
+			} else {
+				setNumPacs(todosPacs.size());	
+				this.numLesoes = PacienteGeralController.totalLesoes(todosPacs); 
+				context.addMessage(null, new FacesMessage("Pacientes encontrados com sucesso"));
+				exibirTabela = true;
+			}
 		} catch (Exception e) {			
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));			
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));	
+			e.printStackTrace();
 		}	
-		setNumPacs(todosPacs.size());	
-		this.numLesoes = PacienteGeralController.totalLesoes(todosPacs); 
+		
 	}
 	
 	
@@ -170,4 +193,37 @@ public class VisualizacaoGeralController {
 		this.numLesoes = numLesoes;
 	}
 
+
+	public boolean isSomenteAuditados() {
+		return somenteAuditados;
+	}
+
+
+	public void setSomenteAuditados(boolean somenteAuditados) {
+		this.somenteAuditados = somenteAuditados;
+	}
+
+
+	public boolean isExibirTabela() {
+		return exibirTabela;
+	}
+
+
+	public void setExibirTabela(boolean exibirTabela) {
+		this.exibirTabela = exibirTabela;
+	}
+
+
+	public String getCartao_sus() {
+		return cartao_sus;
+	}
+
+
+	public void setCartao_sus(String cartao_sus) {
+		this.cartao_sus = cartao_sus;
+	}
+
+
+
 }
+

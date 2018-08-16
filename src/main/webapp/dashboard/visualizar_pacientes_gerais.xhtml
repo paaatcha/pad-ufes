@@ -11,64 +11,116 @@
       
       <ui:define name="conteudoInferiorPagina">
 
-			<p>				
-				Todos os pacientes cadastrados no banco estão listados na tabela abaixo. 
-			<br/>				
-			</p>		
+      <h:form>
+      
+      
+	   		<p:panel id="panelAll" header="Visualizar pacientes gerais" style="margin-bottom:20px;">
+			
+				<p:growl id="avisos" showDetail="true" closable="true" />
 				
-			<p:growl id="growlCheck" showDetail="true" closable="true" />     		
-			      		
-			<h:outputText class="campoPac" value="Número total de pacientes registrados no banco: " />
-      		<h:outputText class="valorPac" value="#{visualizacaoGeralController.numPacs}"/>
-			<br/>
+				<br/>
+					<h:outputText class="campoPac" value="Escolha as opções e clique em visualizar: " />				     		
+				<br/> 					
+				
+				<p:panelGrid columns="2" style="margin-top: 10px; margin-bottom: 25px;" >
+					<h:outputText value="Exibir somente auditados?" style="font-weight: bold"/>
+           				<p:selectBooleanCheckbox  value="#{visualizacaoGeralController.somenteAuditados}">		                	
+            				<p:ajax event="change" />
+            			</p:selectBooleanCheckbox>
+            		
+            		<h:outputText value="Cartão do SUS:" style="font-weight: bold"/>	
+            		<p:inputMask size="30" id="cartao_sus" value="#{visualizacaoGeralController.cartao_sus}"
+							mask="999-9999-9999-9999" >
+							
+							<p:ajax event="change" />
+					</p:inputMask>
+            			
+            		
+				</p:panelGrid>
+				
+				
+				
+				<p:commandButton icon="ui-icon-person" value="Visualizar"
+				update="avisos @form" action="#{visualizacaoGeralController.listarPacientesGerais()}"
+				style="
+					background: #ccffcc -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));
+					height: 35px;	
+					margin-top: 5px;				
+				"
+				/>
 			
-			<h:outputText class="campoPac" value="Número total de lesões registradas no banco: " />
-      		<h:outputText class="valorPac" value="#{visualizacaoGeralController.numLesoes}"/>				      		
-			      		
-			<br/><br/>
+				
+			<h:panelGroup id="dados" rendered="#{visualizacaoGeralController.exibirTabela}">
 			
-			<!--  INICIANDO A EXIBIÇÃO DOS PACIENTES GERAIS -->
+				<br/> <br/>
+				
+				<p:separator/>
+				
+				<br/>
 			
-						
-				<p:dataTable  value="#{visualizacaoGeralController.todosPacs}" var="pac"
-			      		rows="10" paginator="true"
-			      		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			            rowsPerPageTemplate="5,10,25,50,100"	
-			            style="text-align:center;"			                        		            
-			      		>		
-		         									      		
-							<f:facet name="header">
-		         				Pacientes Gerais
-		     				</f:facet>        						
-		     						   
-						    <p:column headerText="Cartão do SUS">
-						        <h:outputText value="#{pac.cartao_sus}" />
-						    </p:column>
-						    
-						    <p:column headerText="Auditado?">
-						        <h:outputText value="#{pac.auditado}" />
-						    </p:column>
-						    
-						    <p:column headerText="Nº lesões">						        
-						        <h:outputText value="#{pac.lesoes.size()}" />						        
-						    </p:column>
-    										        
-					        <p:column headerText="Editar">
-								<h:link outcome="editar_paciente_geral.xhtml" styleClass="linkEditarPaciente" target="_blank"
-									style="
-										float: none;												
-										display: inline; 												
-									" >
-										<h:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/edit.png" style="width: 25px; 
-													height: 25px;" />
-		 										<f:param name="cartaosus" value="#{pac.cartao_sus}" />		 										
-								</h:link>									        
-							</p:column>				        				        
-					        						 
-				</p:dataTable>    
+			
+
+				<p>				
+					Todos os pacientes cadastrados no banco estão listados na tabela abaixo. 
+				<br/>				
+				</p>		
 					
+				<p:growl id="growlCheck" showDetail="true" closable="true" />     		
+				      		
+				<h:outputText class="campoPac" value="Número total de pacientes encontrados: " />
+	      		<h:outputText class="valorPac" value="#{visualizacaoGeralController.numPacs}"/>
+				<br/>
 				
-	
+				<h:outputText class="campoPac" value="Número total de lesões encontradas: " />
+	      		<h:outputText class="valorPac" value="#{visualizacaoGeralController.numLesoes}"/>				      		
+				      		
+				<br/><br/>
+				
+				<!--  INICIANDO A EXIBIÇÃO DOS PACIENTES GERAIS -->
+				
+							
+					<p:dataTable  value="#{visualizacaoGeralController.todosPacs}" var="pac"
+				      		rows="10" paginator="true"
+				      		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				            rowsPerPageTemplate="5,10,25,50,100"	
+				            style="text-align:center;"			                        		            
+				      		>		
+			         									      		
+								<f:facet name="header">
+			         				Pacientes Gerais
+			     				</f:facet>        						
+			     						   
+							    <p:column headerText="Cartão do SUS">
+							        <h:outputText value="#{pac.cartao_sus}" />
+							    </p:column>
+							    
+							    <p:column headerText="Auditado?">
+							        <h:outputText value="#{pac.auditado}" />
+							    </p:column>
+							    
+							    <p:column headerText="Nº lesões">						        
+							        <h:outputText value="#{pac.lesoes.size()}" />						        
+							    </p:column>
+	    										        
+						        <p:column headerText="Editar">
+									<h:link outcome="editar_paciente_geral.xhtml" styleClass="linkEditarPaciente" target="_blank"
+										style="
+											float: none;												
+											display: inline; 												
+										" >
+											<h:graphicImage url="#{facesContext.externalContext.requestContextPath}/../img/edit.png" style="width: 25px; 
+														height: 25px;" />
+			 										<f:param name="cartaosus" value="#{pac.cartao_sus}" />		 										
+									</h:link>									        
+								</p:column>				        				        
+						        						 
+					</p:dataTable>
+					
+				</h:panelGroup>    
+					
+			 </p:panel>		
+				
+	</h:form>
 												
     							  
 	</ui:define>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="../decoratorDashboard/decorator_dashboard.xhtml">
+      
+                  
+      <ui:define name="conteudoInferiorPagina">
+
+			<p:fieldset legend="Editando imagem" 
+		      	style="margin-bottom:20px; margin-top:20px;"	      	
+		      	id="dadosAnalise">   
+		      	
+		      	
+		      	
+		      	
+		      	
+		      	<h:outputText value="Path da imagem: " style="font-weight: bold; font-size:15px;"/>
+		      	<h:outputText value="/dashboard/imgLesoesGeral/#{edicaoImagemController.imgPath}" style="font-size:15px;"/>
+		      	<br/><br/>
+		      	
+		      	
+		      	<h:form>
+    					<p:growl id="msgs" showDetail="true"/>
+ 
+					    <h:panelGrid columns="2" cellspacing="10">
+					    	<h:panelGroup>
+					    		<h:outputText value="Imagem original" style="font-weight: bold; font-size:15px; color:#336600;"/>
+					    		<br/> <br/>
+					        	<p:imageCropper value="#{edicaoImagemController.croppedImage}" image="/dashboard/imgLesoesGeral/#{edicaoImagemController.imgPath}" 
+					        	initialCoords="225,75,300,125" boxHeight="500" aspectRatio="1.0"/>
+					        </h:panelGroup>
+					        
+					        
+					        <h:panelGroup id="cropped" rendered="#{not empty edicaoImagemController.imgPathNovo}">
+					        	<h:outputText value="Imagem cropada" style="font-weight: bold; font-size:15px; color: #0000b3;"/>
+					        	<br/><br/>
+					            <p:graphicImage url="/dashboard/imgLesoesGeral/cropped_#{edicaoImagemController.imgPath}" height="500" width="500"/>
+					        </h:panelGroup>
+					        
+					    </h:panelGrid>
+ 
+				    	
+				    	<p:commandButton value="Crop" action="#{edicaoImagemController.cropaImagem}" update="@form msgs" icon="ui-icon-scissors"
+				    		style="
+								background: #99c2ff -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));							        	 
+							 	color: #333;
+							 	padding: 5px;
+							 	margin-left: 10px;								
+							"
+				    	
+				    	/>		
+				    	
+				    	<p:commandButton action="#{edicaoImagemController.descartar}" icon="ui-icon-trash"
+							        	 value="Descartar crop" 
+							        	 style="
+							        	 	background: #ffffb3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));							        	 
+										 	color: #333;
+										 	padding: 5px;
+										 	margin-left: 10px;
+											margin-right: 10px;
+							        	 "				
+							        	 update="@form msgs"			        	 
+						/>	
+				    	
+				    	
+				    	<p:commandButton action="#{edicaoImagemController.salvar}" icon="ui-icon-check"
+							        	 value="Salvar alterações" type="submit"
+							        	 style="
+							        	 	background: #ccffcc -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));							        	 
+										 	color: #333;
+										 	padding: 5px;
+							        	 "			
+							        	 update="@form msgs"        	 
+						/>
+						
+						
+				    			    	
+				</h:form>
+		      	
+
+		      	
+		      	
+		      	
+		      	
+		      	
+		      	
+		      	
+		    </p:fieldset>       
+      </ui:define>
+      
+      
+</ui:composition>  

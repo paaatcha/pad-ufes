@@ -14,50 +14,36 @@
 				
 				
 				
-				<h:form id="formPacGeralEdicao">	
+				<h:form>	
 						
 						<p:growl id="growlCheck" showDetail="true" closable="true" />
 				
-	    				<p:fieldset legend="Editando paciente com cartão do SUS = #{edicaoGeralController.pacBuscado.cartao_sus}" style="margin-bottom:20px">    											
+	    				<p:fieldset legend="ADICIONAR NOVO PACIENTE" style="margin-bottom:20px">    									
 						
-						
-						<h:panelGrid columns="2" cellspacing="5" style="margin-bottom:10px">
-							<p:commandButton action="#{edicaoGeralController.salvarAlteracoes}" icon="ui-icon-check"
-							        	 value="Salvar alterações" type="submit"
+						        
+				            <h:panelGrid columns="3" cellspacing="10">
+				            
+				            	<h:outputText value="Cartão do SUS do paciente:" style="font-weight: bold"/>	
+            						<p:inputMask size="30" id="cartao_sus" value="#{pacienteGeralController.pac.cartao_sus}"
+									mask="999-9999-9999-9999" >							
+									<p:ajax event="blur" />
+								</p:inputMask>	
+								
+								<p:commandButton action="#{pacienteGeralController.instanciaNovaLesao}" icon="ui-icon-check"
+							        	 value="Inserir nova lesão" update="@form"
 							        	 style="
 							        	 	background: #ccffcc -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));							        	 
-										 	color: #333;
-										 	padding: 5px;
+										 	color: #333;										 	
 							        	 "							        	 
-							 />							      										      			
-							
-							<p:commandButton action="#{edicaoGeralController.excluirPacienteGeral}" icon="ui-icon-trash"
-								        	 value="Excluir Paciente" update="@form growlCheck" process="@this"
-								        	 style="
-								        	 	background: #ffb3b3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));							        	 
-								        	 	color: #333;
-								        	 	padding: 5px;
-								        	 "							        	 
-								        	 >							      										      			
-								      		
-								      		<p:confirm header="ATENÇÃO" message="Você tem certeza que deseja excluir esta lesão?"
-						 					icon="ui-icon-alert" />
-								      			          						
-							</p:commandButton>
-						</h:panelGrid>
-										
-						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-      						<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-      						<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-						</p:confirmDialog>					
-								    					
-	    				
-				                
-			              	<p:tabView value="#{edicaoGeralController.pacBuscado.lesoes}" var="les">
-						        <p:tab title="Regiao: #{les.regiao}">
+							 	/>	
+           												                
+				            </h:panelGrid>
+				            
+			          	<p:tabView value="#{pacienteGeralController.pac.lesoes}" var="les" rendered="#{pacienteGeralController.instanciado}" style="margin-bottom: 25px; margin-top: 15px;">
 						        
+						        <p:tab title="Regiao: #{les.regiao}" id="teste">
 						        
-						        	<p:commandButton action="#{edicaoGeralController.excluirLesao}" icon="ui-icon-trash"
+						        	<p:commandButton action="#{pacienteGeralController.excluirLesao}" icon="ui-icon-trash"
 							        	 value="Excluir lesão" update="@form" process="@this"
 							        	 style="
 							        	 background: #ffb3b3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));
@@ -66,38 +52,37 @@
 							        	 padding: 5px;
 							        	 "							        	 
 							        	 >
-							      			<f:setPropertyActionListener value="#{les}" target="#{edicaoGeralController.lesaoSelecionada}" />
+							      			<f:setPropertyActionListener value="#{les}" target="#{pacienteGeralController.lesaoSelecionada}" />
 							      			
 							      			<p:confirm header="ATENÇÃO" message="Você tem certeza que deseja excluir esta lesão?"
 					 						icon="ui-icon-alert" />
 							      			          						
 									</p:commandButton>	
+									
+									<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+      									<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+      									<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+									</p:confirmDialog>	
 						        
 						        
-						            <h:panelGrid columns="2" >
-						            
-						            	<h:outputText value="Auditado?" style="font-weight: bold"/>
-	           							<p:selectBooleanCheckbox  value="#{edicaoGeralController.pacBuscado.auditado}">		                	
-	            							<p:ajax event="change" />
-	            						</p:selectBooleanCheckbox>						                
-						                						                
-						                <h:outputText value="Região:" style="font-weight: bold"/>
+						            <h:panelGrid columns="2" cellspacing="10">
+						            					            						                						                
+						                <h:outputText value="Região:" style="font-weight: bold; font-size: 16px;"/>
 										<p:autoComplete size="30" id="regiao_edit" value="#{les.regiao}"
 											completeMethod="#{pacienteController.completarRegiaoLesao}">								
-												<p:ajax event="blur" />									
-										</p:autoComplete>
-						                
+												<p:ajax event="blur"/>									
+										</p:autoComplete>					                
 						                                
-						                <h:outputText value="Diagnóstico:" style="font-weight: bold"/>
+						                <h:outputText value="Diagnóstico:" style="font-weight: bold; font-size: 16px;"/>
 										<p:autoComplete size="30" id="diag_clinEdit" value="#{les.diagnostico}"
 											completeMethod="#{pacienteController.completarDiagnosticoLesao}">								
 												<p:ajax event="blur" />									
 										</p:autoComplete>
-						                						                
-						                <h:outputText value="Idade:" style="font-weight: bold; font-size: 16px;"/>						                
+										
+										<h:outputText value="Idade:" style="font-weight: bold; font-size: 16px;"/>						                
 						                <p:spinner size="15" value="#{les.idade}" min="0" stepFactor="1">								
 											<p:ajax event="blur" />									
-										</p:spinner>		                
+										</p:spinner>        
 						                
 						                <h:outputText value="Coçou?" style="font-weight: bold; font-size: 16px;"/>
 						                <p:selectOneRadio value="#{les.cocou}">
@@ -137,15 +122,12 @@
 						                
 						                					                					 
 						            </h:panelGrid>
-						            
+								            
 						            
 						            <br/>
-						         							         	
-								    
-								    
 									    
-							            <p:dataGrid value="#{les.imagens}" var="img" layout="grid" 
-							            style="width:auto" id="dataGridImagensGeralEdicao">		
+							          <p:dataGrid value="#{les.imagens}" var="img" layout="grid" 
+							            style="width:auto" id="dataGridImagens">		
 							            
 						            		<f:facet name="header">
 						            			Imagens da lesão
@@ -164,27 +146,15 @@
 									        		 											        
 									        		
 										        	<h:panelGroup>						        		
-														<p:commandButton action="#{edicaoGeralController.excluirImgEdicao(les)}" icon="ui-icon-trash" 
+														<p:commandButton action="#{pacienteGeralController.excluirImg(les)}" icon="ui-icon-trash" 
 														value="Excluir Imagem" update="@form @form:growlCheck" process="@this"
 														style="
 															background: #ffb3b3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0)));
-															margin-left: 105px;
+															margin-left: 170px;
 														"
 														>
-							      							<f:setPropertyActionListener value="#{img}" target="#{edicaoGeralController.imgSelecionada}" />          						
+							      							<f:setPropertyActionListener value="#{img}" target="#{pacienteGeralController.imgSelecionada}" />          						
 														</p:commandButton>
-														
-														
-														<p:button value="Editar imagem" outcome="utils/editor_imagem.xhtml" 
-															icon="ui-icon-pencil" target="_blank"
-															style="												
-																background: #99c2ff -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0)));
-																margin-left: 10px;
-															" >
-											    				<f:param name="imgpath" value="#{img.path}" />
-											    													    				
-														</p:button>
-														
 														
 													</h:panelGroup>
 										    	
@@ -199,10 +169,10 @@
 										
 										<p:fileUpload label="Procurar Imagem" uploadLabel="Enviar" 
 											cancelLabel="Cancelar" id="imgLesaoEdit" 
-								 			fileUploadListener="#{edicaoGeralController.inserirNovaImagem}"								 			 
+								 			fileUploadListener="#{pacienteGeralController.inserirNovaImagem}"								 			 
 				        					multiple="true"	        					
 				        					sizeLimit="10000000"
-				        					update="@form:growlCheck dataGridImagensGeralEdicao"
+				        					update="@form:growlCheck dataGridImagens"
 				        					style="width:750px"
 				        					 
 				        				>
@@ -210,21 +180,19 @@
 				        					<f:attribute name="lesaoParaNovaImg" value="#{les}" />
 				        				
 				        				</p:fileUpload>
-								    	
-								    						    
+
+								</p:tab>
+							</p:tabView>
 	
-									    
-									    
-									    
-									    
-									    
-									    
-									    
-									    
-									    
-						            
-						        </p:tab>
-						    </p:tabView>
+							<p:commandButton action="#{pacienteGeralController.salvar}" icon="ui-icon-check"
+							        	 value="Salvar paciente" update="@form @form:growlCheck" rendered="#{pacienteGeralController.instanciado}"
+							        	 style="
+							        	 	background: #ccffcc -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));							        	 
+										 	color: #333;
+										 	padding: 15px;										 	
+							        	 "							        	 
+							 />	
+	
 	     		   		
 	     		   		</p:fieldset>	    			
     			
