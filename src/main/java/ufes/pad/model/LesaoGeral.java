@@ -38,6 +38,8 @@ public class LesaoGeral implements Serializable{
 	
 	private int idade;
 	
+	private String obs;
+	
 	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn (name="lesaoId")
 	private List<ImagemGeral> imagens;
@@ -154,6 +156,14 @@ public class LesaoGeral implements Serializable{
 
 	public void setIdade(int idade) {
 		this.idade = idade;
+	}
+
+	public String getObs() {
+		return obs;
+	}
+
+	public void setObs(String obs) {
+		this.obs = obs;
 	}	
 }
 

@@ -92,7 +92,7 @@ public class EdicaoGeralController {
     	return "/dashboard/visualizar_pacientes_gerais.xhtml?faces-redirect=true";
     }
     
-    public String salvarAlteracoes () {
+    public void salvarAlteracoes () {
     	FacesContext context = FacesContext.getCurrentInstance();
     	try {
     		
@@ -110,10 +110,9 @@ public class EdicaoGeralController {
     	} catch (Exception e) {
     		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ATENÇÃO! Problema de conexão com o banco de dados.", "  "));
     		e.printStackTrace();
-    		return null;
-    	}
+    		
+    	}    	
     	
-    	return "/dashboard/visualizar_pacientes_gerais.xhtml?faces-redirect=true";
     }
     
 	static public void excluirImgGeralServer (ImagemGeral img) {
@@ -214,6 +213,11 @@ public class EdicaoGeralController {
 		}
 	}
    
+	public void atualizarImagens () {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage("Imagens atualizadas com sucesso!"));
+	}
+		
     
 
  // #############################################################################################################################################    

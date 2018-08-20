@@ -21,9 +21,9 @@
 	    				<p:fieldset legend="Editando paciente com cartão do SUS = #{edicaoGeralController.pacBuscado.cartao_sus}" style="margin-bottom:20px">    											
 						
 						
-						<h:panelGrid columns="2" cellspacing="5" style="margin-bottom:10px">
+						<h:panelGrid columns="3" cellspacing="5" style="margin-bottom:10px">
 							<p:commandButton action="#{edicaoGeralController.salvarAlteracoes}" icon="ui-icon-check"
-							        	 value="Salvar alterações" type="submit"
+							        	 value="Salvar alterações" update="@form"
 							        	 style="
 							        	 	background: #ccffcc -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));							        	 
 										 	color: #333;
@@ -44,12 +44,24 @@
 						 					icon="ui-icon-alert" />
 								      			          						
 							</p:commandButton>
+							
+							<h:panelGroup>
+							
+								<h:outputText value="Auditado?" style="font-weight: bold; margin-right: 5px;"/>
+           						<p:selectBooleanCheckbox  value="#{edicaoGeralController.pacBuscado.auditado}">		                	
+            						<p:ajax event="change" />
+            					</p:selectBooleanCheckbox>	
+							
+							</h:panelGroup>
+							
 						</h:panelGrid>
 										
 						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
       						<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
       						<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-						</p:confirmDialog>					
+						</p:confirmDialog>	
+						
+									
 								    					
 	    				
 				                
@@ -74,12 +86,7 @@
 									</p:commandButton>	
 						        
 						        
-						            <h:panelGrid columns="2" >
-						            
-						            	<h:outputText value="Auditado?" style="font-weight: bold"/>
-	           							<p:selectBooleanCheckbox  value="#{edicaoGeralController.pacBuscado.auditado}">		                	
-	            							<p:ajax event="change" />
-	            						</p:selectBooleanCheckbox>						                
+						            <h:panelGrid columns="2" >						                
 						                						                
 						                <h:outputText value="Região:" style="font-weight: bold"/>
 										<p:autoComplete size="30" id="regiao_edit" value="#{les.regiao}"
@@ -135,13 +142,31 @@
 		      								<f:selectItem itemLabel="Não" itemValue="N"/>
 						                </p:selectOneRadio>
 						                
+						                <h:outputText value="Observação:" style="font-weight: bold; font-size: 16px;"/>
+										<p:inputTextarea rows="3" cols="30" value="#{les.obs}"/>
+							
+						                
 						                					                					 
 						            </h:panelGrid>
 						            
 						            
 						            <br/>
+						            
+						            							        
+							        <p:commandButton action="#{edicaoGeralController.atualizarImagens}" icon="ui-icon-refresh" 
+											value="Refresh imagens" update="dataGridImagensGeralEdicao @form:growlCheck" process="@this"
+											style="
+												background: #fff587 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0)));
+												float: right;
+							        	 		color: #333;
+							        	 		padding: 5px;
+											"
+									/>
+									
 						         							         	
-								    
+								    <br/>
+								    <br/>
+								    <br/>
 								    
 									    
 							            <p:dataGrid value="#{les.imagens}" var="img" layout="grid" 
@@ -165,7 +190,7 @@
 									        		
 										        	<h:panelGroup>						        		
 														<p:commandButton action="#{edicaoGeralController.excluirImgEdicao(les)}" icon="ui-icon-trash" 
-														value="Excluir Imagem" update="@form @form:growlCheck" process="@this"
+														value="Excluir Imagem" update="dataGridImagensGeralEdicao @form:growlCheck" process="@this"
 														style="
 															background: #ffb3b3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0)));
 															margin-left: 105px;

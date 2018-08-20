@@ -32,7 +32,7 @@ public class VisualizacaoGeralController {
 	
 	private int numLesoes;
 	
-	private boolean somenteAuditados = false;
+	private boolean somenteNaoAuditados = false;
 	
 	private boolean exibirTabela = false;
 	
@@ -64,8 +64,8 @@ public class VisualizacaoGeralController {
 					todosPacs.add(pacsus);
 				}
 				
-			} else if (somenteAuditados) {
-				todosPacs = pac_rep.findByAuditadoTrue();
+			} else if (isSomenteNaoAuditados()) {
+				todosPacs = pac_rep.findByAuditadoFalse();
 			} else {
 				todosPacs = pac_rep.findAll();
 			}
@@ -84,7 +84,6 @@ public class VisualizacaoGeralController {
 		}	
 		
 	}
-	
 	
 	public List<String> pegaImagensLesao (LesaoGeral les){
 		List<String> imgsPath = new ArrayList<String>();
@@ -193,17 +192,6 @@ public class VisualizacaoGeralController {
 		this.numLesoes = numLesoes;
 	}
 
-
-	public boolean isSomenteAuditados() {
-		return somenteAuditados;
-	}
-
-
-	public void setSomenteAuditados(boolean somenteAuditados) {
-		this.somenteAuditados = somenteAuditados;
-	}
-
-
 	public boolean isExibirTabela() {
 		return exibirTabela;
 	}
@@ -221,6 +209,16 @@ public class VisualizacaoGeralController {
 
 	public void setCartao_sus(String cartao_sus) {
 		this.cartao_sus = cartao_sus;
+	}
+
+
+	public boolean isSomenteNaoAuditados() {
+		return somenteNaoAuditados;
+	}
+
+
+	public void setSomenteNaoAuditados(boolean somenteNaoAuditados) {
+		this.somenteNaoAuditados = somenteNaoAuditados;
 	}
 
 

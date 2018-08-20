@@ -59,7 +59,7 @@ public class PacienteController {
 				"RIO GRANDE DO NORTE","RIO GRANDE DO SUL","RONDÔNIA","RORAIMA","SANTA CATARINA","SÃO PAULO","SERGIPE","TOCANTINS"};
 		
 		for (String s : estados){
-			 if (s.startsWith(query)){
+			 if (s.contains(query)){
 				 result.add(s);
 			 }
 		}		
@@ -74,7 +74,7 @@ public class PacienteController {
 				"CHINA", "JAPÃO", "CORÉIA", "HUNGRIA", "DINAMARCA", "COLÔMBIA", "LATINA", "AFRICA", "PARAGUAI", "VENEZUELA", "HOLANDA"};
 		
 		for (String s : estados){
-			 if (s.startsWith(query)){
+			 if (s.contains(query)){
 				 result.add(s);
 			 }
 		}		
@@ -90,10 +90,10 @@ public class PacienteController {
 				"FIBROMA (ACROCORDON) D21.9", "HANSENÍASE A30.9", "HEMANGIOMA D18.0", "HERPES SIMPLES B00.1", "HERPES ZOOSTER B02.9", "IMPETIGO L01.0", "LENTIGO MALIGNO D03.9", "LESÃO NÃO ESPECIFICADA L99",
 				"LIPOMA D17", "LÍQUEN PLANO L66.1", "MELANOMA C43.9", "MELANOSE SOLAR L81.1", "MICOSE NÃO ESPECIFICADA B49", "MILIÁRIA NÃO ESPECIFICADA L74.3", "NEVO MELANOCÍTICO D22.9", "PITIRÍASE ALBA L130.5",
 				"PITIRÍASE LIQUINOIDE CRÔNICA L41.1", "PITIRÍASE VERSICOLOR B36.0", "PSORÍASE VULGAR L40.0", "ROSÁCEA NÃO ESPECIFICADA L71.9", "SERINGOMA D23.9", "TINEA CORPORIS B35.4", "ÚLCERA CRÔNICA DE PELE NÃO ESPECIFICADA L98.4",
-				"VARICELA B01.9", "VERRUGA B07", "VITILIGO L80"};
+				"VARICELA B01.9", "VERRUGA B07", "VITILIGO L80", "NEUROFIBROMATOSE Q85.0", "OUTROS"};
 		
 		for (String s : diag){
-			 if (s.startsWith(query)){
+			 if (s.contains(query)){
 				 result.add(s);
 			 }
 		}		
@@ -110,7 +110,7 @@ public class PacienteController {
 				"HIPERTRÓFICA",  "OUTRO - ESPEFIQUE-SE"};
 		
 		for (String s : diag){
-			 if (s.startsWith(query)){
+			 if (s.contains(query)){
 				 result.add(s);
 			 }
 		}		
@@ -121,13 +121,13 @@ public class PacienteController {
 		List<String> result = new ArrayList<String>();
 		query = query.toUpperCase();
 		String[] diag = new String[] {"FILTRO NASAL", "TÓRAX", "MENTONIANA", "EPIGÁSTRICA", "HIPOGÁSTRICA", "MESOGÁSTRICA",
-				"DORSO", "FRONTAL", "REGIÃO ZIGOMÁTICA - E", "REGIÃO ZIGOMÁTICA - D", "FRONTAL - E", "FRONTAL - D",
+				"DORSO", "FRONTAL", "ZIGOMÁTICA - E", "ZIGOMÁTICA - D", "FRONTAL - E", "FRONTAL - D",
 				"MAXILAR - E", "MAXILAR - D", "MANDIBULAR - E", "MANDIBULAR - D", "PERI-ORBITÁRIA - E", "PERI-ORBITÁRIA - D",
 				"SUPRA-ORBITÁRIA - E", "SUPRA-ORBITÁRIA - D", "PRÉ-AURICULAR - E", "PRÉ-AURICULAR - D", "PÓS-AURICULAR - E",
 				"PÓS-AURICULAR - D", "HÉLICE DA ORELHA - E", "HÉLICE DA ORELHA - D", "ANTI-HÉLICE DA ORELHA - E", "ANTI-HÉLICE DA ORELHA - D",
 				"PAVILHÃO AURICULAR - E", "PAVILHÃO AURICULAR - D", "MASSETÉRICA - E", "MASSETÉRICA - D", "PARIETAL - E", "PARIETAL - D",
-				"TEMPORAL - E", "TEMPORAL - D", "COURO CABELUDO - E", "COURO CABELUDO - D", "ANTEBRAÇO - E", "ANTEBRAÇO - D",
-				"BRAÇO - E", "BRAÇO - D", "CUBITAL - E", "CUBITAL - D", "ANTE-CUBITAL - E", "ANTE-CUBITAL - D", "PERNA - E", "PERNA - D",
+				"TEMPORAL - E", "TEMPORAL - D", "COURO CABELUDO - E", "COURO CABELUDO - D", "ANTEBRAÇO - E", "ANTEBRAÇO - D", "LATERAL DE PESCOÇO - E", "LATERAL DE PESCOÇO - D",
+				"BRAÇO - E", "BRAÇO - D", "CUBITAL - E", "CUBITAL - D", "ANTE-CUBITAL - E", "ANTE-CUBITAL - D", "PERNA - E", "PERNA - D", "POSTERIOR DE PESCOÇO - E", "POSTERIOR DE PESCOÇO - D",
 				"COXA - E", "COXA - D", "POPLÍTEA - E", "POPLÍTEA - D", "DORSO DE MÃO - E", "DORSO DE MÃO - D", "DORSO DE PÉ - E",
 				"DORSO DE PÉ - D", "PLANTAR - E", "PLANTAR - D", "PALMAR - E", "PALMAR - D", "PRIMEIRO AO QUINTO QUIRODÁCTILO - SEPARADOS - E",
 				"PRIMEIRO AO QUINTO QUIRODÁCTILO - SEPARADOS - D", "PRIMEIRO AO QUINTO PODOTÁCTILO - SEPARADOS - E", "PRIMEIRO AO QUINTO PODOTÁCTILO - SEPARADOS - D",
@@ -138,7 +138,7 @@ public class PacienteController {
 				"GLÚTEA - E", "GLÚTEA - D", "ESCAPULAR - E", "ESCAPULAR - D", "SUPRASUPERCILIAR - E", "SUPRASUPERCILIAR - D"};
 		
 		for (String s : diag){
-			 if (s.startsWith(query)){
+			 if (s.contains(query)){
 				 result.add(s);
 			 }
 		}		
@@ -152,7 +152,7 @@ public class PacienteController {
 				"CAMINHONEIRO", "PEDREIRO", "FUNCIONARIO PUBLICO"};
 		
 		for (String s : diag){
-			 if (s.startsWith(query)){
+			 if (s.contains(query)){
 				 result.add(s);
 			 }
 		}		

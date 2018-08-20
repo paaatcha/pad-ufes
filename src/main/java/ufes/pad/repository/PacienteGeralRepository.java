@@ -15,7 +15,7 @@ public interface PacienteGeralRepository extends JpaRepository<PacienteGeral, Lo
 	@Query("select p from PacienteGeral p where p.cartao_sus=:cartao_sus")
 	public PacienteGeral buscaPorCartaoSus(@Param("cartao_sus") String cartao_sus);
 	
-	public List<PacienteGeral> findByAuditadoTrue ();
+	public List<PacienteGeral> findByAuditadoFalse ();
 	
 }
 
