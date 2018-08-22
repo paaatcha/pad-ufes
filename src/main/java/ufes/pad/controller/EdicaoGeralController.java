@@ -172,7 +172,7 @@ public class EdicaoGeralController {
     	try {
     		UploadedFile arq = event.getFile();	
     		InputStream in = new BufferedInputStream(arq.getInputstream());
-			String pathImg = (pacBuscado.getCartao_sus() + "_" + new Date().getTime() + ".jpg");
+			String pathImg = (pacBuscado.getCartao_sus() + "_" + (new Date().getTime()) + ".jpg");
 			File file = new File("src/main/webapp/dashboard/imgLesoesGeral/" + pathImg);
     		FileOutputStream fout = new FileOutputStream(file);
     		

@@ -17,5 +17,8 @@ public interface PacienteGeralRepository extends JpaRepository<PacienteGeral, Lo
 	
 	public List<PacienteGeral> findByAuditadoFalse ();
 	
+	@Query(value="SELECT * FROM paciente_geral WHERE (paciente_geral.id IN (SELECT lesao_geral.paciente_id FROM lesao_geral WHERE lesao_geral.diagnostico LIKE %?1%) )", nativeQuery=true)
+	public List<PacienteGeral> filtraPorLesao (String lesao);
+	
 }
 

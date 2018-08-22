@@ -40,7 +40,7 @@
 								        	 "							        	 
 								        	 >							      										      			
 								      		
-								      		<p:confirm header="ATENÇÃO" message="Você tem certeza que deseja excluir esta lesão?"
+								      		<p:confirm header="ATENÇÃO" message="Você tem certeza que deseja excluir este paciente?"
 						 					icon="ui-icon-alert" />
 								      			          						
 							</p:commandButton>
@@ -112,7 +112,7 @@
 		      								<f:selectItem itemLabel="Não" itemValue="N"/>
 						                </p:selectOneRadio>
 						                
-						                <h:outputText value="Creçeu?" style="font-weight: bold; font-size: 16px;"/>
+						                <h:outputText value="Cresceu?" style="font-weight: bold; font-size: 16px;"/>
 						                <p:selectOneRadio value="#{les.cresceu}">
 						                	<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      								<f:selectItem itemLabel="Não" itemValue="N"/>
@@ -136,7 +136,7 @@
 		      								<f:selectItem itemLabel="Não" itemValue="N"/>
 						                </p:selectOneRadio>
 						                					                
-						                <h:outputText value="Revelo?" style="font-weight: bold; font-size: 16px;"/>
+						                <h:outputText value="Relevo?" style="font-weight: bold; font-size: 16px;"/>
 						                <p:selectOneRadio value="#{les.relevo}">
 						                	<f:selectItem itemLabel="Sim" itemValue="S"/>
 		      								<f:selectItem itemLabel="Não" itemValue="N"/>
@@ -225,7 +225,7 @@
 										<p:fileUpload label="Procurar Imagem" uploadLabel="Enviar" 
 											cancelLabel="Cancelar" id="imgLesaoEdit" 
 								 			fileUploadListener="#{edicaoGeralController.inserirNovaImagem}"								 			 
-				        					multiple="true"	        					
+				        					multiple="false"	        					
 				        					sizeLimit="10000000"
 				        					update="@form:growlCheck dataGridImagensGeralEdicao"
 				        					style="width:750px"

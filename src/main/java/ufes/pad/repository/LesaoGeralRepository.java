@@ -17,8 +17,11 @@ public interface LesaoGeralRepository extends JpaRepository<LesaoGeral, Long> {
 
 	Lesao findById (String id);
 	
+	int countByDiagnosticoLike (String lesao);
+	
 	@Query(nativeQuery=true, value="select * from lesao le where le.paciente_id=:paciente_id")
 	List<Lesao> buscaLesaoPacienteId (@Param("paciente_id") String paciente_id);	
+	
 	
 	
 	

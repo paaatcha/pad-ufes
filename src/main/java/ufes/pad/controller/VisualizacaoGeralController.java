@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ufes.pad.model.ImagemGeral;
 import ufes.pad.model.LesaoGeral;
 import ufes.pad.model.PacienteGeral;
+import ufes.pad.repository.LesaoGeralRepository;
 import ufes.pad.repository.PacienteGeralRepository;
 
 @ManagedBean
@@ -32,14 +33,22 @@ public class VisualizacaoGeralController {
 	
 	private int numLesoes;
 	
+	private int numLesoesEspecifico;
+	
 	private boolean somenteNaoAuditados = false;
 	
 	private boolean exibirTabela = false;
 	
 	private String cartao_sus = "";
+	
+	private String filtroLesao = "";
 	 
 	@Autowired
 	private PacienteGeralRepository pac_rep;
+	
+	@Autowired
+	private LesaoGeralRepository les_rep;
+	
 	
 	 
 	public void pegaTodosPacGerais () {
@@ -66,6 +75,9 @@ public class VisualizacaoGeralController {
 				
 			} else if (isSomenteNaoAuditados()) {
 				todosPacs = pac_rep.findByAuditadoFalse();
+			} else if (!filtroLesao.equals("")) {
+				todosPacs = pac_rep.filtraPorLesao(filtroLesao);
+				setNumLesoesEspecifico(les_rep.countByDiagnosticoLike(filtroLesao));
 			} else {
 				todosPacs = pac_rep.findAll();
 			}
@@ -219,6 +231,26 @@ public class VisualizacaoGeralController {
 
 	public void setSomenteNaoAuditados(boolean somenteNaoAuditados) {
 		this.somenteNaoAuditados = somenteNaoAuditados;
+	}
+
+
+	public String getFiltroLesao() {
+		return filtroLesao;
+	}
+
+
+	public void setFiltroLesao(String filtroLesao) {
+		this.filtroLesao = filtroLesao;
+	}
+
+
+	public int getNumLesoesEspecifico() {
+		return numLesoesEspecifico;
+	}
+
+
+	public void setNumLesoesEspecifico(int numLesoesEspecifico) {
+		this.numLesoesEspecifico = numLesoesEspecifico;
 	}
 
 

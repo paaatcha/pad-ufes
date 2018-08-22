@@ -34,6 +34,12 @@
 							
 							<p:ajax event="change" />
 					</p:inputMask>
+					
+					<h:outputText value="Lesão" style="font-weight: bold"/>
+					<p:autoComplete size="30" id="filtroLesao" value="#{visualizacaoGeralController.filtroLesao}"
+					completeMethod="#{pacienteController.completarDiagnosticoLesao}">								
+						<p:ajax event="blur" />									
+					</p:autoComplete>
             			
             		
 				</p:panelGrid>
@@ -71,8 +77,12 @@
 	      		<h:outputText class="valorPac" value="#{visualizacaoGeralController.numPacs}"/>
 				<br/>
 				
-				<h:outputText class="campoPac" value="Número total de lesões encontradas: " />
-	      		<h:outputText class="valorPac" value="#{visualizacaoGeralController.numLesoes}"/>				      		
+				<h:outputText class="campoPac" value="Número total de todas lesões encontradas: " />
+	      		<h:outputText class="valorPac" value="#{visualizacaoGeralController.numLesoes}"/>
+	      		<br/>
+	      		
+	      		<h:outputText class="campoPac" value="Número total de lesões encontradas somente para o filtro de lesões: " />
+	      		<h:outputText class="valorPac" value="#{visualizacaoGeralController.numLesoesEspecifico}"/>				      		
 				      		
 				<br/><br/>
 				
