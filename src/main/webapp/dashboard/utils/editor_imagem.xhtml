@@ -12,7 +12,7 @@
 
 			<p:fieldset legend="Editando imagem" 
 		      	style="margin-bottom:20px; margin-top:20px;"	      	
-		      	id="dadosAnalise">   
+		      	id="edicaoImagens">   
 		      	
 		      	
 		      	
@@ -67,12 +67,54 @@
 						/>	
 				    	
 				    	
-				    	<p:commandButton action="#{edicaoImagemController.salvar}" icon="ui-icon-check"
-							        	 value="Salvar alterações" type="submit"
+				    	<p:commandButton action="#{edicaoImagemController.salvarCrop}" icon="ui-icon-check"
+							        	 value="Salvar crop"
+							        	 style="
+							        	 	background: #c7ffa3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));							        	 
+										 	color: #333;
+										 	padding: 5px;
+							        	 "			
+							        	 update="@form msgs"        	 
+						/>
+						
+						
+						
+						
+						<p:dataGrid value="#{edicaoImagemController.imagensCropadas}" var="img" columns="5" layout="grid"
+									style="margin-top: 30px; margin-left: 10px; margin-bottom: 30px;"
+						>
+						
+							<f:facet name="header">
+            					Crops finalizados
+        					</f:facet>
+        					
+        					<h:panelGrid columns="1">
+							
+								 <p:graphicImage url="/dashboard/imgLesoesGeral/#{img.path}" height="200" width="200"/>			 											        		 											        
+								        		
+									        						        		
+								<p:commandButton action="#{edicaoImagemController.excluirCropGrid}" icon="ui-icon-trash" 
+								value="Excluir Imagem" update="@form @form:msgs" process="@this"
+								style="
+									background: #ffb3b3 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.5)),to(rgba(255,255,255,0)));
+									margin-left: 20px;
+								"
+								>
+	      							<f:setPropertyActionListener value="#{img}" target="#{edicaoImagemController.imgSelecionada}" />          						
+								</p:commandButton>
+
+							
+							</h:panelGrid>
+						
+						</p:dataGrid>
+						
+						<p:commandButton action="#{edicaoImagemController.salvarTudo}" icon="ui-icon-check"
+							        	 value="Salvar tudo" type="submit"
 							        	 style="
 							        	 	background: #ccffcc -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.4)),to(rgba(255,255,255,0)));							        	 
 										 	color: #333;
-										 	padding: 5px;
+										 	padding: 15px;
+										 	margin-left: 10px;
 							        	 "			
 							        	 update="@form msgs"        	 
 						/>

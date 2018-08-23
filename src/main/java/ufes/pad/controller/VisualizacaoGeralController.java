@@ -42,6 +42,8 @@ public class VisualizacaoGeralController {
 	private String cartao_sus = "";
 	
 	private String filtroLesao = "";
+	
+	private boolean somenteObs = false;
 	 
 	@Autowired
 	private PacienteGeralRepository pac_rep;
@@ -75,6 +77,8 @@ public class VisualizacaoGeralController {
 				
 			} else if (isSomenteNaoAuditados()) {
 				todosPacs = pac_rep.findByAuditadoFalse();
+			} else if (isSomenteObs()) {
+				todosPacs = pac_rep.filtraPorObs("");
 			} else if (!filtroLesao.equals("")) {
 				todosPacs = pac_rep.filtraPorLesao(filtroLesao);
 				setNumLesoesEspecifico(les_rep.countByDiagnosticoLike(filtroLesao));
@@ -251,6 +255,16 @@ public class VisualizacaoGeralController {
 
 	public void setNumLesoesEspecifico(int numLesoesEspecifico) {
 		this.numLesoesEspecifico = numLesoesEspecifico;
+	}
+
+
+	public boolean isSomenteObs() {
+		return somenteObs;
+	}
+
+
+	public void setSomenteObs(boolean somenteObs) {
+		this.somenteObs = somenteObs;
 	}
 
 

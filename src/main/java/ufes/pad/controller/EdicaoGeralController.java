@@ -186,7 +186,7 @@ public class EdicaoGeralController {
     		ImagemGeral novaImg = new ImagemGeral();
     		novaImg.setPath(pathImg);
     		lesaoSelecionada.getImagens().add(novaImg);
-    		les_rep.save(lesaoSelecionada);
+    		//les_rep.save(lesaoSelecionada);
     		
     	} catch (Exception e) { 
     		e.printStackTrace();

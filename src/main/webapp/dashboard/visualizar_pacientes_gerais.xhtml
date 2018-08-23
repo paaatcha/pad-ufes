@@ -24,7 +24,12 @@
 				
 				<p:panelGrid columns="2" style="margin-top: 10px; margin-bottom: 25px;" >
 					<h:outputText value="Exibir somente não auditados?" style="font-weight: bold"/>
-           				<p:selectBooleanCheckbox  value="#{visualizacaoGeralController.somenteNaoAuditados}">		                	
+           				<p:selectBooleanCheckbox  value="#{visualizacaoGeralController.somenteNaoAuditados}" >		                	
+            				<p:ajax event="change" />
+            			</p:selectBooleanCheckbox>
+            			
+            		<h:outputText value="Exibir somente com observacoes?" style="font-weight: bold"/>
+           				<p:selectBooleanCheckbox  value="#{visualizacaoGeralController.somenteObs}">		                	
             				<p:ajax event="change" />
             			</p:selectBooleanCheckbox>
             		

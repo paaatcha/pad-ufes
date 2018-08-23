@@ -20,5 +20,8 @@ public interface PacienteGeralRepository extends JpaRepository<PacienteGeral, Lo
 	@Query(value="SELECT * FROM paciente_geral WHERE (paciente_geral.id IN (SELECT lesao_geral.paciente_id FROM lesao_geral WHERE lesao_geral.diagnostico LIKE %?1%) )", nativeQuery=true)
 	public List<PacienteGeral> filtraPorLesao (String lesao);
 	
+	@Query(value="SELECT * FROM paciente_geral WHERE (paciente_geral.id IN (SELECT lesao_geral.paciente_id FROM lesao_geral WHERE (lesao_geral.obs <> ?1 AND lesao_geral.obs IS NOT NULL) ) )", nativeQuery=true)
+	public List<PacienteGeral> filtraPorObs (String obs);
+	
 }
 

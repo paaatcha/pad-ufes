@@ -1,24 +1,18 @@
 package ufes.pad.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import ufes.pad.model.Lesao;
 import ufes.pad.model.LesaoGeral;
 
 @Repository
 public interface LesaoGeralRepository extends JpaRepository<LesaoGeral, Long> {	
 
-	Lesao findById (String id);
+	LesaoGeral findById (Long id);
 	
 	int countByDiagnosticoLike (String lesao);
 	
+	/*
 	@Query(nativeQuery=true, value="select * from lesao le where le.paciente_id=:paciente_id")
 	List<Lesao> buscaLesaoPacienteId (@Param("paciente_id") String paciente_id);	
 	
@@ -56,5 +50,5 @@ public interface LesaoGeralRepository extends JpaRepository<LesaoGeral, Long> {
 			@Param("reg") String reg,
 			@Param("pac_id") Long pac_id,
 			@Param("proc") String proc);	
-			
+	 */			
 }

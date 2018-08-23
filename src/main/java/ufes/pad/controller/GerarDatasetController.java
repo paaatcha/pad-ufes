@@ -151,10 +151,10 @@ public class GerarDatasetController {
 	        sb.append(',');
 	        sb.append("Sangrou");
 	        sb.append(',');
-	        sb.append("Idade");
-	        sb.append(',');
 	        sb.append("Relevo");
-	        sb.append(',');	        
+	        sb.append(',');	
+	        sb.append("Idade");
+	        sb.append(',');	                
 	        sb.append("Path");
 	        sb.append('\n');			
 	        
@@ -176,10 +176,10 @@ public class GerarDatasetController {
 			        sb.append(',');
 			        sb.append(les.getSangrou());
 			        sb.append(',');
-			        sb.append(les.getIdade());
-			        sb.append(',');
 			        sb.append(les.getRelevo());
-			        sb.append(',');	        
+			        sb.append(',');	 
+			        sb.append(les.getIdade());
+			        sb.append(',');			               
 			        sb.append(img.getPath());
 			        sb.append('\n');
 				}
