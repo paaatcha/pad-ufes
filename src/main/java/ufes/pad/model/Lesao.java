@@ -39,17 +39,17 @@ public class Lesao implements Serializable {
 	@Column(length=100)
 	private String clark = "NÃO INFORMADO";
 	
-	private float breslow;
+	private float breslow = 0f;
 	
-	private float indice_miotico; 
+	private float indice_miotico = 0f; 
 	
-	private String estadiamento; 
+	private String estadiamento = "NÃO INFORMADO";
 	
-	private String margens; 
+	private String margens = "NÃO INFORMADO";
 	
-	private String grau_histo;
+	private String grau_histo = "NÃO INFORMADO";
 	
-	private String invasao;
+	private String invasao = "NÃO INFORMADO";
 
 	@Column(length=100, nullable = false)
 	private String regiao;

@@ -56,7 +56,7 @@ public class VisualizacaoTodosController {
 	public List<String> completarCidades (String query){
 		List<String> result = new ArrayList<String>();
 		query = query.toUpperCase();
-		String[] cidades = new String[] {"ITAGUAÇU", "AFONSO CLÁUDIO", "SANTA MARIA DE JETIBA", "VILA VALERIO", "PANCAS", "BAIXO GUANDU", "SÃO GABRIEL DA PALHA", "DOMINGOS MARTINS"};
+		String[] cidades = new String[] {"ITAGUAÇU", "AFONSO CLÁUDIO", "SANTA MARIA DE JETIBA", "VILA VALERIO", "PANCAS", "BAIXO GUANDU", "SÃO GABRIEL DA PALHA", "DOMINGOS MARTINS", "LARANJA DA TERRA"};
 		
 		for (String s : cidades){
 			 if (s.startsWith(query)){

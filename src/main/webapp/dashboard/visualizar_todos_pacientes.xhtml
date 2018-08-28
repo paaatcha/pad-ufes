@@ -120,12 +120,12 @@
 						
 							<h:outputText value="Local de atendimento" style="font-weight: bold" />
 		                	<p:autoComplete id="local_atendimento" value="#{visualizacaoTodosController.filtroCidade}" completeMethod="#{visualizacaoTodosController.completarCidades}">
-		                		<p:ajax event="blur" update="@form"/>
+		                		<p:ajax event="blur"/>
 		                	</p:autoComplete>
 		                	
 		                	<h:outputText value="Nome" style="font-weight: bold" />
 		                	<p:inputText id="nome" value="#{visualizacaoTodosController.filtroNome}" >
-		                		<p:ajax event="blur" update="@form"/>
+		                		<p:ajax event="blur"/>
 		                	</p:inputText>
 		                	
 		                	<h:outputText value="Intervalo de datas" style="font-weight: bold" />
@@ -313,13 +313,90 @@
 					        						 
 						</p:dataTable>    		
 			      
+			      
+			      		<h:panelGroup id="imprimirDados">
+			      
+					    <p:repeat value="#{visualizacaoTodosController.todosPacs}" var="pac">
+					        
+					    
+					            
+					            <p:outputPanel >
+					            
+					            	<h:panelGrid columns="2" cellpadding="5" cellspacing="5" style="margin-bottom: 15px; margin-top: 15px;">
+					            		
+					            		<f:facet name="header">
+        									<h:outputText value="Paciente" style="font-weight: bold; font-size: 18px; float:left; text-decoration:underline" />
+    									</f:facet>
+					            	
+					            		<h:outputText value="Nome:" style="font-weight: bold; font-size: 16px;"/>
+					            		<h:outputText value="#{pac.nome_completo}" style = "font-size: 16px;"/>
+					            		
+					            		<h:outputText value="Cartão SUS:" style="font-weight: bold; font-size: 16px;"/>
+					            		<h:outputText value="#{pac.cartao_sus}" style = "font-size: 16px;"/>
+					            		
+					            		<h:outputText value="Idade:" style="font-weight: bold; font-size: 16px;"/>
+					            		<h:outputText value="#{pac.idade}" style = "font-size: 16px;"/>
+					            		
+					            		<h:outputText value="Local do atendimento mais recente:" style="font-weight: bold; font-size: 16px;"/>
+					            		<h:outputText value="#{pac.local_atendimento}" style = "font-size: 16px;"/>
+					            		
+					            		<h:outputText value="Data do atendimento mais recente:" style="font-weight: bold; font-size: 16px;"/>
+					            		<h:outputText value="#{visualizacaoController.printDataProcedimento(pac.data_atendimento)}" style = "font-size: 16px;"/>
+					            		
+					            		<h:outputText value="Número de lesões:" style="font-weight: bold; font-size: 16px;"/>
+					            		<h:outputText value="#{pac.lesoes.size()}" style = "font-size: 16px;"/>
+					            		
+					            	</h:panelGrid> 
+					            </p:outputPanel>
+					 
+					            <p:outputPanel>
+					            	<p:repeat value="#{pac.lesoes}" var="les">
+					            	
+						                <h:panelGrid columns="2" cellpadding="5" cellspacing="5" style="margin-top: 10px;">
+						                	<f:facet name="header" >
+        										<h:outputText value="Lesão" style="font-weight: bold; font-size: 18px; float:left; text-decoration:underline" />
+    										</f:facet>
+						                
+						                    <h:outputText value="Região: " style="font-weight: bold; font-size: 16px;"/>
+						                    <h:outputText value="#{les.regiao}" style="font-size: 16px;"/>
+						                    
+						                    <h:outputText value="Diametro: " style="font-weight: bold; font-size: 16px;"/>
+						                    <h:outputText value="#{les.diametro_maior} x #{les.diametro_menor}" style="font-size: 16px;"/>
+						                    
+						                    <h:outputText value="Diagnóstico clínico: " style="font-weight: bold; font-size: 16px;"/>
+						                    <h:outputText value="#{les.diagnostico_clinico}" style="font-size: 16px;"/>
+						                    
+						                    <h:outputText value="Diagnóstico histopatologico: " style="font-weight: bold; font-size: 16px;"/>
+						                    <h:outputText value="#{les.diagnostico_histo}" style="font-size: 16px;"/>
+						                    
+						                    <h:outputText value="Procedimento: " style="font-weight: bold; font-size: 16px;"/>
+						                    <h:outputText value="#{les.procedimento}" style="font-size: 16px;"/>
+						                    
+						                    <h:outputText value="Local do procedimento: " style="font-weight: bold; font-size: 16px;"/>
+						                    <h:outputText value="#{les.local_atendimento}" style="font-size: 16px;"/>
+						                    
+						                    <h:outputText value="Data do procedimento: " style="font-weight: bold; font-size: 16px;"/>
+						                    <h:outputText value="#{visualizacaoController.printDataProcedimento(les.data_atendimento)}" style="font-size: 16px;"/>
+						                    
+						                    <h:outputText value="Cirurgião: " style="font-weight: bold; font-size: 16px;"/>
+						                    <h:outputText value="#{les.cirurgiao}" style="font-size: 16px;"/>
+						                    
+						                </h:panelGrid>
+					                </p:repeat>
+					            </p:outputPanel>
+					        
+					        <p:separator />
+					    </p:repeat>			      
+					</h:panelGroup>
+			      			
+			      
 			    		<p:commandButton value="Imprimir página" type="button" icon="ui-icon-print" 
 			    		style="display:block; 
 			    		margin-top: 20px;
 			    		height: 45px;
 			    		"
 			    		>
-		    				<p:printer target="tabelaTodos" />
+		    				<p:printer target="imprimirDados" />
 						</p:commandButton>
 		           
 		      	</h:panelGroup>	
