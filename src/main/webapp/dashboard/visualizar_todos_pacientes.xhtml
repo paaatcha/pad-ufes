@@ -314,6 +314,8 @@
 						</p:dataTable>    		
 			      
 			      
+			      		
+			      		
 			      		<h:panelGroup id="imprimirDados">
 			      
 					    <p:repeat value="#{visualizacaoTodosController.todosPacs}" var="pac">
@@ -388,6 +390,8 @@
 					        <p:separator />
 					    </p:repeat>			      
 					</h:panelGroup>
+					
+					
 			      			
 			      
 			    		<p:commandButton value="Imprimir página" type="button" icon="ui-icon-print" 
@@ -396,7 +400,7 @@
 			    		height: 45px;
 			    		"
 			    		>
-		    				<p:printer target="imprimirDados" />
+		    				<p:printer target="tabelaTodos" />
 						</p:commandButton>
 		           
 		      	</h:panelGroup>	

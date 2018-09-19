@@ -277,7 +277,14 @@ public class APIrequisicoesController {
 				pac_rep_geral.save(pac);		
 				System.out.println("Paciente Geral: " + pac.getCartao_sus() + " salvo no banco UFES com sucesso");
 			} else {
-				System.out.println("Paciente Geral: " + pac.getCartao_sus() + " já está cadastrado no banco UFES. Incluindo mesmo assim.");
+				//TODO: VER QUESTAO DE REPETIR PACIENTE NO BANCO
+				
+				// Vamos atualizar a lista de lesões.
+				List<LesaoGeral> novasLesoes = pac.getLesoes();
+				for (LesaoGeral L : novasLesoes) {
+					pacBanco.getLesoes().add(L);
+				}
+				System.out.println("Paciente Geral: " + pac.getCartao_sus() + " já está cadastrado no banco UFES. Incluindo uma nova lesao no mesmo.");
 				pac_rep_geral.save(pac);
 			}		
 			

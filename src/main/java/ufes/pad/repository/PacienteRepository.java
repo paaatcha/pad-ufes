@@ -22,7 +22,7 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 	
 	@Query("select p from Paciente p where p.id=:id")
 	public Paciente buscaPorId(@Param("id") Long id);
-	
+			
 	@Query(nativeQuery=true, value="select * from paciente order by paciente.nome_completo")
 	List<Paciente> listarPacientes ();	
 	
@@ -43,6 +43,9 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 	
 	@Query (value="SELECT * FROM paciente WHERE (paciente.id IN (SELECT lesao.paciente_id FROM lesao WHERE lesao.local_atendimento like %?1% AND (lesao.data_atendimento BETWEEN ?3 AND ?4) AND (lesao.diagnostico_clinico LIKE %?5% ))) AND paciente.nome_completo LIKE %?2% ORDER BY paciente.nome_completo", nativeQuery=true)
 	List<Paciente> filtrarPacientesComData (String local, String nome, Date dataInicio, Date dataFim, String diag);
+	
+	@Query (value="SELECT * FROM paciente WHERE paciente.local_atendimento = ?1", nativeQuery=true)
+	List<Paciente> filtrarPorCidade (String local);
 
 }
   
